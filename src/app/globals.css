@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+@theme {
+  --color-night: #0e1a12;
+  --color-green: #1b3a24;
+  --color-hover: #2f6a3a;
+  --color-paper: #f3efe4;
+  --color-cream: #f7f4ea;
+  --color-live: #8b1e1e;
+  --color-brass: #c4a36a;
+  --color-ink: #14160f;
+  --color-white: #fbf8f1;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background: var(--color-night);
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-stretch: 112%;
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ponytail: no ground photo supplied yet; mown-strip pattern stands in until one is */
+.ground {
+  background:
+    linear-gradient(180deg, rgb(14 26 18 / 0.55), rgb(14 26 18 / 0.92)),
+    repeating-linear-gradient(90deg, #1f4029 0 88px, #234a2e 88px 176px);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.rise {
+  animation: rise 0.6s var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+/* BYQ gem: magnetic-button-01 */
+        .mb-magnet { --mx: 0px; --my: 0px; }
+        .mb-halo {
+          transform: translate(-50%, -50%) translate(calc(var(--mx) * 1.35), calc(var(--my) * 1.35));
+          transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+        }
+        .mb-label {
+          transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35));
+          transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+        .mb-arrow { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .mb-is-pulling .mb-halo, .mb-is-pulling .mb-label { transition-duration: 0.12s; }
+        .mb-magnet:hover .mb-halo, .mb-magnet:focus-visible .mb-halo { opacity: 1; }
+        .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: #fbf8f1; border-color: #fbf8f1; color: #14160f; }
+        .mb-magnet:hover .mb-arrow, .mb-magnet:focus-visible .mb-arrow { transform: translateX(3px); }
+        .mb-magnet:focus-visible .mb-label { outline: 2px solid #c4a36a; outline-offset: 3px; }
+        .mb-magnet:active .mb-label { transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35)) scale(0.97); }
+        @media (prefers-reduced-motion: reduce) {
+          .mb-halo, .mb-label, .mb-arrow { transition-duration: 0.001ms !important; }
+          .mb-halo { transform: translate(-50%, -50%) !important; }
+          .mb-label { transform: none !important; }
+        }
+      .mb-light:hover .mb-label, .mb-light:focus-visible .mb-label { background: #14160f; border-color: #14160f; color: #fbf8f1; }
+
+/* BYQ gem: scroll-timeline-01 layout */
+.st-node { display: grid; grid-template-columns: 1fr 3rem 1fr; align-items: center; }
+.st-dot { grid-column: 2; justify-self: center; grid-row: 1; }
+.st-node[data-side="right"] .st-card { grid-column: 3; justify-self: start; grid-row: 1; }
+.st-node[data-side="left"] .st-card { grid-column: 1; justify-self: end; grid-row: 1; }
+@media (max-width: 560px) {
+  .st-track { left: 1.25rem !important; transform: none !important; }
+  .st-node { grid-template-columns: 2.5rem 1fr; }
+  .st-dot { grid-column: 1; }
+  .st-node[data-side] .st-card { grid-column: 2; justify-self: start; }
+}
+
+/* BYQ gem: curtain-image-reveal-01 */
+.cir-frame { position: relative; overflow: hidden; border-radius: 0.5rem; background: var(--color-green); transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s); }
+.cir-img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s); }
+.cir-caption { opacity: 0; transform: translateY(8px); transition: opacity 0.45s ease calc(var(--d, 0s) + 0.7s), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--d, 0s) + 0.7s); }
+.cir-item[data-revealed="true"] .cir-frame { clip-path: inset(0 0 0 0) !important; }
+.cir-item[data-revealed="true"] .cir-img { transform: scale(1); }
+.cir-item[data-revealed="true"] .cir-caption { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .cir-frame { clip-path: inset(0 0 0 0) !important; transition: none !important; }
+  .cir-img { transform: none !important; transition: none !important; }
+  .cir-caption { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* BYQ section: cultureexchange-structured-data-2 row line fill */
+.row-line { position: relative; }
+.row-line::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 0; background: currentColor; opacity: 0.6; transition: width 0.5s ease-out; }
+.row-line:hover::after, .row-line:focus-within::after { width: 100%; }
+
+/* BYQ gem: spotlight-glow-cards-01 */
+@keyframes sg-in { from { opacity: 0; transform: translateY(1.5rem); } }
+.sg-card {
+  --mx: 50%; --my: 0%;
+  animation: sg-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+}
+.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(196 163 106 / 0.22), transparent 70%); }
+.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem) scale(1.02); border-color: var(--color-brass); box-shadow: 0 0 1.5rem 0.25rem rgb(196 163 106 / 0.18); }
+.sg-card:hover .sg-light, .sg-card:focus-within .sg-light { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .sg-card { animation: none; }
+  .sg-card:hover, .sg-card:focus-within { transform: none; }
+}
+
+/* Sports display type: Archivo at full width, heavy italic. Druk Wide from the supplied pack is a
+   trial licence, so it cannot ship; this is the open-licence stand-in. */
+.display {
+  font-weight: 900;
+  font-style: italic;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-brass);
+}
+
+/* Hidden until SplitText has masked the lines, so the SSR title never flashes before its reveal. */
+.js .split-h1 { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .js .split-h1 { visibility: visible; } }
+
+/* BYQ gem text-rotate-01, timings verbatim, skin in brass. */
+.tr-pill {
+  position: relative;
+  display: inline-flex;
+  height: 1.7em;
+  min-width: 2em;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-brass);
+  color: var(--color-ink);
+  font-weight: 700;
+  transition: width 0.55s cubic-bezier(0.22, 1.1, 0.36, 1);
+}
+.tr-measure {
+  visibility: hidden;
+  white-space: pre;
+  padding: 0 0.7em;
+  line-height: 1.7em;
+}
+.tr-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  white-space: pre;
+}
+.tr-char {
+  display: inline-block;
+  white-space: pre;
+}
+.tr-in .tr-char { animation: tr-in 0.62s cubic-bezier(0.22, 1.25, 0.36, 1) calc(var(--i, 0) * 26ms) both; }
+.tr-out .tr-char { animation: tr-out 0.62s cubic-bezier(0.22, 1.25, 0.36, 1) calc(var(--i, 0) * 26ms) both; }
+@keyframes tr-in { from { transform: translateY(115%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes tr-out { from { transform: none; opacity: 1; } to { transform: translateY(-125%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .tr-in .tr-char { animation: none; transform: none; opacity: 1; }
+  .tr-out { display: none; }
+}
