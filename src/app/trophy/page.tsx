@@ -7,9 +7,9 @@ export const metadata: Metadata = { title: "Trophy" };
 export default function Trophy() {
   return (
     <>
-      <section className="bg-paper pb-4 pt-20 md:pt-28">
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <h1 className="rise text-5xl font-bold md:text-8xl">Vijay Tulpule</h1>
+      <section className="px-2 pt-2">
+        <div className="rounded-2xl bg-mist px-4 pb-12 pt-24 md:px-10 md:pb-16 md:pt-32">
+          <h1 className="display rise text-5xl md:text-8xl">Vijay Tulpule</h1>
           <p className="rise mt-4 text-xl text-ink/65 md:text-2xl" style={{ animationDelay: "100ms" }}>
             Trophy named after him
           </p>
@@ -50,7 +50,7 @@ export default function Trophy() {
       </Block>
 
       <Block title="Presentation" tone="night">
-        <p className="num max-w-2xl text-lg text-white/75 md:text-xl">
+        <p className="num max-w-2xl text-lg text-ink/75 md:text-xl">
           Trophy presented on 24 October after the final. Winning captain receives it.
         </p>
       </Block>

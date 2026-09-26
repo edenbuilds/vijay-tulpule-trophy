@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Block, Hero } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
-import { ORG } from "@/lib/site";
+import { ORG, PHOTOS } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Sponsors" };
 
@@ -14,14 +14,14 @@ const RIGHTS = [
 export default function Sponsors() {
   return (
     <>
-      <Hero title="Sponsors" sub="Ground boards, programme, stream" />
+      <Hero title="Sponsors" sub="Ground boards, programme, stream" photo={PHOTOS.crowd} />
       <Block tone="cream">
         <Tiers cta="Contact" />
       </Block>
       <Block title="Rights" tone="paper">
-        <dl className="grid gap-px overflow-hidden bg-ink/10 md:grid-cols-3">
+        <dl className="grid gap-2 md:grid-cols-3">
           {RIGHTS.map(([k, v]) => (
-            <div key={k} className="bg-cream p-6 md:p-8">
+            <div key={k} className="rounded-2xl bg-mist p-6 md:p-8">
               <dt className="text-xl font-bold">{k}</dt>
               <dd className="mt-3 text-ink/70">{v}</dd>
             </div>

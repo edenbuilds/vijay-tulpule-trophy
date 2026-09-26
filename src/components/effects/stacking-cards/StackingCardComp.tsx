@@ -173,7 +173,7 @@ export default function StackingCardComp({ data = [], imageZoomEnabled = true, t
 
             <div
                 ref={containerRef}
-                className="sticky top-0 h-screen max-md:h-svh w-screen overflow-hidden bg-night"
+                className="sticky top-0 h-screen max-md:h-svh w-screen overflow-hidden bg-paper"
                 style={{ perspective: `${stackPerspective}px` }}
             >
                 {data.map((item, i) => (
@@ -216,7 +216,7 @@ const SliderCard = ({
             >
                 <div>
                     <h2
-                        className="mb-[2vw] text-[7vw] text-white display
+                        className="mb-[2vw] text-[7vw] text-ink display
  max-md:mb-4 max-md:text-[12vw] max-md:leading-none"
                     >
                         {category}
@@ -237,7 +237,7 @@ const SliderCard = ({
  max-md:flex-col max-md:gap-5"
                 >
                     {image && (<div
-                        className="mb-[3vw] w-fit text-[8vw] leading-none text-white
+                        className="mb-[3vw] w-fit text-[8vw] leading-none text-ink
  max-md:mb-0 max-md:text-[14vw]"
                     >
                         {id}
@@ -248,13 +248,13 @@ const SliderCard = ({
  max-md:space-y-3"
                     >
                         <h3
-                            className="display text-[2.5vw] text-white leading-[1.2]
+                            className="display text-[2.5vw] text-ink leading-[1.2]
  max-md:text-[7vw] max-[1025px]:text-[4.5vw]"
                         >
                             {title}
                         </h3>
                         <p
-                            className="text-[1.4vw] leading-[1.2] text-fog/70
+                            className="text-[1.4vw] leading-[1.2] text-ink/70
  max-md:text-[4.2vw] max-[1025px]:text-[3.5vw] max-md:leading-[1.45]"
                         >
                             {description}
@@ -283,7 +283,7 @@ const Face = ({ image, title, id, className }: { image?: string; title?: string;
         // eslint-disable-next-line @next/next/no-img-element
         <img src={image} alt={title} className={className} />
     ) : (
-        <div className={`${className} grid place-items-center border border-white/10 bg-night`}>
+        <div className={`${className} grid place-items-center border border-ink/10 bg-paper`}>
             <span className="display text-outline text-[16rem] leading-none max-[1025px]:text-[10rem]">{id}</span>
         </div>
     );

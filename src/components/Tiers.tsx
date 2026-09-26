@@ -11,14 +11,14 @@ export function Tiers({ cta = "Sponsor the event" }: { cta?: string }) {
           <SpotlightCard
             key={t.name}
             index={i}
-            className={`flex flex-col p-6 md:p-7 ${top ? "border-night bg-night text-white" : "border-ink/10 bg-paper"}`}
+            className={`flex flex-col p-6 md:p-7 ${top ? "border-pitch bg-pitch text-paper" : "border-ink/10 bg-paper"}`}
           >
             <h3 className="text-xl font-bold">{t.name}</h3>
             <p className="num mt-6 text-3xl font-bold [font-stretch:112%]">{t.price}</p>
-            <p className={`mt-3 ${top ? "text-white/70" : "text-ink/60"}`}>{t.line}</p>
+            <p className={`mt-3 ${top ? "text-paper/75" : "text-ink/60"}`}>{t.line}</p>
             {top && (
               <div className="mt-6">
-                <MagneticButton href="/contact">{cta}</MagneticButton>
+                <MagneticButton href="/contact" tone="onDark">{cta}</MagneticButton>
               </div>
             )}
           </SpotlightCard>

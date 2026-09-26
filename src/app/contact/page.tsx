@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PHOTOS } from "@/lib/site";
 import { Block, Hero } from "@/components/Sections";
 import { ContactForm } from "./ContactForm";
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = { title: "Contact" };
 export default function Contact() {
   return (
     <>
-      <Hero title="Contact" sub="Teams, media, sponsors" />
+      <Hero title="Contact" sub="Teams, media, sponsors" photo={PHOTOS.tent} />
       <Block tone="paper">
         <ContactForm />
       </Block>

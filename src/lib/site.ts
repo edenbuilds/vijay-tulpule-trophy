@@ -2,7 +2,6 @@ export const NAV = [
   { href: "/fixtures", label: "Fixtures" },
   { href: "/teams", label: "Teams" },
   { href: "/format", label: "Format" },
-  { href: "/live", label: "Live" },
   { href: "/trophy", label: "Trophy" },
   { href: "/sponsors", label: "Sponsors" },
 ];
@@ -10,7 +9,7 @@ export const NAV = [
 export const FOOTER_LINKS = [
   { href: "/fixtures", label: "Fixtures" },
   { href: "/teams", label: "Teams" },
-  { href: "/live", label: "Live" },
+  { href: "/format", label: "Format" },
   { href: "/sponsors", label: "Sponsors" },
   { href: "/contact", label: "Contact" },
 ];
@@ -82,4 +81,28 @@ export const FIXTURES: Day[] = [
       { time: "Evening", note: "Presentation" },
     ],
   },
+];
+
+// Placeholder photography until the organisers supply their own: generic club cricket in Mumbai from
+// Wikimedia Commons (free licences, credited in the footer). None of these show a confirmed venue.
+const wm = (path: string, w = 1280) => {
+  const name = path.split("/").pop();
+  return `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/${w}px-${name}`;
+};
+export const PHOTOS = {
+  whites: { src: wm("5/59/A_Game_of_Cricket_in_Mumbai_%282133928156%29.jpg"), alt: "Cricketers in whites on a green maidan" },
+  tower: { src: wm("4/45/A_Game_of_Cricket_in_Mumbai_%282133149871%29.jpg", 960), alt: "A batter on a dusty maidan under a clock tower" },
+  tent: { src: "https://upload.wikimedia.org/wikipedia/commons/a/ad/A_break_from_cricket.jpg", alt: "A shade tent beside a cricket ground" },
+  field: { src: wm("7/79/Oval_Maidan_%283101478304%29.jpg"), alt: "An empty cricket field in late light" },
+  casual: { src: wm("3/32/Mumbai%2C_India%2C_Oval_Maidan%2C_Sports.jpg"), alt: "Players and a batter on an open ground" },
+  saturday: { src: wm("5/5b/Saturday_Cricket_%2813968787199%29.jpg"), alt: "Several club matches on one maidan" },
+  crowd: { src: wm("5/54/Crowds_watching_Sunday_Cricket_%2814011675873%29.jpg"), alt: "Spectators watching cricket through railings" },
+};
+
+export const PHOTO_CREDITS = [
+  { by: "Tom Thai", licence: "CC BY 2.0", href: "https://commons.wikimedia.org/wiki/File:A_Game_of_Cricket_in_Mumbai_(2133928156).jpg" },
+  { by: "Satish Krishnamurthy", licence: "CC BY 2.0", href: "https://commons.wikimedia.org/wiki/File:A_break_from_cricket.jpg" },
+  { by: "Honza Soukup", licence: "CC BY 2.0", href: "https://commons.wikimedia.org/wiki/File:Oval_Maidan_(3101478304).jpg" },
+  { by: "Vyacheslav Argenberg", licence: "CC BY 4.0", href: "https://commons.wikimedia.org/wiki/File:Mumbai,_India,_Oval_Maidan,_Sports.jpg" },
+  { by: "David Brossard", licence: "CC BY-SA 2.0", href: "https://commons.wikimedia.org/wiki/File:Saturday_Cricket_(13968787199).jpg" },
 ];

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Clock, MapPin } from "lucide-react";
 import type { Day } from "@/lib/site";
 
 // BYQ gem: tab-underline-01, carrying the fixture days. Motion values verbatim.
@@ -68,7 +69,7 @@ export function FixtureTabs({ days }: { days: Day[] }) {
             aria-selected={active === i}
             tabIndex={active === i ? 0 : -1}
             onClick={() => select(i)}
-            className="num min-h-11 flex-none px-4 py-3 text-sm font-medium text-ink/45 transition-colors duration-200 hover:text-night/75 aria-selected:text-ink focus-visible:shadow-[inset_0_0_0_2px_var(--color-pitch)] focus-visible:outline-none motion-reduce:transition-none md:px-5"
+            className="num min-h-11 flex-none px-4 py-3 text-sm font-medium text-ink/45 transition-colors duration-200 hover:text-ink/75 aria-selected:text-ink focus-visible:shadow-[inset_0_0_0_2px_var(--color-pitch)] focus-visible:outline-none motion-reduce:transition-none md:px-5"
           >
             {d.date} <span className="font-normal">{d.day}</span>
           </button>
@@ -95,14 +96,14 @@ export function FixtureTabs({ days }: { days: Day[] }) {
             <div className="flex flex-col gap-8">
               {d.slots.map((s, j) => (
                 <div key={j}>
-                  <p className="num mb-3 text-sm font-semibold text-green">{s.time ?? "All day"}</p>
+                  <p className="num mb-3 flex items-center gap-2 text-sm font-semibold text-pitch"><Clock aria-hidden="true" className="size-4" strokeWidth={1.8} />{s.time ?? "All day"}</p>
                   {s.note && <p className="text-xl font-semibold">{s.note}</p>}
                   {s.matches && (
                     <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                       {s.matches.map((m, k) => (
-                        <li key={k} className="rounded-lg border border-ink/10 bg-cream p-4">
+                        <li key={k} className="rounded-2xl bg-mist p-5">
                           <p className="text-lg font-semibold">{m}</p>
-                          <p className="mt-1 text-sm text-ink/55">Venue TBC</p>
+                          <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/55"><MapPin aria-hidden="true" className="size-3.5" strokeWidth={1.8} />Venue TBC</p>
                         </li>
                       ))}
                     </ul>

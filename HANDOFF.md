@@ -8,26 +8,26 @@ Next.js 15 App Router, React 19, Tailwind v4, GSAP 3.15 + ScrollTrigger, Lenis, 
 Copy source of truth: `~/Downloads/VTT-2026-SECTION-PROMPTS.md` (banned phrases and no-invention rules live there).
 
 ## Design
-BYQ design system **Fit Trainer** (`cmosuwexv000nxo9xyc3zy9ko`), recoloured only:
-neutral obsidian `#0c0c0d` / graphite `#151517` / iron `#1f1f21` surfaces (no green tint), one accent green
-`#2ec05f` used on primary actions only, red `#d4322c` for LIVE and the cricket ball. Square corners. Oswald display (uppercase), Satoshi body
-(`src/app/fonts`, Fontshare free licence). No serif, no brass. Tokens: `src/app/globals.css` `@theme`.
-Old token names (paper, cream, ink) are kept but map onto the dark stack, so pages needed no rewrites.
+BYQ design system **Human Intelligence** (`cmosw0lxo0005xof5w64cji7l`, light), recoloured to greens only:
+paper `#ffffff`, mist `#f2f6f2`, mint `#e1efe3`, sage `#b9dcc1` tiles, pitch `#1d6a3b` for actions, ink `#141a16`.
+16px-radius tiles inset 8px from the page edge, pill buttons, dashed rules (`.rule`). Satoshi only (no serif).
+No Live page or Live button (removed by request). Red appears only on the cricket ball.
 
 ## Motion inventory
-- Home hero (`src/components/Sections.tsx`): BYQ section **stringer-hero-4** (centred label, oversized title, inline word marquee with edge fades, three-column fact row). Title rolls in on Hyperiux **rolling-text** reels (`RollingWords`). A red cricket ball (`Ball` in `Motion.tsx`) is the scroll-parallax element. No glows, no field art.
-- Page transitions: Hyperiux **sweep-lift-transition** clip polygons + power4.inOut, run as an overlay (`PageSweep` in `src/components/Motion.tsx`). The vendored version pinned the site in a fixed frame and broke scroll, so it was removed.
-- Home groups: Hyperiux **stacking-cards** (`src/components/effects/stacking-cards`), fed from `GROUPS`; outline group letter replaces photos.
-- BYQ gems: magnetic-button-01, tab-underline-01, scroll-timeline-01, curtain-image-reveal-01, spotlight-glow-cards-01 (glow removed, lift only). BYQ sections: stringer-hero-4 (home), babka-hero-1 (inner pages), cultureexchange-structured-data-2, kelvin-footer-4.
-- Lenis smooth scroll on the GSAP ticker; scoreboard ticker; Nexus-style scroll char reveal on the trophy line.
-- Everything respects `prefers-reduced-motion`. No blur animations, no animated counters (brief rules).
+- Preloader: BYQ gem **iris-wipe-preloader-01** (`src/components/gems/Preloader.tsx`), first visit per session. The % counter is swapped for the ball rolling in (brief bans counters). Head script in `layout.tsx` sets `preloading` / `no-preload`.
+- Home hero: BYQ **stringer-hero-4** in a mint tile, Hyperiux **rolling-text** title (waits for the preloader), wide parallax photo. Title leading must stay >= 1.25 (Satoshi content area) or reel glyphs bleed.
+- Home: icon quick-link tiles (lucide-react), scoreboard ticker, stat tiles, BYQ **babka-bento-3** (`Bento`), fixtures list, BYQ gem **sticky-media-swap-01** for the knockout stages, Hyperiux **stacking-cards** with photos, scroll char reveal, sponsor tiers.
+- Gems kept: magnetic-button-01 (pill), tab-underline-01 (fixtures, with clock/pin icons), curtain-image-reveal-01, spotlight-glow-cards-01 (lift only). Page sweep overlay in pitch green.
+
+## Photos
+Placeholders are hotlinked from Wikimedia Commons (`PHOTOS` in `src/lib/site.ts`), credited in the footer. None shows a confirmed venue. Replace with the organisers' photos, move them to `public/img`, drop the credits line.
 
 ## Hyperiux
 MCP registered at user scope: `claude mcp add -s user hyperiux -- npx -y hyperiux-mcp-server` (tools appear in a new session). CLI is logged in to Pro (`npx hyperiux whoami`). 10 installs per day.
 Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re-run init; if you do, `git checkout src/app/globals.css`.
 
 ## Blocked / TBC
-- Ground or match photography not supplied (hero is drawn in SVG/CSS).
+- Real ground or match photography not supplied (Commons placeholders in use).
 - Stream URL, team names, grounds: TBC in the brief.
 - Contact form: needs `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM` on Vercel plus a verified Resend domain. Until then it returns an honest error naming the organiser's email.
 

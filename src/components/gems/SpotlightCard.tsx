@@ -26,7 +26,7 @@ export function SpotlightCard({
     <div
       ref={ref}
       onPointerMove={onMove}
-      className={`sg-card group relative overflow-hidden border ${className}`}
+      className={`sg-card group relative overflow-hidden rounded-2xl border ${className}`}
       style={{ animationDelay: `${0.05 + index * 0.1}s` }}
     >
       <span aria-hidden="true" className="sg-light pointer-events-none absolute inset-0" />

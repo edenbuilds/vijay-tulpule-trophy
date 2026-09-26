@@ -9,7 +9,6 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP);
 
 
-const LINE_HEIGHT = 0.8;
 
 const FONT_FAMILY = "Helvetica Neue, Arial Narrow, system-ui, sans-serif";
 
@@ -180,17 +179,23 @@ export function RollingWords({
   const ref = useRef<HTMLSpanElement>(null);
 
   useGSAP(
-    () => {
+    (_, contextSafe) => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      gsap.utils.toArray<HTMLElement>("[data-reel]", ref.current).forEach((reel) => {
-        const state = { k: 0 };
-        gsap.to(state, {
-          k: Number(reel.dataset.to),
-          duration: Number(reel.dataset.duration),
-          ease: "expo.out",
-          onUpdate: () => reel.style.setProperty("--k", String(state.k)),
-        });
-      });
+      const roll = contextSafe!(() =>
+        gsap.utils.toArray<HTMLElement>("[data-reel]", ref.current).forEach((reel) => {
+          const state = { k: 0 };
+          gsap.to(state, {
+            k: Number(reel.dataset.to),
+            duration: Number(reel.dataset.duration),
+            ease: "expo.out",
+            onUpdate: () => reel.style.setProperty("--k", String(state.k)),
+          });
+        }),
+      );
+      // First visit: hold the reels until the preloader opens, or they finish unseen behind it.
+      if (!document.documentElement.classList.contains("preloading")) return roll();
+      window.addEventListener("vtt:loaded", roll, { once: true });
+      return () => window.removeEventListener("vtt:loaded", roll);
     },
     { scope: ref },
   );

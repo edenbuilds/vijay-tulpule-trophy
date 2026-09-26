@@ -47,7 +47,7 @@ export function Ball({ className = "" }: { className?: string }) {
   );
 }
 
-// Scoreboard band: two rows of wide italic type pushed in opposite directions by scroll.
+// Scoreboard band: two rows of display type pushed in opposite directions by scroll.
 export function ScoreTicker({ items }: { items: string[] }) {
   const root = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
@@ -64,7 +64,7 @@ export function ScoreTicker({ items }: { items: string[] }) {
       {[0, 1, 2, 3].flatMap((r) =>
         items.map((t) => (
           <React.Fragment key={`${r}${t}`}>
-            <span className={`display text-6xl md:text-8xl ${outline ? "text-outline" : "text-white"}`}>{t}</span>
+            <span className={`display text-6xl md:text-8xl ${outline ? "text-outline" : "text-ink"}`}>{t}</span>
             <Ball className="size-8 shrink-0 md:size-12" />
           </React.Fragment>
         )),
@@ -73,7 +73,7 @@ export function ScoreTicker({ items }: { items: string[] }) {
   );
 
   return (
-    <div ref={root} aria-hidden="true" className="flex flex-col gap-3 overflow-hidden border-y border-white/10 bg-night py-8 md:py-12">
+    <div ref={root} aria-hidden="true" className="flex flex-col gap-3 overflow-hidden bg-paper py-8 md:py-12">
       {row("tk-a", false)}
       {row("tk-b", true)}
     </div>
@@ -134,7 +134,7 @@ export function PageSweep({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-green" style={{ clipPath: HIDDEN_CLIP }}>
+      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-pitch" style={{ clipPath: HIDDEN_CLIP }}>
         <Ball className="size-14" />
       </div>
     </TransitionRouter>

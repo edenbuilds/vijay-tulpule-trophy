@@ -1,26 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  /* BYQ design system "Fit Trainer": neutral obsidian/graphite/iron surfaces, cobalt swapped for one
-     outfield green used on actions only. The old brief's light surfaces map onto the dark stack. */
-  --color-night: #0c0c0d;
-  --color-green: #151517;
-  --color-iron: #1f1f21;
-  --color-hover: #52d67f;
-  --color-paper: #0c0c0d;
-  --color-cream: #151517;
-  --color-live: #d4322c;
-  --color-pitch: #2ec05f;
-  --color-ink: #ffffff;
-  --color-fog: #e7e7e7;
-  --color-white: #ffffff;
+  /* BYQ design system "Human Intelligence" (light), recoloured: its lilac and sky tiles become greens,
+     aubergine ink becomes a near-black green. White canvas, green tiles, one deep pitch green for actions. */
+  --color-paper: #ffffff;
+  --color-mist: #f2f6f2;
+  --color-mint: #e1efe3;
+  --color-sage: #b9dcc1;
+  --color-pitch: #1d6a3b;
+  --color-hover: #15512c;
+  --color-ink: #141a16;
   --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
-  background: var(--color-night);
+  background: var(--color-paper);
   scroll-padding-top: 5rem;
 }
 
@@ -35,10 +31,9 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 600;
-  text-transform: uppercase;
+  font-weight: 500;
   text-wrap: balance;
-  letter-spacing: 0;
+  letter-spacing: -0.04em;
 }
 
 p {
@@ -79,31 +74,19 @@ p {
         }
         .mb-arrow { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         .mb-is-pulling .mb-halo, .mb-is-pulling .mb-label { transition-duration: 0.12s; }
-        .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: #ffffff; border-color: #ffffff; color: #070908; }
+        .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: #15512c; border-color: #15512c; color: #ffffff; }
         .mb-magnet:hover .mb-arrow, .mb-magnet:focus-visible .mb-arrow { transform: translateX(3px); }
-        .mb-magnet:focus-visible .mb-label { outline: 2px solid #2EC05F; outline-offset: 3px; }
+        .mb-magnet:focus-visible .mb-label { outline: 2px solid #1d6a3b; outline-offset: 3px; }
         .mb-magnet:active .mb-label { transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35)) scale(0.97); }
         @media (prefers-reduced-motion: reduce) {
           .mb-halo, .mb-label, .mb-arrow { transition-duration: 0.001ms !important; }
           .mb-halo { transform: translate(-50%, -50%) !important; }
           .mb-label { transform: none !important; }
         }
-      .mb-light:hover .mb-label, .mb-light:focus-visible .mb-label { background: #2ec05f; border-color: #2ec05f; color: #070908; }
-
-/* BYQ gem: scroll-timeline-01 layout */
-.st-node { display: grid; grid-template-columns: 1fr 3rem 1fr; align-items: center; }
-.st-dot { grid-column: 2; justify-self: center; grid-row: 1; }
-.st-node[data-side="right"] .st-card { grid-column: 3; justify-self: start; grid-row: 1; }
-.st-node[data-side="left"] .st-card { grid-column: 1; justify-self: end; grid-row: 1; }
-@media (max-width: 560px) {
-  .st-track { left: 1.25rem !important; transform: none !important; }
-  .st-node { grid-template-columns: 2.5rem 1fr; }
-  .st-dot { grid-column: 1; }
-  .st-node[data-side] .st-card { grid-column: 2; justify-self: start; }
-}
+      .mb-light:hover .mb-label, .mb-light:focus-visible .mb-label { background: #141a16; border-color: #141a16; color: #ffffff; }
 
 /* BYQ gem: curtain-image-reveal-01 */
-.cir-frame { position: relative; overflow: hidden; border-radius: 0.5rem; background: var(--color-green); transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s); }
+.cir-frame { position: relative; overflow: hidden; border-radius: 1rem; background: var(--color-mint); transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s); }
 .cir-img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s); }
 .cir-caption { opacity: 0; transform: translateY(8px); transition: opacity 0.45s ease calc(var(--d, 0s) + 0.7s), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--d, 0s) + 0.7s); }
 .cir-item[data-revealed="true"] .cir-frame { clip-path: inset(0 0 0 0) !important; }
@@ -127,23 +110,25 @@ p {
   animation: sg-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
-.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(46 192 95 / 0.22), transparent 70%); }
-.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(255 255 255 / 0.28); }
+.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(29 106 59 / 0.08), transparent 70%); }
+.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(20 26 22 / 0.22); }
 @media (prefers-reduced-motion: reduce) {
   .sg-card { animation: none; }
-  .sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(255 255 255 / 0.28); }
+  .sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(20 26 22 / 0.22); }
 }
 
-/* Display type per Fit Trainer: condensed uppercase (Oswald). Body is Satoshi. */
+/* Human Intelligence display: tight sans, sentence case. No serif by request. */
 .display {
   font-family: var(--font-display);
-  font-weight: 600;
-  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: -0.04em;
   line-height: 0.95;
 }
+/* Human Intelligence signature rule: 1px dashed ink veil. */
+.rule { border-top: 1px dashed rgb(20 26 22 / 0.16); }
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.35);
+  -webkit-text-stroke: 1.5px rgb(20 26 22 / 0.28);
 }
 
 
@@ -151,3 +136,15 @@ p {
 @keyframes marquee { to { transform: translateX(-33.333%); } }
 .marquee-track { animation: marquee 6s linear infinite; will-change: transform; }
 @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+/* BYQ gem sticky-media-swap-01: active number flip */
+@keyframes sms-num-flip { from { transform: rotateX(-90deg); } to { transform: rotateX(0deg); } }
+@media (prefers-reduced-motion: reduce) { .sms-num { animation: none !important; } }
+
+/* Preloader (iris-wipe-preloader-01): hole of radius --iris-r cut through the overlay. */
+.preloader {
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0px, transparent var(--iris-r, 0px), black calc(var(--iris-r, 0px) + 1px));
+  mask-image: radial-gradient(circle at 50% 50%, transparent 0px, transparent var(--iris-r, 0px), black calc(var(--iris-r, 0px) + 1px));
+}
+html:not(.js) .preloader, .no-preload .preloader { display: none; }
+.preloading .rise { animation-play-state: paused; }
