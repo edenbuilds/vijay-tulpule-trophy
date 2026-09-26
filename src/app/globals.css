@@ -148,3 +148,6 @@ p {
 }
 html:not(.js) .preloader, .no-preload .preloader { display: none; }
 .preloading .rise { animation-play-state: paused; }
+/* Fail-safe: if the script never runs the wipe (JS error, blocked bundle), the overlay still clears. */
+@keyframes preload-failsafe { to { visibility: hidden; } }
+.preloader { animation: preload-failsafe 0s 6s forwards; }
