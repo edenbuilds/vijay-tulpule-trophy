@@ -3,7 +3,7 @@ import { CurtainPortrait } from "@/components/gems/CurtainPortrait";
 import { MagneticButton } from "@/components/gems/MagneticButton";
 import { ScrollTimeline } from "@/components/gems/ScrollTimeline";
 import StackingCards from "@/components/effects/stacking-cards";
-import { ScoreTicker, ScrubText, TextRotate } from "@/components/Motion";
+import { ScoreTicker, ScrubText } from "@/components/Motion";
 import { Block, Hero, StatBar } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
 
@@ -19,7 +19,9 @@ const arrow = "text-base font-semibold underline decoration-pitch decoration-2 u
 export default function Home() {
   return (
     <>
-      <Hero eyebrow="Bombay Advocates’ Cricket Association" title="Late Vijay Tulpule Trophy 2026" sub={<TextRotate prefix="17–24 October" words={["16 teams", "4 groups", "32 matches", "Mumbai", "Navi Mumbai"]} />}
+      <Hero eyebrow="Bombay Advocates’ Cricket Association" title="Late Vijay Tulpule Trophy 2026"
+        marquee={["16 teams", "4 groups", "32 matches", "Mumbai", "Navi Mumbai"]}
+        row={["17–24 October 2026", "Mumbai and Navi Mumbai", "Final 24 October"]}
         tall
       >
         <MagneticButton href="/fixtures">Fixtures</MagneticButton>
@@ -69,7 +71,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="font-semibold text-pitch">Live</p>
+              <p className="text-xs font-medium uppercase tracking-[0.08em] text-white/60">Live</p>
               <h2 className="display mt-3 text-4xl md:text-6xl">Watch</h2>
               <p className="mt-4 max-w-xl text-white/70">
                 Stream starts 16 October. Coverage from 15 minutes before toss. Highlights after stumps.

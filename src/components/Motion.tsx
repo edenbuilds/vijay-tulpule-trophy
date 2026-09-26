@@ -27,68 +27,23 @@ export function SmoothScroll() {
   return null;
 }
 
-// White ball with pitch stitching. Red is reserved for the LIVE badge.
+// Red leather cricket ball: straight seam with a stitch row either side, drawn in three-quarter view.
 export function Ball({ className = "" }: { className?: string }) {
+  const id = React.useId();
   return (
     <svg viewBox="0 0 64 64" aria-hidden="true" className={className}>
-      <circle cx="32" cy="32" r="30" fill="#FBF8F1" />
-      <circle cx="32" cy="32" r="30" fill="url(#ball-shade)" />
-      <path d="M14 8c8 14 8 34 0 48M50 8c-8 14-8 34 0 48" fill="none" stroke="#2EC05F" strokeWidth="1.6" />
-      <path d="M17 12c6 12 6 28 0 40M47 12c-6 12-6 28 0 40" fill="none" stroke="#2EC05F" strokeWidth="1.4" strokeDasharray="1.5 3" />
       <defs>
-        <radialGradient id="ball-shade" cx="0.35" cy="0.3" r="0.8">
-          <stop offset="0.5" stopColor="#000" stopOpacity="0" />
-          <stop offset="1" stopColor="#000" stopOpacity="0.35" />
+        <radialGradient id={id} cx="0.36" cy="0.32" r="0.75">
+          <stop offset="0" stopColor="#c0262e" />
+          <stop offset="1" stopColor="#6e1016" />
         </radialGradient>
       </defs>
+      <circle cx="32" cy="32" r="30" fill={`url(#${id})`} />
+      <path d="M24 3 Q42 32 24 61" fill="none" stroke="#4a090d" strokeWidth="1.4" />
+      <path d="M20 4.5 Q37.5 32 20 59.5" fill="none" stroke="#f3e6da" strokeWidth="1.5" strokeDasharray="1.6 2.4" />
+      <path d="M28 2.5 Q46.5 32 28 61.5" fill="none" stroke="#f3e6da" strokeWidth="1.5" strokeDasharray="1.6 2.4" />
+      <ellipse cx="19" cy="17" rx="6" ry="3.5" fill="#fff" opacity="0.14" transform="rotate(-35 19 17)" />
     </svg>
-  );
-}
-
-// BYQ gem text-rotate-01, ported: letters of the outgoing word lift out while the next word rises in,
-// staggered right to left; the pitch pill eases its width to hug each word. Timings kept verbatim.
-export function TextRotate({ words, prefix }: { words: string[]; prefix?: string }) {
-  const [i, setI] = React.useState(0);
-  const [prev, setPrev] = React.useState<number | null>(null);
-  const [width, setWidth] = React.useState<number>();
-  const measure = React.useRef<HTMLSpanElement>(null);
-
-  React.useEffect(() => {
-    if (reduced()) return;
-    const id = setInterval(() => {
-      if (document.hidden) return;
-      setI((n) => {
-        setPrev(n);
-        return (n + 1) % words.length;
-      });
-    }, 2200);
-    return () => clearInterval(id);
-  }, [words.length]);
-
-  React.useLayoutEffect(() => {
-    if (measure.current) setWidth(measure.current.getBoundingClientRect().width);
-  }, [i]);
-
-  const word = (w: string, state: string) => (
-    <span key={w + state} className={`tr-word ${state}`} aria-hidden="true">
-      {Array.from(w).map((ch, k, all) => (
-        <span key={k} className="tr-char" style={{ "--i": all.length - 1 - k } as React.CSSProperties}>
-          {ch === " " ? " " : ch}
-        </span>
-      ))}
-    </span>
-  );
-
-  return (
-    <span className="num inline-flex flex-wrap items-center gap-x-3 gap-y-2">
-      {prefix && <span>{prefix}</span>}
-      <span className="tr-pill" style={{ width }}>
-        <span ref={measure} className="tr-measure" aria-hidden="true">{words[i]}</span>
-        {prev !== null && word(words[prev], "tr-out")}
-        {word(words[i], "tr-in")}
-        <span className="sr-only" aria-live="polite">{words[i]}</span>
-      </span>
-    </span>
   );
 }
 
@@ -118,7 +73,7 @@ export function ScoreTicker({ items }: { items: string[] }) {
   );
 
   return (
-    <div ref={root} aria-hidden="true" className="flex flex-col gap-3 overflow-hidden border-y border-pitch/40 bg-night py-8 md:py-12">
+    <div ref={root} aria-hidden="true" className="flex flex-col gap-3 overflow-hidden border-y border-white/10 bg-night py-8 md:py-12">
       {row("tk-a", false)}
       {row("tk-b", true)}
     </div>
@@ -179,7 +134,7 @@ export function PageSweep({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-pitch" style={{ clipPath: HIDDEN_CLIP }}>
+      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-green" style={{ clipPath: HIDDEN_CLIP }}>
         <Ball className="size-14" />
       </div>
     </TransitionRouter>

@@ -9,16 +9,16 @@ Copy source of truth: `~/Downloads/VTT-2026-SECTION-PROMPTS.md` (banned phrases 
 
 ## Design
 BYQ design system **Fit Trainer** (`cmosuwexv000nxo9xyc3zy9ko`), recoloured only:
-obsidian `#070908` / graphite `#101512` / iron `#1a201c` surfaces, one accent outfield green `#2ec05f`
-(replaces cobalt), red `#d4322c` for LIVE only. Square corners. Oswald display (uppercase), Satoshi body
+neutral obsidian `#0c0c0d` / graphite `#151517` / iron `#1f1f21` surfaces (no green tint), one accent green
+`#2ec05f` used on primary actions only, red `#d4322c` for LIVE and the cricket ball. Square corners. Oswald display (uppercase), Satoshi body
 (`src/app/fonts`, Fontshare free licence). No serif, no brass. Tokens: `src/app/globals.css` `@theme`.
 Old token names (paper, cream, ink) are kept but map onto the dark stack, so pages needed no rewrites.
 
 ## Motion inventory
-- Hero (`src/components/Sections.tsx`): layered cricket-field parallax (mown stripes, boundary rope, pitch with creases and stumps, white ball spinning on scroll); title rolls in on Hyperiux **rolling-text** reels (`RollingWords`).
+- Home hero (`src/components/Sections.tsx`): BYQ section **stringer-hero-4** (centred label, oversized title, inline word marquee with edge fades, three-column fact row). Title rolls in on Hyperiux **rolling-text** reels (`RollingWords`). A red cricket ball (`Ball` in `Motion.tsx`) is the scroll-parallax element. No glows, no field art.
 - Page transitions: Hyperiux **sweep-lift-transition** clip polygons + power4.inOut, run as an overlay (`PageSweep` in `src/components/Motion.tsx`). The vendored version pinned the site in a fixed frame and broke scroll, so it was removed.
 - Home groups: Hyperiux **stacking-cards** (`src/components/effects/stacking-cards`), fed from `GROUPS`; outline group letter replaces photos.
-- BYQ gems: magnetic-button-01, tab-underline-01, scroll-timeline-01, curtain-image-reveal-01, spotlight-glow-cards-01, text-rotate-01. BYQ sections: babka-hero-1, cultureexchange-structured-data-2, kelvin-footer-4.
+- BYQ gems: magnetic-button-01, tab-underline-01, scroll-timeline-01, curtain-image-reveal-01, spotlight-glow-cards-01 (glow removed, lift only). BYQ sections: stringer-hero-4 (home), babka-hero-1 (inner pages), cultureexchange-structured-data-2, kelvin-footer-4.
 - Lenis smooth scroll on the GSAP ticker; scoreboard ticker; Nexus-style scroll char reveal on the trophy line.
 - Everything respects `prefers-reduced-motion`. No blur animations, no animated counters (brief rules).
 

@@ -8,19 +8,24 @@ import { RollingWords } from "@/components/effects/rolling-text";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Structure from BYQ section babka-hero-1: bottom-left copy stack, staggered load.
-// Layered field parallax (mown stripes, boundary rope, pitch, ball) scrubbed by GSAP, and the
-// title rolls in on Hyperiux rolling-text reels, like a scoreboard settling. Never blur-animate.
+// Home: BYQ section stringer-hero-4 (centred label, oversized headline, inline word marquee with edge
+// fades, three-column fact row on a hairline, staggered 0/100/700ms entrance). Inner pages keep the
+// babka-hero-1 bottom-left stack. Titles roll in on Hyperiux rolling-text reels. The one cricket ball
+// is the parallax element: it travels down the hero and spins as you scroll. No glows, no blur.
 export function Hero({
   eyebrow,
   title,
   sub,
+  marquee,
+  row,
   children,
   tall = false,
 }: {
   eyebrow?: string;
   title: string;
   sub?: React.ReactNode;
+  marquee?: string[];
+  row?: string[];
   children?: React.ReactNode;
   tall?: boolean;
 }) {
@@ -28,72 +33,74 @@ export function Hero({
 
   React.useLayoutEffect(() => {
     const el = root.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      const st = { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 };
-      gsap.to(".f-ground", { y: 80, ease: "none", scrollTrigger: st });
-      gsap.to(".f-rope", { y: 140, scale: 1.08, ease: "none", scrollTrigger: st });
-      gsap.to(".f-pitch", { y: 240, ease: "none", scrollTrigger: st });
-      gsap.fromTo(".f-ball", { x: 0, y: 0, rotation: 0 }, { x: -140, y: 420, rotation: 540, ease: "none", scrollTrigger: st });
+      gsap.fromTo(
+        ".f-ball",
+        { x: 0, y: 0, rotation: 0 },
+        { x: tall ? -180 : -80, y: tall ? 360 : 140, rotation: 420, ease: "none", scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 } },
+      );
     }, el);
     return () => ctx.revert();
-  }, []);
+  }, [tall]);
+
+  const label = "text-xs font-medium uppercase tracking-[0.08em] text-white/60";
 
   return (
-    <section
-      ref={root}
-      className={`relative flex flex-col justify-end overflow-hidden bg-night text-white ${
-        tall ? "min-h-[min(92dvh,58rem)]" : "min-h-[22rem] md:min-h-[30rem]"
-      }`}
-    >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="f-ground ground absolute -inset-y-24 inset-x-0" />
-        <svg className="f-rope absolute -right-[30%] top-[8%] h-[150%] w-auto opacity-40 md:-right-[12%]" viewBox="0 0 800 800">
-          <circle cx="400" cy="400" r="396" fill="none" stroke="#FBF8F1" strokeWidth="2" strokeDasharray="2 10" />
-          <circle cx="400" cy="400" r="210" fill="none" stroke="#FBF8F1" strokeOpacity="0.4" strokeWidth="1.5" strokeDasharray="14 12" />
-        </svg>
-        <svg className="f-pitch absolute -top-[10%] right-[6%] h-[120%] w-[34%] min-w-40 opacity-70 md:right-[14%] md:w-[22%]" viewBox="0 0 200 1000" preserveAspectRatio="none">
-          <polygon points="80,0 120,0 170,1000 30,1000" fill="#2EC05F" fillOpacity="0.22" />
-          <g stroke="#FBF8F1" strokeOpacity="0.7" strokeWidth="2" fill="none">
-            <line x1="68" y1="120" x2="132" y2="120" />
-            <line x1="72" y1="90" x2="128" y2="90" />
-            <line x1="22" y1="820" x2="178" y2="820" />
-            <line x1="26" y1="900" x2="174" y2="900" />
-          </g>
-          <g fill="#FBF8F1">
-            <rect x="94" y="78" width="2" height="12" /><rect x="99" y="78" width="2" height="12" /><rect x="104" y="78" width="2" height="12" />
-            <rect x="88" y="870" width="4" height="30" /><rect x="98" y="870" width="4" height="30" /><rect x="108" y="870" width="4" height="30" />
-          </g>
-        </svg>
-        <div className="f-ball absolute right-[18%] top-[16%] md:right-[26%] md:top-[14%]">
-          <Ball className="size-10 drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)] md:size-16" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-night via-night/40 to-transparent" />
+    <section ref={root} className={`relative overflow-hidden border-b border-white/10 bg-night text-white ${tall ? "" : "flex min-h-[20rem] flex-col justify-end md:min-h-[26rem]"}`}>
+      <div aria-hidden="true" className={`f-ball pointer-events-none absolute ${tall ? "right-[8%] top-[4.25rem] md:right-[12%] md:top-28" : "right-[8%] top-20 md:right-[14%]"}`}>
+        <Ball className={tall ? "size-9 md:size-20" : "size-9 md:size-14"} />
       </div>
-      <div className="relative mx-auto w-full max-w-7xl px-4 pb-12 pt-24 md:px-8 md:pb-20">
-        <div className="flex max-w-5xl flex-col items-start gap-5">
-          {eyebrow && (
-            <p className="rise text-sm font-semibold uppercase tracking-[0.14em] text-pitch" style={{ animationDelay: "0ms" }}>
-              {eyebrow}
-            </p>
-          )}
-          <h1 aria-label={title} className={`display leading-none ${tall ? "text-[2.9rem] sm:text-7xl lg:text-[7.5rem]" : "text-5xl md:text-8xl"}`}>
+
+      {tall ? (
+        <div className="relative mx-auto flex w-full max-w-[1400px] flex-col items-center gap-8 px-5 pb-12 pt-28 text-center md:px-8 md:pb-16 md:pt-40">
+          {eyebrow && <p className={`rise ${label}`}>{eyebrow}</p>}
+          <h1 aria-label={title} className="display rise max-w-[14ch] text-[2.75rem] leading-[0.95] sm:text-7xl lg:text-[7rem]" style={{ animationDelay: "100ms" }}>
             <RollingWords text={title} />
           </h1>
-          {sub && (
-            <p className="num rise text-lg text-white/80 md:text-2xl" style={{ animationDelay: "200ms" }}>
-              {sub}
-            </p>
-          )}
+          {marquee && <Marquee words={marquee} />}
           {children && (
-            <div className="rise mt-3 flex flex-wrap items-center gap-4" style={{ animationDelay: "320ms" }}>
+            <div className="rise flex flex-wrap items-center justify-center gap-4" style={{ animationDelay: "400ms" }}>
               {children}
             </div>
           )}
+          {row && (
+            <div className="rise mt-12 grid w-full gap-2 border-t border-white/10 pt-6 md:mt-20 md:grid-cols-3" style={{ animationDelay: "700ms" }}>
+              {row.map((r, i) => (
+                <p key={r} className={`num ${label} ${["md:text-left", "md:text-center", "md:text-right"][i]}`}>{r}</p>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
+      ) : (
+        <div className="relative mx-auto w-full max-w-7xl px-4 pb-12 pt-24 md:px-8 md:pb-16">
+          <div className="flex max-w-5xl flex-col items-start gap-5">
+            {eyebrow && <p className={`rise ${label}`}>{eyebrow}</p>}
+            <h1 aria-label={title} className="display rise text-5xl leading-none md:text-8xl" style={{ animationDelay: "100ms" }}>
+              <RollingWords text={title} />
+            </h1>
+            {sub && <p className="num rise text-lg text-white/70 md:text-2xl" style={{ animationDelay: "200ms" }}>{sub}</p>}
+            {children && <div className="rise mt-3 flex flex-wrap items-center gap-4" style={{ animationDelay: "320ms" }}>{children}</div>}
+          </div>
+        </div>
+      )}
     </section>
+  );
+}
+
+// stringer-hero-4 inline marquee: tripled word track scrolling a third of its width every 6s, with
+// hard-to-soft fades in the canvas colour at both edges.
+function Marquee({ words }: { words: string[] }) {
+  return (
+    <div aria-hidden="true" className="rise relative w-full max-w-3xl overflow-hidden py-1" style={{ animationDelay: "250ms" }}>
+      <div className="marquee-track flex w-max gap-[0.9em] whitespace-nowrap text-2xl font-medium text-white/55 md:text-4xl">
+        {[...words, ...words, ...words].map((w, i) => (
+          <span key={i} className="num">{w}</span>
+        ))}
+      </div>
+      <span className="pointer-events-none absolute inset-y-0 left-0 w-[30%] bg-[linear-gradient(90deg,var(--color-night)_12%,transparent)]" />
+      <span className="pointer-events-none absolute inset-y-0 right-0 w-[30%] bg-[linear-gradient(270deg,var(--color-night)_12%,transparent)]" />
+    </div>
   );
 }
 

@@ -10,7 +10,7 @@ export function Footer() {
           <p className="num text-4xl font-bold tracking-tight [font-stretch:115%] md:text-6xl">VTT 2026</p>
           <p className="text-lg text-white/70 md:text-right">{ORG.name}</p>
         </div>
-        <div className="h-px bg-pitch/60" />
+        <div className="h-px bg-white/10" />
         <div className="grid gap-10 py-12 md:grid-cols-[1fr_1fr]">
           <address className="flex flex-col gap-3 not-italic text-white/65">
             <span>{ORG.address}</span>

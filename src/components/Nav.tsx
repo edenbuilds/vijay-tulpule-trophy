@@ -13,11 +13,11 @@ export function Nav() {
 
   const link = (href: string) =>
     `relative py-2 transition-colors duration-200 hover:text-[#6fae7c] ${
-      path === href ? "text-white after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-pitch" : "text-white/75"
+      path === href ? "text-white after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-white" : "text-white/75"
     }`;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-pitch bg-night pt-[env(safe-area-inset-top)] text-white">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-night pt-[env(safe-area-inset-top)] text-white">
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 md:px-8">
         <Link href="/" className="num mr-auto text-lg font-bold tracking-tight [font-stretch:115%]">
           VTT 2026
@@ -62,7 +62,7 @@ export function Nav() {
               <Link
                 href={n.href}
                 aria-current={path === n.href ? "page" : undefined}
-                className={`flex min-h-12 items-center text-lg font-semibold ${path === n.href ? "text-pitch" : "text-white"}`}
+                className={`flex min-h-12 items-center text-lg font-semibold ${path === n.href ? "text-white" : "text-white"}`}
               >
                 {n.label}
               </Link>

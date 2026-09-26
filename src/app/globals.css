@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  /* BYQ design system "Fit Trainer", recoloured: obsidian/graphite/iron surfaces kept, cobalt swapped
-     for one outfield green. The old brief's light surfaces now map onto the dark stack. */
-  --color-night: #070908;
-  --color-green: #101512;
-  --color-iron: #1a201c;
+  /* BYQ design system "Fit Trainer": neutral obsidian/graphite/iron surfaces, cobalt swapped for one
+     outfield green used on actions only. The old brief's light surfaces map onto the dark stack. */
+  --color-night: #0c0c0d;
+  --color-green: #151517;
+  --color-iron: #1f1f21;
   --color-hover: #52d67f;
-  --color-paper: #070908;
-  --color-cream: #101512;
+  --color-paper: #0c0c0d;
+  --color-cream: #151517;
   --color-live: #d4322c;
   --color-pitch: #2ec05f;
   --color-ink: #ffffff;
@@ -49,12 +49,6 @@ p {
   font-variant-numeric: tabular-nums;
 }
 
-/* ponytail: no ground photo supplied yet; mown-strip pattern stands in until one is */
-.ground {
-  background:
-    linear-gradient(180deg, rgb(14 26 18 / 0.55), rgb(14 26 18 / 0.92)),
-    repeating-linear-gradient(90deg, #1f4029 0 88px, #234a2e 88px 176px);
-}
 
 @keyframes rise {
   from {
@@ -85,7 +79,6 @@ p {
         }
         .mb-arrow { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         .mb-is-pulling .mb-halo, .mb-is-pulling .mb-label { transition-duration: 0.12s; }
-        .mb-magnet:hover .mb-halo, .mb-magnet:focus-visible .mb-halo { opacity: 1; }
         .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: #ffffff; border-color: #ffffff; color: #070908; }
         .mb-magnet:hover .mb-arrow, .mb-magnet:focus-visible .mb-arrow { transform: translateX(3px); }
         .mb-magnet:focus-visible .mb-label { outline: 2px solid #2EC05F; outline-offset: 3px; }
@@ -135,11 +128,10 @@ p {
   transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
 .sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(46 192 95 / 0.22), transparent 70%); }
-.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem) scale(1.02); border-color: var(--color-pitch); box-shadow: 0 0 1.5rem 0.25rem rgb(46 192 95 / 0.18); }
-.sg-card:hover .sg-light, .sg-card:focus-within .sg-light { opacity: 1; }
+.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(255 255 255 / 0.28); }
 @media (prefers-reduced-motion: reduce) {
   .sg-card { animation: none; }
-  .sg-card:hover, .sg-card:focus-within { transform: none; }
+  .sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(255 255 255 / 0.28); }
 }
 
 /* Display type per Fit Trainer: condensed uppercase (Oswald). Body is Satoshi. */
@@ -151,46 +143,11 @@ p {
 }
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--color-pitch);
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.35);
 }
 
 
-/* BYQ gem text-rotate-01, timings verbatim, skin in pitch. */
-.tr-pill {
-  position: relative;
-  display: inline-flex;
-  height: 1.7em;
-  min-width: 2em;
-  overflow: hidden;
-  border-radius: 999px;
-  background: var(--color-pitch);
-  color: var(--color-night);
-  font-weight: 700;
-  transition: width 0.55s cubic-bezier(0.22, 1.1, 0.36, 1);
-}
-.tr-measure {
-  visibility: hidden;
-  white-space: pre;
-  padding: 0 0.7em;
-  line-height: 1.7em;
-}
-.tr-word {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: inline-flex;
-  white-space: pre;
-}
-.tr-char {
-  display: inline-block;
-  white-space: pre;
-}
-.tr-in .tr-char { animation: tr-in 0.62s cubic-bezier(0.22, 1.25, 0.36, 1) calc(var(--i, 0) * 26ms) both; }
-.tr-out .tr-char { animation: tr-out 0.62s cubic-bezier(0.22, 1.25, 0.36, 1) calc(var(--i, 0) * 26ms) both; }
-@keyframes tr-in { from { transform: translateY(115%); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes tr-out { from { transform: none; opacity: 1; } to { transform: translateY(-125%); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .tr-in .tr-char { animation: none; transform: none; opacity: 1; }
-  .tr-out { display: none; }
-}
+/* BYQ section stringer-hero-4 marquee */
+@keyframes marquee { to { transform: translateX(-33.333%); } }
+.marquee-track { animation: marquee 6s linear infinite; will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
