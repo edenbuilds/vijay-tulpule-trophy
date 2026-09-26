@@ -14,15 +14,15 @@ export function Nav() {
   React.useEffect(() => setOpen(false), [path]);
 
   const link = (href: string) =>
-    `inline-flex min-h-9 items-center rounded-full px-3.5 transition-colors duration-200 ${
+    `press inline-flex min-h-9 items-center rounded-full px-3.5 ${
       path === href ? "bg-mint text-ink" : "text-ink/70 hover:bg-mist hover:text-ink"
     }`;
 
   return (
     <header className="sticky top-0 z-50 border-b border-dashed border-ink/15 bg-paper/80 pt-[env(safe-area-inset-top)] text-ink backdrop-blur-md">
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 md:px-8">
-        <Link href="/" className="num mr-auto flex items-center gap-2 text-lg font-bold tracking-tight">
-          <Ball className="size-5" />
+        <Link href="/" className="num group mr-auto flex items-center gap-2 text-lg font-bold tracking-tight">
+          <Ball className="size-5 transition-transform duration-700 ease-out group-hover:-rotate-[360deg]" />
           VTT 2026
         </Link>
         <ul className="hidden items-center gap-1 text-sm font-medium lg:flex">
@@ -36,7 +36,7 @@ export function Nav() {
         </ul>
         <Link
           href="/contact"
-          className="hidden min-h-11 items-center rounded-full bg-pitch px-5 text-sm font-semibold text-paper transition-colors duration-200 hover:bg-hover sm:inline-flex"
+          className="hidden min-h-11 items-center rounded-full bg-pitch px-5 text-sm font-semibold text-paper press hover:bg-hover sm:inline-flex"
         >
           Contact
         </Link>

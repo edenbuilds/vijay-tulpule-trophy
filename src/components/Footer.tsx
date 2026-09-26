@@ -18,14 +18,14 @@ export function Footer() {
           <div className="grid gap-10 py-12 md:grid-cols-[1fr_1fr]">
             <address className="flex flex-col gap-3 not-italic text-ink/70">
               <span className="flex gap-3"><MapPin aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} />{ORG.address}</span>
-              <a className="flex w-fit gap-3 transition-colors hover:text-ink" href={`mailto:${ORG.email}`}><Mail aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} />{ORG.email}</a>
-              <a className="num flex w-fit gap-3 transition-colors hover:text-ink" href={ORG.phoneHref}><Phone aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} />{ORG.phone}</a>
+              <a className="flex w-fit gap-3 transition-colors hover:text-ink" href={`mailto:${ORG.email}`}><Mail aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{ORG.email}</span></a>
+              <a className="num flex w-fit gap-3 transition-colors hover:text-ink" href={ORG.phoneHref}><Phone aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{ORG.phone}</span></a>
             </address>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-1 sm:grid-cols-3">
               {FOOTER_LINKS.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="flex min-h-11 items-center text-ink/70 transition-colors hover:text-ink">
-                    {l.label}
+                    <span className="u-grow">{l.label}</span>
                   </Link>
                 </li>
               ))}

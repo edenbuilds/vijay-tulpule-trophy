@@ -63,7 +63,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={state === "sending"}
-          className="min-h-12 rounded-full bg-pitch px-8 font-semibold text-paper transition-colors hover:bg-hover disabled:opacity-60"
+          className="min-h-12 rounded-full bg-pitch px-8 font-semibold text-paper press hover:bg-hover disabled:opacity-60"
         >
           {state === "sending" ? "Sending…" : "Send"}
         </button>

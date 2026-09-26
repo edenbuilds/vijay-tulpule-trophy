@@ -2,13 +2,15 @@
 
 @theme {
   /* BYQ design system "Human Intelligence" (light), recoloured: its lilac and sky tiles become greens,
-     aubergine ink becomes a near-black green. White canvas, green tiles, one deep pitch green for actions. */
-  --color-paper: #ffffff;
-  --color-mist: #f2f6f2;
-  --color-mint: #e1efe3;
-  --color-sage: #b9dcc1;
-  --color-pitch: #1d6a3b;
-  --color-hover: #15512c;
+     aubergine ink becomes a near-black green. The canvas is a flat chalk (pale outfield green-grey, no
+     texture or gradient) so the white "mist" tiles read as cards on it. Pitch is a grassy kit green,
+     kept yellow of emerald. Light mode only. */
+  --color-paper: #f1f4ea;
+  --color-mist: #ffffff;
+  --color-mint: #e2f0d8;
+  --color-sage: #bfe0aa;
+  --color-pitch: #1f7a34;
+  --color-hover: #17602a;
   --color-ink: #141a16;
   --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
@@ -16,6 +18,7 @@
 }
 
 html {
+  color-scheme: light;
   background: var(--color-paper);
   scroll-padding-top: 5rem;
 }
@@ -74,9 +77,9 @@ p {
         }
         .mb-arrow { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         .mb-is-pulling .mb-halo, .mb-is-pulling .mb-label { transition-duration: 0.12s; }
-        .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: #15512c; border-color: #15512c; color: #ffffff; }
+        .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: var(--color-hover); border-color: var(--color-hover); color: #ffffff; }
         .mb-magnet:hover .mb-arrow, .mb-magnet:focus-visible .mb-arrow { transform: translateX(3px); }
-        .mb-magnet:focus-visible .mb-label { outline: 2px solid #1d6a3b; outline-offset: 3px; }
+        .mb-magnet:focus-visible .mb-label { outline: 2px solid var(--color-pitch); outline-offset: 3px; }
         .mb-magnet:active .mb-label { transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35)) scale(0.97); }
         @media (prefers-reduced-motion: reduce) {
           .mb-halo, .mb-label, .mb-arrow { transition-duration: 0.001ms !important; }
@@ -110,7 +113,7 @@ p {
   animation: sg-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
-.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(29 106 59 / 0.08), transparent 70%); }
+.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(31 122 52 / 0.08), transparent 70%); }
 .sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(20 26 22 / 0.22); }
 @media (prefers-reduced-motion: reduce) {
   .sg-card { animation: none; }
@@ -151,3 +154,31 @@ html:not(.js) .preloader, .no-preload .preloader { display: none; }
 /* Fail-safe: if the script never runs the wipe (JS error, blocked bundle), the overlay still clears. */
 @keyframes preload-failsafe { to { visibility: hidden; } }
 .preloader { animation: preload-failsafe 0s 6s forwards; }
+
+/* News strip under the nav: fixtures and results roll left; the separator balls roll with them. */
+@keyframes strip { to { transform: translateX(-50%); } }
+@keyframes roll { to { transform: rotate(-360deg); } }
+.strip-track { animation: strip var(--strip-dur, 120s) linear infinite; }
+.strip:hover .strip-track, .strip:focus-within .strip-track { animation-play-state: paused; }
+.strip-ball { animation: roll 2.4s linear infinite; }
+.strip:hover .strip-ball, .strip:focus-within .strip-ball { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .strip-track, .strip-ball { animation: none; }
+  .strip-scroll { overflow-x: auto; }
+}
+
+/* Micro-interactions */
+.press { transition: transform 0.2s var(--ease-out-expo), background-color 0.2s ease, color 0.2s ease; }
+.press:active { transform: scale(0.97); }
+.u-grow { position: relative; }
+.u-grow::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1.5px; background: currentColor;
+  transform: scaleX(0); transform-origin: right; transition: transform 0.35s var(--ease-out-expo);
+}
+.u-grow:hover::after, .u-grow:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+.lift { transition: transform 0.35s var(--ease-out-expo), background-color 0.25s ease; }
+.lift:hover { transform: translateY(-3px); }
+@media (prefers-reduced-motion: reduce) {
+  .press:active, .lift:hover { transform: none; }
+  .u-grow::after { transition: none; }
+}

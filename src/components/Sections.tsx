@@ -121,7 +121,7 @@ export function StatBar({ items }: { items: string[][] }) {
     <section className="px-2 pt-2">
       <dl className={`grid gap-2 ${items.length === 3 ? "grid-cols-3" : "grid-cols-2 md:grid-cols-4"}`}>
         {items.map(([value, label], i) => (
-          <div key={value + label} className={`flex min-h-36 flex-col-reverse justify-between gap-6 rounded-2xl p-5 md:min-h-44 md:p-8 ${TILES[i % 4]}`}>
+          <div key={value + label} className={`lift flex min-h-36 flex-col-reverse justify-between gap-6 rounded-2xl p-5 md:min-h-44 md:p-8 ${TILES[i % 4]}`}>
             <dt className="text-ink/60">{label}</dt>
             <dd className="num display text-3xl md:text-5xl">{value}</dd>
           </div>

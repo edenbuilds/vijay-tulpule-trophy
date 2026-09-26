@@ -41,9 +41,9 @@ export default function Home() {
 
       <nav aria-label="Sections" className="grid grid-cols-2 gap-2 px-2 pt-2 lg:grid-cols-4">
         {LINKS.map(({ href, label, line, Icon, bg }) => (
-          <Link key={href} href={href} className={`group flex min-h-40 flex-col justify-between rounded-2xl p-5 transition-colors duration-200 hover:bg-sage md:min-h-48 md:p-8 ${bg}`}>
+          <Link key={href} href={href} className={`lift press group flex min-h-40 flex-col justify-between rounded-2xl p-5 hover:bg-sage md:min-h-48 md:p-8 ${bg}`}>
             <span className="flex items-start justify-between">
-              <Icon aria-hidden="true" className="size-6 text-pitch" strokeWidth={1.6} />
+              <Icon aria-hidden="true" className="size-6 text-pitch transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" strokeWidth={1.6} />
               <ArrowUpRight aria-hidden="true" className="size-5 text-ink/40 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
             </span>
             <span>

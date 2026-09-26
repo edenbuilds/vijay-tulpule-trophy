@@ -40,6 +40,11 @@ export const TIERS = [
 export type Slot = { time?: string; matches?: string[]; note?: string };
 export type Day = { date: string; day: string; slots: Slot[] };
 
+// Confirmed results only, oldest first, e.g. { date: "18 Oct", match: "A v B", line: "A won by 20 runs" }.
+// The news strip shows them newest first, ahead of the fixtures still to come.
+export type Result = { date: string; match: string; line: string };
+export const RESULTS: Result[] = [];
+
 export const FIXTURES: Day[] = [
   { date: "17 Oct", day: "Sat", slots: [{ time: "07:00", note: "Opening ceremony, Main Ground" }] },
   {

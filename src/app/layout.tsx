@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { PageSweep, SmoothScroll } from "@/components/Motion";
 import { Preloader } from "@/components/gems/Preloader";
 import { Nav } from "@/components/Nav";
+import { NewsStrip } from "@/components/NewsStrip";
 import "./globals.css";
 
 // Human Intelligence runs on one grotesque; Satoshi stands in (Fontshare free licence, fonts/FFL.txt).
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     "Official site of the Late Vijay Tulpule Trophy 2026. Hosted by the Bombay Advocates’ Cricket Association. 16 teams, Mumbai, 17–24 October.",
 };
 
-export const viewport: Viewport = { themeColor: "#ffffff" };
+export const viewport: Viewport = { themeColor: "#f1f4ea" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SmoothScroll />
         <PageSweep>
           <Nav />
+          <NewsStrip />
           <main>{children}</main>
           <Footer />
         </PageSweep>

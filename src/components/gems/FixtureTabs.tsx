@@ -101,7 +101,7 @@ export function FixtureTabs({ days }: { days: Day[] }) {
                   {s.matches && (
                     <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                       {s.matches.map((m, k) => (
-                        <li key={k} className="rounded-2xl bg-mist p-5">
+                        <li key={k} className="lift rounded-2xl bg-mist p-5 hover:bg-mint">
                           <p className="text-lg font-semibold">{m}</p>
                           <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/55"><MapPin aria-hidden="true" className="size-3.5" strokeWidth={1.8} />Venue TBC</p>
                         </li>

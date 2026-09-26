@@ -9,7 +9,7 @@ Copy source of truth: `~/Downloads/VTT-2026-SECTION-PROMPTS.md` (banned phrases 
 
 ## Design
 BYQ design system **Human Intelligence** (`cmosw0lxo0005xof5w64cji7l`, light), recoloured to greens only:
-paper `#ffffff`, mist `#f2f6f2`, mint `#e1efe3`, sage `#b9dcc1` tiles, pitch `#1d6a3b` for actions, ink `#141a16`.
+paper `#f1f4ea` (flat chalk canvas, no texture or gradient), mist `#ffffff` (white cards), mint `#e2f0d8`, sage `#bfe0aa` tiles, pitch `#1f7a34` (grassy kit green, not emerald) for actions, ink `#141a16`. Light mode only (`color-scheme: light`).
 16px-radius tiles inset 8px from the page edge, pill buttons, dashed rules (`.rule`). Satoshi only (no serif).
 No Live page or Live button (removed by request). Red appears only on the cricket ball.
 
@@ -18,6 +18,15 @@ No Live page or Live button (removed by request). Red appears only on the cricke
 - Home hero: BYQ **stringer-hero-4** in a mint tile, Hyperiux **rolling-text** title (waits for the preloader), wide parallax photo. Title leading must stay >= 1.25 (Satoshi content area) or reel glyphs bleed.
 - Home: icon quick-link tiles (lucide-react), scoreboard ticker, stat tiles, BYQ **babka-bento-3** (`Bento`), fixtures list, BYQ gem **sticky-media-swap-01** for the knockout stages, Hyperiux **stacking-cards** with photos, scroll char reveal, sponsor tiers.
 - Gems kept: magnetic-button-01 (pill), tab-underline-01 (fixtures, with clock/pin icons), curtain-image-reveal-01, spotlight-glow-cards-01 (lift only). Page sweep overlay in pitch green.
+
+## News strip
+`src/components/NewsStrip.tsx`, under the nav on every page. It rolls through `RESULTS` (newest first) then
+fixtures still to come from `FIXTURES`, both in `src/lib/site.ts`. To post a result, append
+`{ date: "18 Oct", match: "A v B", line: "A won by 20 runs" }` to `RESULTS` and deploy. Only confirmed results.
+Pauses on hover/focus; static and scrollable under reduced motion.
+
+Micro-interactions: `.press` (tap scale), `.lift` (hover rise), `.u-grow` (underline draw) in globals.css;
+logo ball spins on hover; quick-link icons tilt.
 
 ## Photos
 Placeholders are hotlinked from Wikimedia Commons (`PHOTOS` in `src/lib/site.ts`), credited in the footer. None shows a confirmed venue. Replace with the organisers' photos, move them to `public/img`, drop the credits line.
