@@ -1,0 +1,26 @@
+{
+  "components": {
+    "sweep-lift-transition": {
+      "version": "1.0.0",
+      "installedAt": "2026-09-26T06:19:11.432Z",
+      "files": {
+        "src/components/effects/sweep-lift-transition/index.tsx": "sha256:5ecf09ddc0e93ad470ef354509e0db34a6e36d77a9751f40b9333266ba6cb21f"
+      }
+    },
+    "stacking-cards": {
+      "version": "1.0.1",
+      "installedAt": "2026-09-26T06:19:18.223Z",
+      "files": {
+        "src/components/effects/stacking-cards/index.tsx": "sha256:f3c81fee3f5d3175e3280f6f6a4a5211428cb5e8ea656c7593d8cf0603706dc7",
+        "src/components/effects/stacking-cards/StackingCardComp.tsx": "sha256:d2d8f28fce24576a67ff159f6c5c2dafb1cbff32a2d1f349af163241fcb27c43"
+      }
+    },
+    "rolling-text": {
+      "version": "1.0.0",
+      "installedAt": "2026-09-26T06:19:27.170Z",
+      "files": {
+        "src/components/effects/rolling-text/index.tsx": "sha256:edaef0716796d6d9a7bf337b791fce608c868e4ce2f61511a41327dcfcb492f3"
+      }
+    }
+  }
+}

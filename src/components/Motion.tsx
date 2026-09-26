@@ -4,6 +4,7 @@ import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { TransitionRouter } from "next-transition-router";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,14 +27,14 @@ export function SmoothScroll() {
   return null;
 }
 
-// White ball with brass stitching. Red is reserved for the LIVE badge.
+// White ball with pitch stitching. Red is reserved for the LIVE badge.
 export function Ball({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 64 64" aria-hidden="true" className={className}>
       <circle cx="32" cy="32" r="30" fill="#FBF8F1" />
       <circle cx="32" cy="32" r="30" fill="url(#ball-shade)" />
-      <path d="M14 8c8 14 8 34 0 48M50 8c-8 14-8 34 0 48" fill="none" stroke="#C4A36A" strokeWidth="1.6" />
-      <path d="M17 12c6 12 6 28 0 40M47 12c-6 12-6 28 0 40" fill="none" stroke="#C4A36A" strokeWidth="1.4" strokeDasharray="1.5 3" />
+      <path d="M14 8c8 14 8 34 0 48M50 8c-8 14-8 34 0 48" fill="none" stroke="#2EC05F" strokeWidth="1.6" />
+      <path d="M17 12c6 12 6 28 0 40M47 12c-6 12-6 28 0 40" fill="none" stroke="#2EC05F" strokeWidth="1.4" strokeDasharray="1.5 3" />
       <defs>
         <radialGradient id="ball-shade" cx="0.35" cy="0.3" r="0.8">
           <stop offset="0.5" stopColor="#000" stopOpacity="0" />
@@ -45,7 +46,7 @@ export function Ball({ className = "" }: { className?: string }) {
 }
 
 // BYQ gem text-rotate-01, ported: letters of the outgoing word lift out while the next word rises in,
-// staggered right to left; the brass pill eases its width to hug each word. Timings kept verbatim.
+// staggered right to left; the pitch pill eases its width to hug each word. Timings kept verbatim.
 export function TextRotate({ words, prefix }: { words: string[]; prefix?: string }) {
   const [i, setI] = React.useState(0);
   const [prev, setPrev] = React.useState<number | null>(null);
@@ -117,7 +118,7 @@ export function ScoreTicker({ items }: { items: string[] }) {
   );
 
   return (
-    <div ref={root} aria-hidden="true" className="flex flex-col gap-3 overflow-hidden border-y border-brass/40 bg-night py-8 md:py-12">
+    <div ref={root} aria-hidden="true" className="flex flex-col gap-3 overflow-hidden border-y border-pitch/40 bg-night py-8 md:py-12">
       {row("tk-a", false)}
       {row("tk-b", true)}
     </div>
@@ -147,5 +148,40 @@ export function ScrubText({ children, className = "" }: { children: string; clas
         </span>
       ))}
     </p>
+  );
+}
+
+// Hyperiux sweep-lift-transition, adapted: the vendored version pins the whole site in a fixed
+// overflow-hidden frame, which breaks window scroll, Lenis, the sticky nav and every ScrollTrigger.
+// Same clip polygons and power4.inOut, run on an overlay panel instead, with shorter legs so a
+// navigation doesn't take 2.6s.
+const HIDDEN_CLIP = "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)";
+const VISIBLE_CLIP = "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)";
+const LIFTED_CLIP = "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)";
+
+export function PageSweep({ children }: { children: React.ReactNode }) {
+  const panel = React.useRef<HTMLDivElement>(null);
+  return (
+    <TransitionRouter
+      auto
+      leave={(next) => {
+        if (reduced()) return next();
+        const tw = gsap.fromTo(panel.current, { clipPath: HIDDEN_CLIP }, { clipPath: VISIBLE_CLIP, duration: 0.7, ease: "power4.inOut", onComplete: next });
+        return () => tw.kill();
+      }}
+      enter={(next) => {
+        if (reduced()) return next();
+        const tl = gsap
+          .timeline({ onComplete: () => (ScrollTrigger.refresh(), next()) })
+          .to(panel.current, { clipPath: LIFTED_CLIP, duration: 0.8, ease: "power4.inOut" })
+          .from("main", { y: 50, duration: 0.8, ease: "power4.inOut", clearProps: "transform" }, 0);
+        return () => tl.kill();
+      }}
+    >
+      {children}
+      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-pitch" style={{ clipPath: HIDDEN_CLIP }}>
+        <Ball className="size-14" />
+      </div>
+    </TransitionRouter>
   );
 }

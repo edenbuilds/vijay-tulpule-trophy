@@ -9,7 +9,7 @@ export default function Live() {
       <Hero title="Live" sub="Stream from 16 October" />
       <section className="bg-night pb-16 text-white md:pb-24">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <div className="grid aspect-video place-items-center rounded-xl border border-white/10 bg-green/60">
+          <div className="grid aspect-video place-items-center border border-white/10 bg-green/60">
             <p className="text-white/55">Stream URL TBC</p>
           </div>
         </div>

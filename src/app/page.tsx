@@ -2,11 +2,10 @@ import Link from "next/link";
 import { CurtainPortrait } from "@/components/gems/CurtainPortrait";
 import { MagneticButton } from "@/components/gems/MagneticButton";
 import { ScrollTimeline } from "@/components/gems/ScrollTimeline";
-import { SpotlightCard } from "@/components/gems/SpotlightCard";
+import StackingCards from "@/components/effects/stacking-cards";
 import { ScoreTicker, ScrubText, TextRotate } from "@/components/Motion";
 import { Block, Hero, StatBar } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
-import { GROUPS } from "@/lib/site";
 
 const KNOCKOUT = [
   { n: "1", title: "Group stage", date: "18–20 Oct" },
@@ -15,24 +14,24 @@ const KNOCKOUT = [
   { n: "4", title: "Final", date: "24 Oct" },
 ];
 
-const arrow = "text-base font-semibold underline decoration-brass decoration-2 underline-offset-8 transition-colors hover:text-hover";
+const arrow = "text-base font-semibold underline decoration-pitch decoration-2 underline-offset-8 transition-colors hover:text-hover";
 
 export default function Home() {
   return (
     <>
-      <Hero eyebrow="Bombay Advocates’ Cricket Association" title="Vijay Tulpule Trophy 2026" sub={<TextRotate prefix="17–24 October" words={["16 teams", "4 groups", "32 matches", "Mumbai", "Navi Mumbai"]} />}
+      <Hero eyebrow="Bombay Advocates’ Cricket Association" title="Late Vijay Tulpule Trophy 2026" sub={<TextRotate prefix="17–24 October" words={["16 teams", "4 groups", "32 matches", "Mumbai", "Navi Mumbai"]} />}
         tall
       >
         <MagneticButton href="/fixtures">Fixtures</MagneticButton>
         <Link
           href="/live"
-          className="inline-flex min-h-11 items-center rounded-full border border-white/30 px-7 font-semibold transition-colors duration-300 hover:border-white hover:bg-white hover:text-ink"
+          className="inline-flex min-h-11 items-center border border-white/30 px-7 font-semibold transition-colors duration-300 hover:border-white hover:bg-white hover:text-night"
         >
           Live
         </Link>
       </Hero>
 
-      <ScoreTicker items={["Vijay Tulpule Trophy", "2026", "Mumbai", "Navi Mumbai"]} />
+      <ScoreTicker items={["Late Vijay Tulpule Trophy", "2026", "Mumbai", "Navi Mumbai"]} />
 
       <StatBar items={[["16", "teams"], ["4", "groups"], ["32", "matches"], ["17–24 Oct", "dates"]]} />
 
@@ -70,7 +69,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="font-semibold text-brass">Live</p>
+              <p className="font-semibold text-pitch">Live</p>
               <h2 className="display mt-3 text-4xl md:text-6xl">Watch</h2>
               <p className="mt-4 max-w-xl text-white/70">
                 Stream starts 16 October. Coverage from 15 minutes before toss. Highlights after stumps.
@@ -78,24 +77,16 @@ export default function Home() {
             </div>
             <MagneticButton href="/live">Live page</MagneticButton>
           </div>
-          <div className="grid aspect-video place-items-center rounded-xl border border-white/10 bg-green/60">
+          <div className="grid aspect-video place-items-center border border-white/10 bg-green/60">
             <p className="text-white/55">Stream URL TBC</p>
           </div>
         </div>
       </section>
 
-      <Block title="Groups" tone="cream">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {GROUPS.map((g, i) => (
-            <SpotlightCard key={g.name} index={i} className="border-ink/10 bg-paper p-6">
-              <h3 className="text-2xl font-bold">Group {g.name}</h3>
-              <p className="num mt-4 text-lg">Teams {g.teams.join(" ")}</p>
-              <p className="mt-1 text-sm text-ink/55">Names TBC</p>
-            </SpotlightCard>
-          ))}
-        </div>
-        <Link href="/teams" className={`mt-10 inline-block ${arrow}`}>All teams</Link>
-      </Block>
+      <StackingCards />
+      <div className="bg-night px-4 pb-4 pt-10 md:px-8">
+        <Link href="/teams" className={`mx-auto block max-w-7xl ${arrow}`}>All teams</Link>
+      </div>
 
       <section className="overflow-hidden bg-night py-16 text-white md:py-24">
         <div className="mx-auto max-w-5xl px-4 md:px-8">

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://vault.hyperiux.com/schema.json",
+  "framework": "next",
+  "router": "app",
+  "tailwind": {
+    "config": null,
+    "css": "src/app/globals.css"
+  },
+  "aliases": {
+    "components": "@/components",
+    "effects": "@/components/effects",
+    "hooks": "@/hooks",
+    "lib": "@/lib"
+  },
+  "installedEffects": {
+    "sweep-lift-transition": {
+      "installedAt": "2026-09-26T06:19:11.434Z"
+    },
+    "stacking-cards": {
+      "installedAt": "2026-09-26T06:19:18.225Z"
+    },
+    "rolling-text": {
+      "installedAt": "2026-09-26T06:19:27.174Z"
+    }
+  }
+}

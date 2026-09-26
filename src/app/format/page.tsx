@@ -15,7 +15,7 @@ export default function Format() {
       <Hero title="Format" sub="16 teams · group stage · knockout · Mumbai, 17–24 October" />
       <StatBar items={[["16", "teams"], ["4", "groups"], ["32", "matches"], ["15", "player squads"]]} />
       <Block tone="paper">
-        <div className="grid gap-px overflow-hidden rounded-xl bg-ink/10 md:grid-cols-3">
+        <div className="grid gap-px overflow-hidden bg-ink/10 md:grid-cols-3">
           {COLS.map(([h, p]) => (
             <div key={h} className="bg-cream p-6 md:p-8">
               <h2 className="text-2xl font-bold">{h}</h2>

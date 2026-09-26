@@ -4,8 +4,8 @@ import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// BYQ gem: scroll-timeline-01. Motion values verbatim; lime mapped to brass.
-const BRASS = "#c4a36a";
+// BYQ gem: scroll-timeline-01. Motion values verbatim; lime mapped to pitch.
+const BRASS = "#2EC05F";
 
 export type Step = { n: string; title: string; date: string };
 
@@ -68,21 +68,21 @@ export function ScrollTimeline({ steps }: { steps: Step[] }) {
 
   return (
     <div ref={root} className="relative">
-      <div className="st-track absolute bottom-6 top-6 left-1/2 w-0.5 -translate-x-1/2 overflow-hidden rounded-full bg-white/15">
-        <div ref={fill} className="absolute inset-0 origin-top scale-y-0 bg-brass" />
+      <div className="st-track absolute bottom-6 top-6 left-1/2 w-0.5 -translate-x-1/2 overflow-hidden bg-white/15">
+        <div ref={fill} className="absolute inset-0 origin-top scale-y-0 bg-pitch" />
       </div>
       <div ref={nodes} className="relative flex flex-col gap-14 md:gap-20">
         {steps.map((s, i) => (
           <div key={s.n} data-node data-side={i % 2 === 0 ? "right" : "left"} className="st-node">
             <div
               ref={(el) => { dots.current[i] = el; }}
-              className="st-dot z-[1] size-3.5 scale-[0.6] rounded-full border-2 border-night bg-white/25"
+              className="st-dot z-[1] size-3.5 scale-[0.6] border-2 border-night bg-white/25"
             />
             <div
               ref={(el) => { cards.current[i] = el; }}
-              className="st-card w-full max-w-[22rem] rounded-xl border border-white/10 bg-green p-6 opacity-0 md:p-7"
+              className="st-card w-full max-w-[22rem] border border-white/10 bg-green p-6 opacity-0 md:p-7"
             >
-              <p className="num text-sm font-semibold text-brass">{s.n}</p>
+              <p className="num text-sm font-semibold text-pitch">{s.n}</p>
               <h3 className="mt-2 text-2xl font-semibold text-white">{s.title}</h3>
               <p className="num mt-1 text-white/65">{s.date}</p>
             </div>

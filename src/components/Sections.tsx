@@ -3,14 +3,14 @@
 import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
 import { Ball } from "@/components/Motion";
+import { RollingWords } from "@/components/effects/rolling-text";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
 // Structure from BYQ section babka-hero-1: bottom-left copy stack, staggered load.
 // Layered field parallax (mown stripes, boundary rope, pitch, ball) scrubbed by GSAP, and the
-// masked line reveal on the title from the Codegrid Steelworks template. Never blur-animate.
+// title rolls in on Hyperiux rolling-text reels, like a scoreboard settling. Never blur-animate.
 export function Hero({
   eyebrow,
   title,
@@ -29,27 +29,13 @@ export function Hero({
   React.useLayoutEffect(() => {
     const el = root.current;
     if (!el) return;
-    const h1 = el.querySelector("h1")!;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.set(h1, { autoAlpha: 1 });
-      return;
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      const split = SplitText.create(h1, {
-        type: "lines",
-        mask: "lines",
-        autoSplit: true,
-        onSplit: (self) => {
-          gsap.set(h1, { autoAlpha: 1 });
-          return gsap.from(self.lines, { yPercent: 125, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.1 });
-        },
-      });
       const st = { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 };
       gsap.to(".f-ground", { y: 80, ease: "none", scrollTrigger: st });
       gsap.to(".f-rope", { y: 140, scale: 1.08, ease: "none", scrollTrigger: st });
       gsap.to(".f-pitch", { y: 240, ease: "none", scrollTrigger: st });
       gsap.fromTo(".f-ball", { x: 0, y: 0, rotation: 0 }, { x: -140, y: 420, rotation: 540, ease: "none", scrollTrigger: st });
-      return () => split.revert();
     }, el);
     return () => ctx.revert();
   }, []);
@@ -68,7 +54,7 @@ export function Hero({
           <circle cx="400" cy="400" r="210" fill="none" stroke="#FBF8F1" strokeOpacity="0.4" strokeWidth="1.5" strokeDasharray="14 12" />
         </svg>
         <svg className="f-pitch absolute -top-[10%] right-[6%] h-[120%] w-[34%] min-w-40 opacity-70 md:right-[14%] md:w-[22%]" viewBox="0 0 200 1000" preserveAspectRatio="none">
-          <polygon points="80,0 120,0 170,1000 30,1000" fill="#C4A36A" fillOpacity="0.22" />
+          <polygon points="80,0 120,0 170,1000 30,1000" fill="#2EC05F" fillOpacity="0.22" />
           <g stroke="#FBF8F1" strokeOpacity="0.7" strokeWidth="2" fill="none">
             <line x1="68" y1="120" x2="132" y2="120" />
             <line x1="72" y1="90" x2="128" y2="90" />
@@ -88,12 +74,12 @@ export function Hero({
       <div className="relative mx-auto w-full max-w-7xl px-4 pb-12 pt-24 md:px-8 md:pb-20">
         <div className="flex max-w-5xl flex-col items-start gap-5">
           {eyebrow && (
-            <p className="rise text-sm font-semibold uppercase tracking-[0.14em] text-brass" style={{ animationDelay: "0ms" }}>
+            <p className="rise text-sm font-semibold uppercase tracking-[0.14em] text-pitch" style={{ animationDelay: "0ms" }}>
               {eyebrow}
             </p>
           )}
-          <h1 className={`display split-h1 ${tall ? "text-[2.9rem] sm:text-7xl lg:text-[7.5rem]" : "text-5xl md:text-8xl"}`}>
-            {title}
+          <h1 aria-label={title} className={`display leading-none ${tall ? "text-[2.9rem] sm:text-7xl lg:text-[7.5rem]" : "text-5xl md:text-8xl"}`}>
+            <RollingWords text={title} />
           </h1>
           {sub && (
             <p className="num rise text-lg text-white/80 md:text-2xl" style={{ animationDelay: "200ms" }}>

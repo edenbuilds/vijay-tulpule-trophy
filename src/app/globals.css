@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-night: #0e1a12;
-  --color-green: #1b3a24;
-  --color-hover: #2f6a3a;
-  --color-paper: #f3efe4;
-  --color-cream: #f7f4ea;
-  --color-live: #8b1e1e;
-  --color-brass: #c4a36a;
-  --color-ink: #14160f;
-  --color-white: #fbf8f1;
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  /* BYQ design system "Fit Trainer", recoloured: obsidian/graphite/iron surfaces kept, cobalt swapped
+     for one outfield green. The old brief's light surfaces now map onto the dark stack. */
+  --color-night: #070908;
+  --color-green: #101512;
+  --color-iron: #1a201c;
+  --color-hover: #52d67f;
+  --color-paper: #070908;
+  --color-cream: #101512;
+  --color-live: #d4322c;
+  --color-pitch: #2ec05f;
+  --color-ink: #ffffff;
+  --color-fog: #e7e7e7;
+  --color-white: #ffffff;
+  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -29,9 +34,11 @@ body {
 h1,
 h2,
 h3 {
-  font-stretch: 112%;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
   text-wrap: balance;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 p {
@@ -79,16 +86,16 @@ p {
         .mb-arrow { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         .mb-is-pulling .mb-halo, .mb-is-pulling .mb-label { transition-duration: 0.12s; }
         .mb-magnet:hover .mb-halo, .mb-magnet:focus-visible .mb-halo { opacity: 1; }
-        .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: #fbf8f1; border-color: #fbf8f1; color: #14160f; }
+        .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: #ffffff; border-color: #ffffff; color: #070908; }
         .mb-magnet:hover .mb-arrow, .mb-magnet:focus-visible .mb-arrow { transform: translateX(3px); }
-        .mb-magnet:focus-visible .mb-label { outline: 2px solid #c4a36a; outline-offset: 3px; }
+        .mb-magnet:focus-visible .mb-label { outline: 2px solid #2EC05F; outline-offset: 3px; }
         .mb-magnet:active .mb-label { transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35)) scale(0.97); }
         @media (prefers-reduced-motion: reduce) {
           .mb-halo, .mb-label, .mb-arrow { transition-duration: 0.001ms !important; }
           .mb-halo { transform: translate(-50%, -50%) !important; }
           .mb-label { transform: none !important; }
         }
-      .mb-light:hover .mb-label, .mb-light:focus-visible .mb-label { background: #14160f; border-color: #14160f; color: #fbf8f1; }
+      .mb-light:hover .mb-label, .mb-light:focus-visible .mb-label { background: #2ec05f; border-color: #2ec05f; color: #070908; }
 
 /* BYQ gem: scroll-timeline-01 layout */
 .st-node { display: grid; grid-template-columns: 1fr 3rem 1fr; align-items: center; }
@@ -127,34 +134,28 @@ p {
   animation: sg-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
-.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(196 163 106 / 0.22), transparent 70%); }
-.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem) scale(1.02); border-color: var(--color-brass); box-shadow: 0 0 1.5rem 0.25rem rgb(196 163 106 / 0.18); }
+.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(46 192 95 / 0.22), transparent 70%); }
+.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem) scale(1.02); border-color: var(--color-pitch); box-shadow: 0 0 1.5rem 0.25rem rgb(46 192 95 / 0.18); }
 .sg-card:hover .sg-light, .sg-card:focus-within .sg-light { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   .sg-card { animation: none; }
   .sg-card:hover, .sg-card:focus-within { transform: none; }
 }
 
-/* Sports display type: Archivo at full width, heavy italic. Druk Wide from the supplied pack is a
-   trial licence, so it cannot ship; this is the open-licence stand-in. */
+/* Display type per Fit Trainer: condensed uppercase (Oswald). Body is Satoshi. */
 .display {
-  font-weight: 900;
-  font-style: italic;
-  font-stretch: 125%;
+  font-family: var(--font-display);
+  font-weight: 600;
   text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.01em;
+  line-height: 0.95;
 }
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--color-brass);
+  -webkit-text-stroke: 1.5px var(--color-pitch);
 }
 
-/* Hidden until SplitText has masked the lines, so the SSR title never flashes before its reveal. */
-.js .split-h1 { visibility: hidden; }
-@media (prefers-reduced-motion: reduce) { .js .split-h1 { visibility: visible; } }
 
-/* BYQ gem text-rotate-01, timings verbatim, skin in brass. */
+/* BYQ gem text-rotate-01, timings verbatim, skin in pitch. */
 .tr-pill {
   position: relative;
   display: inline-flex;
@@ -162,8 +163,8 @@ p {
   min-width: 2em;
   overflow: hidden;
   border-radius: 999px;
-  background: var(--color-brass);
-  color: var(--color-ink);
+  background: var(--color-pitch);
+  color: var(--color-night);
   font-weight: 700;
   transition: width 0.55s cubic-bezier(0.22, 1.1, 0.36, 1);
 }

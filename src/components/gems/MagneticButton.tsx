@@ -3,7 +3,7 @@
 import Link from "next/link";
 import * as React from "react";
 
-// BYQ gem: magnetic-button-01. Motion values verbatim; skin mapped to brass.
+// BYQ gem: magnetic-button-01. Motion values verbatim; skin mapped to pitch.
 const PULL = 26;
 
 type Props = { href: string; children: React.ReactNode; tone?: "dark" | "light" };
@@ -43,7 +43,7 @@ export function MagneticButton({ href, children, tone = "dark" }: Props) {
 
   const rest =
     tone === "dark"
-      ? "bg-brass text-ink border-brass"
+      ? "bg-pitch text-night border-pitch"
       : "bg-transparent text-ink border-ink/25";
 
   return (
@@ -54,11 +54,11 @@ export function MagneticButton({ href, children, tone = "dark" }: Props) {
     >
       <span
         aria-hidden="true"
-        className="mb-halo pointer-events-none absolute left-1/2 top-1/2 h-[4.6rem] w-[10.5rem] rounded-full opacity-0 blur-[14px]"
-        style={{ background: "radial-gradient(60% 75% at 50% 50%, rgb(196 163 106 / 0.7), rgb(196 163 106 / 0) 72%)" }}
+        className="mb-halo pointer-events-none absolute left-1/2 top-1/2 h-[4.6rem] w-[10.5rem] opacity-0 blur-[14px]"
+        style={{ background: "radial-gradient(60% 75% at 50% 50%, rgb(46 192 95 / 0.7), rgb(46 192 95 / 0) 72%)" }}
       />
       <span
-        className={`mb-label relative z-[1] inline-flex min-h-11 items-center gap-2.5 rounded-full border px-7 py-3 text-base font-semibold ${rest}`}
+        className={`mb-label relative z-[1] inline-flex min-h-11 items-center gap-2.5 border px-7 py-3 text-base font-semibold ${rest}`}
       >
         {children}
         <svg className="mb-arrow size-4 flex-none" viewBox="0 0 24 24" fill="none" aria-hidden="true">

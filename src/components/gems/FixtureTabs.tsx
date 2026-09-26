@@ -68,14 +68,14 @@ export function FixtureTabs({ days }: { days: Day[] }) {
             aria-selected={active === i}
             tabIndex={active === i ? 0 : -1}
             onClick={() => select(i)}
-            className="num min-h-11 flex-none px-4 py-3 text-sm font-medium text-ink/45 transition-colors duration-200 hover:text-ink/75 aria-selected:text-ink focus-visible:shadow-[inset_0_0_0_2px_var(--color-brass)] focus-visible:outline-none motion-reduce:transition-none md:px-5"
+            className="num min-h-11 flex-none px-4 py-3 text-sm font-medium text-ink/45 transition-colors duration-200 hover:text-night/75 aria-selected:text-ink focus-visible:shadow-[inset_0_0_0_2px_var(--color-pitch)] focus-visible:outline-none motion-reduce:transition-none md:px-5"
           >
             {d.date} <span className="font-normal">{d.day}</span>
           </button>
         ))}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-px left-0 h-0.5 rounded-t-sm bg-brass transition-[transform,width] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+          className="pointer-events-none absolute -bottom-px left-0 h-0.5 bg-pitch transition-[transform,width] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
           style={{ width: bar.width, transform: `translateX(${bar.x}px)` }}
         />
       </div>

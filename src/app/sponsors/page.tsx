@@ -19,7 +19,7 @@ export default function Sponsors() {
         <Tiers cta="Contact" />
       </Block>
       <Block title="Rights" tone="paper">
-        <dl className="grid gap-px overflow-hidden rounded-xl bg-ink/10 md:grid-cols-3">
+        <dl className="grid gap-px overflow-hidden bg-ink/10 md:grid-cols-3">
           {RIGHTS.map(([k, v]) => (
             <div key={k} className="bg-cream p-6 md:p-8">
               <dt className="text-xl font-bold">{k}</dt>
@@ -49,8 +49,8 @@ export default function Sponsors() {
             <address className="mt-6 flex flex-col gap-2 not-italic text-ink/75">
               <span className="font-semibold text-ink">Rajiv Patil, Secretary, BACA</span>
               <span>{ORG.address}</span>
-              <a className="w-fit underline decoration-brass underline-offset-4" href={`mailto:${ORG.email}`}>{ORG.email}</a>
-              <a className="num w-fit underline decoration-brass underline-offset-4" href={ORG.phoneHref}>{ORG.phone}</a>
+              <a className="w-fit underline decoration-pitch underline-offset-4" href={`mailto:${ORG.email}`}>{ORG.email}</a>
+              <a className="num w-fit underline decoration-pitch underline-offset-4" href={ORG.phoneHref}>{ORG.phone}</a>
             </address>
           </div>
         </div>
