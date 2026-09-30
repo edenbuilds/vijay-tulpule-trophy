@@ -224,3 +224,30 @@ export function Bento({ photo }: { photo: { src: string; alt: string } }) {
     </section>
   );
 }
+
+// Running order: a pitch-green rule draws down the left edge as the section scrolls in, and each step
+// rises in behind it on a 70ms stagger.
+export function Timeline({ steps }: { steps: { time?: string; what: string }[] }) {
+  const [ref, seen] = useInView<HTMLOListElement>();
+  return (
+    <ol ref={ref} className="relative grid gap-1 pl-7">
+      <span
+        aria-hidden="true"
+        className={`absolute bottom-3 left-[5px] top-3 w-0.5 origin-top bg-pitch transition-transform duration-[1200ms] ease-out motion-reduce:transition-none ${seen ? "scale-y-100" : "scale-y-0"}`}
+      />
+      {steps.map((s, i) => (
+        <li
+          key={i}
+          className={`relative rounded-xl py-3 transition-all duration-500 ease-out motion-reduce:transition-none ${seen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
+          style={{ transitionDelay: `${i * 70}ms` }}
+        >
+          <span aria-hidden="true" className="absolute -left-[27px] top-[1.15rem] size-3 rounded-full border-2 border-pitch bg-paper" />
+          <span className="num grid gap-x-4 sm:grid-cols-[4rem_1fr]">
+            <span className="font-semibold text-pitch">{s.time ?? ""}</span>
+            <span className="text-lg">{s.what}</span>
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
+}

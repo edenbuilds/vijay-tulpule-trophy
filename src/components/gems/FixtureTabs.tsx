@@ -96,14 +96,22 @@ export function FixtureTabs({ days }: { days: Day[] }) {
             <div className="flex flex-col gap-8">
               {d.slots.map((s, j) => (
                 <div key={j}>
-                  <p className="num mb-3 flex items-center gap-2 text-sm font-semibold text-pitch"><Clock aria-hidden="true" className="size-4" strokeWidth={1.8} />{s.time ?? "All day"}</p>
-                  {s.note && <p className="text-xl font-semibold">{s.note}</p>}
+                  <p className="num mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                    <span className="flex items-center gap-2 font-semibold text-pitch"><Clock aria-hidden="true" className="size-4" strokeWidth={1.8} />{s.time ?? "All day"}</span>
+                    {s.code && <span className="text-ink/55">{s.code}</span>}
+                  </p>
+                  {s.note && (
+                    <div className="lift rounded-2xl bg-mist p-5 hover:bg-mint">
+                      <p className="text-lg font-semibold">{s.note}</p>
+                      {s.venue && <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/55"><MapPin aria-hidden="true" className="size-3.5" strokeWidth={1.8} />{s.venue}</p>}
+                    </div>
+                  )}
                   {s.matches && (
                     <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                       {s.matches.map((m, k) => (
                         <li key={k} className="lift rounded-2xl bg-mist p-5 hover:bg-mint">
                           <p className="text-lg font-semibold">{m}</p>
-                          <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/55"><MapPin aria-hidden="true" className="size-3.5" strokeWidth={1.8} />Venue TBC</p>
+                          <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/55"><MapPin aria-hidden="true" className="size-3.5" strokeWidth={1.8} />{s.venue ?? "Venue TBC"}</p>
                         </li>
                       ))}
                     </ul>

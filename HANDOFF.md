@@ -28,6 +28,18 @@ Pauses on hover/focus; static and scrollable under reduced motion.
 Micro-interactions: `.press` (tap scale), `.lift` (hover rise), `.u-grow` (underline draw) in globals.css;
 logo ball spins on hover; quick-link icons tilt.
 
+## Source documents (added 30-09-2026)
+From `~/Downloads`: `vijay tulpule trophy 2027.docx` (committee working book, 25-09-2026), `Appeal for Sponsorship 08.07.26 2.pdf`,
+`Bomnay Advocates cricket Association 2.pdf` (scanned letter to NAREDCO, 30-01-2026; OCR'd with macOS Vision).
+Public facts only went to the site (`EVENT`, `HISTORY`, `CEREMONIES`, `AWARDS`, `PARTNERS`, `TERMS`, fixture codes and grounds in
+`src/lib/site.ts`). Kept off the site on purpose: the ₹1 crore budget, hotel room allotment, cash points, seating, Board agenda, to-do list.
+Conflicts: the January letter says 35 overs and lower tier prices; the site follows the later documents (50 overs, July appeal tiers).
+Pages: `/ceremonies` (opening, ceremonial sitting, trophy evening, animated `Timeline`), `/downloads`.
+
+## Downloads
+`public/downloads/vtt-2026-fixtures.pdf` and `vtt-2026-sponsorship.pdf` are built from `site.ts` by `npm run downloads`
+(headless Chrome). Rerun and commit after changing fixtures, tiers or terms. `/vtt-2026.ics` is a static route built from `FIXTURES`.
+
 ## Photos
 Placeholders are hotlinked from Wikimedia Commons (`PHOTOS` in `src/lib/site.ts`), credited in the footer. None shows a confirmed venue. Replace with the organisers' photos, move them to `public/img`, drop the credits line.
 
@@ -37,7 +49,7 @@ Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re
 
 ## Blocked / TBC
 - Real ground or match photography not supplied (Commons placeholders in use).
-- Stream URL, team names, grounds: TBC in the brief.
+- Stream URL, team names, ground names: TBC. Ceremonial sitting date (16 or 17 Oct) not locked by the Board yet.
 - Contact form: needs `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM` on Vercel plus a verified Resend domain. Until then it returns an honest error naming the organiser's email.
 
 ## Paste-ready prompt for the next session

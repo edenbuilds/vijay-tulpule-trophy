@@ -7,7 +7,8 @@ import StackingCards from "@/components/effects/stacking-cards";
 import { ScoreTicker, ScrubText } from "@/components/Motion";
 import { Bento, Block, Hero, StatBar } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
-import { PHOTOS } from "@/lib/site";
+import { EVENT, PHOTOS } from "@/lib/site";
+import { Downloads } from "@/components/Downloads";
 
 const KNOCKOUT = [
   { num: "01", title: "Group stage", line: "18–20 October. Four groups of four. Top two go through.", photo: PHOTOS.saturday },
@@ -30,7 +31,7 @@ export default function Home() {
   return (
     <>
       <Hero eyebrow="Bombay Advocates’ Cricket Association" title="Late Vijay Tulpule Trophy 2026"
-        marquee={["16 teams", "4 groups", "32 matches", "Mumbai", "Navi Mumbai"]}
+        marquee={["16 teams", "4 groups", "32 matches", `${EVENT.overs} overs`, "Mumbai", "Navi Mumbai"]}
         row={["17–24 October 2026", "Mumbai and Navi Mumbai", "Final 24 October"]}
         photo={PHOTOS.whites}
         tall
@@ -54,7 +55,7 @@ export default function Home() {
         ))}
       </nav>
 
-      <ScoreTicker items={["Late Vijay Tulpule Trophy", "2026", "Mumbai", "Navi Mumbai"]} />
+      <ScoreTicker items={["Late Vijay Tulpule Trophy", EVENT.edition, "Mumbai", "Navi Mumbai"]} />
 
       <StatBar items={[["16", "teams"], ["4", "groups"], ["32", "matches"], ["17–24 Oct", "dates"]]} />
 
@@ -72,10 +73,10 @@ export default function Home() {
           </div>
           <ul className="rule text-ink/80">
             {[
-              ["17 Oct", "07:00", "Opening ceremony, Main Ground"],
+              ["17 Oct", "07:00", "Opening and medals, Main Ground"],
               ["18 Oct", "09:00", "League, 8 matches"],
               ["21 Oct", "", "Reserve day"],
-              ["24 Oct", "09:00", "Final"],
+              ["24 Oct", "09:00", "Final, trophy evening 17:15"],
             ].map(([d, t, what]) => (
               <li key={d} className="row-line border-b border-dashed border-ink/15">
                 <Link href="/fixtures" className="num grid grid-cols-[5.5rem_1fr] items-baseline gap-4 py-5 md:grid-cols-[7rem_4rem_1fr]">
@@ -125,6 +126,10 @@ export default function Home() {
 
       <Block title="Sponsors" kicker="Partners" tone="cream">
         <Tiers />
+      </Block>
+
+      <Block title="Downloads" kicker="Take it with you" tone="paper">
+        <Downloads />
       </Block>
 
       <section className="px-2 pt-2">

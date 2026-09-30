@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CurtainPortrait } from "@/components/gems/CurtainPortrait";
 import { Block } from "@/components/Sections";
 
@@ -51,8 +52,9 @@ export default function Trophy() {
 
       <Block title="Presentation" tone="night">
         <p className="num max-w-2xl text-lg text-ink/75 md:text-xl">
-          Trophy presented on 24 October after the final. Winning captain receives it.
+          Presented on 24 October, straight after the final. The Head of the Association hands it to the winning captain.
         </p>
+        <Link href="/ceremonies#final" className="mt-8 inline-block text-base font-semibold underline decoration-pitch decoration-2 underline-offset-8 transition-colors hover:text-pitch">Trophy evening running order</Link>
       </Block>
     </>
   );

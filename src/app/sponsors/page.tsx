@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { Downloads } from "@/components/Downloads";
 import { Block, Hero } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
-import { ORG, PHOTOS } from "@/lib/site";
+import { ORG, PARTNERS, PHOTOS, TERMS } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Sponsors" };
 
@@ -11,12 +12,32 @@ const RIGHTS = [
   ["Live picture", "Max two logos."],
 ];
 
+const MOMENTS = ["Opening", "End of the league", "Final", "Every venue"];
+
 export default function Sponsors() {
   return (
     <>
       <Hero title="Sponsors" sub="Ground boards, programme, stream" photo={PHOTOS.crowd} />
       <Block tone="cream">
         <Tiers cta="Contact" />
+        <p className="mt-8 max-w-3xl text-lg text-ink/70">
+          Every sponsor is named, by tier, at these moments. Sizes and placings follow the tier.
+        </p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {MOMENTS.map((m) => (
+            <li key={m} className="lift rounded-full bg-mint px-4 py-2 font-medium">{m}</li>
+          ))}
+        </ul>
+      </Block>
+      <Block title="Partner roles" tone="paper">
+        <dl className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {PARTNERS.map(([k, v]) => (
+            <div key={k} className="lift rounded-2xl bg-mist p-6 hover:bg-mint md:p-8">
+              <dt className="text-xl font-bold">{k}</dt>
+              <dd className="mt-3 text-ink/70">{v}</dd>
+            </div>
+          ))}
+        </dl>
       </Block>
       <Block title="Rights" tone="paper">
         <dl className="grid gap-2 md:grid-cols-3">
@@ -42,7 +63,7 @@ export default function Sponsors() {
               <dt className="text-ink/50">Account</dt>
               <dd>000110210000057</dd>
             </dl>
-            <p className="mt-4 text-ink/60">Receipt issued.</p>
+            <p className="mt-4 text-ink/60">NEFT, RTGS, UPI or net banking. Receipt issued.</p>
           </div>
           <div>
             <h2 className="display text-3xl md:text-4xl">Contact</h2>
@@ -54,6 +75,16 @@ export default function Sponsors() {
             </address>
           </div>
         </div>
+      </Block>
+      <Block title="Terms" tone="paper">
+        <ol className="grid max-w-3xl gap-4 text-lg text-ink/75">
+          {TERMS.map((t, i) => (
+            <li key={i} className="num grid grid-cols-[2rem_1fr]"><span className="font-semibold text-pitch">{i + 1}</span>{t}</li>
+          ))}
+        </ol>
+      </Block>
+      <Block title="Sponsorship brief" tone="cream">
+        <Downloads only={["Sponsorship"]} />
       </Block>
     </>
   );
