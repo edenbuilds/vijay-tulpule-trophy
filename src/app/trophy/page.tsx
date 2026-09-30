@@ -12,7 +12,7 @@ export default function Trophy() {
         <div className="rounded-2xl bg-mist px-4 pb-12 pt-24 md:px-10 md:pb-16 md:pt-32">
           <h1 className="display rise text-5xl md:text-8xl">Vijay Tulpule</h1>
           <p className="rise mt-4 text-xl text-ink/65 md:text-2xl" style={{ animationDelay: "100ms" }}>
-            Trophy named after him
+            The trophy carries his name
           </p>
         </div>
       </section>
@@ -36,7 +36,7 @@ export default function Trophy() {
       <Block tone="cream">
         <div className="grid items-end gap-10 md:grid-cols-[1fr_minmax(0,20rem)] md:gap-20">
           <p className="num order-2 max-w-xl text-xl leading-relaxed md:order-1 md:text-2xl">
-            Bombay High Court Full Court Reference, 17 November 2017.
+            The Bombay High Court held a Full Court Reference in his memory on 17 November 2017.
           </p>
           <CurtainPortrait
             src="/img/tulpule-formal.jpg"

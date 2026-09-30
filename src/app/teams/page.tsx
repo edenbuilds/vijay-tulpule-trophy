@@ -8,14 +8,14 @@ export const metadata: Metadata = { title: "Teams" };
 export default function Teams() {
   return (
     <>
-      <Hero title="Teams" sub="16 teams · 4 groups · top two qualify · names TBC" photo={PHOTOS.casual} />
+      <Hero title="Teams" sub="Sixteen teams in four groups. The top two in each group reach the quarter-finals." photo={PHOTOS.casual} />
       {GROUPS.map((g, gi) => (
         <Block key={g.name} title={`Group ${g.name}`} tone={gi % 2 ? "cream" : "paper"}>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {g.teams.map((t, i) => (
               <SpotlightCard key={t} index={i} className={`border-ink/10 p-6 ${gi % 2 ? "bg-paper" : "bg-mist"}`}>
                 <h3 className="text-3xl font-bold">Team {t}</h3>
-                <p className="mt-5 text-ink/60">Name TBC</p>
+                <p className="mt-5 text-ink/60">Name to be announced</p>
                 <p className="num text-ink/60">15-player squad</p>
               </SpotlightCard>
             ))}

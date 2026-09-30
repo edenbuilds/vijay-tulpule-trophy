@@ -38,6 +38,11 @@ export function Hero({
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
+        ".g-drift",
+        { yPercent: 0 },
+        { yPercent: 12, ease: "none", scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 } },
+      );
+      gsap.fromTo(
         ".f-ball",
         { x: 0, y: 0, rotation: 0 },
         { x: tall ? -180 : -80, y: tall ? 360 : 140, rotation: 420, ease: "none", scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 } },
@@ -51,6 +56,7 @@ export function Hero({
   return (
     <section ref={root} className="px-2 pt-2">
       <div className={`relative overflow-hidden rounded-2xl ${tall ? "bg-mint" : "bg-mist"}`}>
+        <Ground />
         <div aria-hidden="true" className={`f-ball pointer-events-none absolute z-[1] ${tall ? "right-[8%] top-6 md:right-[12%] md:top-16" : "right-6 top-6 md:right-[46%]"}`}>
           <Ball className={tall ? "size-9 md:size-16" : "size-8 md:size-12"} />
         </div>
@@ -61,6 +67,7 @@ export function Hero({
             <h1 aria-label={title} className="display rise max-w-[14ch] text-[2.75rem] !leading-[1.3] sm:text-7xl lg:text-[7rem]" style={{ animationDelay: "100ms" }}>
               <RollingWords text={title} />
             </h1>
+            {sub && <p className="rise max-w-2xl text-lg text-ink/70 md:text-xl" style={{ animationDelay: "200ms" }}>{sub}</p>}
             {marquee && <Marquee words={marquee} />}
             {children && (
               <div className="rise flex flex-wrap items-center justify-center gap-4" style={{ animationDelay: "400ms" }}>
@@ -76,7 +83,7 @@ export function Hero({
             )}
           </div>
         ) : (
-          <div className="grid gap-6 p-4 pt-20 md:grid-cols-[1.15fr_1fr] md:gap-10 md:p-3 md:pl-10">
+          <div className="relative grid gap-6 p-4 pt-20 md:grid-cols-[1.15fr_1fr] md:gap-10 md:p-3 md:pl-10">
             <div className="flex flex-col items-start justify-end gap-5 md:pb-10">
               {eyebrow && <p className={`rise ${label}`}>{eyebrow}</p>}
               <h1 aria-label={title} className="display rise text-5xl !leading-[1.3] md:text-8xl" style={{ animationDelay: "100ms" }}>
@@ -92,6 +99,32 @@ export function Hero({
         {tall && photo && <ParallaxPhoto {...photo} className="m-2 mt-10 h-[44svh] rounded-xl md:m-3 md:mt-14 md:h-[62svh]" priority />}
       </div>
     </section>
+  );
+}
+
+// Hero background: a ground seen from above. Mowing stripes across the tile, then the boundary, the
+// 30-yard circle and the pitch with its creases draw themselves in once, in pitch green at low contrast
+// so the title stays readable. It drifts slower than the page as you scroll.
+function Ground() {
+  const line = "g-draw fill-none stroke-pitch";
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 1600 1000"
+      preserveAspectRatio="xMidYMid slice"
+      className="g-drift pointer-events-none absolute inset-0 size-full"
+    >
+      {Array.from({ length: 8 }, (_, i) => (
+        <rect key={i} x={i * 200} y="0" width="100" height="1000" className="fill-pitch/[0.035]" />
+      ))}
+      <g strokeWidth="2" opacity="0.28" vectorEffect="non-scaling-stroke">
+        <ellipse pathLength={1} cx="800" cy="500" rx="740" ry="455" className={line} />
+        <rect pathLength={1} x="530" y="250" width="540" height="500" rx="250" className={line} style={{ animationDelay: "300ms" }} />
+        <rect pathLength={1} x="772" y="390" width="56" height="220" className={line} style={{ animationDelay: "600ms" }} />
+        <path pathLength={1} d="M752 418 H848 M752 582 H848" className={line} style={{ animationDelay: "800ms" }} />
+      </g>
+      <rect x="772" y="390" width="56" height="220" className="fill-sage/50" />
+    </svg>
   );
 }
 
@@ -216,8 +249,8 @@ export function Bento({ photo }: { photo: { src: string; alt: string } }) {
             <p className="text-paper/75">matches, 17–24 October</p>
           </div>
           <div className={`flex min-h-44 flex-col justify-end gap-1 rounded-2xl bg-sage p-8 ${t[4].className}`} style={t[4].style}>
-            <p className="display text-2xl">Since 1993</p>
-            <p className="text-ink/65">Hosted by BACA, Mumbai</p>
+            <p className="display text-2xl">Third time in Mumbai</p>
+            <p className="text-ink/65">After 1993 and 2005</p>
           </div>
         </div>
       </div>

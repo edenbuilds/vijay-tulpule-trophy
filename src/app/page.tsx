@@ -14,14 +14,14 @@ const KNOCKOUT = [
   { num: "01", title: "Group stage", line: "18–20 October. Four groups of four. Top two go through.", photo: PHOTOS.saturday },
   { num: "02", title: "Quarter-finals", line: "22 October. A1 v B2, B1 v A2, C1 v D2, D1 v C2.", photo: PHOTOS.casual },
   { num: "03", title: "Semi-finals", line: "23 October, from 09:00.", photo: PHOTOS.tower },
-  { num: "04", title: "Final", line: "24 October, from 09:00. Trophy presented in the evening.", photo: PHOTOS.field },
+  { num: "04", title: "Final", line: "24 October at 09:00. The trophy is presented at 17:15.", photo: PHOTOS.field },
 ];
 
 const LINKS = [
-  { href: "/fixtures", label: "Fixtures", line: "Day by day, 17–24 Oct", Icon: CalendarDays, bg: "bg-mint" },
-  { href: "/teams", label: "Teams", line: "16 teams in 4 groups", Icon: Users, bg: "bg-mist" },
-  { href: "/format", label: "Format", line: "Points and tie-breaks", Icon: ListOrdered, bg: "bg-mist" },
-  { href: "/sponsors", label: "Sponsors", line: "Boards, programme, stream", Icon: Handshake, bg: "bg-sage" },
+  { href: "/fixtures", label: "Fixtures", line: "Every match, day by day", Icon: CalendarDays, bg: "bg-mint" },
+  { href: "/teams", label: "Teams", line: "Sixteen teams in four groups", Icon: Users, bg: "bg-mist" },
+  { href: "/format", label: "Format", line: "Points, tie-breaks and awards", Icon: ListOrdered, bg: "bg-mist" },
+  { href: "/sponsors", label: "Sponsors", line: "Four tiers, from ₹5 lakh", Icon: Handshake, bg: "bg-sage" },
 ];
 
 const arrow = "text-base font-semibold underline decoration-pitch decoration-2 underline-offset-8 transition-colors hover:text-pitch";
@@ -30,9 +30,10 @@ const kicker = "text-xs font-medium uppercase tracking-[0.08em] text-ink/60";
 export default function Home() {
   return (
     <>
-      <Hero eyebrow="Bombay Advocates’ Cricket Association" title="Late Vijay Tulpule Trophy 2026"
+      <Hero eyebrow={EVENT.edition} title="Late Vijay Tulpule Trophy 2026"
+        sub="Advocates from fifteen High Courts and the Supreme Court play for the trophy over eight days in Mumbai and Navi Mumbai."
         marquee={["16 teams", "4 groups", "32 matches", `${EVENT.overs} overs`, "Mumbai", "Navi Mumbai"]}
-        row={["17–24 October 2026", "Mumbai and Navi Mumbai", "Final 24 October"]}
+        row={["17–24 October 2026", "Hosted by BACA", "Final on 24 October"]}
         photo={PHOTOS.whites}
         tall
       >
@@ -67,7 +68,7 @@ export default function Home() {
             <p className={kicker}>Next</p>
             <h2 className="display mt-3 text-3xl md:text-5xl">League starts 18 October</h2>
             <p className="mt-5 max-w-md text-lg text-ink/70">
-              8 matches on day one. 09:00 session, then 14:30 if lights are confirmed.
+              Eight matches on day one: four at 09:00, and four at 14:30 if the lights are certified.
             </p>
             <Link href="/fixtures" className={`mt-8 inline-block ${arrow}`}>All fixtures</Link>
           </div>
@@ -86,7 +87,7 @@ export default function Home() {
                 </Link>
               </li>
             ))}
-            <li className="pt-4 text-sm text-ink/50">Grounds TBC</li>
+            <li className="pt-4 text-sm text-ink/50">Ground names to be announced</li>
           </ul>
         </div>
       </Block>
@@ -128,7 +129,7 @@ export default function Home() {
         <Tiers />
       </Block>
 
-      <Block title="Downloads" kicker="Take it with you" tone="paper">
+      <Block title="Downloads" tone="paper">
         <Downloads />
       </Block>
 
@@ -136,7 +137,7 @@ export default function Home() {
         <div className="flex flex-wrap items-end justify-between gap-8 rounded-2xl bg-pitch px-6 py-14 text-paper md:px-12 md:py-20">
           <div>
             <h2 className="display text-3xl md:text-5xl">Contact</h2>
-            <p className="mt-4 text-lg text-paper/75">Teams, media, sponsors. Message the organisers.</p>
+            <p className="mt-4 text-lg text-paper/75">Write to the organisers about teams, media or sponsorship.</p>
           </div>
           <MagneticButton href="/contact" tone="onDark">Contact</MagneticButton>
         </div>

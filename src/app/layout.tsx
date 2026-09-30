@@ -13,7 +13,7 @@ const satoshi = localFont({ variable: "--font-satoshi", src: "./fonts/Satoshi-Va
 export const metadata: Metadata = {
   title: { default: "Late Vijay Tulpule Trophy 2026", template: "%s · Late Vijay Tulpule Trophy 2026" },
   description:
-    "Official site of the Late Vijay Tulpule Trophy 2026. Hosted by the Bombay Advocates’ Cricket Association. 16 teams, Mumbai, 17–24 October.",
+    "Fixtures, format and sponsorship for the Late Vijay Tulpule Trophy 2026, the 38th All India Advocates’ Cricket Tournament. Sixteen teams, Mumbai and Navi Mumbai, 17–24 October.",
 };
 
 export const viewport: Viewport = { themeColor: "#f1f4ea" };

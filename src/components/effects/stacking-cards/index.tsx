@@ -12,7 +12,7 @@ const data = GROUPS.map((g, i) => ({
   title: g.teams.map((t) => `Team ${t}`).join(" · "),
   image: IMAGES[i].src,
   backgroundColor: i % 2 ? "bg-sage" : "bg-mint",
-  description: "Team names TBC. Top two go through to the quarter-finals.",
+  description: "Team names to be announced. The top two reach the quarter-finals.",
 }));
 
 export default function StackingCards({

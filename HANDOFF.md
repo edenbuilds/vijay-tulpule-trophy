@@ -19,6 +19,13 @@ No Live page or Live button (removed by request). Red appears only on the cricke
 - Home: icon quick-link tiles (lucide-react), scoreboard ticker, stat tiles, BYQ **babka-bento-3** (`Bento`), fixtures list, BYQ gem **sticky-media-swap-01** for the knockout stages, Hyperiux **stacking-cards** with photos, scroll char reveal, sponsor tiers.
 - Gems kept: magnetic-button-01 (pill), tab-underline-01 (fixtures, with clock/pin icons), curtain-image-reveal-01, spotlight-glow-cards-01 (lift only). Page sweep overlay in pitch green.
 
+## Nav and hero (30-09-2026)
+`Nav.tsx`: floating white bar inset 8px, hides on scroll down past 240px and returns on scroll up (ignores <4px moves because
+Lenis fires repeat events at rest). A mint pill slides to the hovered link and back to the current page; it measures the `<li>`.
+Phone menu expands inside the same bar with staggered large links. Hero background (`Ground` in `Sections.tsx`): mowing stripes
+plus boundary, 30-yard circle, pitch and creases drawn in once, drifting on scroll.
+Copy follows petergyang/no-ai-slop: plain full sentences, specific facts, "to be announced" instead of TBC in visible copy.
+
 ## News strip
 `src/components/NewsStrip.tsx`, under the nav on every page. It rolls through `RESULTS` (newest first) then
 fixtures still to come from `FIXTURES`, both in `src/lib/site.ts`. To post a result, append

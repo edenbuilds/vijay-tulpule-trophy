@@ -17,7 +17,7 @@ const MOMENTS = ["Opening", "End of the league", "Final", "Every venue"];
 export default function Sponsors() {
   return (
     <>
-      <Hero title="Sponsors" sub="Ground boards, programme, stream" photo={PHOTOS.crowd} />
+      <Hero title="Sponsors" sub="Four tiers, from ₹5 lakh to ₹15 lakh and above." photo={PHOTOS.crowd} />
       <Block tone="cream">
         <Tiers cta="Contact" />
         <p className="mt-8 max-w-3xl text-lg text-ink/70">

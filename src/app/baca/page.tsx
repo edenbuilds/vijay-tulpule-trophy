@@ -21,7 +21,7 @@ const COMMITTEE = [
 export default function Baca() {
   return (
     <>
-      <Hero title="Bombay Advocates’ Cricket Association" sub="Host club" photo={PHOTOS.field} />
+      <Hero title="Bombay Advocates’ Cricket Association" sub="Hosts of the 2026 tournament" photo={PHOTOS.field} />
       <Block tone="paper">
         <div className="num grid max-w-4xl gap-4 text-lg text-ink/75 md:text-xl">
           <p>Public trust, 1993. Registration No. 797/1993 / 4BBSD.</p>

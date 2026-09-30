@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Ceremonies" };
 export default function Ceremonies() {
   return (
     <>
-      <Hero title="Ceremonies" sub="Opening, ceremonial sitting, trophy evening" photo={PHOTOS.crowd} />
+      <Hero title="Ceremonies" sub="The opening, a formal sitting and the trophy evening." photo={PHOTOS.crowd} />
       <nav aria-label="Ceremonies" className="grid grid-cols-3 gap-2 px-2 pt-2">
         {CEREMONIES.map((c, i) => (
           <a key={c.id} href={`#${c.id}`} className={`lift press flex min-h-28 flex-col justify-between rounded-2xl p-4 hover:bg-sage md:min-h-36 md:p-8 ${i === 1 ? "bg-mist" : "bg-mint"}`}>

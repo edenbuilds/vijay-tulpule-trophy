@@ -126,7 +126,7 @@ export const CEREMONIES: Ceremony[] = [
     title: "Opening",
     when: "Sat 17 Oct, 07:00–08:40",
     where: "Main Ground",
-    line: "All sixteen squads on the ground before the first league day.",
+    line: "All sixteen squads meet on the Main Ground the day before the league starts.",
     steps: [
       { time: "07:00", what: "Teams assemble" },
       { what: "National Anthem" },
@@ -141,7 +141,7 @@ export const CEREMONIES: Ceremony[] = [
     title: "Ceremonial sitting",
     when: "16:00–18:00, date to be announced",
     where: "D.Y. Patil Law College Auditorium",
-    line: "A formal sitting for the players, guests and sponsors. Entry by accreditation only.",
+    line: "A formal sitting for players, guests and sponsors. Entry with accreditation only.",
     steps: [
       { time: "16:00", what: "Doors open" },
       { time: "16:15", what: "Lighting of the lamp and National Anthem" },

@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Downloads" };
 export default function DownloadsPage() {
   return (
     <>
-      <Hero title="Downloads" sub="Fixtures, calendar and sponsorship" photo={PHOTOS.tent} />
+      <Hero title="Downloads" sub="The fixtures and the sponsorship brief as PDFs, and every match day for your calendar." photo={PHOTOS.tent} />
       <Block tone="paper">
         <Downloads />
       </Block>
