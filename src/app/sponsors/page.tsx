@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Downloads } from "@/components/Downloads";
 import { Block, Hero } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
-import { ORG, PARTNERS, PHOTOS, TERMS } from "@/lib/site";
+import { ORG, PARTNERS, TERMS } from "@/lib/site";
+import { PH } from "@/lib/photos";
 
 export const metadata: Metadata = { title: "Sponsors" };
 
@@ -17,7 +18,7 @@ const MOMENTS = ["Opening", "End of the league", "Final", "Every venue"];
 export default function Sponsors() {
   return (
     <>
-      <Hero title="Sponsors" sub="Four tiers, from ₹5 lakh to ₹15 lakh and above." photo={PHOTOS.crowd} />
+      <Hero title="Sponsors" sub="Four tiers, from ₹5 lakh to ₹15 lakh and above." photo={PH.sponsors} />
       <Block tone="cream">
         <Tiers cta="Contact" />
         <p className="mt-8 max-w-3xl text-lg text-ink/70">

@@ -18,6 +18,7 @@ export const FOOTER_LINKS = [
   { href: "/sponsors", label: "Sponsors" },
   { href: "/downloads", label: "Downloads" },
   { href: "/about", label: "About BACA" },
+  { href: "/poem", label: "Poem" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -213,15 +214,3 @@ export const DOWNLOADS = [
   { href: "/downloads/vtt-2026-sponsorship.pdf", label: "Sponsorship", line: "Tiers, rights, terms and payment. A4 PDF.", kind: "PDF" },
   { href: "/downloads/baca-logo-pack.zip", label: "BACA logo pack", line: "The seal in colour, gold, ink, green and white, plus lockups. PNG.", kind: "ZIP" },
 ];
-
-// Photos supplied by BACA (src/lib/gallery.ts). Captions stay generic until the people, grounds and years are named.
-const shot = (id: number, alt: string) => ({ src: `/gallery/${id}.jpg`, alt });
-export const PHOTOS = {
-  whites: shot(85, "Teams in white after a past tournament"),
-  tower: shot(72, "A team group photograph"),
-  tent: shot(20, "Players and officials together on the ground"),
-  field: shot(109, "A team photograph from a past tournament"),
-  casual: shot(11, "A team posing together"),
-  saturday: shot(56, "Teams gathered on the ground"),
-  crowd: shot(23, "Players and supporters in a group photograph"),
-};

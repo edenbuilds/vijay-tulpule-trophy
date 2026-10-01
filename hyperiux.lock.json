@@ -36,6 +36,55 @@
         "src/components/effects/parallax-gallery/index.tsx": "sha256:ff6d69edc9208a08f045d4b6c3504cd8fee845870ab87135c11cd61a786e3888",
         "src/components/effects/parallax-gallery/ParallaxGallery.tsx": "sha256:d74bcc723ada1f92d1a877881e11814c8d289291213c040b83529440b97f2942"
       }
+    },
+    "number-counter": {
+      "version": "1.0.1",
+      "installedAt": "2026-10-01T08:27:22.083Z",
+      "files": {
+        "src/components/effects/number-counter/index.tsx": "sha256:81aefa0aa85e943e39d6a8fa43a4a140ba968029b65f2ae438fe472e09de1a06",
+        "src/components/effects/number-counter/NumberCounterOne.tsx": "sha256:4b7916ce70aa664fa56d72a07a76a2f76cb9a07abd42a30de56479b1027a9288",
+        "src/components/effects/number-counter/NumberCounterTwo.tsx": "sha256:dab6cbc2a6dbf854369449e6d2915e39adefdf6584ffe1231396dc4ee52353de",
+        "src/components/effects/number-counter/NumberCounterThree.tsx": "sha256:582fbe3566a307fe2f457f05a69e1b3a66e6db02317b633dcd39b79d07ee8e70"
+      }
+    },
+    "slide-text-reveal": {
+      "version": "1.1.0",
+      "installedAt": "2026-10-01T08:27:33.213Z",
+      "files": {
+        "src/components/effects/slide-text-reveal/index.tsx": "sha256:5ae81ceddc950c69567c21f9ef617e84cf02b79a5125c2952a279803f71c87fc"
+      }
+    },
+    "scramble-text": {
+      "version": "1.0.1",
+      "installedAt": "2026-10-01T08:27:40.219Z",
+      "files": {
+        "src/components/effects/scramble-text/index.tsx": "sha256:187854cac339a9c3a0659f715cc097e4a721cf3f3590efc0e3d627484e1da73a"
+      }
+    },
+    "animated-faq": {
+      "version": "1.0.1",
+      "installedAt": "2026-10-01T08:27:45.882Z",
+      "files": {
+        "src/components/effects/animated-faq/index.tsx": "sha256:47d950a25ba2c6b22d332a63a80f611dc876752401cfbea6960410fb32af5445",
+        "src/components/effects/animated-faq/AnimatedFaqComp.tsx": "sha256:70dedbf190e2734d53ad5a9ddb99e5f91a38cc5df9a030b9fc25e58c6979adb0"
+      }
+    },
+    "draggable-marquee": {
+      "version": "1.0.1",
+      "installedAt": "2026-10-01T08:27:52.081Z",
+      "files": {
+        "src/components/effects/draggable-marquee/index.tsx": "sha256:ff01e9719757debc85b36a91004d2f937e7b92a01f4082ebc1ff9262ac5fec4f",
+        "src/components/effects/draggable-marquee/DraggableMarqueeComp.tsx": "sha256:8e885a0dbb36c93648c048a5424620a9b86fc588ecf5ebb23a3690536e3a0302",
+        "src/components/effects/draggable-marquee/createSuspendedRaf.ts": "sha256:98c2603a726099abd22e6efe779f31b5bb392ad5a608bf8fbd47c7a7f242d367"
+      }
+    },
+    "horizontal-feature-reveal": {
+      "version": "1.1.0",
+      "installedAt": "2026-10-01T08:27:57.515Z",
+      "files": {
+        "src/components/effects/horizontal-feature-reveal/index.tsx": "sha256:eddd4a96ef316fbd3a8140b73c145e81a8cddf3719fcd869be8c815c93bdf860",
+        "src/components/effects/horizontal-feature-reveal/HorizontalFeatureRevealComp.tsx": "sha256:4c23c1faacb714e16568c4175834c96bd7240191a7b9be1d17db66adf2c964f9"
+      }
     }
   }
 }

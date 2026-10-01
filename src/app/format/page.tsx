@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { AWARDS, EVENT, PHOTOS } from "@/lib/site";
+import { AWARDS, EVENT } from "@/lib/site";
+import { PH } from "@/lib/photos";
 import { Block, Hero, StatBar } from "@/components/Sections";
 
 export const metadata: Metadata = { title: "Format" };
@@ -13,7 +14,7 @@ const COLS = [
 export default function Format() {
   return (
     <>
-      <Hero title="Format" sub={`${EVENT.overs} overs a side · first ball 09:00 · 17–24 October`} photo={PHOTOS.tower} />
+      <Hero title="Format" sub={`${EVENT.overs} overs a side · first ball 09:00 · 17–24 October`} photo={PH.format} />
       <StatBar items={[["16", "teams"], [EVENT.overs, "overs a side"], ["32", "matches"], [EVENT.squad, "player squads"]]} />
       <Block tone="paper">
         <div className="grid gap-2 md:grid-cols-3">

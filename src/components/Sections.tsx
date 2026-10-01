@@ -1,35 +1,38 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Ball } from "@/components/Motion";
 import { RollingWords } from "@/components/effects/rolling-text";
+import SlideTextReveal from "@/components/effects/slide-text-reveal";
+import { Countdown } from "@/components/Countdown";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Human Intelligence hero: content sits in a 16px-radius green tile inset 8px from the page edge.
-// Home keeps the stringer-hero-4 centred stack (label, rolling title, word marquee, facts on a dashed
-// rule) with a wide placeholder photo under it; inner pages put the title bottom-left beside a photo.
-// The red cricket ball is the parallax element: it drifts and spins as you scroll. No glows, no blur.
+// Home hero ("tall"): a full tile of the team photograph under an ink wash, title bottom-left, the
+// countdown to the opening bottom-right. The photo is lifted so the team's faces sit above the title, and fades
+// into the ink tile; it drifts slower than the page as you scroll. On phones the photo is a band above the title
+// instead of behind it, because a 390px crop of a team photo is all faces.
+// Inner pages keep the quieter tile: title bottom-left beside a photo chosen for that page, on the
+// drawn ground. The red cricket ball is the parallax accent on both: it drifts and spins as you scroll.
 export function Hero({
   eyebrow,
   title,
   sub,
-  marquee,
-  row,
   photo,
   children,
   tall = false,
+  facts,
 }: {
   eyebrow?: string;
   title: string;
   sub?: React.ReactNode;
-  marquee?: string[];
-  row?: string[];
   photo?: { src: string; alt: string };
   children?: React.ReactNode;
   tall?: boolean;
+  facts?: string[];
 }) {
   const root = React.useRef<HTMLElement>(null);
 
@@ -51,52 +54,60 @@ export function Hero({
     return () => ctx.revert();
   }, [tall]);
 
-  const label = "text-xs font-medium uppercase tracking-[0.08em] text-ink/60";
+  const label = "text-xs font-medium uppercase tracking-[0.08em]";
 
-  return (
-    <section ref={root} className="px-2 pt-2">
-      <div className={`relative overflow-hidden rounded-2xl ${tall ? "bg-mint" : "bg-mist"}`}>
-        <Ground />
-        <div aria-hidden="true" className={`f-ball pointer-events-none absolute z-[1] ${tall ? "right-[8%] top-6 md:right-[12%] md:top-16" : "right-6 top-6 md:right-[46%]"}`}>
-          <Ball className={tall ? "size-9 md:size-16" : "size-8 md:size-12"} />
-        </div>
-
-        {tall ? (
-          <div className="relative mx-auto flex w-full max-w-[1400px] flex-col items-center gap-8 px-5 pt-20 text-center md:px-8 md:pt-28">
-            {eyebrow && <p className={`rise ${label}`}>{eyebrow}</p>}
-            <h1 aria-label={title} className="display rise max-w-[18ch] text-[2.5rem] !leading-[1.3] sm:text-6xl lg:text-[5.5rem]" style={{ animationDelay: "100ms" }}>
+  if (tall && photo) {
+    return (
+      <section ref={root} className="px-2 pt-2">
+        <div className="relative isolate flex min-h-[calc(100svh-8.5rem)] flex-col justify-end overflow-hidden rounded-2xl bg-ink text-paper">
+          <div className="g-drift relative -mb-24 h-[42svh] md:absolute md:inset-x-0 md:-top-[24%] md:-z-10 md:mb-0 md:h-[112%] [mask-image:linear-gradient(to_bottom,black_70%,transparent_96%)]">
+            <Image src={photo.src} alt={photo.alt} fill priority sizes="100vw" className="object-cover object-[50%_35%]" />
+          </div>
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(20_26_22/0.94)_10%,rgb(20_26_22/0.7)_46%,rgb(20_26_22/0.08)_100%)]" />
+          <div aria-hidden="true" className="f-ball pointer-events-none absolute right-[8%] top-6 z-[1] md:right-[12%] md:top-16">
+            <Ball className="size-9 md:size-16" />
+          </div>
+          <div className="relative mx-auto flex w-full max-w-[1400px] flex-col gap-6 px-5 pb-6 pt-28 md:gap-8 md:px-10 md:pb-10">
+            {eyebrow && <p className={`rise ${label} text-sage`}>{eyebrow}</p>}
+            <h1 aria-label={title} className="display rise max-w-[17ch] text-[2.5rem] !leading-[1.3] sm:text-6xl lg:text-[5.5rem]" style={{ animationDelay: "100ms" }}>
               <RollingWords text={title} />
             </h1>
-            {sub && <p className="rise max-w-2xl text-lg text-ink/70 md:text-xl" style={{ animationDelay: "200ms" }}>{sub}</p>}
-            {marquee && <Marquee words={marquee} />}
-            {children && (
-              <div className="rise flex flex-wrap items-center justify-center gap-4" style={{ animationDelay: "400ms" }}>
-                {children}
-              </div>
-            )}
-            {row && (
-              <div className="rule rise mt-6 grid w-full gap-2 pt-6 md:mt-10 md:grid-cols-3" style={{ animationDelay: "700ms" }}>
-                {row.map((r, i) => (
-                  <p key={r} className={`num ${label} ${["md:text-left", "md:text-center", "md:text-right"][i]}`}>{r}</p>
+            {sub && <p className="rise max-w-2xl text-lg text-paper/80 md:text-xl" style={{ animationDelay: "200ms" }}>{sub}</p>}
+            <div className="rise flex flex-wrap items-end justify-between gap-x-10 gap-y-8" style={{ animationDelay: "400ms" }}>
+              {children && <div className="flex flex-wrap items-center gap-4">{children}</div>}
+              <Countdown />
+            </div>
+            {facts && (
+              <div className="rise grid gap-2 border-t border-dashed border-paper/25 pt-5 md:grid-cols-3" style={{ animationDelay: "600ms" }}>
+                {facts.map((f, i) => (
+                  <p key={f} className={`num text-sm text-paper/75 md:text-base ${["md:text-left", "md:text-center", "md:text-right"][i]}`}>{f}</p>
                 ))}
               </div>
             )}
           </div>
-        ) : (
-          <div className="relative grid gap-6 p-4 pt-20 md:grid-cols-[1.15fr_1fr] md:gap-10 md:p-3 md:pl-10">
-            <div className="flex flex-col items-start justify-end gap-5 md:pb-10">
-              {eyebrow && <p className={`rise ${label}`}>{eyebrow}</p>}
-              <h1 aria-label={title} className="display rise text-5xl !leading-[1.3] md:text-8xl" style={{ animationDelay: "100ms" }}>
-                <RollingWords text={title} />
-              </h1>
-              {sub && <p className="num rise text-lg text-ink/70 md:text-2xl" style={{ animationDelay: "200ms" }}>{sub}</p>}
-              {children && <div className="rise mt-3 flex flex-wrap items-center gap-4" style={{ animationDelay: "320ms" }}>{children}</div>}
-            </div>
-            {photo && <ParallaxPhoto {...photo} className="h-56 rounded-xl md:h-[26rem]" priority />}
-          </div>
-        )}
+        </div>
+      </section>
+    );
+  }
 
-        {tall && photo && <ParallaxPhoto {...photo} className="m-2 mt-10 h-[44svh] rounded-xl md:m-3 md:mt-14 md:h-[62svh]" priority />}
+  return (
+    <section ref={root} className="px-2 pt-2">
+      <div className="relative overflow-hidden rounded-2xl bg-mist">
+        <Ground />
+        <div aria-hidden="true" className="f-ball pointer-events-none absolute right-6 top-6 z-[1] md:right-[46%]">
+          <Ball className="size-8 md:size-12" />
+        </div>
+        <div className="relative grid gap-6 p-4 pt-20 md:grid-cols-[1.15fr_1fr] md:gap-10 md:p-3 md:pl-10">
+          <div className="flex flex-col items-start justify-end gap-5 md:pb-10">
+            {eyebrow && <p className={`rise ${label} text-ink/60`}>{eyebrow}</p>}
+            <h1 aria-label={title} className="display rise text-5xl !leading-[1.3] md:text-8xl" style={{ animationDelay: "100ms" }}>
+              <RollingWords text={title} />
+            </h1>
+            {sub && <p className="num rise text-lg text-ink/70 md:text-2xl" style={{ animationDelay: "200ms" }}>{sub}</p>}
+            {children && <div className="rise mt-3 flex flex-wrap items-center gap-4" style={{ animationDelay: "320ms" }}>{children}</div>}
+          </div>
+          {photo && <ParallaxPhoto {...photo} className="h-56 rounded-xl md:h-[26rem]" priority />}
+        </div>
       </div>
     </section>
   );
@@ -128,8 +139,8 @@ function Ground() {
   );
 }
 
-// Placeholder photo that drifts inside its rounded frame on scroll (image overscaled, frame clips it).
-export function ParallaxPhoto({ src, alt, className = "", priority = false }: { src: string; alt: string; className?: string; priority?: boolean }) {
+// A photograph that drifts inside its rounded frame on scroll (image overscaled, frame clips it).
+export function ParallaxPhoto({ src, alt, className = "", priority = false, sizes = "(min-width: 768px) 50vw, 100vw" }: { src: string; alt: string; className?: string; priority?: boolean; sizes?: string }) {
   const frame = React.useRef<HTMLDivElement>(null);
   React.useLayoutEffect(() => {
     const el = frame.current;
@@ -141,8 +152,7 @@ export function ParallaxPhoto({ src, alt, className = "", priority = false }: { 
   }, []);
   return (
     <div ref={frame} className={`relative overflow-hidden bg-sage ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- hotlinked Commons placeholder; swap for next/image with local files */}
-      <img src={src} alt={alt} loading={priority ? "eager" : "lazy"} decoding="async" className="absolute inset-0 size-full scale-[1.14] object-cover" />
+      <Image src={src} alt={alt} fill priority={priority} sizes={sizes} className="scale-[1.14] object-cover" />
     </div>
   );
 }
@@ -174,35 +184,23 @@ export function Block({
   title?: string;
   kicker?: string;
   children: React.ReactNode;
-  tone?: "paper" | "cream" | "night";
+  tone?: "paper" | "cream" | "pitch";
   id?: string;
 }) {
   // "cream" is a lifted Lab Mist panel, inset like the hero tile; the other tones sit on the canvas.
-  const bg = tone === "cream" ? "mx-2 mt-2 rounded-2xl bg-mist" : "bg-paper";
+  const bg = tone === "cream" ? "mx-2 mt-2 rounded-2xl bg-mist" : tone === "pitch" ? "mx-2 mt-2 rounded-2xl bg-pitch text-paper" : "bg-paper";
   return (
     <section id={id} className={`${bg} py-16 md:py-24`}>
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        {kicker && <p className="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-ink/60">{kicker}</p>}
-        {title && <h2 className="display mb-8 text-4xl md:mb-12 md:text-6xl">{title}</h2>}
+        {kicker && <p className={`mb-3 text-xs font-medium uppercase tracking-[0.08em] ${tone === "pitch" ? "text-sage" : "text-ink/60"}`}>{kicker}</p>}
+        {title && (
+          <SlideTextReveal className="mb-8 md:mb-12">
+            <h2 className="display text-4xl md:text-6xl">{title}</h2>
+          </SlideTextReveal>
+        )}
         {children}
       </div>
     </section>
-  );
-}
-
-// stringer-hero-4 inline marquee: tripled word track scrolling a third of its width every 6s, with
-// hard-to-soft fades in the tile colour at both edges.
-function Marquee({ words }: { words: string[] }) {
-  return (
-    <div aria-hidden="true" className="rise relative w-full max-w-3xl overflow-hidden py-1" style={{ animationDelay: "250ms" }}>
-      <div className="marquee-track flex w-max gap-[0.9em] whitespace-nowrap text-2xl font-medium text-ink/55 md:text-4xl">
-        {[...words, ...words, ...words].map((w, i) => (
-          <span key={i} className="num">{w}</span>
-        ))}
-      </div>
-      <span className="pointer-events-none absolute inset-y-0 left-0 w-[30%] bg-[linear-gradient(90deg,var(--color-mint)_12%,transparent)]" />
-      <span className="pointer-events-none absolute inset-y-0 right-0 w-[30%] bg-[linear-gradient(270deg,var(--color-mint)_12%,transparent)]" />
-    </div>
   );
 }
 
@@ -217,45 +215,6 @@ function useInView<T extends HTMLElement>() {
     return () => io.disconnect();
   }, []);
   return [ref, seen] as const;
-}
-
-// BYQ section babka-bento-3: label + heading over a 4-column grid (2x2 photo, wide fact tile, stat tile,
-// place tile), each tile rising in on scroll with the section's 0/100/150/200ms stagger.
-export function Bento({ photo }: { photo: { src: string; alt: string } }) {
-  const [ref, seen] = useInView<HTMLDivElement>();
-  const tile = (delay: number) => ({
-    className: `transition-all duration-700 ease-out motion-reduce:transition-none ${seen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`,
-    style: { transitionDelay: `${delay}ms` },
-  });
-  const label = "text-xs font-medium uppercase tracking-[0.08em]";
-  const t = [tile(0), tile(0), tile(100), tile(150), tile(200)];
-  return (
-    <section className="bg-paper py-16 md:py-28">
-      <div ref={ref} className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className={`mb-10 md:mb-12 ${t[0].className}`} style={t[0].style}>
-          <p className={`${label} text-ink/60`}>In short</p>
-          <h2 className="display mt-3 text-4xl md:text-6xl">The week at a glance</h2>
-        </div>
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:[grid-auto-rows:200px] lg:grid-cols-4 lg:[grid-auto-rows:220px]">
-          <div className={`min-h-[300px] overflow-hidden rounded-2xl md:col-span-2 lg:row-span-2 ${t[1].className}`} style={t[1].style}>
-            <ParallaxPhoto {...photo} className="size-full min-h-[300px]" />
-          </div>
-          <div className={`flex min-h-44 flex-col justify-between gap-6 rounded-2xl bg-mint p-8 md:col-span-2 ${t[2].className}`} style={t[2].style}>
-            <p className="display max-w-[24ch] text-2xl md:text-4xl">Four groups of four. The top two from each go through to the quarter-finals.</p>
-            <p className={`${label} text-ink/60`}>Format</p>
-          </div>
-          <div className={`flex min-h-44 flex-col justify-end gap-1 rounded-2xl bg-pitch p-8 text-paper ${t[3].className}`} style={t[3].style}>
-            <p className="display num text-5xl md:text-6xl">32</p>
-            <p className="text-paper/75">matches, 17–24 October</p>
-          </div>
-          <div className={`flex min-h-44 flex-col justify-end gap-1 rounded-2xl bg-sage p-8 ${t[4].className}`} style={t[4].style}>
-            <p className="display text-2xl">Third time in Mumbai</p>
-            <p className="text-ink/65">After 1993 and 2005</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
 }
 
 // Running order: a pitch-green rule draws down the left edge as the section scrolls in, and each step

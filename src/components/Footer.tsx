@@ -13,7 +13,7 @@ export function Footer() {
           <div className="flex flex-col gap-4 pb-10 md:flex-row md:items-end md:justify-between">
             <p className="num display flex items-center gap-4 text-5xl md:text-7xl">
               <Image src="/brand/baca-seal.png" alt="" width={96} height={96} className="size-14 md:size-20" />
-              BACA 2026
+              BACA
             </p>
             <p className="text-lg text-ink/70 md:text-right">{ORG.name}</p>
           </div>

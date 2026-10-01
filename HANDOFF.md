@@ -16,7 +16,7 @@ No Live page or Live button (removed by request). Red appears only on the cricke
 ## Motion inventory
 - Preloader: BYQ gem **iris-wipe-preloader-01** (`src/components/gems/Preloader.tsx`), first visit per session. The % counter is swapped for the ball rolling in (brief bans counters). Head script in `layout.tsx` sets `preloading` / `no-preload`.
 - Home hero: BYQ **stringer-hero-4** in a mint tile, Hyperiux **rolling-text** title (waits for the preloader), wide parallax photo. Title leading must stay >= 1.25 (Satoshi content area) or reel glyphs bleed.
-- Home: icon quick-link tiles (lucide-react), scoreboard ticker, stat tiles, BYQ **babka-bento-3** (`Bento`), fixtures list, BYQ gem **sticky-media-swap-01** for the knockout stages, Hyperiux **stacking-cards** with photos, scroll char reveal, sponsor tiers.
+- Home (rebuilt 01-10-2026, see docs/HANDOVER.md): photo hero with countdown, quick links, number-counter stats, scroll-converging team cards (Animmaster scroll 58), pinned horizontal Programme, trophy band, gallery zoom (Animmaster grid 7), since-1989 intro with archive reel, poem teaser, FAQ, sponsors, downloads, contacts, closing photo tile. Sticky-media-swap, babka bento and stacking-cards were removed.
 - Gems kept: magnetic-button-01 (pill), tab-underline-01 (fixtures, with clock/pin icons), curtain-image-reveal-01, spotlight-glow-cards-01 (lift only). Page sweep overlay in pitch green.
 
 ## Nav and hero (30-09-2026)
@@ -50,8 +50,8 @@ Pages: `/ceremonies` (opening, ceremonial sitting, trophy evening, animated `Tim
 ## Photos
 BACA's own photographs (WhatsApp, 01-10-2026) live in `public/gallery` as `N.jpg` (1400px) and `N-s.jpg` (640px); `src/lib/gallery.ts`
 lists 49 of them by category (teams, trophies, archive). Captions stay generic until BACA names people, grounds and years.
-`PHOTOS` in `site.ts` points at a few of them for the heroes. Wikimedia placeholders and the footer credits are gone.
-To add a photo: resize to both files, add a line to `SHOTS`.
+Photos are placed only through `src/lib/photos.ts` (`PH` roles, `CONVERGE`, `ZOOM`, `ARCHIVE`), each with a comment saying why; `PHOTOS` in `site.ts` is gone. Alt text describes only what is visible.
+To add a photo: resize to both files, add a line to `SHOTS`, add its alt to `ALT` in `photos.ts`, then give it a role.
 
 ## Rebrand (01-10-2026)
 The site is now the official site of the 38th All India Advocates’ Cricket Tournament 2026, hosted by BACA, until it reverts to the
@@ -71,6 +71,10 @@ BACA Official Website. Winners get **The Vijay Tulpule Trophy** (confirmed). **R
   Font: Noto Sans Devanagari via `next/font/google`, class `.deva`. Ask the author to confirm the line "मुवक्किल कड़े, मेरा ही कहना Correct" (verse 5).
 - Hyperiux CLI `add` overwrote `globals.css` and `README.md` once: check `git status` after every add.
 
+## Second pass (01-10-2026)
+Full write-up in `docs/HANDOVER.md`: what was wrong, home section order, the photo registry and its rules, effects used and skipped (Hyperiux, Animmaster, BYQ), the `/poem` reading page, the token map for switching to BACA colours later, open items. Palette stays green until the BACA switch.
+Nav and footer wordmark read "BACA" (no year). `/poem` is linked from the footer and the phone menu. `Block` headings use slide-text-reveal.
+
 ## Hyperiux
 MCP registered at user scope: `claude mcp add -s user hyperiux -- npx -y hyperiux-mcp-server` (tools appear in a new session). CLI is logged in to Pro (`npx hyperiux whoami`). 10 installs per day.
 Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re-run init; if you do, `git checkout src/app/globals.css`.
@@ -82,8 +86,9 @@ Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re
 
 ## Paste-ready prompt for the next session
 ```
-Work in ~/vijay-tulpule-trophy. Read HANDOFF.md first, then ~/Downloads/VTT-2026-SECTION-PROMPTS.md.
-Keep the Fit Trainer tokens and the motion inventory. Never run `npx hyperiux init`.
-Task: <paste task>. Open items: Rizvi Shield/Plate details, ground names and fixtures, AIA expansion, which BACA address is current (about page vs footer). Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px, commit to main
-with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with `vercel deploy --prod`, update this file.
+Work in ~/vijay-tulpule-trophy. Read HANDOFF.md, then docs/HANDOVER.md (home order, photo registry, token map for the BACA colour switch).
+Keep the green palette until told to switch. Place photos only via src/lib/photos.ts. Never run `npx hyperiux init`.
+Task: <paste task>. Open items: Rizvi Shield/Plate details, ground names and fixtures, AIA expansion, which BACA address is current,
+whether the gold "Winner" cup is The Vijay Tulpule Trophy, poem verse 5 line 4. Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px,
+commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with `vercel deploy --prod --yes`, update this file.
 ```

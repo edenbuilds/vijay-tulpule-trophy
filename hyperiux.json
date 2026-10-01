@@ -27,6 +27,24 @@
     },
     "parallax-gallery": {
       "installedAt": "2026-10-01T07:55:06.840Z"
+    },
+    "number-counter": {
+      "installedAt": "2026-10-01T08:27:22.087Z"
+    },
+    "slide-text-reveal": {
+      "installedAt": "2026-10-01T08:27:33.215Z"
+    },
+    "scramble-text": {
+      "installedAt": "2026-10-01T08:27:40.221Z"
+    },
+    "animated-faq": {
+      "installedAt": "2026-10-01T08:27:45.885Z"
+    },
+    "draggable-marquee": {
+      "installedAt": "2026-10-01T08:27:52.084Z"
+    },
+    "horizontal-feature-reveal": {
+      "installedAt": "2026-10-01T08:27:57.518Z"
     }
   }
 }

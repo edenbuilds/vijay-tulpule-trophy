@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import ParallaxGallery from "@/components/effects/parallax-gallery";
 import { Block, Hero } from "@/components/Sections";
-import { PHOTOS } from "@/lib/site";
+import { PH } from "@/lib/photos";
 import { SHOTS } from "@/lib/gallery";
 import { GalleryGrid } from "./GalleryGrid";
 
@@ -16,7 +16,7 @@ const REEL = [85, 20, 56, 57, 72, 86, 28, 15].map((id, i) => ({ src: `/gallery/$
 export default function Gallery() {
   return (
     <>
-      <Hero title="Gallery" sub={`${SHOTS.length} photographs from BACA’s archive and past tournaments.`} photo={PHOTOS.saturday} />
+      <Hero title="Gallery" sub={`${SHOTS.length} photographs from BACA’s archive and past tournaments.`} photo={PH.gallery} />
       <div className="mt-2 bg-ink">
         <ParallaxGallery images={REEL} bgColor="#141a16" borderColor="rgba(241,244,234,0.5)" rotationDeg={5} />
       </div>

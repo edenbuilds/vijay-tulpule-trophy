@@ -1,22 +1,36 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, CalendarDays, Handshake, ListOrdered, Users } from "lucide-react";
 import { CurtainPortrait } from "@/components/gems/CurtainPortrait";
 import { MagneticButton } from "@/components/gems/MagneticButton";
-import { StickyMediaSwap } from "@/components/gems/StickyMediaSwap";
-import StackingCards from "@/components/effects/stacking-cards";
-import { ScoreTicker, ScrubText } from "@/components/Motion";
-import { Bento, Block, Hero, StatBar } from "@/components/Sections";
+import SlideTextReveal from "@/components/effects/slide-text-reveal";
+import ScrambleText from "@/components/effects/scramble-text";
+import { ScrubText } from "@/components/Motion";
+import { Block, Hero, ParallaxPhoto } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
 import { Contacts } from "@/components/Contacts";
-import { Stanza } from "@/components/Poem";
-import { EVENT, PHOTOS } from "@/lib/site";
 import { Downloads } from "@/components/Downloads";
+import { Stanza } from "@/components/Poem";
+import { ArchiveReel } from "@/components/home/ArchiveReel";
+import { Converge } from "@/components/home/Converge";
+import { Faq } from "@/components/home/Faq";
+import { GalleryZoom } from "@/components/home/GalleryZoom";
+import { Programme, type Day } from "@/components/home/Programme";
+import { Stats } from "@/components/home/Stats";
+import { SHOTS } from "@/lib/gallery";
+import { ARCHIVE, CONVERGE, PH, ZOOM } from "@/lib/photos";
+import { CONTACTS, EVENT, HISTORY } from "@/lib/site";
 
-const KNOCKOUT = [
-  { num: "01", title: "Group stage", line: "18–20 October. Four groups of four. Top two go through.", photo: PHOTOS.saturday },
-  { num: "02", title: "Quarter-finals", line: "22 October. A1 v B2, B1 v A2, C1 v D2, D1 v C2.", photo: PHOTOS.casual },
-  { num: "03", title: "Semi-finals", line: "23 October, from 09:00.", photo: PHOTOS.tower },
-  { num: "04", title: "Final", line: "24 October at 09:00. The trophy is presented at 17:15.", photo: PHOTOS.field },
+// Order of the page: the tournament (hero, where to go, the numbers, the sixteen teams, the eight days),
+// then the trophy it is played for, then the pictures and the history, then the practical end (poem, questions,
+// sponsors, downloads, contacts). Each photograph is placed by src/lib/photos.ts for a stated reason.
+const DAYS: Day[] = [
+  { date: "17 Oct", day: "Saturday", title: "Opening", line: "Medals, team photographs and the anthem at the Main Ground, from 07:00.", href: "/ceremonies#opening", photo: PH.opening },
+  { date: "18–20 Oct", day: "Sunday to Tuesday", title: "League", line: "Four groups of four. Four matches at 09:00 each day, and four at 14:30 if the lights are certified.", href: "/fixtures", photo: PH.league },
+  { date: "21 Oct", day: "Wednesday", title: "Reserve day", line: "Held back in case the weather takes a day.", href: "/fixtures" },
+  { date: "22 Oct", day: "Thursday", title: "Quarter-finals", line: "A1 v B2, B1 v A2, C1 v D2 and D1 v C2, from 09:00.", href: "/fixtures", photo: PH.quarter },
+  { date: "23 Oct", day: "Friday", title: "Semi-finals", line: "Two matches from 09:00, at the Main Ground and Ground 2.", href: "/fixtures", photo: PH.semi },
+  { date: "24 Oct", day: "Saturday", title: "Final", line: "First ball at 09:00 at the Main Ground. The trophy is presented at 17:15.", href: "/ceremonies#final", photo: PH.final },
 ];
 
 const LINKS = [
@@ -26,20 +40,37 @@ const LINKS = [
   { href: "/sponsors", label: "Sponsors", line: "Four tiers, from ₹5 lakh", Icon: Handshake, bg: "bg-sage" },
 ];
 
+const FAQ = [
+  { q: "When and where is it played?", a: "From 17 to 24 October 2026, on 8 grounds in Mumbai and Navi Mumbai. The opening is at 07:00 on 17 October. Ground names will be announced shortly." },
+  { q: "Who plays?", a: "Practising advocates from 15 High Courts and the Supreme Court of India, in 16 teams." },
+  { q: "How do the teams progress?", a: "Four groups of four, and every team plays the other three in its group. The top two in each group go through to the quarter-finals, then the semi-finals and the final." },
+  { q: "How long is a match?", a: `${EVENT.overs} overs a side. First ball is at 09:00.` },
+  { q: "What if it rains?", a: "21 October is kept as a reserve day for the weather." },
+  {
+    q: "Who do I write to about teams, media or sponsorship?",
+    a: (
+      <>
+        Use the <Link href="/contact" className="font-semibold underline decoration-pitch decoration-2 underline-offset-4">contact page</Link>, or call {CONTACTS[0].name}, {CONTACTS[0].role}, on {CONTACTS[0].phone}.
+      </>
+    ),
+  },
+];
+
 const arrow = "text-base font-semibold underline decoration-pitch decoration-2 underline-offset-8 transition-colors hover:text-pitch";
 const kicker = "text-xs font-medium uppercase tracking-[0.08em] text-ink/60";
 
 export default function Home() {
   return (
     <>
-      <Hero eyebrow="BACA proudly invites you to the 38th" title="All India Advocates’ Cricket Tournament 2026"
-        sub="Practising advocates from 15 High Courts and the Supreme Court of India battle it out on 8 cricket grounds in Mumbai and Navi Mumbai. Come, support the legal fraternity!"
-        marquee={["16 teams", "8 grounds", `${EVENT.overs} overs`, "Mumbai", "Navi Mumbai"]}
-        row={["17–24 October 2026", "Hosted by BACA", EVENT.fixturesNote]}
-        photo={PHOTOS.whites}
+      <Hero
+        eyebrow="BACA proudly invites you to the 38th"
+        title="All India Advocates’ Cricket Tournament 2026"
+        sub="Practising advocates from 15 High Courts and the Supreme Court of India battle it out on 8 cricket grounds in Mumbai and Navi Mumbai."
+        photo={PH.hero}
+        facts={["17–24 October 2026", "Hosted by BACA", `${EVENT.overs} overs a side`]}
         tall
       >
-        <MagneticButton href="/fixtures">Fixtures</MagneticButton>
+        <MagneticButton href="/fixtures" tone="onDark">Fixtures</MagneticButton>
         <MagneticButton href="/teams" tone="light">Teams</MagneticButton>
       </Hero>
 
@@ -58,72 +89,62 @@ export default function Home() {
         ))}
       </nav>
 
-      <ScoreTicker items={[EVENT.trophy, "BACA 2026", "Mumbai", "Navi Mumbai"]} />
+      <Stats items={[["16", "teams"], ["8", "grounds"], ["32", "matches"], ["8", "days"]]} />
 
-      <StatBar items={[["16", "teams"], ["8", "grounds"], ["32", "matches"], ["17–24 Oct", "dates"]]} />
+      <Converge photos={CONVERGE} />
 
-      <Bento photo={PHOTOS.tent} />
+      <Programme days={DAYS} />
 
-      <Block tone="cream">
-        <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16">
-          <div>
-            <p className={kicker}>Next</p>
-            <h2 className="display mt-3 text-3xl md:text-5xl">League starts 18 October</h2>
-            <p className="mt-5 max-w-md text-lg text-ink/70">
-              Eight matches on day one: four at 09:00, and four at 14:30 if the lights are certified.
-            </p>
-            <Link href="/fixtures" className={`mt-8 inline-block ${arrow}`}>All fixtures</Link>
-          </div>
-          <ul className="rule text-ink/80">
-            {[
-              ["17 Oct", "07:00", "Opening and medals, Main Ground"],
-              ["18 Oct", "09:00", "League, 8 matches"],
-              ["21 Oct", "", "Reserve day"],
-              ["24 Oct", "09:00", "Final, trophy evening 17:15"],
-            ].map(([d, t, what]) => (
-              <li key={d} className="row-line border-b border-dashed border-ink/15">
-                <Link href="/fixtures" className="num grid grid-cols-[5.5rem_1fr] items-baseline gap-4 py-5 md:grid-cols-[7rem_4rem_1fr]">
-                  <span className="font-semibold text-ink">{d}</span>
-                  <span className="hidden md:block">{t}</span>
-                  <span>{what}</span>
-                </Link>
-              </li>
-            ))}
-            <li className="pt-4 text-sm text-ink/50">{EVENT.fixturesNote} Ground names to follow.</li>
-          </ul>
-        </div>
-      </Block>
-
-      <section className="bg-paper pt-16 md:pt-28">
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <p className={kicker}>Road to the final</p>
-          <h2 className="display mt-3 text-4xl md:text-6xl">Knockout</h2>
-        </div>
-        <StickyMediaSwap label="Tournament stages" entries={KNOCKOUT} />
-      </section>
-
-      <StackingCards />
-      <div className="bg-paper px-4 pb-4 pt-10 md:px-8">
-        <Link href="/teams" className={`mx-auto block max-w-7xl ${arrow}`}>All teams</Link>
-      </div>
-
-      <Block tone="paper">
-        <div className="grid items-center gap-10 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-16">
+      <section className="mx-2 mt-2 rounded-2xl bg-pitch py-16 text-paper md:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-20 md:px-8">
           <CurtainPortrait
             src="/img/tulpule-informal.jpg"
             alt="Vijay Tulpule in a white shirt and suspenders"
             caption="Vijay Tulpule"
             width={508}
             height={661}
-            className="max-w-[16rem] md:max-w-none"
+            className="max-w-[16rem] md:max-w-none [&_figcaption]:text-paper/70"
           />
           <div>
-            <p className={kicker}>Trophy</p>
-            <ScrubText className="display mt-3 max-w-xl text-2xl leading-snug md:text-4xl">
-              The winners receive The Vijay Tulpule Trophy, named after the Bombay advocate and former Ranji Trophy probable.
-            </ScrubText>
-            <Link href="/trophy" className={`mt-8 inline-block ${arrow}`}>About the trophy</Link>
+            <p className="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-sage">The trophy</p>
+            <SlideTextReveal className="display text-4xl md:text-7xl">
+              <h2>The Vijay Tulpule Trophy</h2>
+            </SlideTextReveal>
+            <p className="mt-6 max-w-xl text-xl leading-relaxed text-paper/85 md:text-2xl">
+              The winners receive it. It is named after the Bombay advocate and former Ranji Trophy probable.
+            </p>
+            <p className="mt-4 max-w-xl text-paper/70 md:text-lg">The Rizvi Shield/Plate is also awarded. Details are being confirmed.</p>
+            <Link href="/trophy" className="mt-8 inline-block text-base font-semibold underline decoration-sage decoration-2 underline-offset-8 transition-colors hover:text-sage">About the trophy</Link>
           </div>
+        </div>
+      </section>
+
+      <GalleryZoom photos={ZOOM} total={SHOTS.length} />
+
+      <Block tone="paper">
+        <div className="grid items-center gap-10 md:grid-cols-[minmax(0,26rem)_1fr] md:gap-16">
+          <ParallaxPhoto {...PH.court} className="h-72 rounded-xl md:h-[30rem]" sizes="(min-width: 768px) 26rem, 100vw" />
+          <div>
+            <p className={kicker}>Since {HISTORY.since}</p>
+            <ScrubText className="display mt-3 max-w-2xl text-2xl leading-snug md:text-4xl">
+              {`Played every year under the motto “${HISTORY.motto}”, hosted by a different High Court each time.`}
+            </ScrubText>
+            <dl className="num mt-8 grid max-w-xl grid-cols-2 gap-6">
+              <div>
+                <dt className="text-sm text-ink/60">First played</dt>
+                <dd className="display text-2xl md:text-3xl"><ScrambleText text={HISTORY.since} charType="0123456789" textColor="currentColor" className="display text-2xl md:text-3xl" /></dd>
+              </div>
+              <div>
+                <dt className="text-sm text-ink/60">Hosted by Mumbai</dt>
+                <dd className="display text-2xl md:text-3xl">{HISTORY.mumbai.join(", ")}</dd>
+              </div>
+            </dl>
+            <Link href="/about" className={`mt-8 inline-block ${arrow}`}>About BACA</Link>
+          </div>
+        </div>
+        <div className="mt-12 md:mt-16">
+          <p className={`${kicker} mb-4`}>From the archive. Drag to look through.</p>
+          <ArchiveReel photos={ARCHIVE} />
         </div>
       </Block>
 
@@ -131,33 +152,43 @@ export default function Home() {
         <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <div>
             <p className={kicker}>Poem</p>
-            <h2 className="display mt-3 text-3xl md:text-5xl">Cricket and court</h2>
+            <SlideTextReveal className="display mt-3 text-3xl md:text-5xl">
+              <h2>Cricket and court</h2>
+            </SlideTextReveal>
             <p className="mt-5 max-w-md text-lg text-ink/70">A Hindi poem shared by BACA on the pitch and the courtroom.</p>
-            <Link href="/about#poem" className={`mt-8 inline-block ${arrow}`}>Read the poem</Link>
+            <Link href="/poem" className={`mt-8 inline-block ${arrow}`}>Read the poem</Link>
           </div>
           <Stanza i={1} />
         </div>
       </Block>
 
-      <Block title="Sponsors" kicker="Partners" tone="paper">
+      <Block title="Questions" kicker="Good to know" tone="paper">
+        <Faq items={FAQ} />
+      </Block>
+
+      <Block title="Sponsors" kicker="Partners" tone="cream">
         <Tiers />
       </Block>
 
-      <Block title="Downloads" tone="cream">
+      <Block title="Downloads" tone="paper">
         <Downloads />
       </Block>
 
-      <Block title="Contact details" tone="paper">
+      <Block title="Contact details" tone="cream">
         <Contacts />
       </Block>
 
       <section className="px-2 pt-2">
-        <div className="flex flex-wrap items-end justify-between gap-8 rounded-2xl bg-pitch px-6 py-14 text-paper md:px-12 md:py-20">
-          <div>
-            <h2 className="display text-3xl md:text-5xl">Contact</h2>
-            <p className="mt-4 text-lg text-paper/75">Write to the organisers about teams, media or sponsorship.</p>
+        <div className="relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-2xl bg-ink px-6 py-12 text-paper md:min-h-[32rem] md:px-12 md:py-16">
+          <Image src={PH.cheer.src} alt={PH.cheer.alt} fill sizes="100vw" className="-z-10 object-cover object-[50%_30%]" />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(20_26_22/0.9)_10%,rgb(20_26_22/0.35)_70%)]" />
+          <SlideTextReveal className="display max-w-[16ch] text-4xl md:text-7xl">
+            <h2>Come, support the legal fraternity!</h2>
+          </SlideTextReveal>
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <MagneticButton href="/fixtures" tone="onDark">Fixtures</MagneticButton>
+            <MagneticButton href="/contact" tone="light">Contact</MagneticButton>
           </div>
-          <MagneticButton href="/contact" tone="onDark">Contact</MagneticButton>
         </div>
       </section>
     </>

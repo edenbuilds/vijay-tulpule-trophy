@@ -48,7 +48,7 @@ export function Nav() {
     return () => window.removeEventListener("resize", toActive);
   }, [path, toActive]);
 
-  const extra = [{ href: "/downloads", label: "Downloads" }, { href: "/ceremonies", label: "Ceremonies" }, { href: "/contact", label: "Contact" }];
+  const extra = [{ href: "/downloads", label: "Downloads" }, { href: "/ceremonies", label: "Ceremonies" }, { href: "/poem", label: "Poem" }, { href: "/contact", label: "Contact" }];
 
   return (
     <header
@@ -61,7 +61,7 @@ export function Nav() {
           <Link href="/" className="num group mr-auto flex items-center gap-2.5 text-lg font-bold tracking-tight">
             <Image src="/brand/baca-seal.png" alt="" width={72} height={72} priority className="size-9 transition-transform duration-700 ease-out group-hover:-rotate-[360deg]" />
             <span className="leading-none">
-              BACA 2026
+              BACA
               <span className="hidden text-xs font-medium text-ink/55 sm:block">38th All India Advocates’ Cricket</span>
             </span>
           </Link>

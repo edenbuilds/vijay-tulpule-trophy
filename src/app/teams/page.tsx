@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { SpotlightCard } from "@/components/gems/SpotlightCard";
 import { Block, Hero } from "@/components/Sections";
-import { GROUPS, PHOTOS } from "@/lib/site";
+import { GROUPS } from "@/lib/site";
+import { PH } from "@/lib/photos";
 
 export const metadata: Metadata = { title: "Teams" };
 
 export default function Teams() {
   return (
     <>
-      <Hero title="Teams" sub="Sixteen teams in four groups. The top two in each group reach the quarter-finals." photo={PHOTOS.casual} />
+      <Hero title="Teams" sub="Sixteen teams in four groups. The top two in each group reach the quarter-finals." photo={PH.teams} />
       {GROUPS.map((g, gi) => (
         <Block key={g.name} title={`Group ${g.name}`} tone={gi % 2 ? "cream" : "paper"}>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -22,8 +23,8 @@ export default function Teams() {
           </div>
         </Block>
       ))}
-      <Block title="Qualifying" tone="night">
-        <p className="num max-w-3xl text-lg text-ink/75 md:text-xl">
+      <Block title="Qualifying" tone="pitch">
+        <p className="num max-w-3xl text-lg text-paper/80 md:text-xl">
           Top two from each group. Quarter-finals: A1 v B2, B1 v A2, C1 v D2, D1 v C2. No team plays twice on the same day.
         </p>
       </Block>
