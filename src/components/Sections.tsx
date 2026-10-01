@@ -157,23 +157,6 @@ export function ParallaxPhoto({ src, alt, className = "", priority = false, size
   );
 }
 
-// Human Intelligence stat cluster: separate green tiles instead of one ruled bar.
-const TILES = ["bg-mint", "bg-mist", "bg-sage", "bg-mist"];
-export function StatBar({ items }: { items: string[][] }) {
-  return (
-    <section className="px-2 pt-2">
-      <dl className={`grid gap-2 ${items.length === 3 ? "grid-cols-3" : "grid-cols-2 md:grid-cols-4"}`}>
-        {items.map(([value, label], i) => (
-          <div key={value + label} className={`lift flex min-h-36 flex-col-reverse justify-between gap-6 rounded-2xl p-5 md:min-h-44 md:p-8 ${TILES[i % 4]}`}>
-            <dt className="text-ink/60">{label}</dt>
-            <dd className="num display text-3xl md:text-5xl">{value}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
-  );
-}
-
 export function Block({
   title,
   kicker,
@@ -190,11 +173,11 @@ export function Block({
   // "cream" is a lifted Lab Mist panel, inset like the hero tile; the other tones sit on the canvas.
   const bg = tone === "cream" ? "mx-2 mt-2 rounded-2xl bg-mist" : tone === "pitch" ? "mx-2 mt-2 rounded-2xl bg-pitch text-paper" : "bg-paper";
   return (
-    <section id={id} className={`${bg} py-16 md:py-24`}>
+    <section id={id} className={`${bg} py-12 md:py-24`}>
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         {kicker && <p className={`mb-3 text-xs font-medium uppercase tracking-[0.08em] ${tone === "pitch" ? "text-sage" : "text-ink/60"}`}>{kicker}</p>}
         {title && (
-          <SlideTextReveal className="mb-8 md:mb-12">
+          <SlideTextReveal className="mb-6 md:mb-12">
             <h2 className="display text-4xl md:text-6xl">{title}</h2>
           </SlideTextReveal>
         )}

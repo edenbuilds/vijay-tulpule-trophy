@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { AWARDS, EVENT } from "@/lib/site";
+import { EVENT } from "@/lib/site";
 import { PH } from "@/lib/photos";
-import { Block, Hero, StatBar } from "@/components/Sections";
+import { Block, Hero } from "@/components/Sections";
 
 export const metadata: Metadata = { title: "Format" };
 
@@ -14,8 +14,7 @@ const COLS = [
 export default function Format() {
   return (
     <>
-      <Hero title="Format" sub={`${EVENT.overs} overs a side · first ball 09:00 · 17–24 October`} photo={PH.format} />
-      <StatBar items={[["16", "teams"], [EVENT.overs, "overs a side"], ["32", "matches"], [EVENT.squad, "player squads"]]} />
+      <Hero title="Format" sub={`${EVENT.overs} overs a side. First ball at 09:00.`} photo={PH.format} />
       <Block tone="paper">
         <div className="grid gap-2 md:grid-cols-3">
           {COLS.map(([h, p]) => (
@@ -34,10 +33,9 @@ export default function Format() {
       <Block title="Awards" tone="paper">
         <p className="max-w-3xl text-lg text-ink/75 md:text-xl">
           Every match: Man of the Match, Best Batter and Best Bowler, given on the day. Trophy evening: winners,
-          runners-up, 3rd place, and player, batter and bowler of the series. Participation medals at the 17 Oct opening only.
+          runners-up, 3rd place, and player, batter and bowler of the series. Participation medals at the 17 Oct opening only. In all: 96 match awards, 6 trophy evening cups and 240 participation medals.
         </p>
       </Block>
-      <StatBar items={AWARDS} />
     </>
   );
 }

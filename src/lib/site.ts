@@ -33,10 +33,10 @@ export const ORG = {
 
 // Contact details printed on the tournament poster (BACA, 2026). Numbers are the ones on the poster, unchanged.
 export const CONTACTS = [
-  { name: "Rajiv Patil", role: "Sr. Adv. & Hon. Secretary", phone: "98210 24059", tel: "+919821024059" },
-  { name: "Deepak Thakre", role: "Adv.", phone: "96193 56926", tel: "+919619356926" },
-  { name: "Meghashyam Kocharekar", role: "Adv.", phone: "98211 43570", tel: "+919821143570" },
-  { name: "Harshad Bhadbhade", role: "Adv.", phone: "98203 00135", tel: "+919820300135" },
+  { name: "Sr. Adv. Rajiv Patil", role: "Hon. Secretary", phone: "98210 24059", tel: "+919821024059" },
+  { name: "Adv. Deepak Thakre", role: "", phone: "96193 56926", tel: "+919619356926" },
+  { name: "Adv. Meghashyam Kocharekar", role: "", phone: "98211 43570", tel: "+919821143570" },
+  { name: "Adv. Harshad Bhadbhade", role: "", phone: "98203 00135", tel: "+919820300135" },
 ];
 
 export const GROUPS = [
@@ -140,7 +140,7 @@ export const CEREMONIES: Ceremony[] = [
     title: "Opening",
     when: "Sat 17 Oct, 07:00–08:40",
     where: "Main Ground",
-    line: "All sixteen squads meet on the Main Ground the day before the league starts.",
+    line: "All 16 squads meet on the Main Ground the day before the league starts.",
     steps: [
       { time: "07:00", what: "Teams assemble" },
       { what: "National Anthem" },
@@ -186,12 +186,6 @@ export const CEREMONIES: Ceremony[] = [
   },
 ];
 
-export const AWARDS = [
-  ["96", "match awards"],
-  ["6", "trophy evening cups"],
-  ["240", "participation medals"],
-];
-
 export const PARTNERS = [
   ["Title", "Event name and the opening board."],
   ["Presenting", "Named with the title on every board."],
@@ -209,8 +203,8 @@ export const TERMS = [
 ];
 
 export const DOWNLOADS = [
-  { href: "/downloads/vtt-2026-fixtures.pdf", label: "Fixtures", line: "Every match, day and ground. A4 PDF.", kind: "PDF" },
-  { href: "/vtt-2026.ics", label: "Calendar", line: "All eight days in your calendar app.", kind: "ICS" },
-  { href: "/downloads/vtt-2026-sponsorship.pdf", label: "Sponsorship", line: "Tiers, rights, terms and payment. A4 PDF.", kind: "PDF" },
-  { href: "/downloads/baca-logo-pack.zip", label: "BACA logo pack", line: "The seal in colour, gold, ink, green and white, plus lockups. PNG.", kind: "ZIP" },
+  { href: "/downloads/vtt-2026-fixtures.pdf", label: "Fixtures", line: "Every match by day and ground.", kind: "PDF" },
+  { href: "/vtt-2026.ics", label: "Calendar", line: "Match days for your calendar app.", kind: "ICS" },
+  { href: "/downloads/vtt-2026-sponsorship.pdf", label: "Sponsorship", line: "Tiers, rights, terms and payment.", kind: "PDF" },
+  { href: "/downloads/baca-logo-pack.zip", label: "BACA logo pack", line: "The BACA seal in five colours, plus lockups.", kind: "ZIP" },
 ];

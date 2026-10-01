@@ -16,7 +16,7 @@ No Live page or Live button (removed by request). Red appears only on the cricke
 ## Motion inventory
 - Preloader: BYQ gem **iris-wipe-preloader-01** (`src/components/gems/Preloader.tsx`), first visit per session. The % counter is swapped for the ball rolling in (brief bans counters). Head script in `layout.tsx` sets `preloading` / `no-preload`.
 - Home hero: BYQ **stringer-hero-4** in a mint tile, Hyperiux **rolling-text** title (waits for the preloader), wide parallax photo. Title leading must stay >= 1.25 (Satoshi content area) or reel glyphs bleed.
-- Home (rebuilt 01-10-2026, see docs/HANDOVER.md): photo hero with countdown, quick links, number-counter stats, scroll-converging team cards (Animmaster scroll 58), pinned horizontal Programme, trophy band, gallery zoom (Animmaster grid 7), since-1989 intro with archive reel, poem teaser, FAQ, sponsors, downloads, contacts, closing photo tile. Sticky-media-swap, babka bento and stacking-cards were removed.
+- Home (see docs/HANDOVER.md): photo hero with countdown, quick links, scroll-converging team cards (Animmaster scroll 58), Schedule (pinned horizontal photo cards from lg, one dashed list below), trophy band, gallery zoom (Animmaster grid 7, 2x2 mosaic on phones), since-1989 intro with archive reel, poem teaser, FAQ, sponsors, downloads, contacts, closing photo tile. Sticky-media-swap, babka bento, stacking-cards, number-counter and scramble-text were removed.
 - Gems kept: magnetic-button-01 (pill), tab-underline-01 (fixtures, with clock/pin icons), curtain-image-reveal-01, spotlight-glow-cards-01 (lift only). Page sweep overlay in pitch green.
 
 ## Nav and hero (30-09-2026)
@@ -59,7 +59,7 @@ BACA Official Website. Winners get **The Vijay Tulpule Trophy** (confirmed). **R
 "being confirmed" line only: nobody has said who Rizvi is or what it is awarded for. Do not invent either.
 - Logo: `public/brand/*.png` (seal in colour, gold, ink, pitch, white; lockups) made from the supplied BACA-Logo.jpg. Icons, apple-icon and
   OG/Twitter images are in `src/app/`. Zip for download: `public/downloads/baca-logo-pack.zip`.
-- Contacts from the poster: `CONTACTS` in `site.ts` (Rajiv Patil, Deepak Thakre, Meghashyam Kocharekar, Harshad Bhadbhade). Shown on home, `/contact`, footer.
+- Contacts from the poster: `CONTACTS` in `site.ts` (Sr. Adv. Rajiv Patil, Adv. Deepak Thakre, Adv. Meghashyam Kocharekar, Adv. Harshad Bhadbhade). Shown on home, `/contact`, footer, sponsors page and the sponsorship PDF.
 - Poster says fixtures "will be announced shortly" and 8 grounds; the fixture grid (from the 25-09 working book) is kept but marked provisional
   and its venue reads "Grounds to be announced".
 - `/about` (was `/baca`, permanent redirect in `next.config.ts`): facts, association with BBA / The Bombay Incorporated Law Society / AIA
@@ -75,6 +75,14 @@ BACA Official Website. Winners get **The Vijay Tulpule Trophy** (confirmed). **R
 Full write-up in `docs/HANDOVER.md`: what was wrong, home section order, the photo registry and its rules, effects used and skipped (Hyperiux, Animmaster, BYQ), the `/poem` reading page, the token map for switching to BACA colours later, open items. Palette stays green until the BACA switch.
 Nav and footer wordmark read "BACA" (no year). `/poem` is linked from the footer and the phone menu. `Block` headings use slide-text-reveal.
 
+## Third pass (01-10-2026)
+Full write-up in `docs/HANDOVER.md`. Rules to keep:
+- **Phone layout:** three or more items on a phone are one dashed list in one tile, never a stack of cards (schedule, quick links, tiers, downloads, teams). Cards only from `sm`, `md` or `lg`. Standalone links at least 44px tall. Checked at 390, 768, 1440 with no horizontal overflow.
+- **Names:** every person is "Adv." (or "Sr. Adv." for Shirish Gupte and Rajiv Patil, as the poster prints). The prefix is inside the `name` string in `CONTACTS` and `COMMITTEE`; `role` holds only a role the source gives. "The Vijay Tulpule Trophy" keeps its name; the person is Adv. Vijay Tulpule in captions and sentences (judgement call, to confirm).
+- **Address:** only `ORG.address` (Krishna Kunj, 36 Shivaji Park, Mumbai 400 028). The Dadar address is deleted everywhere.
+- **Copy:** plain labels for headings ("The teams", "Schedule", "Gallery"), no poetic numbers, no counters or big-number strips, no em dashes, no taglines. Numbers appear only as plain facts. Do not add a sentence that no source document backs.
+- `npm run downloads` now gives each PDF its own Chrome profile and accepts a timeout after the file is written (headless Chrome did not exit and hung the second PDF).
+
 ## Hyperiux
 MCP registered at user scope: `claude mcp add -s user hyperiux -- npx -y hyperiux-mcp-server` (tools appear in a new session). CLI is logged in to Pro (`npx hyperiux whoami`). 10 installs per day.
 Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re-run init; if you do, `git checkout src/app/globals.css`.
@@ -88,7 +96,9 @@ Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re
 ```
 Work in ~/vijay-tulpule-trophy. Read HANDOFF.md, then docs/HANDOVER.md (home order, photo registry, token map for the BACA colour switch).
 Keep the green palette until told to switch. Place photos only via src/lib/photos.ts. Never run `npx hyperiux init`.
-Task: <paste task>. Open items: Rizvi Shield/Plate details, ground names and fixtures, AIA expansion, which BACA address is current,
-whether the gold "Winner" cup is The Vijay Tulpule Trophy, poem verse 5 line 4. Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px,
+Rules from the third pass: phone lists not card stacks, "Adv." before every person (Sr. Adv. where the source says), only the Shivaji Park address,
+plain headings and copy with no poetic numbers or em dashes. Run `npm run downloads` after changing CONTACTS, tiers, terms or fixtures.
+Task: <paste task>. Open items: Rizvi Shield/Plate details, ground names and fixtures (poster says 8 grounds), AIA expansion,
+whether the gold "Winner" cup is The Vijay Tulpule Trophy, whether "Adv. Vijay Tulpule" is right on the trophy page, poem verse 5 line 4. Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px,
 commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with `vercel deploy --prod --yes`, update this file.
 ```

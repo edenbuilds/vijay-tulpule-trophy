@@ -21,9 +21,9 @@ export function Footer() {
           <div className="grid gap-10 py-12 md:grid-cols-[1fr_1fr]">
             <address className="flex flex-col gap-3 not-italic text-ink/70">
               <span className="flex gap-3"><MapPin aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} />{ORG.address}</span>
-              <a className="flex w-fit gap-3 transition-colors hover:text-ink" href={`mailto:${ORG.email}`}><Mail aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{ORG.email}</span></a>
+              <a className="flex min-h-11 w-fit items-center gap-3 transition-colors hover:text-ink" href={`mailto:${ORG.email}`}><Mail aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{ORG.email}</span></a>
               {CONTACTS.map((c) => (
-                <a key={c.tel} className="num flex w-fit gap-3 transition-colors hover:text-ink" href={`tel:${c.tel}`}><Phone aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{c.name}, {c.phone}</span></a>
+                <a key={c.tel} className="num flex min-h-11 w-fit items-center gap-3 transition-colors hover:text-ink" href={`tel:${c.tel}`}><Phone aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{c.name}, {c.phone}</span></a>
               ))}
             </address>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-1 sm:grid-cols-3">

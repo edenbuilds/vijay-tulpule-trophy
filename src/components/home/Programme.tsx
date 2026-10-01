@@ -12,9 +12,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 export type Day = { date: string; day: string; title: string; line: string; href: string; photo?: Photo };
 
-// Eight days as a row of cards. From lg up the section pins and the row slides sideways as you scroll
-// (ScrollTrigger pin + scrub, the horizontal-scroll pattern from the Awwwards Pack's scroll demos); below lg,
-// and with reduced motion, it is an ordinary grid. A day with no fitting photograph shows none.
+// The schedule. From lg up the section pins and a row of photo cards slides sideways as you scroll (ScrollTrigger
+// pin + scrub, the horizontal-scroll pattern from the Awwwards Pack's scroll demos). Below lg, and with reduced
+// motion, it is one dashed list: six tall stacked cards on a phone was the clutter. A day with no fitting
+// photograph shows none.
 export function Programme({ days }: { days: Day[] }) {
   const root = React.useRef<HTMLElement>(null);
   const track = React.useRef<HTMLOListElement>(null);
@@ -36,33 +37,32 @@ export function Programme({ days }: { days: Day[] }) {
   }, []);
 
   return (
-    <section ref={root} id="programme" className="bg-paper lg:h-svh lg:overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 pb-8 pt-16 md:px-8 md:pt-24 lg:pt-28">
-        <p className="text-xs font-medium uppercase tracking-[0.08em] text-ink/60">Programme</p>
-        <SlideTextReveal className="display mt-3 text-4xl md:text-6xl">
-          <h2>Eight days in October</h2>
+    <section ref={root} id="programme" className="bg-paper lg:h-svh lg:overflow-hidden motion-reduce:lg:h-auto motion-reduce:lg:overflow-visible">
+      <div className="mx-auto max-w-7xl px-4 pb-6 pt-14 md:px-8 md:pb-8 md:pt-24 lg:pt-28">
+        <SlideTextReveal className="display text-4xl md:text-6xl">
+          <h2>Schedule</h2>
         </SlideTextReveal>
       </div>
-      <ol ref={track} className="grid gap-2 px-2 pb-16 md:grid-cols-2 lg:flex lg:w-max lg:gap-3 lg:px-4 lg:pb-0">
+      <ol ref={track} className="mx-2 mb-12 rounded-2xl bg-mist px-4 md:px-8 lg:mx-0 lg:mb-0 lg:flex lg:w-max lg:gap-3 lg:rounded-none lg:bg-transparent lg:px-4 motion-reduce:lg:w-auto motion-reduce:lg:flex-wrap motion-reduce:lg:pb-16">
         {days.map((d) => (
-          <li key={d.date} className="lg:w-[27vw] xl:w-[23vw]">
+          <li key={d.date} className="border-b border-dashed border-ink/15 last:border-0 lg:w-[27vw] lg:border-0 xl:w-[23vw]">
             <Link
               href={d.href}
-              className={`lift press group flex h-full flex-col overflow-hidden rounded-2xl lg:h-[min(33rem,calc(100svh-16rem))] ${d.photo ? "bg-mist" : "bg-pitch text-paper"}`}
+              className={`press group grid min-h-16 grid-cols-[6.5rem_1fr] gap-x-4 py-4 lg:lift lg:flex lg:h-[min(33rem,calc(100svh-16rem))] lg:flex-col lg:gap-0 lg:overflow-hidden lg:rounded-2xl lg:py-0 ${d.photo ? "lg:bg-mist" : "lg:bg-pitch lg:text-paper"}`}
             >
               {d.photo && (
-                <span className="relative block aspect-[4/3] shrink-0 overflow-hidden lg:aspect-auto lg:h-[52%]">
-                  <Image src={d.photo.small} alt={d.photo.alt} fill sizes="(min-width: 1280px) 23vw, (min-width: 1024px) 27vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+                <span className="relative hidden shrink-0 overflow-hidden lg:block lg:h-[52%]">
+                  <Image src={d.photo.small} alt={d.photo.alt} fill sizes="(min-width: 1280px) 23vw, 27vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
                 </span>
               )}
-              <span className="flex flex-1 flex-col justify-between gap-6 p-5 md:p-6">
+              <span className="contents lg:flex lg:flex-1 lg:flex-col lg:justify-between lg:gap-6 lg:p-6">
                 <span>
-                  <span className={`num display block text-4xl md:text-5xl ${d.photo ? "" : "text-sage"}`}>{d.date}</span>
-                  <span className={`mt-1 block text-sm ${d.photo ? "text-ink/55" : "text-paper/70"}`}>{d.day}</span>
+                  <span className={`num display block text-lg lg:text-5xl ${d.photo ? "" : "lg:text-sage"}`}>{d.date}</span>
+                  <span className={`mt-1 hidden text-sm lg:block ${d.photo ? "text-ink/55" : "text-paper/70"}`}>{d.day}</span>
                 </span>
                 <span>
-                  <span className="display block text-2xl md:text-3xl">{d.title}</span>
-                  <span className={`mt-2 block text-base ${d.photo ? "text-ink/70" : "text-paper/80"}`}>{d.line}</span>
+                  <span className="display block text-xl lg:text-3xl">{d.title}</span>
+                  <span className={`mt-1 block text-base lg:mt-2 ${d.photo ? "text-ink/70" : "text-ink/70 lg:text-paper/80"}`}>{d.line}</span>
                 </span>
               </span>
             </Link>

@@ -21,14 +21,14 @@ export default function Trophy() {
         <div className="grid items-end gap-10 md:grid-cols-[minmax(0,26rem)_1fr] md:gap-20">
           <CurtainPortrait
             src="/img/tulpule-informal.jpg"
-            alt="Vijay Tulpule, informal portrait in a white shirt and suspenders"
-            caption="Vijay Tulpule"
+            alt="Adv. Vijay Tulpule, informal portrait in a white shirt and suspenders"
+            caption="Adv. Vijay Tulpule"
             width={508}
             height={661}
           />
           <p className="max-w-xl text-xl leading-relaxed md:text-2xl">
-            Advocate at the Bombay Bar. University cricketer. Bombay Ranji Trophy probable. Played with Sunil Gavaskar and
-            Dilip Vengsarkar.
+            Adv. Vijay Tulpule practised at the Bombay Bar. He played university cricket, was a Bombay Ranji Trophy probable,
+            and played with Sunil Gavaskar and Dilip Vengsarkar.
           </p>
         </div>
       </Block>
@@ -40,8 +40,8 @@ export default function Trophy() {
           </p>
           <CurtainPortrait
             src="/img/tulpule-formal.jpg"
-            alt="Vijay Tulpule, formal portrait in a check jacket and tie"
-            caption="Vijay Tulpule"
+            alt="Adv. Vijay Tulpule, formal portrait in a check jacket and tie"
+            caption="Adv. Vijay Tulpule"
             width={388}
             height={618}
             wipe="rl"
@@ -50,7 +50,7 @@ export default function Trophy() {
         </div>
       </Block>
 
-      <Block title="Rizvi Shield/Plate" kicker="Also awarded" tone="paper">
+      <Block title="Rizvi Shield/Plate" tone="paper">
         <p className="num max-w-2xl text-lg text-ink/75 md:text-xl">
           BACA has named a second award the Rizvi Shield/Plate. Who it goes to and how it is played for are still being
           confirmed and will be published here.
@@ -61,7 +61,7 @@ export default function Trophy() {
         <p className="num max-w-2xl text-lg text-ink/75 md:text-xl">
           Presented on 24 October, straight after the final. The Head of the Association hands The Vijay Tulpule Trophy to the winning captain.
         </p>
-        <Link href="/ceremonies#final" className="mt-8 inline-block text-base font-semibold underline decoration-pitch decoration-2 underline-offset-8 transition-colors hover:text-pitch">Trophy evening running order</Link>
+        <Link href="/ceremonies#final" className="mt-6 inline-flex min-h-11 items-center text-base font-semibold underline decoration-pitch decoration-2 underline-offset-8 transition-colors hover:text-pitch">Trophy evening running order</Link>
       </Block>
     </>
   );

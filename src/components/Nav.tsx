@@ -58,7 +58,7 @@ export function Nav() {
     >
       <div className="rounded-2xl border border-ink/10 bg-mist/90 text-ink backdrop-blur-md">
         <nav aria-label="Main" className="flex h-16 items-center gap-3 pl-4 pr-2 md:pl-5">
-          <Link href="/" className="num group mr-auto flex items-center gap-2.5 text-lg font-bold tracking-tight">
+          <Link href="/" className="num group mr-auto flex min-h-11 items-center gap-2.5 text-lg font-bold tracking-tight">
             <Image src="/brand/baca-seal.png" alt="" width={72} height={72} priority className="size-9 transition-transform duration-700 ease-out group-hover:-rotate-[360deg]" />
             <span className="leading-none">
               BACA

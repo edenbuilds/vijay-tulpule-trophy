@@ -60,11 +60,11 @@ export function Converge({ photos }: { photos: Photo[] }) {
 
   return (
     <section ref={root} className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-x-clip bg-paper px-5 py-24 text-center">
-      <SlideTextReveal className="display mx-auto max-w-[14ch] text-[2.75rem] leading-[0.95] sm:text-7xl lg:text-[7rem]">
-        <h2>Sixteen teams. One trophy.</h2>
+      <SlideTextReveal className="display mx-auto max-w-[14ch] text-[3.25rem] leading-[0.95] sm:text-7xl lg:text-[7rem]">
+        <h2>The teams</h2>
       </SlideTextReveal>
       <p className="mt-8 max-w-[28rem] text-lg text-ink/70 md:text-xl">
-        Advocates from 15 High Courts and the Supreme Court of India, together for eight days at eight grounds.
+        16 teams of advocates from 15 High Courts and the Supreme Court of India.
       </p>
       <div className="mt-8">
         <MagneticButton href="/teams">Teams</MagneticButton>

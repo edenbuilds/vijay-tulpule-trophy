@@ -5,7 +5,7 @@ import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { EVENT, FIXTURES, ORG, PARTNERS, TERMS, TIERS } from "../src/lib/site.ts";
+import { CONTACTS, EVENT, FIXTURES, ORG, PARTNERS, TERMS, TIERS } from "../src/lib/site.ts";
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const root = resolve(import.meta.dirname, "..");
@@ -55,12 +55,18 @@ const sponsorship = page(
     <h2>Partner roles</h2><div class="grid">${PARTNERS.map(([k, v]) => `<p><b>${k}.</b> ${v}</p>`).join("")}</div>
     <h2>Terms</h2><ol style="padding-left:18px">${TERMS.map((t) => `<li>${t}</li>`).join("")}</ol>
     <h2>Payment</h2><table><tr><td class="m">Payee</td><td>Bombay Advocates Cricket Association</td></tr><tr><td class="m">Bank</td><td>Bank of India, Main branch</td></tr><tr><td class="m">IFSC</td><td>BKID0000001</td></tr><tr><td class="m">Account</td><td>000110210000057</td></tr></table>
-    <h2>Contact</h2><p>Rajiv Patil, Senior Advocate, Hon. Secretary, BACA · ${ORG.address} · ${ORG.email} · ${ORG.phone}</p>`,
+    <h2>Contact</h2><p>${CONTACTS[0].name}, ${CONTACTS[0].role}, BACA · ${ORG.address} · ${ORG.email} · ${ORG.phone}</p>`,
 );
 
 for (const [name, html] of [["vtt-2026-fixtures", fixtures], ["vtt-2026-sponsorship", sponsorship]]) {
   const src = join(tmp, `${name}.html`);
   writeFileSync(src, html);
-  execFileSync(CHROME, ["--headless", "--disable-gpu", "--no-pdf-header-footer", `--user-data-dir=${join(tmp, "profile")}`, `--print-to-pdf=${join(root, "public/downloads", `${name}.pdf`)}`, pathToFileURL(src).href], { stdio: "ignore" });
+  // Headless Chrome writes the PDF in a few seconds but sometimes does not exit (01-10-2026, Chrome open on the
+  // machine), which hung the second PDF forever. Give each its own profile, cap the wait and accept a timeout.
+  try {
+    execFileSync(CHROME, ["--headless", "--disable-gpu", "--no-pdf-header-footer", `--user-data-dir=${join(tmp, `profile-${name}`)}`, `--print-to-pdf=${join(root, "public/downloads", `${name}.pdf`)}`, pathToFileURL(src).href], { stdio: "ignore", timeout: 25000 });
+  } catch (e) {
+    if ((e as NodeJS.ErrnoException).code !== "ETIMEDOUT") throw e;
+  }
   console.log(`public/downloads/${name}.pdf`);
 }

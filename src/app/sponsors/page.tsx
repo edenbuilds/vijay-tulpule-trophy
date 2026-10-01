@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Downloads } from "@/components/Downloads";
 import { Block, Hero } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
-import { ORG, PARTNERS, TERMS } from "@/lib/site";
+import { CONTACTS, ORG, PARTNERS, TERMS } from "@/lib/site";
 import { PH } from "@/lib/photos";
 
 export const metadata: Metadata = { title: "Sponsors" };
@@ -18,7 +18,7 @@ const MOMENTS = ["Opening", "End of the league", "Final", "Every venue"];
 export default function Sponsors() {
   return (
     <>
-      <Hero title="Sponsors" sub="Four tiers, from ₹5 lakh to ₹15 lakh and above." photo={PH.sponsors} />
+      <Hero title="Sponsors" sub="Sponsorship tiers start at ₹5,00,000." photo={PH.sponsors} />
       <Block tone="cream">
         <Tiers cta="Contact" />
         <p className="mt-8 max-w-3xl text-lg text-ink/70">
@@ -31,21 +31,21 @@ export default function Sponsors() {
         </ul>
       </Block>
       <Block title="Partner roles" tone="paper">
-        <dl className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <dl className="rule grid md:grid-cols-2 md:gap-x-12">
           {PARTNERS.map(([k, v]) => (
-            <div key={k} className="lift rounded-2xl bg-mist p-6 hover:bg-mint md:p-8">
-              <dt className="text-xl font-bold">{k}</dt>
-              <dd className="mt-3 text-ink/70">{v}</dd>
+            <div key={k} className="row-line border-b border-dashed border-ink/15 py-4">
+              <dt className="text-lg font-semibold">{k}</dt>
+              <dd className="mt-1 text-ink/70">{v}</dd>
             </div>
           ))}
         </dl>
       </Block>
       <Block title="Rights" tone="paper">
-        <dl className="grid gap-2 md:grid-cols-3">
+        <dl className="rule grid md:grid-cols-2 md:gap-x-12">
           {RIGHTS.map(([k, v]) => (
-            <div key={k} className="rounded-2xl bg-mist p-6 md:p-8">
-              <dt className="text-xl font-bold">{k}</dt>
-              <dd className="mt-3 text-ink/70">{v}</dd>
+            <div key={k} className="row-line border-b border-dashed border-ink/15 py-4">
+              <dt className="text-lg font-semibold">{k}</dt>
+              <dd className="mt-1 text-ink/70">{v}</dd>
             </div>
           ))}
         </dl>
@@ -69,10 +69,10 @@ export default function Sponsors() {
           <div>
             <h2 className="display text-3xl md:text-4xl">Contact</h2>
             <address className="mt-6 flex flex-col gap-2 not-italic text-ink/75">
-              <span className="font-semibold text-ink">Rajiv Patil, Secretary, BACA</span>
+              <span className="font-semibold text-ink">{CONTACTS[0].name}, {CONTACTS[0].role}, BACA</span>
               <span>{ORG.address}</span>
-              <a className="w-fit underline decoration-pitch underline-offset-4" href={`mailto:${ORG.email}`}>{ORG.email}</a>
-              <a className="num w-fit underline decoration-pitch underline-offset-4" href={ORG.phoneHref}>{ORG.phone}</a>
+              <a className="flex min-h-11 w-fit items-center underline decoration-pitch underline-offset-4" href={`mailto:${ORG.email}`}>{ORG.email}</a>
+              <a className="num flex min-h-11 w-fit items-center underline decoration-pitch underline-offset-4" href={ORG.phoneHref}>{ORG.phone}</a>
             </address>
           </div>
         </div>

@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 // middle tile (index 7) is the one at the centre of the scale. Phones and reduced motion get a plain mosaic.
 const MOSAIC = [7, 5, 6, 3, 8, 12];
 
-export function GalleryZoom({ photos, total }: { photos: Photo[]; total: number }) {
+export function GalleryZoom({ photos }: { photos: Photo[] }) {
   const pin = React.useRef<HTMLDivElement>(null);
   const grid = React.useRef<HTMLDivElement>(null);
   const veil = React.useRef<HTMLDivElement>(null);
@@ -36,8 +36,8 @@ export function GalleryZoom({ photos, total }: { photos: Photo[]; total: number 
 
   const heading = (
     <>
-      <h2 className="display text-4xl md:text-7xl">{total} photographs</h2>
-      <p className="max-w-md text-lg text-paper/80">From BACA’s archive and past tournaments, by team, trophy and year.</p>
+      <h2 className="display text-4xl md:text-7xl">Gallery</h2>
+      <p className="max-w-md text-lg text-paper/80">Photographs from BACA’s archive and past tournaments.</p>
       <MagneticButton href="/gallery" tone="onDark">Open the gallery</MagneticButton>
     </>
   );
@@ -58,7 +58,7 @@ export function GalleryZoom({ photos, total }: { photos: Photo[]; total: number 
       <div className="px-2 py-16 md:hidden motion-reduce:block">
         <div className="flex flex-col items-start gap-5 px-2 pb-8">{heading}</div>
         <div className="grid grid-cols-2 gap-2">
-          {MOSAIC.map((i) => (
+          {MOSAIC.slice(0, 4).map((i) => (
             <div key={photos[i].id} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-pitch">
               <Image src={photos[i].small} alt={photos[i].alt} fill sizes="50vw" className="object-cover" />
             </div>

@@ -10,7 +10,7 @@ export function Contacts() {
           <a href={`tel:${c.tel}`} className="press flex min-h-16 items-center justify-between gap-4 py-4">
             <span>
               <span className="block text-lg font-semibold">{c.name}</span>
-              <span className="text-sm text-ink/55">{c.role}</span>
+              {c.role && <span className="text-sm text-ink/55">{c.role}</span>}
             </span>
             <span className="num flex items-center gap-2 text-lg text-pitch">
               <Phone aria-hidden="true" className="size-4" strokeWidth={1.8} />

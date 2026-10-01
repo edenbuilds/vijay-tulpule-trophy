@@ -4,7 +4,6 @@ import { ArrowUpRight, CalendarDays, Handshake, ListOrdered, Users } from "lucid
 import { CurtainPortrait } from "@/components/gems/CurtainPortrait";
 import { MagneticButton } from "@/components/gems/MagneticButton";
 import SlideTextReveal from "@/components/effects/slide-text-reveal";
-import ScrambleText from "@/components/effects/scramble-text";
 import { ScrubText } from "@/components/Motion";
 import { Block, Hero, ParallaxPhoto } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
@@ -16,14 +15,13 @@ import { Converge } from "@/components/home/Converge";
 import { Faq } from "@/components/home/Faq";
 import { GalleryZoom } from "@/components/home/GalleryZoom";
 import { Programme, type Day } from "@/components/home/Programme";
-import { Stats } from "@/components/home/Stats";
-import { SHOTS } from "@/lib/gallery";
 import { ARCHIVE, CONVERGE, PH, ZOOM } from "@/lib/photos";
 import { CONTACTS, EVENT, HISTORY } from "@/lib/site";
 
-// Order of the page: the tournament (hero, where to go, the numbers, the sixteen teams, the eight days),
-// then the trophy it is played for, then the pictures and the history, then the practical end (poem, questions,
-// sponsors, downloads, contacts). Each photograph is placed by src/lib/photos.ts for a stated reason.
+// Order of the page: the tournament (hero, where to go, the teams, the schedule), then the trophy it is played
+// for, then the pictures and the history, then the practical end (poem, questions, sponsors, downloads, contacts).
+// Each photograph is placed by src/lib/photos.ts for a stated reason. On phones the schedule, sponsors and
+// downloads are plain lists, not stacks of cards.
 const DAYS: Day[] = [
   { date: "17 Oct", day: "Saturday", title: "Opening", line: "Medals, team photographs and the anthem at the Main Ground, from 07:00.", href: "/ceremonies#opening", photo: PH.opening },
   { date: "18–20 Oct", day: "Sunday to Tuesday", title: "League", line: "Four groups of four. Four matches at 09:00 each day, and four at 14:30 if the lights are certified.", href: "/fixtures", photo: PH.league },
@@ -34,10 +32,10 @@ const DAYS: Day[] = [
 ];
 
 const LINKS = [
-  { href: "/fixtures", label: "Fixtures", line: "Every match, day by day", Icon: CalendarDays, bg: "bg-mint" },
-  { href: "/teams", label: "Teams", line: "Sixteen teams in four groups", Icon: Users, bg: "bg-mist" },
-  { href: "/format", label: "Format", line: "Points, tie-breaks and awards", Icon: ListOrdered, bg: "bg-mist" },
-  { href: "/sponsors", label: "Sponsors", line: "Four tiers, from ₹5 lakh", Icon: Handshake, bg: "bg-sage" },
+  { href: "/fixtures", label: "Fixtures", line: "Every match by day", Icon: CalendarDays, bg: "md:bg-mint" },
+  { href: "/teams", label: "Teams", line: "16 teams in four groups", Icon: Users, bg: "md:bg-mist" },
+  { href: "/format", label: "Format", line: "Points, tie-breaks and awards", Icon: ListOrdered, bg: "md:bg-mist" },
+  { href: "/sponsors", label: "Sponsors", line: "Tiers from ₹5 lakh", Icon: Handshake, bg: "md:bg-sage" },
 ];
 
 const FAQ = [
@@ -63,9 +61,9 @@ export default function Home() {
   return (
     <>
       <Hero
-        eyebrow="BACA proudly invites you to the 38th"
+        eyebrow="BACA invites you to the 38th"
         title="All India Advocates’ Cricket Tournament 2026"
-        sub="Practising advocates from 15 High Courts and the Supreme Court of India battle it out on 8 cricket grounds in Mumbai and Navi Mumbai."
+        sub="Practising advocates from 15 High Courts and the Supreme Court of India play on 8 grounds in Mumbai and Navi Mumbai."
         photo={PH.hero}
         facts={["17–24 October 2026", "Hosted by BACA", `${EVENT.overs} overs a side`]}
         tall
@@ -74,22 +72,25 @@ export default function Home() {
         <MagneticButton href="/teams" tone="light">Teams</MagneticButton>
       </Hero>
 
-      <nav aria-label="Sections" className="grid grid-cols-2 gap-2 px-2 pt-2 lg:grid-cols-4">
+      <nav aria-label="Sections" className="mx-2 mt-2 rounded-2xl bg-mist px-4 md:grid md:grid-cols-2 md:gap-2 lg:grid-cols-4 md:rounded-none md:bg-transparent md:px-0">
         {LINKS.map(({ href, label, line, Icon, bg }) => (
-          <Link key={href} href={href} className={`lift press group flex min-h-40 flex-col justify-between rounded-2xl p-5 hover:bg-sage md:min-h-48 md:p-8 ${bg}`}>
-            <span className="flex items-start justify-between">
+          <Link
+            key={href}
+            href={href}
+            className={`press group flex min-h-16 items-center justify-between gap-4 border-b border-dashed border-ink/15 py-4 last:border-0 md:lift md:min-h-48 md:flex-col md:items-stretch md:justify-between md:rounded-2xl md:border-0 md:p-8 md:hover:bg-sage ${bg}`}
+          >
+            <span className="hidden items-start justify-between md:flex">
               <Icon aria-hidden="true" className="size-6 text-pitch transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" strokeWidth={1.6} />
               <ArrowUpRight aria-hidden="true" className="size-5 text-ink/40 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
             </span>
             <span>
-              <span className="display block text-2xl md:text-3xl">{label}</span>
+              <span className="display block text-xl md:text-3xl">{label}</span>
               <span className="mt-1 block text-sm text-ink/60">{line}</span>
             </span>
+            <ArrowUpRight aria-hidden="true" className="size-5 shrink-0 text-ink/40 md:hidden" />
           </Link>
         ))}
       </nav>
-
-      <Stats items={[["16", "teams"], ["8", "grounds"], ["32", "matches"], ["8", "days"]]} />
 
       <Converge photos={CONVERGE} />
 
@@ -99,51 +100,40 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-20 md:px-8">
           <CurtainPortrait
             src="/img/tulpule-informal.jpg"
-            alt="Vijay Tulpule in a white shirt and suspenders"
-            caption="Vijay Tulpule"
+            alt="Adv. Vijay Tulpule in a white shirt and suspenders"
+            caption="Adv. Vijay Tulpule"
             width={508}
             height={661}
             className="max-w-[16rem] md:max-w-none [&_figcaption]:text-paper/70"
           />
           <div>
-            <p className="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-sage">The trophy</p>
             <SlideTextReveal className="display text-4xl md:text-7xl">
               <h2>The Vijay Tulpule Trophy</h2>
             </SlideTextReveal>
             <p className="mt-6 max-w-xl text-xl leading-relaxed text-paper/85 md:text-2xl">
-              The winners receive it. It is named after the Bombay advocate and former Ranji Trophy probable.
+              The winning team receives it. It is named after Adv. Vijay Tulpule, a Bombay advocate and Bombay Ranji Trophy probable.
             </p>
-            <p className="mt-4 max-w-xl text-paper/70 md:text-lg">The Rizvi Shield/Plate is also awarded. Details are being confirmed.</p>
-            <Link href="/trophy" className="mt-8 inline-block text-base font-semibold underline decoration-sage decoration-2 underline-offset-8 transition-colors hover:text-sage">About the trophy</Link>
+            <p className="mt-4 max-w-xl text-paper/70 md:text-lg">BACA has also named the Rizvi Shield/Plate. Details are being confirmed.</p>
+            <Link href="/trophy" className="mt-6 inline-flex min-h-11 items-center text-base font-semibold underline decoration-sage decoration-2 underline-offset-8 transition-colors hover:text-sage">About the trophy</Link>
           </div>
         </div>
       </section>
 
-      <GalleryZoom photos={ZOOM} total={SHOTS.length} />
+      <GalleryZoom photos={ZOOM} />
 
       <Block tone="paper">
         <div className="grid items-center gap-10 md:grid-cols-[minmax(0,26rem)_1fr] md:gap-16">
           <ParallaxPhoto {...PH.court} className="h-72 rounded-xl md:h-[30rem]" sizes="(min-width: 768px) 26rem, 100vw" />
           <div>
-            <p className={kicker}>Since {HISTORY.since}</p>
-            <ScrubText className="display mt-3 max-w-2xl text-2xl leading-snug md:text-4xl">
-              {`Played every year under the motto “${HISTORY.motto}”, hosted by a different High Court each time.`}
+            <ScrubText className="display max-w-2xl text-2xl leading-snug md:text-4xl">
+              {`Played every year since ${HISTORY.since} under the motto “${HISTORY.motto}”, hosted by a different High Court each time.`}
             </ScrubText>
-            <dl className="num mt-8 grid max-w-xl grid-cols-2 gap-6">
-              <div>
-                <dt className="text-sm text-ink/60">First played</dt>
-                <dd className="display text-2xl md:text-3xl"><ScrambleText text={HISTORY.since} charType="0123456789" textColor="currentColor" className="display text-2xl md:text-3xl" /></dd>
-              </div>
-              <div>
-                <dt className="text-sm text-ink/60">Hosted by Mumbai</dt>
-                <dd className="display text-2xl md:text-3xl">{HISTORY.mumbai.join(", ")}</dd>
-              </div>
-            </dl>
-            <Link href="/about" className={`mt-8 inline-block ${arrow}`}>About BACA</Link>
+            <p className="num mt-6 max-w-xl text-lg text-ink/70">Mumbai hosted it in {HISTORY.mumbai.slice(0, -1).join(", ")} and {HISTORY.mumbai.at(-1)}.</p>
+            <Link href="/about" className={`mt-6 inline-flex min-h-11 items-center ${arrow}`}>About BACA</Link>
           </div>
         </div>
         <div className="mt-12 md:mt-16">
-          <p className={`${kicker} mb-4`}>From the archive. Drag to look through.</p>
+          <p className={`${kicker} mb-4`}>From the archive. Drag to scroll.</p>
           <ArchiveReel photos={ARCHIVE} />
         </div>
       </Block>
@@ -151,22 +141,21 @@ export default function Home() {
       <Block tone="cream">
         <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <div>
-            <p className={kicker}>Poem</p>
-            <SlideTextReveal className="display mt-3 text-3xl md:text-5xl">
+            <SlideTextReveal className="display text-3xl md:text-5xl">
               <h2>Cricket and court</h2>
             </SlideTextReveal>
-            <p className="mt-5 max-w-md text-lg text-ink/70">A Hindi poem shared by BACA on the pitch and the courtroom.</p>
-            <Link href="/poem" className={`mt-8 inline-block ${arrow}`}>Read the poem</Link>
+            <p className="mt-5 max-w-md text-lg text-ink/70">A Hindi poem shared by BACA about cricket and the courtroom.</p>
+            <Link href="/poem" className={`mt-6 inline-flex min-h-11 items-center ${arrow}`}>Read the poem</Link>
           </div>
           <Stanza i={1} />
         </div>
       </Block>
 
-      <Block title="Questions" kicker="Good to know" tone="paper">
+      <Block title="Questions" tone="paper">
         <Faq items={FAQ} />
       </Block>
 
-      <Block title="Sponsors" kicker="Partners" tone="cream">
+      <Block title="Sponsors" tone="cream">
         <Tiers />
       </Block>
 
@@ -183,7 +172,7 @@ export default function Home() {
           <Image src={PH.cheer.src} alt={PH.cheer.alt} fill sizes="100vw" className="-z-10 object-cover object-[50%_30%]" />
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(20_26_22/0.9)_10%,rgb(20_26_22/0.35)_70%)]" />
           <SlideTextReveal className="display max-w-[16ch] text-4xl md:text-7xl">
-            <h2>Come, support the legal fraternity!</h2>
+            <h2>Come and support the legal fraternity.</h2>
           </SlideTextReveal>
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <MagneticButton href="/fixtures" tone="onDark">Fixtures</MagneticButton>
