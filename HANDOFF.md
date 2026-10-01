@@ -90,6 +90,7 @@ Full write-up in `docs/HANDOVER.md` section 14. Rules to keep:
 - **No widows or orphans:** `body { text-wrap: balance }` covers blocks up to six lines. Longer paragraphs use `tie()` (last two words joined), names and the address use `nb()` (never split). A lone last card in a grid is a defect: Downloads columns follow the count, odd last rows span both columns. `text-wrap: pretty` did not work in Chrome 152 here.
 - **Check before shipping:** `scripts/wrap-audit.js` (see docs/HANDOVER.md section 14) at 360, 390, 768, 1024 and 1440 on `next start`.
 - **If you add an `nb()` string**, test it at 360: unbreakable names overflowed the contact rows until `Contacts.tsx` stacked them below `lg`.
+- **Live (02-10-2026):** commit `2ba4157` on main, deployed to https://vijay-tulpule-trophy.vercel.app (Ready). `wrapAudit` against the live site at 390 and 1440 over all 12 routes: no widows, no orphans, no sideways overflow. Home reports "spill" hits only for GSAP start-state offsets (text sits inside its box once revealed); that is not a defect.
 
 ## Hyperiux
 MCP registered at user scope: `claude mcp add -s user hyperiux -- npx -y hyperiux-mcp-server` (tools appear in a new session). CLI is logged in to Pro (`npx hyperiux whoami`). 10 installs per day.

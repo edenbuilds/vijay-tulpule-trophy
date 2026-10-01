@@ -133,6 +133,8 @@ Fourth pass, locally on the production build:
   (the audit ignores a last item that spans the full row on purpose). No sideways overflow at any width.
 - `/trophy` at 390 and 1440: timeline, both portraits, sections and the external PDF link render.
 - `npm run build` (22 routes) and `npx tsc --noEmit` pass.
+- Live (https://vijay-tulpule-trophy.vercel.app, commit `2ba4157`): `wrapAudit` at 390 and 1440 over all 12 routes is clean. Home "spill" hits are GSAP start offsets (checked: "The teams" sits inside its box after the reveal).
+- Not verified: a real phone, Safari, reduced motion in a browser. PDFs were not regenerated (visible text unchanged; `CONTACTS` and `ORG.address` now hold non-breaking spaces, so check the PDF text after the next `npm run downloads`).
 Not verified: a real phone (390px was emulated in the browser pane), Safari, reduced motion in a browser (checked in code only).
 
 ## 11. Switching to BACA colours later
