@@ -187,3 +187,11 @@ html:not(.js) .preloader, .no-preload .preloader { display: none; }
 @keyframes g-draw { to { stroke-dashoffset: 0; } }
 .g-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: g-draw 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 @media (prefers-reduced-motion: reduce) { .g-draw { animation: none; stroke-dashoffset: 0; } }
+
+/* Satoshi has no Devanagari; the poem on /about uses Noto Sans Devanagari (loaded in layout.tsx). */
+.deva { font-family: var(--font-deva), var(--font-sans); }
+
+/* Gallery tiles wipe open from the top when they scroll in (GalleryGrid sets data-in). With no script they stay open. */
+.js .reveal-clip { clip-path: inset(0 0 100% 0); transition: clip-path 0.9s var(--ease-out-expo); }
+.js .reveal-clip[data-in] { clip-path: inset(0); }
+@media (prefers-reduced-motion: reduce) { .js .reveal-clip { clip-path: inset(0); transition: none; } }

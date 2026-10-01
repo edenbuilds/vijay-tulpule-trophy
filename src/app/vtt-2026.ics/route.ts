@@ -20,13 +20,13 @@ export function GET() {
       "DTSTAMP:20260930T000000Z",
       `DTSTART;VALUE=DATE:${ymd(day.date)}`,
       `DTEND;VALUE=DATE:${ymd(day.date, 1)}`,
-      `SUMMARY:${esc(`VTT 2026: ${lines.length === 1 && !day.slots[0].matches ? day.slots[0].note : `${day.slots.reduce((n, s) => n + (s.matches?.length ?? 0), 0)} matches`}`)}`,
+      `SUMMARY:${esc(`BACA 2026: ${lines.length === 1 && !day.slots[0].matches ? day.slots[0].note : `${day.slots.reduce((n, s) => n + (s.matches?.length ?? 0), 0)} matches`}`)}`,
       `DESCRIPTION:${lines.map(esc).join("\\n")}`,
       "LOCATION:Mumbai and Navi Mumbai",
       "END:VEVENT",
     ].join("\r\n");
   });
-  const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//BACA//VTT 2026//EN", "CALSCALE:GREGORIAN", "X-WR-CALNAME:Late Vijay Tulpule Trophy 2026", ...events, "END:VCALENDAR", ""].join("\r\n");
+  const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//BACA//AIACT 2026//EN", "CALSCALE:GREGORIAN", "X-WR-CALNAME:38th All India Advocates’ Cricket Tournament 2026", ...events, "END:VCALENDAR", ""].join("\r\n");
   return new Response(body, {
     headers: { "Content-Type": "text/calendar; charset=utf-8", "Content-Disposition": 'attachment; filename="vtt-2026.ics"' },
   });

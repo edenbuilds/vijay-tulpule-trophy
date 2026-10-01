@@ -10,9 +10,9 @@ export default function Trophy() {
     <>
       <section className="px-2 pt-2">
         <div className="rounded-2xl bg-mist px-4 pb-12 pt-24 md:px-10 md:pb-16 md:pt-32">
-          <h1 className="display rise text-5xl md:text-8xl">Vijay Tulpule</h1>
+          <h1 className="display rise text-5xl md:text-8xl">The Vijay Tulpule Trophy</h1>
           <p className="rise mt-4 text-xl text-ink/65 md:text-2xl" style={{ animationDelay: "100ms" }}>
-            The trophy carries his name
+            Awarded to the winners of the 38th All India Advocates’ Cricket Tournament
           </p>
         </div>
       </section>
@@ -50,9 +50,16 @@ export default function Trophy() {
         </div>
       </Block>
 
-      <Block title="Presentation" tone="night">
+      <Block title="Rizvi Shield/Plate" kicker="Also awarded" tone="paper">
         <p className="num max-w-2xl text-lg text-ink/75 md:text-xl">
-          Presented on 24 October, straight after the final. The Head of the Association hands it to the winning captain.
+          BACA has named a second award the Rizvi Shield/Plate. Who it goes to and how it is played for are still being
+          confirmed and will be published here.
+        </p>
+      </Block>
+
+      <Block title="Presentation" tone="cream">
+        <p className="num max-w-2xl text-lg text-ink/75 md:text-xl">
+          Presented on 24 October, straight after the final. The Head of the Association hands The Vijay Tulpule Trophy to the winning captain.
         </p>
         <Link href="/ceremonies#final" className="mt-8 inline-block text-base font-semibold underline decoration-pitch decoration-2 underline-offset-8 transition-colors hover:text-pitch">Trophy evening running order</Link>
       </Block>

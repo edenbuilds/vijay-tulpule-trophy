@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { ArrowUpRight } from "lucide-react";
-import { Ball } from "@/components/Motion";
+import Image from "next/image";
 import { NAV } from "@/lib/site";
 
 // Floating inset bar: a white tile 8px from the edges that hides while you scroll down and returns
@@ -48,7 +48,7 @@ export function Nav() {
     return () => window.removeEventListener("resize", toActive);
   }, [path, toActive]);
 
-  const extra = [{ href: "/baca", label: "BACA" }, { href: "/contact", label: "Contact" }];
+  const extra = [{ href: "/downloads", label: "Downloads" }, { href: "/ceremonies", label: "Ceremonies" }, { href: "/contact", label: "Contact" }];
 
   return (
     <header
@@ -59,14 +59,14 @@ export function Nav() {
       <div className="rounded-2xl border border-ink/10 bg-mist/90 text-ink backdrop-blur-md">
         <nav aria-label="Main" className="flex h-16 items-center gap-3 pl-4 pr-2 md:pl-5">
           <Link href="/" className="num group mr-auto flex items-center gap-2.5 text-lg font-bold tracking-tight">
-            <Ball className="size-6 transition-transform duration-700 ease-out group-hover:-rotate-[360deg]" />
+            <Image src="/brand/baca-seal.png" alt="" width={72} height={72} priority className="size-9 transition-transform duration-700 ease-out group-hover:-rotate-[360deg]" />
             <span className="leading-none">
-              VTT 2026
-              <span className="hidden text-xs font-medium text-ink/55 sm:block">17–24 Oct · Mumbai</span>
+              BACA 2026
+              <span className="hidden text-xs font-medium text-ink/55 sm:block">38th All India Advocates’ Cricket</span>
             </span>
           </Link>
 
-          <ul ref={list} onMouseLeave={toActive} className="relative hidden items-center text-sm font-medium lg:flex">
+          <ul ref={list} onMouseLeave={toActive} className="relative hidden items-center text-sm font-medium xl:flex">
             <span
               aria-hidden="true"
               className="absolute inset-y-0 left-0 rounded-full bg-mint transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
@@ -92,7 +92,7 @@ export function Nav() {
 
           <Link
             href="/contact"
-            className="press group hidden min-h-11 items-center gap-1.5 rounded-full bg-pitch pl-5 pr-4 text-sm font-semibold text-paper hover:bg-hover sm:inline-flex lg:ml-2"
+            className="press group hidden min-h-11 items-center gap-1.5 rounded-full bg-pitch pl-5 pr-4 text-sm font-semibold text-paper hover:bg-hover sm:inline-flex xl:ml-2"
           >
             Contact
             <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -104,7 +104,7 @@ export function Nav() {
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((o) => !o)}
-            className="press grid size-11 place-items-center rounded-full bg-mint lg:hidden"
+            className="press grid size-11 place-items-center rounded-full bg-mint xl:hidden"
           >
             <span className="relative block h-3 w-5">
               <span className={`absolute left-0 h-0.5 w-5 bg-ink transition-transform duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
@@ -116,7 +116,7 @@ export function Nav() {
         <div
           id="mobile-menu"
           inert={!open}
-          className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:hidden ${
+          className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none xl:hidden ${
             open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
           }`}
         >

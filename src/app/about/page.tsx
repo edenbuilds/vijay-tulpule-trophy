@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import { EVENT, HISTORY, PHOTOS } from "@/lib/site";
+import { Poem } from "@/components/Poem";
 import { Block, Hero, StatBar } from "@/components/Sections";
 
-export const metadata: Metadata = { title: "BACA" };
+export const metadata: Metadata = {
+  title: "About BACA",
+  description: "The Bombay Advocates’ Cricket Association: a public trust of Bombay High Court advocates, host of the 38th All India Advocates’ Cricket Tournament 2026.",
+};
 
 const COMMITTEE = [
-  ["Shirish Gupte", "President"],
+  ["Shirish Gupte", "Sr. Adv. & President"],
   ["Prasad Dhakephalkar", "Vice President"],
   ["Balkrishna Joshi", "Vice President"],
-  ["Rajiv Patil", "Secretary"],
+  ["Rajiv Patil", "Sr. Adv. & Hon. Secretary"],
   ["Rajan Jayakar", "Treasurer"],
   ["Sanjeev Gorwadkar", ""],
   ["Deepak Thakre", ""],
@@ -18,15 +22,16 @@ const COMMITTEE = [
   ["Rahul Nerlekar", ""],
 ];
 
-export default function Baca() {
+export default function About() {
   return (
     <>
-      <Hero title="Bombay Advocates’ Cricket Association" sub="Hosts of the 2026 tournament" photo={PHOTOS.field} />
+      <Hero title="About BACA" sub="Bombay Advocates’ Cricket Association, hosts of the 2026 tournament" photo={PHOTOS.field} />
       <Block tone="paper">
         <div className="num grid max-w-4xl gap-4 text-lg text-ink/75 md:text-xl">
           <p>Public trust, 1993. Registration No. 797/1993 / 4BBSD.</p>
           <p>167/E, Poonawadi, Dr Ambedkar Road, Dadar, Mumbai 400 014.</p>
           <p>Advocates, solicitors and legal professionals of the Bombay High Court. Three-time All India champions.</p>
+          <p>The 2026 tournament is held in association with BBA, The Bombay Incorporated Law Society and AIA.</p>
         </div>
       </Block>
       <StatBar items={HISTORY.mumbai.map((y) => [y, "Mumbai hosts"])} />
@@ -44,11 +49,20 @@ export default function Baca() {
               ))}
             </ul>
             <p className="mt-8 text-ink/70">
-              The best players are picked for the Lawyers’ Cricket World Cup. The next one is in Cape Town.
+              In 2026 practising advocates from 15 High Courts and the Supreme Court of India play on 8 grounds in Mumbai and
+              Navi Mumbai. The best players are picked for the Lawyers’ Cricket World Cup. The next one is in Cape Town.
             </p>
           </div>
         </div>
       </Block>
+      <section id="poem" className="bg-paper pt-16 md:pt-24">
+        <div className="mx-auto mb-8 max-w-7xl px-4 md:mb-12 md:px-8">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-ink/60">Poem</p>
+          <h2 className="display text-4xl md:text-6xl">Cricket and court</h2>
+          <p className="mt-4 max-w-xl text-lg text-ink/70">A Hindi poem shared by BACA on what the pitch and the courtroom ask of the same people.</p>
+        </div>
+        <Poem />
+      </section>
       <Block title="Committee" tone="paper">
         <ul className="rule grid md:grid-cols-2 md:gap-x-12">
           {COMMITTEE.map(([name, role]) => (

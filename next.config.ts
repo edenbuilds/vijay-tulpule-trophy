@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // /baca became /about when the site was rebuilt around the 38th tournament.
+  async redirects() {
+    return [{ source: "/baca", destination: "/about", permanent: true }];
+  },
 };
 
 export default nextConfig;

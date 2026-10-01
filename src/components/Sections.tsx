@@ -64,7 +64,7 @@ export function Hero({
         {tall ? (
           <div className="relative mx-auto flex w-full max-w-[1400px] flex-col items-center gap-8 px-5 pt-20 text-center md:px-8 md:pt-28">
             {eyebrow && <p className={`rise ${label}`}>{eyebrow}</p>}
-            <h1 aria-label={title} className="display rise max-w-[14ch] text-[2.75rem] !leading-[1.3] sm:text-7xl lg:text-[7rem]" style={{ animationDelay: "100ms" }}>
+            <h1 aria-label={title} className="display rise max-w-[18ch] text-[2.5rem] !leading-[1.3] sm:text-6xl lg:text-[5.5rem]" style={{ animationDelay: "100ms" }}>
               <RollingWords text={title} />
             </h1>
             {sub && <p className="rise max-w-2xl text-lg text-ink/70 md:text-xl" style={{ animationDelay: "200ms" }}>{sub}</p>}

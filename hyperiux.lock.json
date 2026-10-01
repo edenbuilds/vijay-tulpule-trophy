@@ -21,6 +21,21 @@
       "files": {
         "src/components/effects/rolling-text/index.tsx": "sha256:edaef0716796d6d9a7bf337b791fce608c868e4ce2f61511a41327dcfcb492f3"
       }
+    },
+    "mask-text-reveal": {
+      "version": "1.0.1",
+      "installedAt": "2026-10-01T07:55:00.145Z",
+      "files": {
+        "src/components/effects/mask-text-reveal/index.tsx": "sha256:9c161ec4b1a972925443be8e074314e75343b5e4cc207c23950110393e7c1162"
+      }
+    },
+    "parallax-gallery": {
+      "version": "1.0.1",
+      "installedAt": "2026-10-01T07:55:06.835Z",
+      "files": {
+        "src/components/effects/parallax-gallery/index.tsx": "sha256:ff6d69edc9208a08f045d4b6c3504cd8fee845870ab87135c11cd61a786e3888",
+        "src/components/effects/parallax-gallery/ParallaxGallery.tsx": "sha256:d74bcc723ada1f92d1a877881e11814c8d289291213c040b83529440b97f2942"
+      }
     }
   }
 }

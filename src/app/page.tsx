@@ -7,6 +7,8 @@ import StackingCards from "@/components/effects/stacking-cards";
 import { ScoreTicker, ScrubText } from "@/components/Motion";
 import { Bento, Block, Hero, StatBar } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
+import { Contacts } from "@/components/Contacts";
+import { Stanza } from "@/components/Poem";
 import { EVENT, PHOTOS } from "@/lib/site";
 import { Downloads } from "@/components/Downloads";
 
@@ -30,10 +32,10 @@ const kicker = "text-xs font-medium uppercase tracking-[0.08em] text-ink/60";
 export default function Home() {
   return (
     <>
-      <Hero eyebrow={EVENT.edition} title="Late Vijay Tulpule Trophy 2026"
-        sub="Advocates from fifteen High Courts and the Supreme Court play for the trophy over eight days in Mumbai and Navi Mumbai."
-        marquee={["16 teams", "4 groups", "32 matches", `${EVENT.overs} overs`, "Mumbai", "Navi Mumbai"]}
-        row={["17–24 October 2026", "Hosted by BACA", "Final on 24 October"]}
+      <Hero eyebrow="BACA proudly invites you to the 38th" title="All India Advocates’ Cricket Tournament 2026"
+        sub="Practising advocates from 15 High Courts and the Supreme Court of India battle it out on 8 cricket grounds in Mumbai and Navi Mumbai. Come, support the legal fraternity!"
+        marquee={["16 teams", "8 grounds", `${EVENT.overs} overs`, "Mumbai", "Navi Mumbai"]}
+        row={["17–24 October 2026", "Hosted by BACA", EVENT.fixturesNote]}
         photo={PHOTOS.whites}
         tall
       >
@@ -56,9 +58,9 @@ export default function Home() {
         ))}
       </nav>
 
-      <ScoreTicker items={["Late Vijay Tulpule Trophy", EVENT.edition, "Mumbai", "Navi Mumbai"]} />
+      <ScoreTicker items={[EVENT.trophy, "BACA 2026", "Mumbai", "Navi Mumbai"]} />
 
-      <StatBar items={[["16", "teams"], ["4", "groups"], ["32", "matches"], ["17–24 Oct", "dates"]]} />
+      <StatBar items={[["16", "teams"], ["8", "grounds"], ["32", "matches"], ["17–24 Oct", "dates"]]} />
 
       <Bento photo={PHOTOS.tent} />
 
@@ -87,7 +89,7 @@ export default function Home() {
                 </Link>
               </li>
             ))}
-            <li className="pt-4 text-sm text-ink/50">Ground names to be announced</li>
+            <li className="pt-4 text-sm text-ink/50">{EVENT.fixturesNote} Ground names to follow.</li>
           </ul>
         </div>
       </Block>
@@ -118,19 +120,35 @@ export default function Home() {
           <div>
             <p className={kicker}>Trophy</p>
             <ScrubText className="display mt-3 max-w-xl text-2xl leading-snug md:text-4xl">
-              Named after Vijay Tulpule, Bombay advocate and former Ranji Trophy probable.
+              The winners receive The Vijay Tulpule Trophy, named after the Bombay advocate and former Ranji Trophy probable.
             </ScrubText>
             <Link href="/trophy" className={`mt-8 inline-block ${arrow}`}>About the trophy</Link>
           </div>
         </div>
       </Block>
 
-      <Block title="Sponsors" kicker="Partners" tone="cream">
+      <Block tone="cream">
+        <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <div>
+            <p className={kicker}>Poem</p>
+            <h2 className="display mt-3 text-3xl md:text-5xl">Cricket and court</h2>
+            <p className="mt-5 max-w-md text-lg text-ink/70">A Hindi poem shared by BACA on the pitch and the courtroom.</p>
+            <Link href="/about#poem" className={`mt-8 inline-block ${arrow}`}>Read the poem</Link>
+          </div>
+          <Stanza i={1} />
+        </div>
+      </Block>
+
+      <Block title="Sponsors" kicker="Partners" tone="paper">
         <Tiers />
       </Block>
 
-      <Block title="Downloads" tone="paper">
+      <Block title="Downloads" tone="cream">
         <Downloads />
+      </Block>
+
+      <Block title="Contact details" tone="paper">
+        <Contacts />
       </Block>
 
       <section className="px-2 pt-2">

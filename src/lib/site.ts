@@ -3,19 +3,21 @@ export const NAV = [
   { href: "/teams", label: "Teams" },
   { href: "/format", label: "Format" },
   { href: "/trophy", label: "Trophy" },
-  { href: "/ceremonies", label: "Ceremonies" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/about", label: "About BACA" },
   { href: "/sponsors", label: "Sponsors" },
-  { href: "/downloads", label: "Downloads" },
 ];
 
 export const FOOTER_LINKS = [
   { href: "/fixtures", label: "Fixtures" },
   { href: "/teams", label: "Teams" },
   { href: "/format", label: "Format" },
+  { href: "/trophy", label: "Trophy" },
+  { href: "/gallery", label: "Gallery" },
   { href: "/ceremonies", label: "Ceremonies" },
   { href: "/sponsors", label: "Sponsors" },
   { href: "/downloads", label: "Downloads" },
-  { href: "/baca", label: "BACA" },
+  { href: "/about", label: "About BACA" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -27,6 +29,14 @@ export const ORG = {
   phone: "+91 98210 24059",
   phoneHref: "tel:+919821024059",
 };
+
+// Contact details printed on the tournament poster (BACA, 2026). Numbers are the ones on the poster, unchanged.
+export const CONTACTS = [
+  { name: "Rajiv Patil", role: "Sr. Adv. & Hon. Secretary", phone: "98210 24059", tel: "+919821024059" },
+  { name: "Deepak Thakre", role: "Adv.", phone: "96193 56926", tel: "+919619356926" },
+  { name: "Meghashyam Kocharekar", role: "Adv.", phone: "98211 43570", tel: "+919821143570" },
+  { name: "Harshad Bhadbhade", role: "Adv.", phone: "98203 00135", tel: "+919820300135" },
+];
 
 export const GROUPS = [
   { name: "A", teams: ["A", "B", "C", "D"] },
@@ -52,7 +62,7 @@ export const RESULTS: Result[] = [];
 
 // Fixture grid from the Organising Committee's combined working book (25-09-2026). Grounds are numbered
 // until the venues are named; the 14:30 sessions run only if the lights are certified by 16 Oct.
-const LEAGUE = "Grounds 1–4";
+const LEAGUE = "Grounds to be announced";
 export const FIXTURES: Day[] = [
   { date: "17 Oct", day: "Sat", slots: [{ time: "07:00", venue: "Main Ground", note: "Opening: medals, team photographs, anthem" }] },
   {
@@ -103,6 +113,9 @@ export const FIXTURES: Day[] = [
 
 export const EVENT = {
   edition: "38th All India Advocates’ Cricket Tournament",
+  host: "BACA",
+  trophy: "The Vijay Tulpule Trophy",
+  fixturesNote: "Details of fixtures will be announced shortly.",
   overs: "50",
   squad: "15",
 };
@@ -183,7 +196,7 @@ export const PARTNERS = [
   ["Presenting", "Named with the title on every board."],
   ["Official partners", "Ball, drink, bank, auto and wear."],
   ["Awards", "A match award or a series cup."],
-  ["Grounds", "One of the four venues."],
+  ["Grounds", "One of the eight venues."],
   ["Associate", "Smaller firms and practices."],
 ];
 
@@ -198,28 +211,17 @@ export const DOWNLOADS = [
   { href: "/downloads/vtt-2026-fixtures.pdf", label: "Fixtures", line: "Every match, day and ground. A4 PDF.", kind: "PDF" },
   { href: "/vtt-2026.ics", label: "Calendar", line: "All eight days in your calendar app.", kind: "ICS" },
   { href: "/downloads/vtt-2026-sponsorship.pdf", label: "Sponsorship", line: "Tiers, rights, terms and payment. A4 PDF.", kind: "PDF" },
+  { href: "/downloads/baca-logo-pack.zip", label: "BACA logo pack", line: "The seal in colour, gold, ink, green and white, plus lockups. PNG.", kind: "ZIP" },
 ];
 
-// Placeholder photography until the organisers supply their own: generic club cricket in Mumbai from
-// Wikimedia Commons (free licences, credited in the footer). None of these show a confirmed venue.
-const wm = (path: string, w = 1280) => {
-  const name = path.split("/").pop();
-  return `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/${w}px-${name}`;
-};
+// Photos supplied by BACA (src/lib/gallery.ts). Captions stay generic until the people, grounds and years are named.
+const shot = (id: number, alt: string) => ({ src: `/gallery/${id}.jpg`, alt });
 export const PHOTOS = {
-  whites: { src: wm("5/59/A_Game_of_Cricket_in_Mumbai_%282133928156%29.jpg"), alt: "Cricketers in whites on a green maidan" },
-  tower: { src: wm("4/45/A_Game_of_Cricket_in_Mumbai_%282133149871%29.jpg", 960), alt: "A batter on a dusty maidan under a clock tower" },
-  tent: { src: "https://upload.wikimedia.org/wikipedia/commons/a/ad/A_break_from_cricket.jpg", alt: "A shade tent beside a cricket ground" },
-  field: { src: wm("7/79/Oval_Maidan_%283101478304%29.jpg"), alt: "An empty cricket field in late light" },
-  casual: { src: wm("3/32/Mumbai%2C_India%2C_Oval_Maidan%2C_Sports.jpg"), alt: "Players and a batter on an open ground" },
-  saturday: { src: wm("5/5b/Saturday_Cricket_%2813968787199%29.jpg"), alt: "Several club matches on one maidan" },
-  crowd: { src: wm("5/54/Crowds_watching_Sunday_Cricket_%2814011675873%29.jpg"), alt: "Spectators watching cricket through railings" },
+  whites: shot(85, "Teams in white after a past tournament"),
+  tower: shot(72, "A team group photograph"),
+  tent: shot(20, "Players and officials together on the ground"),
+  field: shot(109, "A team photograph from a past tournament"),
+  casual: shot(11, "A team posing together"),
+  saturday: shot(56, "Teams gathered on the ground"),
+  crowd: shot(23, "Players and supporters in a group photograph"),
 };
-
-export const PHOTO_CREDITS = [
-  { by: "Tom Thai", licence: "CC BY 2.0", href: "https://commons.wikimedia.org/wiki/File:A_Game_of_Cricket_in_Mumbai_(2133928156).jpg" },
-  { by: "Satish Krishnamurthy", licence: "CC BY 2.0", href: "https://commons.wikimedia.org/wiki/File:A_break_from_cricket.jpg" },
-  { by: "Honza Soukup", licence: "CC BY 2.0", href: "https://commons.wikimedia.org/wiki/File:Oval_Maidan_(3101478304).jpg" },
-  { by: "Vyacheslav Argenberg", licence: "CC BY 4.0", href: "https://commons.wikimedia.org/wiki/File:Mumbai,_India,_Oval_Maidan,_Sports.jpg" },
-  { by: "David Brossard", licence: "CC BY-SA 2.0", href: "https://commons.wikimedia.org/wiki/File:Saturday_Cricket_(13968787199).jpg" },
-];

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import * as React from "react";
+import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { FOOTER_LINKS, ORG, PHOTO_CREDITS } from "@/lib/site";
+import { CONTACTS, FOOTER_LINKS, ORG } from "@/lib/site";
 
 // Layout from BYQ section kelvin-footer-4 (wordmark row, rule, contact + links, rule, base), set in a
 // Human Intelligence inset green tile with dashed rules.
@@ -11,7 +11,10 @@ export function Footer() {
       <div className="rounded-2xl bg-mint px-4 pb-10 pt-16 text-ink md:px-8 md:pt-24">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col gap-4 pb-10 md:flex-row md:items-end md:justify-between">
-            <p className="num display text-5xl md:text-7xl">VTT 2026</p>
+            <p className="num display flex items-center gap-4 text-5xl md:text-7xl">
+              <Image src="/brand/baca-seal.png" alt="" width={96} height={96} className="size-14 md:size-20" />
+              BACA 2026
+            </p>
             <p className="text-lg text-ink/70 md:text-right">{ORG.name}</p>
           </div>
           <div className="rule" />
@@ -19,7 +22,9 @@ export function Footer() {
             <address className="flex flex-col gap-3 not-italic text-ink/70">
               <span className="flex gap-3"><MapPin aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} />{ORG.address}</span>
               <a className="flex w-fit gap-3 transition-colors hover:text-ink" href={`mailto:${ORG.email}`}><Mail aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{ORG.email}</span></a>
-              <a className="num flex w-fit gap-3 transition-colors hover:text-ink" href={ORG.phoneHref}><Phone aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{ORG.phone}</span></a>
+              {CONTACTS.map((c) => (
+                <a key={c.tel} className="num flex w-fit gap-3 transition-colors hover:text-ink" href={`tel:${c.tel}`}><Phone aria-hidden="true" className="mt-0.5 size-5 flex-none text-pitch" strokeWidth={1.6} /><span className="u-grow">{c.name}, {c.phone}</span></a>
+              ))}
             </address>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-1 sm:grid-cols-3">
               {FOOTER_LINKS.map((l) => (
@@ -33,16 +38,6 @@ export function Footer() {
           </div>
           <div className="rule" />
           <p className="num pt-8 text-sm text-ink/55">{ORG.trust}</p>
-          <p className="mt-3 text-xs leading-relaxed text-ink/50">
-            Placeholder photos from Wikimedia Commons:{" "}
-            {PHOTO_CREDITS.map((c, i) => (
-              <React.Fragment key={c.href}>
-                {i > 0 && ", "}
-                <a href={c.href} className="underline underline-offset-2 hover:text-ink" target="_blank" rel="noopener noreferrer">{c.by}</a> ({c.licence})
-              </React.Fragment>
-            ))}
-            .
-          </p>
         </div>
       </div>
     </footer>

@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       from,
       to: to.split(","),
       reply_to: msg.email,
-      subject: `VTT 2026 · ${msg.role} · ${msg.name}`,
+      subject: `BACA 2026 · ${msg.role} · ${msg.name}`,
       text: `Name: ${msg.name}\nEmail: ${msg.email}\nTeam / organisation: ${msg.org}\nRole: ${msg.role}\nCity: ${msg.city}\n\n${msg.message}`,
     }),
   });

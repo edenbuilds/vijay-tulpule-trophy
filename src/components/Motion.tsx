@@ -15,12 +15,15 @@ export function SmoothScroll() {
   React.useEffect(() => {
     if (reduced()) return;
     const lenis = new Lenis();
+    // The gallery reel pauses Lenis while its snap runs (effects/parallax-gallery).
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (t: number) => lenis.raf(t * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     return () => {
       gsap.ticker.remove(tick);
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
       lenis.destroy();
     };
   }, []);

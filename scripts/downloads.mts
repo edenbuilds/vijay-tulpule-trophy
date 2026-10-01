@@ -39,8 +39,8 @@ const head = (title: string, sub: string) =>
   `<header><div><p class="k">${EVENT.edition}</p><h1>${title}</h1><p style="margin-top:6px">${sub}</p></div><div class="ball"></div></header>`;
 
 const fixtures = page(
-  "VTT 2026 Fixtures",
-  head("Late Vijay Tulpule Trophy 2026: Fixtures", `Mumbai and Navi Mumbai · 17–24 October 2026 · ${EVENT.overs} overs a side · ground names to be announced`) +
+  "BACA 2026 Fixtures",
+  head("38th All India Advocates’ Cricket Tournament 2026: Fixtures", `Mumbai and Navi Mumbai · 17–24 October 2026 · ${EVENT.overs} overs a side · details of fixtures will be announced shortly`) +
     `<table><tr><th>Day</th><th>Time</th><th>No.</th><th>Fixture</th><th>Ground</th></tr>${FIXTURES.flatMap((d) =>
       d.slots.map((s, i) => `<tr><td class="d">${i ? "" : `${d.day} ${d.date}`}</td><td class="t">${s.time ?? "All day"}</td><td class="m c">${s.code ?? ""}</td><td>${(s.matches ?? [s.note]).join(" · ")}</td><td class="m">${s.venue ?? ""}</td></tr>`),
     ).join("")}</table>
@@ -48,8 +48,8 @@ const fixtures = page(
 );
 
 const sponsorship = page(
-  "VTT 2026 Sponsorship",
-  head("Sponsor the Late Vijay Tulpule Trophy 2026", "Sixteen teams from fifteen High Courts and the Supreme Court of India · 17–24 October 2026") +
+  "BACA 2026 Sponsorship",
+  head("Sponsor the 38th All India Advocates’ Cricket Tournament 2026", "Sixteen teams from fifteen High Courts and the Supreme Court of India · 17–24 October 2026") +
     `<h2>Tiers</h2><div class="tiers">${[...TIERS].reverse().map((t) => `<div class="tier${t.name === "Platinum" ? " top" : ""}">${t.name}<b>${t.price}</b></div>`).join("")}</div>
     <p style="margin-top:10px">Every sponsor is named, by tier, at the opening, the end of the league, the final and at every venue.</p>
     <h2>Partner roles</h2><div class="grid">${PARTNERS.map(([k, v]) => `<p><b>${k}.</b> ${v}</p>`).join("")}</div>
@@ -61,6 +61,6 @@ const sponsorship = page(
 for (const [name, html] of [["vtt-2026-fixtures", fixtures], ["vtt-2026-sponsorship", sponsorship]]) {
   const src = join(tmp, `${name}.html`);
   writeFileSync(src, html);
-  execFileSync(CHROME, ["--headless", "--disable-gpu", "--no-pdf-header-footer", `--print-to-pdf=${join(root, "public/downloads", `${name}.pdf`)}`, pathToFileURL(src).href], { stdio: "ignore" });
+  execFileSync(CHROME, ["--headless", "--disable-gpu", "--no-pdf-header-footer", `--user-data-dir=${join(tmp, "profile")}`, `--print-to-pdf=${join(root, "public/downloads", `${name}.pdf`)}`, pathToFileURL(src).href], { stdio: "ignore" });
   console.log(`public/downloads/${name}.pdf`);
 }

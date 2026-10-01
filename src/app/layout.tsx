@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Noto_Sans_Devanagari } from "next/font/google";
 import localFont from "next/font/local";
 import { Footer } from "@/components/Footer";
 import { PageSweep, SmoothScroll } from "@/components/Motion";
@@ -10,17 +11,21 @@ import "./globals.css";
 // Human Intelligence runs on one grotesque; Satoshi stands in (Fontshare free licence, fonts/FFL.txt).
 const satoshi = localFont({ variable: "--font-satoshi", src: "./fonts/Satoshi-Variable.woff2", weight: "300 900" });
 
+// Hindi poem on /about. Satoshi has no Devanagari, so the poem takes this one; it loads only where used.
+const devanagari = Noto_Sans_Devanagari({ variable: "--font-deva", subsets: ["devanagari"], weight: ["400", "500", "600"], display: "swap" });
+
 export const metadata: Metadata = {
-  title: { default: "Late Vijay Tulpule Trophy 2026", template: "%s · Late Vijay Tulpule Trophy 2026" },
+  metadataBase: new URL("https://vijay-tulpule-trophy.vercel.app"),
+  title: { default: "BACA · 38th All India Advocates’ Cricket Tournament 2026", template: "%s · BACA 2026" },
   description:
-    "Fixtures, format and sponsorship for the Late Vijay Tulpule Trophy 2026, the 38th All India Advocates’ Cricket Tournament. Sixteen teams, Mumbai and Navi Mumbai, 17–24 October.",
+    "Official site of the 38th All India Advocates’ Cricket Tournament, hosted by the Bombay Advocates’ Cricket Association. Mumbai and Navi Mumbai, 17–24 October 2026. Winners receive The Vijay Tulpule Trophy.",
 };
 
 export const viewport: Viewport = { themeColor: "#f1f4ea" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={satoshi.variable} suppressHydrationWarning>
+    <html lang="en-IN" className={`${satoshi.variable} ${devanagari.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "(function(c){c.add('js');try{c.add(sessionStorage.getItem('vtt-loaded')?'no-preload':'preloading')}catch(e){c.add('no-preload')}})(document.documentElement.classList)" }} />
       </head>

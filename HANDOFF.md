@@ -1,4 +1,4 @@
-# HANDOFF: Late Vijay Tulpule Trophy 2026
+# HANDOFF: BACA 38th All India Advocates’ Cricket Tournament 2026 (site stays at vijay-tulpule-trophy)
 
 Live: https://vijay-tulpule-trophy.vercel.app
 Repo: https://github.com/edenbuilds/vijay-tulpule-trophy (Vercel deploys from `main`, author must be omkar1sonawane@gmail.com)
@@ -45,17 +45,38 @@ Pages: `/ceremonies` (opening, ceremonial sitting, trophy evening, animated `Tim
 
 ## Downloads
 `public/downloads/vtt-2026-fixtures.pdf` and `vtt-2026-sponsorship.pdf` are built from `site.ts` by `npm run downloads`
-(headless Chrome). Rerun and commit after changing fixtures, tiers or terms. `/vtt-2026.ics` is a static route built from `FIXTURES`.
+(headless Chrome, with a throwaway profile so a running Chrome does not hang it). Rerun and commit after changing fixtures, tiers or terms. `/vtt-2026.ics` is a static route built from `FIXTURES`.
 
 ## Photos
-Placeholders are hotlinked from Wikimedia Commons (`PHOTOS` in `src/lib/site.ts`), credited in the footer. None shows a confirmed venue. Replace with the organisers' photos, move them to `public/img`, drop the credits line.
+BACA's own photographs (WhatsApp, 01-10-2026) live in `public/gallery` as `N.jpg` (1400px) and `N-s.jpg` (640px); `src/lib/gallery.ts`
+lists 49 of them by category (teams, trophies, archive). Captions stay generic until BACA names people, grounds and years.
+`PHOTOS` in `site.ts` points at a few of them for the heroes. Wikimedia placeholders and the footer credits are gone.
+To add a photo: resize to both files, add a line to `SHOTS`.
+
+## Rebrand (01-10-2026)
+The site is now the official site of the 38th All India Advocates’ Cricket Tournament 2026, hosted by BACA, until it reverts to the
+BACA Official Website. Winners get **The Vijay Tulpule Trophy** (confirmed). **Rizvi Shield/Plate** is named on `/trophy` with a
+"being confirmed" line only: nobody has said who Rizvi is or what it is awarded for. Do not invent either.
+- Logo: `public/brand/*.png` (seal in colour, gold, ink, pitch, white; lockups) made from the supplied BACA-Logo.jpg. Icons, apple-icon and
+  OG/Twitter images are in `src/app/`. Zip for download: `public/downloads/baca-logo-pack.zip`.
+- Contacts from the poster: `CONTACTS` in `site.ts` (Rajiv Patil, Deepak Thakre, Meghashyam Kocharekar, Harshad Bhadbhade). Shown on home, `/contact`, footer.
+- Poster says fixtures "will be announced shortly" and 8 grounds; the fixture grid (from the 25-09 working book) is kept but marked provisional
+  and its venue reads "Grounds to be announced".
+- `/about` (was `/baca`, permanent redirect in `next.config.ts`): facts, association with BBA / The Bombay Incorporated Law Society / AIA
+  (as printed on the poster, AIA not expanded), history, the poem, committee with poster titles.
+- `/gallery`: Hyperiux **parallax-gallery** reel (patched: landscape frame, alt text, shares the site's Lenis via `window.__lenis`) plus a
+  filterable grid with wipe-open tiles and a native `<dialog>` lightbox (arrow keys).
+- Poem: `src/lib/poem.ts` ("क्रिकेट और कोर्ट", Adv. Gurudas Sanjeev Gorwadkar), transcribed by eye from the supplied image (macOS OCR cannot
+  read Devanagari). Spelling kept as printed. Hyperiux **mask-text-reveal** per verse, split by line, never by character (breaks conjuncts).
+  Font: Noto Sans Devanagari via `next/font/google`, class `.deva`. Ask the author to confirm the line "मुवक्किल कड़े, मेरा ही कहना Correct" (verse 5).
+- Hyperiux CLI `add` overwrote `globals.css` and `README.md` once: check `git status` after every add.
 
 ## Hyperiux
 MCP registered at user scope: `claude mcp add -s user hyperiux -- npx -y hyperiux-mcp-server` (tools appear in a new session). CLI is logged in to Pro (`npx hyperiux whoami`). 10 installs per day.
 Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re-run init; if you do, `git checkout src/app/globals.css`.
 
 ## Blocked / TBC
-- Real ground or match photography not supplied (Commons placeholders in use).
+- Names, grounds and years for the gallery photos. Official BACA site: none found online, so About is built only from BACA's own papers.
 - Stream URL, team names, ground names: TBC. Ceremonial sitting date (16 or 17 Oct) not locked by the Board yet.
 - Contact form: needs `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM` on Vercel plus a verified Resend domain. Until then it returns an honest error naming the organiser's email.
 
@@ -63,6 +84,6 @@ Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re
 ```
 Work in ~/vijay-tulpule-trophy. Read HANDOFF.md first, then ~/Downloads/VTT-2026-SECTION-PROMPTS.md.
 Keep the Fit Trainer tokens and the motion inventory. Never run `npx hyperiux init`.
-Task: <paste task>. Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px, commit to main
+Task: <paste task>. Open items: Rizvi Shield/Plate details, ground names and fixtures, AIA expansion, which BACA address is current (about page vs footer). Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px, commit to main
 with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with `vercel deploy --prod`, update this file.
 ```
