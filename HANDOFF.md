@@ -81,6 +81,7 @@ Full write-up in `docs/HANDOVER.md`. Rules to keep:
 - **Names:** every person is "Adv." (or "Sr. Adv." for Shirish Gupte and Rajiv Patil, as the poster prints). The prefix is inside the `name` string in `CONTACTS` and `COMMITTEE`; `role` holds only a role the source gives. "The Vijay Tulpule Trophy" keeps its name; the person is Adv. Vijay Tulpule in captions and sentences (judgement call, to confirm).
 - **Address:** only `ORG.address` (Krishna Kunj, 36 Shivaji Park, Mumbai 400 028). The Dadar address is deleted everywhere.
 - **Copy:** plain labels for headings ("The teams", "Schedule", "Gallery"), no poetic numbers, no counters or big-number strips, no em dashes, no taglines. Numbers appear only as plain facts. Do not add a sentence that no source document backs.
+- Live check (01-10-2026, commit 2e19d75, production Ready): all 12 pages at 390 have no horizontal overflow, no unprefixed person name, no Dadar address, no old headings; standalone links are at least 44px; home at 1440 has four quick-link tiles and two pin spacers (schedule and gallery zoom). Home is about 9.9k px tall at 390 (was 12.2k). PDF on the live site shows "Sr. Adv. Rajiv Patil". Not checked: a physical phone, Safari. Console noise seen: ERR_BLOCKED_BY_CLIENT (a blocker in the pane) and one aborted RSC prefetch when navigating away, not site errors.
 - `npm run downloads` now gives each PDF its own Chrome profile and accepts a timeout after the file is written (headless Chrome did not exit and hung the second PDF).
 
 ## Hyperiux
