@@ -45,7 +45,7 @@ export function MagneticButton({ href, children, tone = "dark" }: Props) {
       className={`mb-magnet ${tone !== "dark" ? "mb-light" : ""} relative -m-2.5 inline-flex items-center justify-center px-[1.15rem] py-[1.35rem] outline-none [-webkit-tap-highlight-color:transparent]`}
     >
       <span
-        className={`mb-label relative z-[1] inline-flex min-h-11 items-center gap-2.5 rounded-full border px-7 py-3 text-base font-semibold ${TONES[tone]}`}
+        className={`mb-label relative z-[1] inline-flex min-h-11 whitespace-nowrap items-center gap-2.5 rounded-full border px-7 py-3 text-base font-semibold ${TONES[tone]}`}
       >
         {children}
         <svg className="mb-arrow size-4 flex-none" viewBox="0 0 24 24" fill="none" aria-hidden="true">

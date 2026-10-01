@@ -7,12 +7,12 @@ export function Contacts() {
     <ul className="rule grid md:grid-cols-2 md:gap-x-12">
       {CONTACTS.map((c) => (
         <li key={c.tel} className="row-line border-b border-dashed border-ink/15">
-          <a href={`tel:${c.tel}`} className="press flex min-h-16 items-center justify-between gap-4 py-4">
+          <a href={`tel:${c.tel}`} className="press flex min-h-16 flex-col items-start justify-center gap-1 py-4 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
             <span>
               <span className="block text-lg font-semibold">{c.name}</span>
               {c.role && <span className="text-sm text-ink/55">{c.role}</span>}
             </span>
-            <span className="num flex items-center gap-2 text-lg text-pitch">
+            <span className="num flex items-center gap-2 whitespace-nowrap text-lg text-pitch">
               <Phone aria-hidden="true" className="size-4" strokeWidth={1.8} />
               {c.phone}
             </span>

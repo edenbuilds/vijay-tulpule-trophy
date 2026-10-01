@@ -22,7 +22,7 @@ export function Tiers({ cta = "Sponsor the event" }: { cta?: string }) {
           <MagneticButton href="/contact">{cta}</MagneticButton>
         </div>
       </div>
-      <div className="hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4">
+      <div className="hidden gap-4 sm:grid sm:grid-cols-2 xl:grid-cols-4">
         {TIERS.map((t, i) => {
           const top = t.name === "Platinum";
           return (

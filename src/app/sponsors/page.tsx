@@ -24,14 +24,14 @@ export default function Sponsors() {
         <p className="mt-8 max-w-3xl text-lg text-ink/70">
           Every sponsor is named, by tier, at these moments. Sizes and placings follow the tier.
         </p>
-        <ul className="mt-4 flex flex-wrap gap-2">
+        <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {MOMENTS.map((m) => (
-            <li key={m} className="lift rounded-full bg-mint px-4 py-2 font-medium">{m}</li>
+            <li key={m} className="lift rounded-full bg-mint px-4 py-2 text-center font-medium">{m}</li>
           ))}
         </ul>
       </Block>
       <Block title="Partner roles" tone="paper">
-        <dl className="rule grid md:grid-cols-2 md:gap-x-12">
+        <dl className="rule grid md:grid-cols-2 md:gap-x-12 md:[&>:last-child:nth-child(odd)]:col-span-2">
           {PARTNERS.map(([k, v]) => (
             <div key={k} className="row-line border-b border-dashed border-ink/15 py-4">
               <dt className="text-lg font-semibold">{k}</dt>
@@ -41,7 +41,7 @@ export default function Sponsors() {
         </dl>
       </Block>
       <Block title="Rights" tone="paper">
-        <dl className="rule grid md:grid-cols-2 md:gap-x-12">
+        <dl className="rule grid md:grid-cols-2 md:gap-x-12 md:[&>:last-child:nth-child(odd)]:col-span-2">
           {RIGHTS.map(([k, v]) => (
             <div key={k} className="row-line border-b border-dashed border-ink/15 py-4">
               <dt className="text-lg font-semibold">{k}</dt>

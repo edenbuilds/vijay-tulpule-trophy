@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EVENT, HISTORY, ORG } from "@/lib/site";
+import { EVENT, HISTORY, ORG, nb } from "@/lib/site";
 import { PH } from "@/lib/photos";
 import Link from "next/link";
 import { Stanza } from "@/components/Poem";
@@ -11,17 +11,17 @@ export const metadata: Metadata = {
 };
 
 const COMMITTEE = [
-  ["Sr. Adv. Shirish Gupte", "President"],
-  ["Adv. Prasad Dhakephalkar", "Vice President"],
-  ["Adv. Balkrishna Joshi", "Vice President"],
-  ["Sr. Adv. Rajiv Patil", "Hon. Secretary"],
-  ["Adv. Rajan Jayakar", "Treasurer"],
-  ["Adv. Sanjeev Gorwadkar", ""],
-  ["Adv. Deepak Thakre", ""],
-  ["Adv. Sachindra Shetye", ""],
-  ["Adv. Meghashyam Kocharekar", ""],
-  ["Adv. Prashant Prabhu", ""],
-  ["Adv. Rahul Nerlekar", ""],
+  [nb("Sr. Adv. Shirish Gupte"), "President"],
+  [nb("Adv. Prasad Dhakephalkar"), "Vice President"],
+  [nb("Adv. Balkrishna Joshi"), "Vice President"],
+  [nb("Sr. Adv. Rajiv Patil"), "Hon. Secretary"],
+  [nb("Adv. Rajan Jayakar"), "Treasurer"],
+  [nb("Adv. Sanjeev Gorwadkar"), ""],
+  [nb("Adv. Deepak Thakre"), ""],
+  [nb("Adv. Sachindra Shetye"), ""],
+  [nb("Adv. Meghashyam Kocharekar"), ""],
+  [nb("Adv. Prashant Prabhu"), ""],
+  [nb("Adv. Rahul Nerlekar"), ""],
 ];
 
 export default function About() {
@@ -44,9 +44,9 @@ export default function About() {
           </p>
           <div>
             <p className="text-ink/70">Past hosts include</p>
-            <ul className="mt-4 flex flex-wrap gap-2">
+            <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4">
               {HISTORY.hosts.map((h) => (
-                <li key={h} className="lift rounded-full bg-paper px-4 py-2 font-medium">{h}</li>
+                <li key={h} className="lift rounded-full bg-paper px-4 py-2 text-center font-medium">{h}</li>
               ))}
             </ul>
             <p className="mt-8 text-ink/70">
@@ -66,7 +66,7 @@ export default function About() {
         </div>
       </Block>
       <Block title="Committee" tone="paper">
-        <ul className="rule grid md:grid-cols-2 md:gap-x-12">
+        <ul className="rule grid md:grid-cols-2 md:gap-x-12 md:[&>:last-child:nth-child(odd)]:col-span-2">
           {COMMITTEE.map(([name, role]) => (
             <li key={name} className="row-line flex min-h-14 items-baseline justify-between gap-4 border-b border-dashed border-ink/15 py-4">
               <span className="text-lg font-semibold">{name}</span>
@@ -75,7 +75,7 @@ export default function About() {
           ))}
         </ul>
         <p className="mt-8 text-ink/70">
-          <span className="font-semibold text-ink">Advisors:</span> Adv. Avinash Rana, Adv. Rohan Shah
+          <span className="font-semibold text-ink">Advisors:</span> {nb("Adv. Avinash Rana")}, {nb("Adv. Rohan Shah")}
         </p>
       </Block>
     </>

@@ -1,6 +1,9 @@
 import { ArrowDown, CalendarPlus, FileText } from "lucide-react";
 import { DOWNLOADS } from "@/lib/site";
 
+// Columns follow the number of tiles (a lone last tile on its own row reads as a mistake).
+const COLS: Record<number, string> = { 1: "max-w-md", 2: "sm:grid-cols-2", 3: "sm:grid-cols-3", 4: "sm:grid-cols-2 lg:grid-cols-4" };
+
 // Phones get a dashed list of tap rows; sm and up keep the tiles (the arrow drops on hover like a file into a tray).
 export function Downloads({ only }: { only?: string[] }) {
   const items = only ? DOWNLOADS.filter((d) => only.includes(d.label)) : DOWNLOADS;
@@ -22,7 +25,7 @@ export function Downloads({ only }: { only?: string[] }) {
           </li>
         ))}
       </ul>
-      <ul className={`hidden gap-2 sm:grid ${items.length > 1 ? "sm:grid-cols-2 lg:grid-cols-3" : "max-w-md"}`}>
+      <ul className={`hidden gap-2 sm:grid ${COLS[items.length] ?? "sm:grid-cols-2"}`}>
         {items.map((d) => {
           const Icon = d.kind === "ICS" ? CalendarPlus : FileText;
           return (

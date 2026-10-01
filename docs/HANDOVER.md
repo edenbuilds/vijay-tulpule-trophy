@@ -1,7 +1,7 @@
-# Handover: phone layout, names, address and copy (01-10-2026, third pass)
+# Handover: phone layout, names, address, copy, the Tulpule profile and text wrapping (02-10-2026, fourth pass)
 
-HANDOFF.md stays the running log and the paste-ready prompt. This file is the detail behind the third pass: what was
-changed on request, the rules the site now follows, where each thing lives, and how to switch to BACA colours later.
+HANDOFF.md stays the running log and the paste-ready prompt. This file is the detail behind the third and fourth passes (the
+fourth is section 14): what was changed on request, the rules the site now follows, where each thing lives, and how to switch to BACA colours later.
 Read it before touching the home page, any name, or any heading.
 
 Live: https://vijay-tulpule-trophy.vercel.app
@@ -39,8 +39,8 @@ schedule (6 cards), stats (4), quick links (4), sponsor tiers (4), downloads (4)
   President, Treasurer). `Contacts.tsx` hides an empty role.
 - Sr. Adv. for Shirish Gupte and Rajiv Patil, as printed on the poster. Everyone else is Adv. because the instruction was
   "always", though the source gives no title for most of them.
-- Judgement call to confirm: **Vijay Tulpule** is written Adv. Vijay Tulpule in captions and sentences, because the trophy page
-  already says he practised at the Bombay Bar. The trophy's own name, "The Vijay Tulpule Trophy", is unchanged. Sunil Gavaskar and
+- **Vijay Tulpule** is written Adv. Vijay Tulpule in captions and sentences. The fourth pass confirmed from the Bombay High Court
+  reference that he was enrolled as an advocate on 27 March 1968, so the prefix is sourced, not assumed. The trophy's own name, "The Vijay Tulpule Trophy", is unchanged. Sunil Gavaskar and
   Dilip Vengsarkar are cricketers and carry no prefix. The poet keeps the Hindi अधिवक्ता already printed in `POEM.by`.
 - The sponsorship PDF contact line now reads "Sr. Adv. Rajiv Patil, Hon. Secretary, BACA". Regenerate both PDFs with
   `npm run downloads` after any change to `CONTACTS`, tiers, terms or fixtures.
@@ -70,7 +70,7 @@ schedule (6 cards), stats (4), quick links (4), sponsor tiers (4), downloads (4)
 | `/fixtures` | fixtures (72) | tabs by day, no stat strip |
 | `/teams` | teams (11) | four group tiles with rows "Team A, To be announced"; squad size said once |
 | `/format` | format (46) | three cards, points, awards sentence |
-| `/trophy` | none | portraits of Adv. Vijay Tulpule only |
+| `/trophy` | none | portraits of Adv. Vijay Tulpule only. Sourced profile: intro, His life, Sport, At the Bar, In his name, then Rizvi and Presentation (section 14) |
 | `/gallery` | gallery (23) | pinned reel, then every photograph |
 | `/about` | about (8) | facts, committee with Adv. names, poem teaser |
 | `/poem` | none | the poem, typography only |
@@ -127,6 +127,12 @@ Verified locally on the production build (`next start`) in the browser pane:
 - Both PDFs regenerated; the sponsorship PDF shows "Sr. Adv. Rajiv Patil, Hon. Secretary" and the Shivaji Park address.
 
 Live results are in HANDOFF.md under "Third pass".
+
+Fourth pass, locally on the production build:
+- `wrapAudit` at 360, 390, 768, 1024 and 1440 across all 12 routes: no single-word last lines and no lone last items after the fixes in section 14
+  (the audit ignores a last item that spans the full row on purpose). No sideways overflow at any width.
+- `/trophy` at 390 and 1440: timeline, both portraits, sections and the external PDF link render.
+- `npm run build` (22 routes) and `npx tsc --noEmit` pass.
 Not verified: a real phone (390px was emulated in the browser pane), Safari, reduced motion in a browser (checked in code only).
 
 ## 11. Switching to BACA colours later
@@ -154,7 +160,8 @@ The hero gradients use `rgb(20_26_22/..)` (ink) in `Sections.tsx` and `app/page.
   the grounds are named, no page claims a number of grounds other than the poster's 8.
 - AIA is printed as AIA on the poster and is not expanded.
 - Gold "Winner" cup: is it the Vijay Tulpule Trophy.
-- Whether Adv. Vijay Tulpule is the right form on the trophy page (section 3).
+- Whether the BACA committee members named in the reference (section 14) are the same people as the committee on `/about`.
+- Whether the Advocates’ Association of Western India's Vijay Tulpule Cricket Championship Trophy and this Vijay Tulpule Trophy are related. Nothing says so and no page claims it.
 - Names, grounds and years for gallery photos.
 - Contact form needs `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM` and a verified Resend domain.
 - Closed this pass: which BACA address is current (Shivaji Park).
@@ -172,3 +179,53 @@ The commit author must be omkar1sonawane@gmail.com or Vercel silently fails the 
 Then check the live URL at 1440 and 390, and `vercel ls` for Ready.
 `npm run downloads` needs Chrome; headless Chrome can write the PDF and then not exit, so the script gives each PDF its own profile,
 waits at most 25 seconds and accepts the timeout.
+
+## 14. Fourth pass (02-10-2026): the Vijay Tulpule profile, and no widows or orphans
+
+Request: take the context about Vijay Tulpule from the Bombay High Court PDF and add more details about him; make sure no
+text, element or UI element is orphaned or widowed on desktop or mobile; deploy.
+
+### The profile (`/trophy`)
+- **Source:** the Full Court Reference held in his memory at the Bombay High Court on 17 November 2017 (27 pages): the Chief
+  Justice's address and tributes from the Advocate General, the Additional Solicitor General, and the presidents of the Bombay Bar
+  Association, the Advocates' Association of Western India (AAWI) and the Bombay Incorporated Law Society.
+  https://bombayhighcourt.gov.in/bhc/libweb/references/TulpuleVT.pdf is linked from the page ("Read the Full Court Reference (PDF)").
+- **Where it lives:** `TULPULE` in `src/lib/site.ts` (name, source link, the dated `life` list). Everything else is copy in
+  `src/app/trophy/page.tsx`. Order: intro with the informal portrait, His life (dated list; year above the text on phones, beside it from `md`),
+  Sport, At the Bar (formal portrait), In his name, Rizvi Shield/Plate, Presentation. The home trophy band and a new home FAQ
+  ("Who was Adv. Vijay Tulpule?") point to it.
+- **What the page says** (all from the reference): born in Mumbai 22 September 1943, died 29 September 2017 aged 74; King George High
+  School, Elphinstone then St. Xavier's (graduated 1964), LL.B. Government Law College 1967; enrolled 27 March 1968, chamber of
+  Adv. Ramrao Adik, Dadar Court, criminal side; six-day hunger strike (1992 to 1994) for City Civil Court jurisdiction; President and
+  Patron of the Indian Advocates Cricket Association 1994 to 1999 ("Guruji"); Government Pleader and Public Prosecutor 1998 to 2000;
+  Bombay Ranji Trophy probable, university champion, played with Gavaskar and Vengsarkar (the Bombay Bar Association president's tribute),
+  led the Advocates' team in the Indian High Courts Cricket Tournament, 90 runs in an all India advocates' final in Bangalore (recalled by
+  Adv. Deepak Thakre); presidencies of volleyball, carrom and badminton associations; Lentin and Srikrishna Commissions; the murder
+  appeal where he asked for life imprisonment and the Supreme Court endorsed it; almost 45 juniors; Adv. Uma Wagle on the
+  sportsman-or-artist rule; the AAWI and Mumbai Cricket Association (under-13) Vijay Tulpule Cricket Championship Trophies running in 2017.
+- **Left out on purpose:** his children and where they live (private, living people), the gangster and Malegaon-blast anecdotes
+  (wrong register for a tournament site), the Vijay Merchant story, and the cheque and share-sale donations.
+- **Where the speakers disagree, and the choice made:** his middle name is Traymbak, Trimbak and Tryambak (the Chief Justice's
+  Traymbak is used); the Government Pleader term is "1990s", "late 90s" and "1998 till 2000" (1998 to 2000 used, from the AAWI president);
+  the volleyball body is named differently by two speakers (the page says "volleyball, carrom and badminton associations");
+  the Mumbai Cricket Association under-13 trophy is dated 2015 by one speaker, so the page gives no start year.
+- **Names in the reference that are also on BACA's committee:** Senior Advocate Shirish Gupte, Senior Advocate Rajiv Patil, Advocate Deepak Thakre
+  and Senior Advocate Prasad Dhakephalkar all recall him. The page quotes only Thakre and Wagle, by name as the document does, and does not
+  say they are the BACA committee members. Confirm identity before saying so (never match people by name alone).
+
+### Widows and orphans
+- **Rule:** `body { text-wrap: balance }` in `globals.css`. It is inherited, so every block of up to six lines is balanced (headings
+  already were). `text-wrap: pretty` was tried first and Chrome 152 still left single words on three-line paragraphs on `/trophy` at 768.
+- **Longer paragraphs:** balance stops at six lines, so `tie()` in `site.ts` joins the last two words with a non-breaking space. It is
+  used on the `/trophy` copy. `nb()` joins every word, and is used for people's names (`CONTACTS`, `COMMITTEE`, advisors) and
+  `ORG.address`, so a name or the pincode never splits.
+- **Unbreakable text needs room.** After `nb()` the contact rows overflowed a 360px phone (name plus number was wider than the row).
+  `Contacts.tsx` now stacks name above number below `lg`. If you add an `nb()` string, test it at 360.
+- **Lone items fixed:** four download tiles were 3+1 at `lg` (columns now follow the count, `COLS` in `Downloads.tsx`); sponsor tier
+  cards go four across only from `xl`, so the Platinum button fits its card (button labels are `whitespace-nowrap`); sponsors
+  chips and the About host chips are grids (2x2, 4x2); odd last rows in Partner roles, Rights and the 11-name Committee list span both columns; the footer has a
+  Home link so its 2-column list is even; the gallery filter is four equal pills on phones.
+- **The check:** `scripts/wrap-audit.js` loads every route in an iframe at each width and reports single-word last lines, lone last
+  items in grids and wrapping flex rows, text spilling out of its box, and sideways overflow. Serve it (`cd scripts && python3 -m http.server 8765`),
+  open the site, inject it with a script tag, then `await wrapAudit({ widths: [360, 390, 768, 1024, 1440] })`. Judge each hit; a lone
+  last card can be deliberate. It reads the DOM, so run it against `next start`, not `next dev`.

@@ -84,6 +84,13 @@ Full write-up in `docs/HANDOVER.md`. Rules to keep:
 - Live check (01-10-2026, commit 2e19d75, production Ready): all 12 pages at 390 have no horizontal overflow, no unprefixed person name, no Dadar address, no old headings; standalone links are at least 44px; home at 1440 has four quick-link tiles and two pin spacers (schedule and gallery zoom). Home is about 9.9k px tall at 390 (was 12.2k). PDF on the live site shows "Sr. Adv. Rajiv Patil". Not checked: a physical phone, Safari. Console noise seen: ERR_BLOCKED_BY_CLIENT (a blocker in the pane) and one aborted RSC prefetch when navigating away, not site errors.
 - `npm run downloads` now gives each PDF its own Chrome profile and accepts a timeout after the file is written (headless Chrome did not exit and hung the second PDF).
 
+## Fourth pass (02-10-2026)
+Full write-up in `docs/HANDOVER.md` section 14. Rules to keep:
+- **Vijay Tulpule profile:** `/trophy` is now a sourced biography from the Bombay High Court Full Court Reference of 17-11-2017 (PDF linked on the page). Data in `TULPULE` (`src/lib/site.ts`). Add only what that document (or another named source) says; his children are left out on purpose; do not say the BACA committee members are the people quoted in it without confirmation.
+- **No widows or orphans:** `body { text-wrap: balance }` covers blocks up to six lines. Longer paragraphs use `tie()` (last two words joined), names and the address use `nb()` (never split). A lone last card in a grid is a defect: Downloads columns follow the count, odd last rows span both columns. `text-wrap: pretty` did not work in Chrome 152 here.
+- **Check before shipping:** `scripts/wrap-audit.js` (see docs/HANDOVER.md section 14) at 360, 390, 768, 1024 and 1440 on `next start`.
+- **If you add an `nb()` string**, test it at 360: unbreakable names overflowed the contact rows until `Contacts.tsx` stacked them below `lg`.
+
 ## Hyperiux
 MCP registered at user scope: `claude mcp add -s user hyperiux -- npx -y hyperiux-mcp-server` (tools appear in a new session). CLI is logged in to Pro (`npx hyperiux whoami`). 10 installs per day.
 Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re-run init; if you do, `git checkout src/app/globals.css`.
@@ -97,9 +104,9 @@ Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re
 ```
 Work in ~/vijay-tulpule-trophy. Read HANDOFF.md, then docs/HANDOVER.md (home order, photo registry, token map for the BACA colour switch).
 Keep the green palette until told to switch. Place photos only via src/lib/photos.ts. Never run `npx hyperiux init`.
-Rules from the third pass: phone lists not card stacks, "Adv." before every person (Sr. Adv. where the source says), only the Shivaji Park address,
+Rules from the third and fourth passes: phone lists not card stacks, no widows or orphans (balance, `tie()`, `nb()`; run scripts/wrap-audit.js at 360, 390, 768, 1024, 1440), "Adv." before every person (Sr. Adv. where the source says), only the Shivaji Park address,
 plain headings and copy with no poetic numbers or em dashes. Run `npm run downloads` after changing CONTACTS, tiers, terms or fixtures.
 Task: <paste task>. Open items: Rizvi Shield/Plate details, ground names and fixtures (poster says 8 grounds), AIA expansion,
-whether the gold "Winner" cup is The Vijay Tulpule Trophy, whether "Adv. Vijay Tulpule" is right on the trophy page, poem verse 5 line 4. Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px,
+whether the gold "Winner" cup is The Vijay Tulpule Trophy, whether the committee names in the Full Court Reference are the same people as BACA's committee, poem verse 5 line 4. Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px,
 commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with `vercel deploy --prod --yes`, update this file.
 ```

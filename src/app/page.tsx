@@ -45,6 +45,14 @@ const FAQ = [
   { q: "How long is a match?", a: `${EVENT.overs} overs a side. First ball is at 09:00.` },
   { q: "What if it rains?", a: "21 October is kept as a reserve day for the weather." },
   {
+    q: "Who was Adv. Vijay Tulpule?",
+    a: (
+      <>
+        A Bombay criminal lawyer who served as Government Pleader and Public Prosecutor in the High Court, and a Bombay Ranji Trophy probable before he joined the Bar. Read <Link href="/trophy" className="font-semibold underline decoration-pitch decoration-2 underline-offset-4">his story</Link>.
+      </>
+    ),
+  },
+  {
     q: "Who do I write to about teams, media or sponsorship?",
     a: (
       <>
@@ -111,7 +119,7 @@ export default function Home() {
               <h2>The Vijay Tulpule Trophy</h2>
             </SlideTextReveal>
             <p className="mt-6 max-w-xl text-xl leading-relaxed text-paper/85 md:text-2xl">
-              The winning team receives it. It is named after Adv. Vijay Tulpule, a Bombay advocate and Bombay Ranji Trophy probable.
+              The winning team receives it. It is named after Adv. Vijay Tulpule, a Bombay criminal lawyer, former Government Pleader and Public Prosecutor, and Bombay Ranji Trophy probable.
             </p>
             <p className="mt-4 max-w-xl text-paper/70 md:text-lg">BACA has also named the Rizvi Shield/Plate. Details are being confirmed.</p>
             <Link href="/trophy" className="mt-6 inline-flex min-h-11 items-center text-base font-semibold underline decoration-sage decoration-2 underline-offset-8 transition-colors hover:text-sage">About the trophy</Link>

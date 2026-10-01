@@ -9,6 +9,7 @@ export const NAV = [
 ];
 
 export const FOOTER_LINKS = [
+  { href: "/", label: "Home" },
   { href: "/fixtures", label: "Fixtures" },
   { href: "/teams", label: "Teams" },
   { href: "/format", label: "Format" },
@@ -25,18 +26,23 @@ export const FOOTER_LINKS = [
 export const ORG = {
   name: "Bombay Advocates’ Cricket Association",
   trust: "Registered Public Trust, 1993. No. 797/1993 / 4BBSD",
-  address: "Krishna Kunj, 36 Shivaji Park, Mumbai 400 028",
+  address: "Krishna Kunj, 36\u00a0Shivaji\u00a0Park, Mumbai\u00a0400\u00a0028",
   email: "advrajivpatil@gmail.com",
   phone: "+91 98210 24059",
   phoneHref: "tel:+919821024059",
 };
 
 // Contact details printed on the tournament poster (BACA, 2026). Numbers are the ones on the poster, unchanged.
+// Non-breaking spaces keep a name or an address together, so it wraps as a unit instead of leaving a lone word.
+export const nb = (s: string) => s.replace(/ /g, "\u00a0");
+// Long paragraphs run past the six lines Chrome will balance, so the last two words are tied instead.
+export const tie = (s: string) => s.replace(/ (\S+)$/, "\u00a0$1");
+
 export const CONTACTS = [
-  { name: "Sr. Adv. Rajiv Patil", role: "Hon. Secretary", phone: "98210 24059", tel: "+919821024059" },
-  { name: "Adv. Deepak Thakre", role: "", phone: "96193 56926", tel: "+919619356926" },
-  { name: "Adv. Meghashyam Kocharekar", role: "", phone: "98211 43570", tel: "+919821143570" },
-  { name: "Adv. Harshad Bhadbhade", role: "", phone: "98203 00135", tel: "+919820300135" },
+  { name: nb("Sr. Adv. Rajiv Patil"), role: "Hon. Secretary", phone: "98210 24059", tel: "+919821024059" },
+  { name: nb("Adv. Deepak Thakre"), role: "", phone: "96193 56926", tel: "+919619356926" },
+  { name: nb("Adv. Meghashyam Kocharekar"), role: "", phone: "98211 43570", tel: "+919821143570" },
+  { name: nb("Adv. Harshad Bhadbhade"), role: "", phone: "98203 00135", tel: "+919820300135" },
 ];
 
 export const GROUPS = [
@@ -119,6 +125,30 @@ export const EVENT = {
   fixturesNote: "Details of fixtures will be announced shortly.",
   overs: "50",
   squad: "15",
+};
+
+// Adv. Vijay Tulpule, from the Full Court Reference held in his memory at the Bombay High Court on 17-11-2017: the
+// Chief Justice's address and tributes by the Advocate General, the Additional Solicitor General and the presidents of
+// the Bombay Bar Association, the Advocates' Association of Western India and the Bombay Incorporated Law Society.
+// Nothing here goes beyond that document. Its speakers spell his middle name Traymbak, Trimbak and Tryambak; the
+// Chief Justice's spelling is used. Where only one speaker says a thing, the copy names the speaker's role or the
+// person who recalled it. Family members are left out on purpose.
+export const TULPULE = {
+  name: "Adv. Vijay Traymbak Tulpule",
+  source: {
+    href: "https://bombayhighcourt.gov.in/bhc/libweb/references/TulpuleVT.pdf",
+    label: "Read the Full Court Reference (PDF)",
+  },
+  life: [
+    { when: "1943", what: "Born in Mumbai on 22 September, the son of the cardiologist Traymbak Hari Tulpule. The family home in Dadar was a meeting place for freedom-movement activists." },
+    { when: "1959", what: "Finished school at King George High School, Dadar. Studied at Elphinstone College, then St. Xavier’s College, where he graduated in 1964." },
+    { when: "1967", what: "Graduated in law from Government Law College, Mumbai." },
+    { when: "1968", what: "Enrolled as an advocate on 27 March with the Bar Council of Maharashtra and Goa. Joined the chamber of Adv. Ramrao Adik, then practised at the Dadar Court, mostly on the criminal side." },
+    { when: "1992 to 1994", what: "Went on a six-day hunger strike for the City Civil Court to be given the jurisdiction of a district court. It ended when the Law Minister called on him and promised action." },
+    { when: "1994 to 1999", what: "President and Patron of the Indian Advocates Cricket Association. Known as Guruji in Advocates Cricket." },
+    { when: "1998 to 2000", what: "Government Pleader and Public Prosecutor for the State of Maharashtra in the High Court." },
+    { when: "2017", what: "Died in Mumbai on 29 September, aged 74. The Bombay High Court held a Full Court Reference in his memory on 17 November." },
+  ],
 };
 
 // Appeal for Sponsorship (08-07-2026) and BACA's letter of 30-01-2026.

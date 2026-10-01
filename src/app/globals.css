@@ -39,8 +39,10 @@ h3 {
   letter-spacing: -0.04em;
 }
 
-p {
-  text-wrap: pretty;
+/* No single word alone on a last line. text-wrap is inherited, so this covers every block, not just headings.
+   "pretty" was tried first and Chrome still left lone words on three-line paragraphs; balance holds up to six lines. */
+body {
+  text-wrap: balance;
 }
 
 .num {

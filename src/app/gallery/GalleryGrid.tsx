@@ -46,14 +46,14 @@ export function GalleryGrid() {
 
   return (
     <>
-      <div role="tablist" aria-label="Photo category" className="mb-8 flex flex-wrap gap-2">
+      <div role="tablist" aria-label="Photo category" className="mb-8 grid grid-cols-4 gap-2 sm:flex">
         {TABS.map((t) => (
           <button
             key={t.key}
             role="tab"
             aria-selected={tab === t.key}
             onClick={() => setTab(t.key)}
-            className={`press min-h-11 rounded-full px-5 text-sm font-semibold transition-colors ${tab === t.key ? "bg-pitch text-paper" : "bg-mint text-ink hover:bg-sage"}`}
+            className={`press min-h-11 rounded-full px-2 text-sm sm:px-5 font-semibold transition-colors ${tab === t.key ? "bg-pitch text-paper" : "bg-mint text-ink hover:bg-sage"}`}
           >
             {t.label}
           </button>
