@@ -2,10 +2,11 @@ import Image from "next/image";
 import { HOSTS, tie, type Org } from "@/lib/site";
 
 // Host, co-hosts, aegis. On a phone each group is a dashed list in one tile (logo left, name right); from md the
-// logos stand on the page with their names under them. Same markup both ways, only classes change.
+// logos stand on the page with their names under them. Same markup both ways, only classes change. On lg the three
+// groups share two grid rows (subgrid) so the logos line up when "Under the aegis of" wraps to two lines.
 function Group({ title, orgs, cols, tile }: { title: string; orgs: Org[]; cols: string; tile: string }) {
   return (
-    <div>
+    <div className="lg:row-span-2 lg:grid lg:grid-rows-subgrid">
       <h3 className="display text-2xl md:text-3xl">{title}</h3>
       <ul className={`mt-4 rounded-2xl px-4 md:mt-6 md:grid md:gap-x-10 md:gap-y-8 md:rounded-none md:bg-transparent md:px-0 ${tile} ${cols}`}>
         {orgs.map((o) => (
@@ -29,7 +30,7 @@ function Group({ title, orgs, cols, tile }: { title: string; orgs: Org[]; cols: 
 
 export function Hosts({ tile = "bg-mist" }: { tile?: "bg-mist" | "bg-paper" }) {
   return (
-    <div className="grid gap-12 lg:grid-cols-[1fr_3fr_1fr] lg:gap-14">
+    <div className="grid gap-12 lg:grid-cols-[1fr_3fr_1fr] lg:grid-rows-[auto_1fr] lg:gap-x-14 lg:gap-y-0">
       <Group title="Hosts" orgs={[HOSTS.host]} cols="" tile={tile} />
       <Group title="Co-hosts" orgs={HOSTS.cohosts} cols="md:grid-cols-3" tile={tile} />
       <Group title="Under the aegis of" orgs={[HOSTS.aegis]} cols="" tile={tile} />

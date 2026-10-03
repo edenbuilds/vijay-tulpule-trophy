@@ -56,7 +56,7 @@ export default function About() {
           </div>
         </div>
       </Block>
-      <Block id="hosts" title="Hosts" tone="paper">
+      <Block id="hosts" title="Hosted by" tone="paper">
         <Hosts />
       </Block>
       <Block id="poem" title="Cricket and court" kicker="Poem" tone="cream">

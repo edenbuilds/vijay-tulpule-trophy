@@ -131,7 +131,7 @@ export default function Home() {
 
       <GalleryZoom photos={ZOOM} />
 
-      <Block title="Hosts" tone="cream">
+      <Block title="Hosted by" tone="cream">
         <Hosts tile="bg-paper" />
       </Block>
 
