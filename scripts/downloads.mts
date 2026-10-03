@@ -5,7 +5,7 @@ import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { CONTACTS, EVENT, FIXTURES, ORG, PARTNERS, TERMS, TIERS } from "../src/lib/site.ts";
+import { CONTACTS, EVENT, FIXTURES, HOSTS, HOSTS_LINE, ORG, PARTNERS, TERMS, TIERS } from "../src/lib/site.ts";
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const root = resolve(import.meta.dirname, "..");
@@ -21,6 +21,7 @@ header{background:#e2f0d8;border-radius:12px;padding:18px 20px;margin-bottom:18p
 h1{font-size:26pt;line-height:1.05;letter-spacing:-.02em}
 h2{font-size:13pt;margin:18px 0 8px;break-after:avoid}
 .k{font-size:8pt;text-transform:uppercase;letter-spacing:.08em;color:#141a16a0}
+.hosts{display:flex;align-items:center;gap:16px;margin-bottom:6px}.hosts img{height:36px;width:auto}.hosts p{font-size:9pt;color:#141a16a0;margin-left:auto;max-width:260px;text-align:right}
 .ball{width:26px;height:26px;border-radius:50%;background:#b3261e;flex:none}
 table{width:100%;border-collapse:collapse}
 td,th{text-align:left;padding:5px 8px;border-bottom:1px dashed #141a1630;vertical-align:top}
@@ -34,6 +35,9 @@ tr{break-inside:avoid}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
 footer{margin-top:22px;padding-top:10px;border-top:1px dashed #141a1640;font-size:8.5pt;color:#141a16a0}
 </style><body>${body}<footer>${ORG.name} · ${ORG.trust} · ${ORG.email} · ${ORG.phone} · vijay-tulpule-trophy.vercel.app</footer>`;
+
+// Host, co-hosts and aegis marks for the sponsorship brief, so a sponsor sees who it is partnering with.
+const hosts = `<div class="hosts">${[HOSTS.host, ...HOSTS.cohosts, HOSTS.aegis].map((o) => `<img src="${pathToFileURL(join(root, "public", o.logo)).href}" alt="${o.short}">`).join("")}<p>${HOSTS_LINE}</p></div>`;
 
 const head = (title: string, sub: string) =>
   `<header><div><p class="k">${EVENT.edition}</p><h1>${title}</h1><p style="margin-top:6px">${sub}</p></div><div class="ball"></div></header>`;
@@ -50,7 +54,7 @@ const fixtures = page(
 const sponsorship = page(
   "BACA 2026 Sponsorship",
   head("Sponsor the 38th All India Advocates’ Cricket Tournament 2026", "Sixteen teams from fifteen High Courts and the Supreme Court of India · 17–24 October 2026") +
-    `<h2>Tiers</h2><div class="tiers">${[...TIERS].reverse().map((t) => `<div class="tier${t.name === "Platinum" ? " top" : ""}">${t.name}<b>${t.price}</b></div>`).join("")}</div>
+    `${hosts}<h2>Tiers</h2><div class="tiers">${[...TIERS].reverse().map((t) => `<div class="tier${t.name === "Platinum" ? " top" : ""}">${t.name}<b>${t.price}</b></div>`).join("")}</div>
     <p style="margin-top:10px">Every sponsor is named, by tier, at the opening, the end of the league, the final and at every venue.</p>
     <h2>Partner roles</h2><div class="grid">${PARTNERS.map(([k, v]) => `<p><b>${k}.</b> ${v}</p>`).join("")}</div>
     <h2>Terms</h2><ol style="padding-left:18px">${TERMS.map((t) => `<li>${t}</li>`).join("")}</ol>

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { CONTACTS, FOOTER_LINKS, ORG } from "@/lib/site";
+import { CONTACTS, FOOTER_LINKS, HOSTS_LINE, ORG, tie } from "@/lib/site";
+import { HostsStrip } from "@/components/Hosts";
 
 // Layout from BYQ section kelvin-footer-4 (wordmark row, rule, contact + links, rule, base), set in a
 // Human Intelligence inset green tile with dashed rules.
@@ -30,11 +31,16 @@ export function Footer() {
               {FOOTER_LINKS.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="flex min-h-11 items-center text-ink/70 transition-colors hover:text-ink">
-                    <span className="u-grow">{l.label}</span>
+                    <span className="u-grow">{tie(l.label)}</span>
                   </Link>
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="rule" />
+          <div className="flex flex-col gap-6 py-8 lg:flex-row lg:items-center lg:justify-between">
+            <HostsStrip />
+            <p className="max-w-md text-ink/70 lg:text-right">{HOSTS_LINE}</p>
           </div>
           <div className="rule" />
           <p className="num pt-8 text-sm text-ink/55">{ORG.trust}</p>

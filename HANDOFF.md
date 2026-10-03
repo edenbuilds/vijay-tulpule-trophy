@@ -62,8 +62,7 @@ BACA Official Website. Winners get **The Vijay Tulpule Trophy** (confirmed). **R
 - Contacts from the poster: `CONTACTS` in `site.ts` (Sr. Adv. Rajiv Patil, Adv. Deepak Thakre, Adv. Meghashyam Kocharekar, Adv. Harshad Bhadbhade). Shown on home, `/contact`, footer, sponsors page and the sponsorship PDF.
 - Poster says fixtures "will be announced shortly" and 8 grounds; the fixture grid (from the 25-09 working book) is kept but marked provisional
   and its venue reads "Grounds to be announced".
-- `/about` (was `/baca`, permanent redirect in `next.config.ts`): facts, association with BBA / The Bombay Incorporated Law Society / AIA
-  (as printed on the poster, AIA not expanded), history, the poem, committee with poster titles.
+- `/about` (was `/baca`, permanent redirect in `next.config.ts`): facts, history, Hosts block (see Fifth pass), the poem, committee with poster titles.
 - `/gallery`: Hyperiux **parallax-gallery** reel (patched: landscape frame, alt text, shares the site's Lenis via `window.__lenis`) plus a
   filterable grid with wipe-open tiles and a native `<dialog>` lightbox (arrow keys).
 - Poem: `src/lib/poem.ts` ("क्रिकेट और कोर्ट", Adv. Gurudas Sanjeev Gorwadkar), transcribed by eye from the supplied image (macOS OCR cannot
@@ -92,6 +91,16 @@ Full write-up in `docs/HANDOVER.md` section 14. Rules to keep:
 - **If you add an `nb()` string**, test it at 360: unbreakable names overflowed the contact rows until `Contacts.tsx` stacked them below `lg`.
 - **Live (02-10-2026):** commit `2ba4157` on main, deployed to https://vijay-tulpule-trophy.vercel.app (Ready). `wrapAudit` against the live site at 390 and 1440 over all 12 routes: no widows, no orphans, no sideways overflow. Home reports "spill" hits only for GSAP start-state offsets (text sits inside its box once revealed); that is not a defect.
 
+## Fifth pass (03-10-2026)
+Full write-up in `docs/HANDOVER.md` section 15. Rules to keep:
+- **Hosts:** Host = Bombay Advocates' Cricket Association (BACA). Co-hosts = Advocates' Association of Western India (AAWI), Bombay Bar Association (BBA), The Bombay Incorporated Law Society (BILS). Under the aegis of = Cricket Association of Advocates in India (CAAI). Data is `HOSTS` and `HOSTS_LINE` in `src/lib/site.ts`; markup is `src/components/Hosts.tsx` (`Hosts` on home and `/about#hosts`, `HostsStrip` in the footer). The sponsorship PDF carries the five logos and the line. "AIA" on the crest is AAWI: the "AIA not expanded" open item is closed (source: the co-hosts screenshot).
+- **Logos:** `scripts/logos.py` rebuilds `public/brand/partners/{aia,bba,bils,caai}.png` and `public/brand/baca-seal-{dark,light}.png` from `scripts/logo-source/`. `dark` is the original navy and gold disc, `light` is a paper disc with ink linework. Each is a closed disc, so both work on any background; use `light` where the navy disc would sit too heavy (print, white pages). Partner logos sit on light tiles only. `public/downloads/baca-logo-pack.zip` now holds both (BACA marks only, never the partner logos).
+- **Resolution is the limit:** AIA 512px, BILS 200px (upscaled), CAAI about 230px (cropped from a screenshot). Ask each body for a vector or high-res file and rerun `scripts/logos.py`.
+- **`/adv-vijay-tulpule`:** full profile (content in `content.ts`, layout in `page.tsx`, wireframe followed except the big-number strip, which is a plain list). `/trophy` keeps its sections and now opens with a teaser that links here. Footer links to it and to `/about#hosts`; `src/app/sitemap.ts` is built from `FOOTER_LINKS`. Every claim was checked against the PDF: Sathe's tribute and Sakhare's remark were paraphrases in the supplied file and are now the speakers' own words. "The late" before his name in captions and sentences.
+- **Known overlap:** His life, Sport, At the Bar and In his name on `/trophy` repeat facts that the new page carries. Trim `/trophy` to the teaser plus the trophy and presentation blocks if the user wants one source of truth.
+- **Local build gotcha:** `npm run build` failed with "Cannot find module '../lightningcss.darwin-arm64.node'" because `node_modules` held x64 binaries. Fixed with `npm i --no-save lightningcss-darwin-arm64@1.32.0 @tailwindcss/oxide-darwin-arm64@4.3.3` (package.json untouched).
+- **Audit:** the python http.server route in the audit notes did not work in the sandbox. Copy `scripts/wrap-audit.js` to `public/zz-wrap-audit.js`, restart `next start`, inject `/zz-wrap-audit.js`, run, then delete the copy before committing. Route list now includes `/adv-vijay-tulpule`. Fixes from this pass: footer logo strip fits one row at 360 (`h-10`), `tie()` on host names, footer labels and the "Who hosts it?" answer, profile hero stacks until `lg`.
+
 ## Hyperiux
 MCP registered at user scope: `claude mcp add -s user hyperiux -- npx -y hyperiux-mcp-server` (tools appear in a new session). CLI is logged in to Pro (`npx hyperiux whoami`). 10 installs per day.
 Warning: `npx hyperiux init` rewrote `globals.css` to a bare `@import`. Never re-run init; if you do, `git checkout src/app/globals.css`.
@@ -107,7 +116,7 @@ Work in ~/vijay-tulpule-trophy. Read HANDOFF.md, then docs/HANDOVER.md (home ord
 Keep the green palette until told to switch. Place photos only via src/lib/photos.ts. Never run `npx hyperiux init`.
 Rules from the third and fourth passes: phone lists not card stacks, no widows or orphans (balance, `tie()`, `nb()`; run scripts/wrap-audit.js at 360, 390, 768, 1024, 1440), "Adv." before every person (Sr. Adv. where the source says), only the Shivaji Park address,
 plain headings and copy with no poetic numbers or em dashes. Run `npm run downloads` after changing CONTACTS, tiers, terms or fixtures.
-Task: <paste task>. Open items: Rizvi Shield/Plate details, ground names and fixtures (poster says 8 grounds), AIA expansion,
+Task: <paste task>. Open items: Rizvi Shield/Plate details, ground names and fixtures (poster says 8 grounds), vector or high-res logos from AAWI, BILS and CAAI, whether to trim the repeated Tulpule sections on /trophy,
 whether the gold "Winner" cup is The Vijay Tulpule Trophy, whether the committee names in the Full Court Reference are the same people as BACA's committee, poem verse 5 line 4. Verify on https://vijay-tulpule-trophy.vercel.app at desktop and 390px,
 commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with `vercel deploy --prod --yes`, update this file.
 ```

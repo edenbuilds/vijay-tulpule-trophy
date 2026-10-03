@@ -28,21 +28,18 @@ export default function Trophy() {
         <div className="grid items-end gap-10 md:grid-cols-[minmax(0,26rem)_1fr] md:gap-20">
           <CurtainPortrait
             src="/img/tulpule-informal.jpg"
-            alt="Adv. Vijay Tulpule, informal portrait in a white shirt and suspenders"
-            caption="Adv. Vijay Tulpule"
+            alt="The late Adv. Vijay Tulpule, informal portrait in a white shirt and suspenders"
+            caption="The late Adv. Vijay Tulpule"
             width={508}
             height={661}
           />
           <div>
             <p className="max-w-xl text-xl leading-relaxed md:text-2xl">
-              {tie(`${TULPULE.name} (22 September 1943 to 29 September 2017) was a criminal lawyer at the Bombay Bar. Before he joined it, he was a Bombay Ranji Trophy probable.`)}
+              {tie("The late Adv. Vijay Traymbak Tulpule (1943 to 2017) was a criminal trial lawyer at the Bombay Bar and Government Pleader and Public Prosecutor for the State of Maharashtra. Before he enrolled as an advocate, he was a Bombay Ranji Trophy probable.")}
             </p>
-            <p className="mt-4 max-w-xl text-lg text-ink/70">
-              {tie("The Bombay High Court held a Full Court Reference in his memory on 17 November 2017. This page draws on it.")}
-            </p>
-            <a href={TULPULE.source.href} target="_blank" rel="noopener noreferrer" className={`mt-4 ${link}`}>
-              {TULPULE.source.label}
-            </a>
+            <Link href="/adv-vijay-tulpule" className={`mt-6 ${link}`}>
+              Read the life of the late Adv. Vijay Tulpule
+            </Link>
           </div>
         </div>
       </Block>
@@ -87,8 +84,8 @@ export default function Trophy() {
           </div>
           <CurtainPortrait
             src="/img/tulpule-formal.jpg"
-            alt="Adv. Vijay Tulpule, formal portrait in a check jacket and tie"
-            caption="Adv. Vijay Tulpule"
+            alt="The late Adv. Vijay Tulpule, formal portrait in a check jacket and tie"
+            caption="The late Adv. Vijay Tulpule"
             width={388}
             height={618}
             wipe="rl"

@@ -19,6 +19,8 @@ export const FOOTER_LINKS = [
   { href: "/sponsors", label: "Sponsors" },
   { href: "/downloads", label: "Downloads" },
   { href: "/about", label: "About BACA" },
+  { href: "/about#hosts", label: "Hosts" },
+  { href: "/adv-vijay-tulpule", label: "Adv. Vijay Tulpule" },
   { href: "/poem", label: "Poem" },
   { href: "/contact", label: "Contact" },
 ];
@@ -31,6 +33,20 @@ export const ORG = {
   phone: "+91 98210 24059",
   phoneHref: "tel:+919821024059",
 };
+
+// Host, co-hosts and the body the tournament is played under, as set out in BACA's co-host graphic (03-10-2026).
+// Logos are cut out by scripts/logos.py. The AAWI crest reads "AIA", which is how the Association's own mark is lettered.
+export type Org = { name: string; short: string; logo: string; w: number; h: number };
+export const HOSTS: { host: Org; cohosts: Org[]; aegis: Org } = {
+  host: { name: "Bombay Advocates’ Cricket Association", short: "BACA", logo: "/brand/baca-seal-dark.png", w: 1024, h: 1024 },
+  cohosts: [
+    { name: "Advocates’ Association of Western India", short: "AAWI", logo: "/brand/partners/aia.png", w: 1280, h: 791 },
+    { name: "Bombay Bar Association", short: "BBA", logo: "/brand/partners/bba.png", w: 1024, h: 1024 },
+    { name: "Bombay Incorporated Law Society", short: "BILS", logo: "/brand/partners/bils.png", w: 1024, h: 1024 },
+  ],
+  aegis: { name: "Cricket Association of Advocates in India", short: "CAAI", logo: "/brand/partners/caai.png", w: 720, h: 720 },
+};
+export const HOSTS_LINE = "Hosted by BACA, with the AAWI, the BBA and BILS as co-hosts, under the aegis of the CAAI.";
 
 // Contact details printed on the tournament poster (BACA, 2026). Numbers are the ones on the poster, unchanged.
 // Non-breaking spaces keep a name or an address together, so it wraps as a unit instead of leaving a lone word.
@@ -236,5 +252,5 @@ export const DOWNLOADS = [
   { href: "/downloads/vtt-2026-fixtures.pdf", label: "Fixtures", line: "Every match by day and ground.", kind: "PDF" },
   { href: "/vtt-2026.ics", label: "Calendar", line: "Match days for your calendar app.", kind: "ICS" },
   { href: "/downloads/vtt-2026-sponsorship.pdf", label: "Sponsorship", line: "Tiers, rights, terms and payment.", kind: "PDF" },
-  { href: "/downloads/baca-logo-pack.zip", label: "BACA logo pack", line: "The BACA seal in five colours, plus lockups.", kind: "ZIP" },
+  { href: "/downloads/baca-logo-pack.zip", label: "BACA logo pack", line: "The BACA seal in light, dark and brand colours, plus lockups.", kind: "ZIP" },
 ];

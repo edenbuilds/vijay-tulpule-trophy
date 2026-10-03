@@ -231,3 +231,23 @@ text, element or UI element is orphaned or widowed on desktop or mobile; deploy.
   items in grids and wrapping flex rows, text spilling out of its box, and sideways overflow. Serve it (`cd scripts && python3 -m http.server 8765`),
   open the site, inject it with a script tag, then `await wrapAudit({ widths: [360, 390, 768, 1024, 1440] })`. Judge each hit; a lone
   last card can be deliberate. It reads the DOM, so run it against `next start`, not `next dev`.
+
+## 15. Fifth pass (03-10-2026): hosts, logos and the Tulpule page
+- **Hosts structure** (from the co-hosts screenshot): Host BACA; Co-hosts AAWI, BBA, BILS; Under the aegis of CAAI. `HOSTS` and `HOSTS_LINE` in `src/lib/site.ts`.
+  Shown in `components/Hosts.tsx`: `Hosts` on home (cream block, paper tiles), on `/about#hosts` (paper block, mist tiles) and `HostsStrip` in the footer with the one-line statement. The sponsorship PDF
+  (`scripts/downloads.mts`) carries the five logos and the line above the tiers. The old "association with BBA, BILS and AIA" sentence on `/about` is gone. The "AIA not expanded" open item is closed: the crest reads AIA, the body is the Advocates' Association of Western India.
+- **Logos** are built by `scripts/logos.py` from `scripts/logo-source/` (re-run it when better files arrive): `public/brand/partners/{aia,bba,bils,caai}.png` (transparent, trimmed and padded; BBA and BILS are discs, AIA keeps its wide crest, CAAI is circle-fitted) and `public/brand/baca-seal-{dark,light}.png`
+  (`dark` is the original navy and gold disc; `light` is a paper disc with ink linework made through an art alpha so the transparent edge stays clean). The BACA logo pack zip now holds both. Partner logos are for light tiles only.
+  Source resolution is the limit: AIA 512px, BILS 200px upscaled, CAAI about 230px cropped from a screenshot. Ask the bodies for vectors.
+- **`/adv-vijay-tulpule`:** from the supplied `content.ts`, `trophy-teaser.tsx`, `WIREFRAME.md`. `/trophy` keeps its sections, replaces the intro with the teaser (informal portrait, short text, link) and drops the PDF link there; the profile page links the PDF in its source note instead.
+  The wireframe's four-number strip is a plain dashed list (rule: no big-number strips). Phones get dashed lists in one tile, cards from `md`, a sticky contents rail from `lg`. The portrait stacks above the name until `lg`.
+- **Fact check against `TulpuleVT.pdf`:** all dates, posts and quotes were read back against `pdftotext` output. Two edits: the Sathe tribute is now his exact sentence ("Truly an all-rounder in life, both in legal practice as well as his other pursuits.") and the Sakhare remark follows the source wording instead of "uncompromising". "3 to 4 a.m." is in the PDF as "3-4 a.m.".
+  Still true from section 14: children left out on purpose; BACA committee members are not identified with the speakers.
+- **Sitemap and footer:** `src/app/sitemap.ts` is built from `FOOTER_LINKS` (hash stripped, duplicates removed). The footer gained Hosts and Adv. Vijay Tulpule links (14 links, so both list layouts end even).
+- **Verified locally on `next start`:** `npx tsc --noEmit`, `npm run lint` (0 errors, 2 old warnings), `npm run build` (24 routes). `wrapAudit` at 360, 390, 768, 1024 and 1440 over all 13 routes: no widows, no orphans, no overflow.
+  First run found five things, all fixed: footer logo strip wrapped 4+1 at 360 and 390 (now `h-10` below `sm`), "Adv. Vijay Tulpule" widow in the footer list and in the profile h1 (`tie()`), "Bombay Bar Association" widow in Hosts (`tie()`), the "Who hosts it?" answer ending on "(CAAI)." (`tie()`),
+  profile hero name too big for its column at 768 (stacks until `lg`, `md:text-6xl xl:text-7xl`).
+  Remaining audit hit: a "spill" of 10px on the profile page's "See the trophy" wrapper. It is the magnetic button's invisible hit area (`-m-2.5`), not visible overflow. Home "spill" hits are GSAP start offsets as before.
+- **Not verified:** a real phone, Safari, the partner logos on a physical print. The logo-pack zip was rebuilt but not opened in a design tool.
+- **Environment note:** `node_modules` had x64 `lightningcss` and `@tailwindcss/oxide` on an arm64 Node, so the build failed. `npm i --no-save lightningcss-darwin-arm64@1.32.0 @tailwindcss/oxide-darwin-arm64@4.3.3` fixed it without touching package.json. The audit's python http.server route did not work in the sandbox; copy the script into `public/` for a run, restart `next start`, and delete the copy afterwards.
+- **Open:** vector logos from AAWI, BILS and CAAI; whether to trim His life, Sport, At the Bar and In his name on `/trophy` now that the profile page carries them; Rizvi Shield/Plate details; ground names and fixtures.

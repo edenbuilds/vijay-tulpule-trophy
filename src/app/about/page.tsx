@@ -4,6 +4,7 @@ import { PH } from "@/lib/photos";
 import Link from "next/link";
 import { Stanza } from "@/components/Poem";
 import { Block, Hero } from "@/components/Sections";
+import { Hosts } from "@/components/Hosts";
 
 export const metadata: Metadata = {
   title: "About BACA",
@@ -33,7 +34,6 @@ export default function About() {
           <p>Public trust, 1993. Registration No. 797/1993 / 4BBSD.</p>
           <p>{ORG.address}.</p>
           <p>Advocates, solicitors and legal professionals of the Bombay High Court. Three-time All India champions.</p>
-          <p>The 2026 tournament is held in association with BBA, The Bombay Incorporated Law Society and AIA.</p>
         </div>
       </Block>
       <Block title="The tournament" tone="cream">
@@ -55,6 +55,9 @@ export default function About() {
             </p>
           </div>
         </div>
+      </Block>
+      <Block id="hosts" title="Hosts" tone="paper">
+        <Hosts />
       </Block>
       <Block id="poem" title="Cricket and court" kicker="Poem" tone="cream">
         <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">

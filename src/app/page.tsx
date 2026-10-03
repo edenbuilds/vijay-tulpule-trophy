@@ -16,7 +16,8 @@ import { Faq } from "@/components/home/Faq";
 import { GalleryZoom } from "@/components/home/GalleryZoom";
 import { Programme, type Day } from "@/components/home/Programme";
 import { ARCHIVE, CONVERGE, PH, ZOOM } from "@/lib/photos";
-import { CONTACTS, EVENT, HISTORY } from "@/lib/site";
+import { Hosts } from "@/components/Hosts";
+import { CONTACTS, EVENT, HISTORY, tie } from "@/lib/site";
 
 // Order of the page: the tournament (hero, where to go, the teams, the schedule), then the trophy it is played
 // for, then the pictures and the history, then the practical end (poem, questions, sponsors, downloads, contacts).
@@ -41,14 +42,15 @@ const LINKS = [
 const FAQ = [
   { q: "When and where is it played?", a: "From 17 to 24 October 2026, on 8 grounds in Mumbai and Navi Mumbai. The opening is at 07:00 on 17 October. Ground names will be announced shortly." },
   { q: "Who plays?", a: "Practising advocates from 15 High Courts and the Supreme Court of India, in 16 teams." },
+  { q: "Who hosts it?", a: tie("The Bombay Advocates’ Cricket Association (BACA) hosts it. The co-hosts are the Advocates’ Association of Western India (AAWI), the Bombay Bar Association (BBA) and The Bombay Incorporated Law Society (BILS). It is played under the aegis of the Cricket Association of Advocates in India (CAAI).") },
   { q: "How do the teams progress?", a: "Four groups of four, and every team plays the other three in its group. The top two in each group go through to the quarter-finals, then the semi-finals and the final." },
   { q: "How long is a match?", a: `${EVENT.overs} overs a side. First ball is at 09:00.` },
   { q: "What if it rains?", a: "21 October is kept as a reserve day for the weather." },
   {
-    q: "Who was Adv. Vijay Tulpule?",
+    q: "Who was the late Adv. Vijay Tulpule?",
     a: (
       <>
-        A Bombay criminal lawyer who served as Government Pleader and Public Prosecutor in the High Court, and a Bombay Ranji Trophy probable before he joined the Bar. Read <Link href="/trophy" className="font-semibold underline decoration-pitch decoration-2 underline-offset-4">his story</Link>.
+        A Bombay criminal lawyer who served as Government Pleader and Public Prosecutor in the High Court, and a Bombay Ranji Trophy probable before he joined the Bar. Read <Link href="/adv-vijay-tulpule" className="font-semibold underline decoration-pitch decoration-2 underline-offset-4">his life</Link>.
       </>
     ),
   },
@@ -108,8 +110,8 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-20 md:px-8">
           <CurtainPortrait
             src="/img/tulpule-informal.jpg"
-            alt="Adv. Vijay Tulpule in a white shirt and suspenders"
-            caption="Adv. Vijay Tulpule"
+            alt="The late Adv. Vijay Tulpule in a white shirt and suspenders"
+            caption="The late Adv. Vijay Tulpule"
             width={508}
             height={661}
             className="max-w-[16rem] md:max-w-none [&_figcaption]:text-paper/70"
@@ -119,7 +121,7 @@ export default function Home() {
               <h2>The Vijay Tulpule Trophy</h2>
             </SlideTextReveal>
             <p className="mt-6 max-w-xl text-xl leading-relaxed text-paper/85 md:text-2xl">
-              The winning team receives it. It is named after Adv. Vijay Tulpule, a Bombay criminal lawyer, former Government Pleader and Public Prosecutor, and Bombay Ranji Trophy probable.
+              The winning team receives it. It is named after the late Adv. Vijay Tulpule, a Bombay criminal lawyer, former Government Pleader and Public Prosecutor, and Bombay Ranji Trophy probable.
             </p>
             <p className="mt-4 max-w-xl text-paper/70 md:text-lg">BACA has also named the Rizvi Shield/Plate. Details are being confirmed.</p>
             <Link href="/trophy" className="mt-6 inline-flex min-h-11 items-center text-base font-semibold underline decoration-sage decoration-2 underline-offset-8 transition-colors hover:text-sage">About the trophy</Link>
@@ -128,6 +130,10 @@ export default function Home() {
       </section>
 
       <GalleryZoom photos={ZOOM} />
+
+      <Block title="Hosts" tone="cream">
+        <Hosts tile="bg-paper" />
+      </Block>
 
       <Block tone="paper">
         <div className="grid items-center gap-10 md:grid-cols-[minmax(0,26rem)_1fr] md:gap-16">

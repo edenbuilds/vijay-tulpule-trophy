@@ -6,7 +6,7 @@
 //   await wrapAudit()                       // everything
 //   await wrapAudit({ routes: ["/trophy"], widths: [390] })
 window.wrapAudit = async ({
-  routes = ["/", "/teams", "/fixtures", "/format", "/trophy", "/gallery", "/about", "/sponsors", "/ceremonies", "/poem", "/contact", "/downloads"],
+  routes = ["/", "/teams", "/fixtures", "/format", "/trophy", "/gallery", "/about", "/adv-vijay-tulpule", "/sponsors", "/ceremonies", "/poem", "/contact", "/downloads"],
   widths = [390, 768, 1024, 1440],
 } = {}) => {
   const TEXT = "h1,h2,h3,h4,h5,h6,p,li,figcaption,dt,dd,blockquote";
