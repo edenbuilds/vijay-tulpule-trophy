@@ -22,9 +22,9 @@ Verified locally: production build, targeted ESLint, homepage at 1440px and 390p
 
 ## Motion pass (07-10-2026)
 
-The homepage hero now reveals the tournament logo with a short left-to-right mask, draws the existing red rule, then brings in the date, location, countdown and links in sequence. The existing brush and shape parallax remains. The reveal uses GSAP already in the site and is skipped when `prefers-reduced-motion` is set. No copy, images or facts changed.
+The hero now leads with the motto, with the tournament lockup as the visual anchor and event details beside it. Four homepage destination cards stack on desktop; the sixteen team marks gather from a shallow tilted stack into their grid, with a phone cascade. Both use existing GSAP, respond to reduced motion, and leave phone cards in a readable layout. Homepage text describes the tournament directly; archive photos stay secondary. Added the BACA Instagram link and refreshed all 16 team marks from the supplied 1024px archive, preserving slugs and ordering.
 
-Verified locally: `npm run build` passes; the homepage renders at 1440px and 390px with the logo, date, location, countdown and both links visible. Commit `16dddac` is deployed to production (`dpl_AEWqQXavtMadPBnPKqpjvEDzH2K6`, READY) at https://baca-cricket.com. The live hero was checked at 1440px and 390px; all hero content remains visible and the archive imagery stays secondary.
+Verified locally: `npm run build` passes. Local desktop browser shows the updated hero, section cards, team marks and Instagram link. Mobile viewport and production deployment still need verification.
 
 ## Open items
 - Poster says 8 grounds, the sheet lists 14; the site follows the sheet and prints no total.
@@ -39,5 +39,5 @@ Verified locally: `npm run build` passes; the homepage renders at 1440px and 390
 
 ## Paste-ready prompt
 ```
-Work in ~/vijay-tulpule-trophy. Read HANDOFF.md, then docs/REDESIGN.md. Palette is navy/royal/red on sky and snow, Satoshi only. Data lives in src/lib/teams.ts and src/lib/schedule.ts; add times, groups, captains or match-ups only from organiser sources. Matches are 35 overs, location is "Mumbai and Navi Mumbai". Keep the Adv. prefix, plain copy, no em dashes, no widows or orphans (run wrap-audit at 360/390/768/1024/1440). Motion should stay restrained, use the existing GSAP setup and respect reduced motion. Task: <paste task>. First: run npm run downloads and commit, run the wrap audit, attach www.baca-cricket.com. Verify on https://baca-cricket.com at desktop and 390px, commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with vercel deploy --prod --yes, update this file.
+Work in ~/vijay-tulpule-trophy. Read HANDOFF.md, then docs/REDESIGN.md. Palette is navy/royal/red on sky and snow, Satoshi only. Data lives in src/lib/teams.ts and src/lib/schedule.ts; add times, groups, captains or match-ups only from organiser sources. Matches are 35 overs, location is "Mumbai and Navi Mumbai". Keep the Adv. prefix, plain copy, no em dashes, no widows or orphans (run wrap-audit at 360/390/768/1024/1440). Motion should stay restrained, use the existing GSAP setup and respect reduced motion. Task: <paste task>. Verify on https://baca-cricket.com at desktop and 390px, commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with vercel deploy --prod --yes, update this file.
 ```

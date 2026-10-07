@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, CalendarDays, Handshake, ListOrdered, Users } from "lucide-react";
 import { Shape } from "@/components/brand/Shape";
 import { CurtainPortrait } from "@/components/gems/CurtainPortrait";
 import { MagneticButton } from "@/components/gems/MagneticButton";
@@ -16,6 +15,7 @@ import { Converge } from "@/components/home/Converge";
 import { Faq } from "@/components/home/Faq";
 import { GalleryZoom } from "@/components/home/GalleryZoom";
 import { HomeHero } from "@/components/home/HomeHero";
+import { HomeLinks } from "@/components/home/HomeLinks";
 import { Programme } from "@/components/home/Programme";
 import { ARCHIVE, PH, ZOOM } from "@/lib/photos";
 import { TEAMS } from "@/lib/teams";
@@ -29,13 +29,6 @@ import { CONTACTS, EVENT, HISTORY, tie } from "@/lib/site";
 // teams from TEAMS. The sheet gives no times, stage names or groups, so none are printed on this page.
 // Each photograph is placed by src/lib/photos.ts for a stated reason. On phones the schedule, questions, sponsors and
 // downloads are plain lists, not stacks of cards.
-
-const LINKS = [
-  { href: "/fixtures", label: "Fixtures", line: "Every day and ground", Icon: CalendarDays, bg: "md:bg-white" },
-  { href: "/teams", label: "Teams", line: "The 16 teams", Icon: Users, bg: "md:bg-sky-deep" },
-  { href: "/format", label: "Format", line: "Points, tie-breaks and awards", Icon: ListOrdered, bg: "md:bg-white" },
-  { href: "/sponsors", label: "Sponsors", line: "Tiers from ₹5 lakh", Icon: Handshake, bg: "md:bg-sky-deep" },
-];
 
 // Answers follow the organisers' sheet of 06-10-2026 and the poster: dates and grounds only. No times, no stage names, and the
 // groups are not drawn, so those answers say so instead of repeating the 25-09 working book.
@@ -81,25 +74,7 @@ export default function Home() {
     <>
       <HomeHero />
 
-      <nav aria-label="Sections" className="mx-2 mt-2 rounded-2xl bg-white px-4 md:grid md:grid-cols-2 md:gap-2 lg:grid-cols-4 md:rounded-none md:bg-transparent md:px-0">
-        {LINKS.map(({ href, label, line, Icon, bg }) => (
-          <Link
-            key={href}
-            href={href}
-            className={`press group flex min-h-16 items-center justify-between gap-4 border-b border-dashed border-navy/15 py-4 last:border-0 md:lift md:min-h-48 md:flex-col md:items-stretch md:justify-between md:rounded-2xl md:border-0 md:p-8 md:hover:bg-sky-deep ${bg}`}
-          >
-            <span className="hidden items-start justify-between md:flex">
-              <Icon aria-hidden="true" className="size-6 text-royal transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" strokeWidth={1.6} />
-              <ArrowUpRight aria-hidden="true" className="size-5 text-navy/40 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-navy" />
-            </span>
-            <span>
-              <span className="display block text-xl md:text-3xl">{label}</span>
-              <span className="mt-1 block text-sm text-navy/60">{line}</span>
-            </span>
-            <ArrowUpRight aria-hidden="true" className="size-5 shrink-0 text-navy/40 md:hidden" />
-          </Link>
-        ))}
-      </nav>
+      <HomeLinks />
 
       <Converge teams={TEAMS} />
 
@@ -123,9 +98,9 @@ export default function Home() {
               <h2>The Vijay Tulpule Trophy</h2>
             </SlideTextReveal>
             <p className="mt-6 max-w-xl text-xl leading-relaxed text-white/85 md:text-2xl">
-              The winning team receives it. It is named after the late Adv. Vijay Tulpule, a Bombay criminal lawyer, former Government Pleader and Public Prosecutor, and Bombay Ranji Trophy probable.
+              The winning team receives the trophy, named for the late Adv. Vijay Tulpule. He was a Bombay criminal lawyer, former Government Pleader and Public Prosecutor, and a Bombay Ranji Trophy probable.
             </p>
-            <p className="mt-4 max-w-xl text-white/70 md:text-lg">BACA has also named the Rizvi Shield/Plate. Details are being confirmed.</p>
+            <p className="mt-4 max-w-xl text-white/70 md:text-lg">Details of the Rizvi Shield/Plate are being confirmed.</p>
             <Link href="/trophy" className="mt-6 inline-flex min-h-11 items-center text-base font-semibold underline decoration-sky decoration-2 underline-offset-8 transition-colors hover:text-sky">About the trophy</Link>
           </div>
         </div>
@@ -160,7 +135,7 @@ export default function Home() {
             <SlideTextReveal className="display uppercase text-3xl md:text-5xl">
               <h2>Cricket and court</h2>
             </SlideTextReveal>
-            <p className="mt-5 max-w-md text-lg text-navy/70">A Hindi poem shared by BACA about cricket and the courtroom.</p>
+            <p className="mt-5 max-w-md text-lg text-navy/70">A Hindi poem on cricket and the courtroom, shared by BACA.</p>
             <Link href="/poem" className={`mt-6 inline-flex min-h-11 items-center ${arrow}`}>Read the poem</Link>
           </div>
           <Stanza i={1} />
@@ -188,7 +163,7 @@ export default function Home() {
           <Image src={PH.cheer.src} alt={PH.cheer.alt} fill sizes="100vw" className="-z-10 object-cover object-[50%_30%]" />
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-navy/70" />
           <SlideTextReveal className="display display-long max-w-[16ch] text-4xl md:text-7xl">
-            <h2>Come and support the legal fraternity.</h2>
+            <h2>Eight days of cricket. One legal fraternity.</h2>
           </SlideTextReveal>
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <MagneticButton href="/fixtures" tone="onDark">Fixtures</MagneticButton>

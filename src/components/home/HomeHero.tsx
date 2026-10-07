@@ -4,7 +4,6 @@ import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Logo } from "@/components/brand/Logo";
-import { Shape } from "@/components/brand/Shape";
 import { Stroke } from "@/components/brand/Stroke";
 import { Countdown } from "@/components/Countdown";
 import { MagneticButton } from "@/components/gems/MagneticButton";
@@ -13,10 +12,8 @@ import { TOURNAMENT } from "@/lib/schedule";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Home hero: a light tile on sky with the logo as the title (the h1 is the logo image, so its alt text is the page title).
-// No photograph behind it. One stroke and the shape sit at the tile edge and are clipped by it; both drift slower than the
-// page on scroll (GSAP on their wrappers only, the text uses the CSS .rise entrance, so no element has two animation systems).
-// The text column is kept clear of both pieces of art: they live in the top corners, the text sits lower.
+// BACA's own motto leads; the supplied tournament lockup keeps the event identity in view without an archive photograph.
+// The logo mask and copy stagger form one short opening sequence. Reduced-motion users get the finished layout immediately.
 export function HomeHero() {
   const root = React.useRef<HTMLElement>(null);
 
@@ -27,18 +24,18 @@ export function HomeHero() {
       const intro = gsap.timeline({ defaults: { overwrite: "auto" } });
       intro
         .fromTo(
-          ".hero-title",
-          { clipPath: "inset(0 100% 0 0)", scale: 1.025 },
-          { clipPath: "inset(0 0% 0 0)", scale: 1, duration: 1.05, ease: "power3.inOut" },
-          0.12,
+          ".hero-logo",
+          { clipPath: "inset(0 100% 0 0)", scale: 1.035 },
+          { clipPath: "inset(0 0% 0 0)", scale: 1, duration: 1.1, ease: "power3.inOut" },
+          0.05,
         )
-        .fromTo(".hero-accent", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 0.28)
-        .fromTo(".hero-copy > *", { y: 16, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08, ease: "power2.out" }, 0.48);
+        .fromTo(".hero-accent", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 0.24)
+        .fromTo(".hero-copy > *", { y: 16, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.075, ease: "power2.out" }, 0.38);
 
       gsap.fromTo(
         ".g-drift",
         { yPercent: 0 },
-        { yPercent: 16, ease: "none", scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 } },
+        { yPercent: 12, ease: "none", scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 } },
       );
     }, el);
     return () => ctx.revert();
@@ -46,29 +43,31 @@ export function HomeHero() {
 
   return (
     <section ref={root} className="px-2 pt-2">
-      <div className="relative isolate flex min-h-[calc(100svh-8.5rem)] flex-col justify-end overflow-hidden rounded-2xl bg-sky text-navy">
-        <div aria-hidden="true" className="g-drift pointer-events-none absolute -right-14 -top-8 -z-10 w-[14rem] md:-right-28 md:-top-20 md:w-[32rem]">
+      <div className="relative isolate grid min-h-[calc(100svh-8.5rem)] overflow-hidden rounded-2xl bg-sky text-navy lg:grid-cols-[1.05fr_0.95fr]">
+        <div aria-hidden="true" className="g-drift pointer-events-none absolute -right-16 -top-10 -z-10 w-[15rem] md:-right-24 md:-top-20 md:w-[32rem]">
           <Stroke className="w-full" />
         </div>
-        <div aria-hidden="true" className="g-drift pointer-events-none absolute -left-8 -top-5 -z-10 w-[6.5rem] md:-left-20 md:-top-12 md:w-[16rem]">
-          <Shape className="w-full" />
+        <div className="hero-copy relative z-10 order-2 mx-auto flex w-full max-w-7xl flex-col items-start justify-center gap-5 px-5 pb-10 pt-5 sm:px-8 md:gap-6 md:pb-14 lg:order-1 lg:col-start-1 lg:row-start-1 lg:px-10 lg:pb-16 lg:pt-16">
+          <span aria-hidden="true" className="hero-accent h-1 w-12 rounded-full bg-red" />
+          <h1 className="display max-w-[12ch] text-5xl leading-[0.98] tracking-[-0.035em] sm:text-6xl md:text-7xl lg:text-[5.5rem]">Cricket for Friendship</h1>
+          <p className="max-w-xl text-lg leading-relaxed text-navy/75 md:text-xl">
+            Sixteen teams of practising advocates from 15 High Courts and the Supreme Court of India.
+          </p>
+          <div className="flex flex-col gap-1">
+            <p className="display text-2xl md:text-3xl">{TOURNAMENT.span}</p>
+            <p className="text-lg font-semibold md:text-xl">Mumbai and Navi Mumbai</p>
+          </div>
+          <p className="max-w-lg text-base text-navy/65">Hosted by the {ORG.name}</p>
+          <Countdown className="display num text-3xl text-royal md:text-4xl" />
+          <div className="mt-1 flex flex-wrap items-center gap-3">
+            <MagneticButton href="/fixtures">View fixtures</MagneticButton>
+            <MagneticButton href="/teams" tone="outline">Meet the teams</MagneticButton>
+          </div>
         </div>
 
-        <div className="mx-auto grid w-full max-w-7xl items-end gap-8 px-4 pb-10 pt-32 md:px-8 md:pb-16 md:pt-48 lg:grid-cols-[55fr_45fr] lg:gap-14 lg:pt-56">
-          <h1 className="hero-title !leading-none">
-            <Logo priority sizes="(min-width: 1280px) 42rem, (min-width: 1024px) 55vw, 92vw" className="w-full max-w-[34rem] lg:max-w-none" />
-          </h1>
-
-          <div className="hero-copy flex flex-col items-start gap-5 lg:pb-6">
-            <span aria-hidden="true" className="hero-accent h-1 w-12 rounded-full bg-red" />
-            <p className="display text-4xl md:text-6xl">{TOURNAMENT.span}</p>
-            <p className="text-xl font-semibold md:text-2xl">Mumbai and Navi Mumbai</p>
-            <p className="max-w-md text-lg text-navy/70">Hosted by the {ORG.name}</p>
-            <Countdown className="display num text-3xl text-royal md:text-5xl" />
-            <div className="mt-2 flex flex-wrap items-center gap-4">
-              <MagneticButton href="/fixtures">Fixtures</MagneticButton>
-              <MagneticButton href="/teams" tone="outline">Teams</MagneticButton>
-            </div>
+        <div className="relative order-1 mx-auto flex w-full max-w-7xl items-end justify-center px-5 pb-0 pt-20 sm:px-8 lg:order-2 lg:col-start-2 lg:row-start-1 lg:items-center lg:px-7 lg:pb-10 lg:pt-20">
+          <div className="hero-logo relative w-full max-w-[18rem] sm:max-w-[24rem] lg:max-w-[34rem]">
+            <Logo priority alt="38th All India Advocates’ Cricket Tournament, Mumbai 2026" sizes="(min-width: 1280px) 34rem, (min-width: 1024px) 42vw, 86vw" className="w-full" />
           </div>
         </div>
       </div>

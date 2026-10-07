@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Camera, Mail, MapPin, Phone } from "lucide-react";
 import { CONTACTS, FOOTER_LINKS, HOSTS_LINE, ORG, tie } from "@/lib/site";
 import { HostsStrip } from "@/components/Hosts";
 import { Ball } from "@/components/brand/Ball";
@@ -17,9 +17,21 @@ export function Footer() {
           <Ball className="absolute right-[1%] top-[-4%] size-10 md:size-[4.5rem]" />
         </div>
         <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col gap-5 pb-10 md:pb-12">
-            <Logo variant="reversed" className="w-44 md:w-72" sizes="(min-width: 768px) 288px, 176px" />
-            <p className="text-lg text-white/70">{ORG.name}</p>
+          <div className="flex flex-col gap-5 pb-10 md:flex-row md:items-end md:justify-between md:pb-12">
+            <div>
+              <Logo variant="reversed" className="w-44 md:w-72" sizes="(min-width: 768px) 288px, 176px" />
+              <p className="mt-3 text-lg text-white/70">{ORG.name}</p>
+            </div>
+            <a
+              href="https://www.instagram.com/bacacricket/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex min-h-11 w-fit items-center gap-2 font-semibold text-white transition-colors hover:text-sky"
+            >
+              <Camera aria-hidden="true" className="size-5" strokeWidth={1.7} />
+              <span className="u-grow">Instagram</span>
+              <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
           </div>
           <div className="rule" />
           <div className="grid gap-10 py-12 md:grid-cols-[1fr_1fr]">

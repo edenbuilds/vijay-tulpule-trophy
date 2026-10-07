@@ -13,7 +13,7 @@ export function GalleryZoom({ photos }: { photos: Photo[] }) {
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 md:flex-row md:items-end md:px-8">
         <div>
           <h2 className="display uppercase text-4xl md:text-6xl">Gallery</h2>
-          <p className="mt-4 max-w-md text-lg text-navy/70">Photographs from BACA’s archive and past tournaments.</p>
+          <p className="mt-4 max-w-md text-lg text-navy/70">A look back through BACA’s archive and past tournaments.</p>
         </div>
         <MagneticButton href="/gallery">Open the gallery</MagneticButton>
       </div>

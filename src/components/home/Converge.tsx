@@ -11,11 +11,8 @@ import type { Team } from "@/lib/teams";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// The sixteen team logos in white wells on a navy tile. From md up they start as a loose pile at the middle of the grid,
-// each tilted and a little oversize, and spread out into a 4 x 4 grid as the section scrolls in (the scroll idea of Animmaster
-// Awwwards Pack, Scroll Animation 58, now carrying logos). The pile stays inside the grid's own box, so a well never passes
-// over the heading. GSAP drives only the transform of each cell; nothing else animates it. Phones and reduced motion get the
-// finished grid: three columns, with the sixteenth logo centred on the last row (a 6-column grid, two columns per logo).
+// The sixteen logo cards gather from a shallow, tilted stack into their grid on larger screens. Phones use a short cascade so
+// every mark stays legible; reduced-motion users get the finished grid immediately.
 const TILT = [-14, 9, 18, -8, 12, -17, 7, -11, 15, -6, 10, -13, 8, -16, 11, -9];
 
 export function Converge({ teams }: { teams: Team[] }) {
@@ -39,11 +36,27 @@ export function Converge({ teams }: { teams: Team[] }) {
         };
         tl.fromTo(
           cell,
-          { x: () => offset().x, y: () => offset().y, scale: 1.2, rotate: TILT[i % TILT.length] },
-          { x: 0, y: 0, scale: 1, rotate: 0, ease: "power3.inOut", duration: 0.7 },
+          { x: () => offset().x, y: () => offset().y, z: () => -i * 2, scale: 1.16, rotate: TILT[i % TILT.length], rotationX: i % 2 ? -6 : 6, transformPerspective: 1200 },
+          { x: 0, y: 0, z: 0, scale: 1, rotate: 0, rotationX: 0, ease: "power3.inOut", duration: 0.7 },
           i * 0.025,
         );
       });
+    });
+    mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", () => {
+      const targets = cells.current.filter((cell): cell is HTMLLIElement => Boolean(cell));
+      gsap.fromTo(
+        targets,
+        { y: 20, scale: 0.96, autoAlpha: 0 },
+        {
+          y: 0,
+          scale: 1,
+          autoAlpha: 1,
+          duration: 0.55,
+          stagger: 0.045,
+          ease: "power3.out",
+          scrollTrigger: { trigger: box, start: "top 88%", toggleActions: "play none none reverse" },
+        },
+      );
     });
     return () => mm.revert();
   }, []);

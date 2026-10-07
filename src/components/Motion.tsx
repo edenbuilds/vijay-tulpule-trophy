@@ -93,36 +93,51 @@ export function ScrubText({ children, className = "" }: { children: string; clas
   );
 }
 
-// Hyperiux sweep-lift-transition, adapted: the vendored version pins the whole site in a fixed
-// overflow-hidden frame, which breaks window scroll, Lenis, the sticky nav and every ScrollTrigger.
-// Same clip polygons and power4.inOut, run on an overlay panel instead, with shorter legs so a
-// navigation doesn't take 2.6s.
-const HIDDEN_CLIP = "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)";
-const VISIBLE_CLIP = "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)";
-const LIFTED_CLIP = "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)";
+// Four BACA-coloured panels adapt the supplied GSAP transition concept without pinning or replacing the page scroll surface.
+const TRANSITION_PANELS = 4;
 
 export function PageSweep({ children }: { children: React.ReactNode }) {
   const panel = React.useRef<HTMLDivElement>(null);
+  const strips = React.useRef<(HTMLDivElement | null)[]>([]);
+  const ball = React.useRef<HTMLDivElement>(null);
   return (
     <TransitionRouter
       auto
       leave={(next) => {
         if (reduced()) return next();
-        const tw = gsap.fromTo(panel.current, { clipPath: HIDDEN_CLIP }, { clipPath: VISIBLE_CLIP, duration: 0.7, ease: "power4.inOut", onComplete: next });
+        const tw = gsap
+          .timeline({ onComplete: next })
+          .fromTo(strips.current, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.42, ease: "power4.inOut", stagger: 0.055 })
+          .fromTo(ball.current, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 0.2);
         return () => tw.kill();
       }}
       enter={(next) => {
         if (reduced()) return next();
         const tl = gsap
           .timeline({ onComplete: () => (ScrollTrigger.refresh(), next()) })
-          .to(panel.current, { clipPath: LIFTED_CLIP, duration: 0.8, ease: "power4.inOut" })
-          .from("main", { y: 50, duration: 0.8, ease: "power4.inOut", clearProps: "transform" }, 0);
+          .fromTo(
+            strips.current,
+            { scaleX: 1, transformOrigin: "right center" },
+            { scaleX: 0, duration: 0.42, ease: "power4.inOut", stagger: 0.055 },
+          )
+          .to(ball.current, { autoAlpha: 0, scale: 0.8, duration: 0.18, ease: "power2.in" }, 0)
+          .fromTo("main", { y: 24 }, { y: 0, duration: 0.55, ease: "power3.out", clearProps: "transform" }, 0);
         return () => tl.kill();
       }}
     >
       {children}
-      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-navy" style={{ clipPath: HIDDEN_CLIP }}>
-        <Ball className="size-14" />
+      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] flex overflow-hidden">
+        {Array.from({ length: TRANSITION_PANELS }, (_, i) => (
+          <div
+            key={i}
+            ref={(el) => { strips.current[i] = el; }}
+            className="h-full min-w-0 flex-1 bg-navy"
+            style={{ transform: "scaleX(0)" }}
+          />
+        ))}
+        <div ref={ball} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0">
+          <Ball className="size-14" />
+        </div>
       </div>
     </TransitionRouter>
   );
