@@ -24,7 +24,7 @@ Verified locally: production build, targeted ESLint, homepage at 1440px and 390p
 
 The homepage hero now reveals the tournament logo with a short left-to-right mask, draws the existing red rule, then brings in the date, location, countdown and links in sequence. The existing brush and shape parallax remains. The reveal uses GSAP already in the site and is skipped when `prefers-reduced-motion` is set. No copy, images or facts changed.
 
-Verified locally: `npm run build` passes; the homepage renders at 1440px and 390px with the logo, date, location, countdown and both links visible. Production deployment and live animation playback are pending.
+Verified locally: `npm run build` passes; the homepage renders at 1440px and 390px with the logo, date, location, countdown and both links visible. Commit `16dddac` is deployed to production (`dpl_AEWqQXavtMadPBnPKqpjvEDzH2K6`, READY) at https://baca-cricket.com. The live hero was checked at 1440px and 390px; all hero content remains visible and the archive imagery stays secondary.
 
 ## Open items
 - Poster says 8 grounds, the sheet lists 14; the site follows the sheet and prints no total.
