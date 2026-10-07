@@ -11,11 +11,11 @@ function Group({ title, orgs, cols, tile }: { title: string; orgs: Org[]; cols: 
   return (
     <div className="lg:row-span-2 lg:grid lg:grid-rows-subgrid">
       <h3 className="display text-2xl md:text-3xl">{title}</h3>
-      <ul className={`mt-4 rounded-none px-4 md:mt-6 md:grid md:gap-3 md:rounded-none md:bg-transparent md:px-0 ${tile} ${cols}`}>
+      <ul className={`mt-4 rounded-2xl px-4 md:mt-6 md:grid md:gap-3 md:rounded-none md:bg-transparent md:px-0 ${tile} ${cols}`}>
         {orgs.map((o) => (
           <li
             key={o.short}
-            className={`flex items-center gap-4 border-b border-dashed border-navy/15 py-4 last:border-0 md:flex-col md:justify-between md:gap-5 md:rounded-none md:border-0 md:p-6 md:text-center ${WELL[tile]}`}
+            className={`flex items-center gap-4 border-b border-dashed border-navy/15 py-4 last:border-0 md:flex-col md:justify-between md:gap-5 md:rounded-2xl md:border-0 md:p-6 md:text-center ${WELL[tile]}`}
           >
             <span className="flex h-14 w-20 flex-none items-center justify-center md:h-28 md:w-full">
               <Image src={o.logo} alt={`${o.short} logo`} width={o.w} height={o.h} className="max-h-full w-auto max-w-full" />

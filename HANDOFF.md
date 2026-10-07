@@ -2,17 +2,9 @@
 
 Live: https://baca-cricket.com (also https://vijay-tulpule-trophy.vercel.app). Repo: edenbuilds/vijay-tulpule-trophy, Vercel deploys from `main`, git author must be omkar1sonawane@gmail.com.
 
-## Heritage editorial refresh (07-10-2026)
+## Visual direction restored (07-10-2026)
 
-Direction: a Bombay legal institution and cricket club, expressed through warm paper, BACA navy/royal/red, firm typography, archive photography and fine rules. Geist headings and Inter UI/body remain. Large rounded cards, pill CTAs and the previous blue-panel treatment have been removed from the shared layout; the original trophy copy, poem, tournament facts and BACA imagery remain intact.
-
-BYQ Supply MCP was successfully queried with the current access. Style reference: Culture Exchange (`cmux5661o0001lwovjxteas5k`), adapted to BACA’s identity. Retrieved layout patterns: `stringer-hero-1`, `sophia-navbar-1`, `cultureexchange-structured-data-2`, `stringer-team-grid-2`, `kelvin-cms-page-2`, `stringer-image-gallery-1`, `code-house-table-1`, and `stringer-footer-2`. Used as structure guidance for the split photo hero, quiet navigation, event rows, team roster, editorial sections, gallery, sponsorship tiers and footer. Gems inspected included `iris-wipe-preloader-01`, `curtain-image-reveal-01`, and `scroll-text-reveal-01`; the pinned/stacking treatment was not used. No BYQ code, palettes or fonts were copied directly.
-
-Hyperiux local stdio MCP was started and its Pro source for `lines-loader` retrieved. `src/components/gems/Preloader.tsx` adapts its staggered rules into a first-visit BACA loader, combined with the tournament ball and stroke. It skips for reduced motion and runs once per session. GSAP ScrollTrigger reveals the 16 team marks on both the homepage and `/teams` in small batches, without pinned scrolling. Existing editorial photo and poem motion stays in place.
-
-The new home layout leads with the tournament title, dates, city, two useful actions and a real team photograph. Destination links and the eight-day schedule use open rows instead of card stacks. Shared page headings and download/sponsor surfaces use warm paper and square edges. Instagram remains linked as `instagram.com/bacacricket` in the footer.
-
-Verified locally: production build and lint complete with no errors (two pre-existing lint warnings remain); all 13 routes have no horizontal overflow at 390px and 1440px; the 390px menu opens with View Fixtures first and the Tournament submenu exposes Fixtures, Teams, Format and Ceremonies. Visual review completed at 390px and 1440px. Team logos reveal on scroll on the home and Teams pages, with reduced-motion support. Production deployment `dpl_DeDdYEPZnYzWbSEeqFWW18Rfa4yS` is READY and aliased to https://baca-cricket.com. The live home was checked at 390px and 1440px, and `/teams` at 390px after the final animation update.
+The warm-paper refresh was reverted at the owner’s request. The previous tournament brand presentation is restored; the separate GSAP team logo reveal remains. Tournament logo assets are unchanged.
 
 ## Redesign (07-10-2026, commit 43bf2cc, live)
 Whole site rebuilt on the tournament brand kit (logo, palette, High Court illustration, ball, motion stroke, shape; no mockups). Geist headings and Inter body/UI, as specified by the owner.

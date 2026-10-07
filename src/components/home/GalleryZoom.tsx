@@ -6,7 +6,7 @@ import type { Photo } from "@/lib/photos";
 export function GalleryZoom({ photos }: { photos: Photo[] }) {
   const picks = photos.slice(0, 6);
   return (
-    <section aria-labelledby="gallery-home-title" className="border-y border-navy/10 bg-paper-light px-4 py-16 sm:px-8 md:py-24 lg:px-12">
+    <section aria-labelledby="gallery-home-title" className="bg-sky px-4 py-14 sm:px-8 md:py-20 lg:px-12">
       <div className="mx-auto max-w-[1280px]">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div>
@@ -19,7 +19,7 @@ export function GalleryZoom({ photos }: { photos: Photo[] }) {
         </div>
         <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
           {picks.map((photo, index) => (
-            <Link key={photo.id} href="/gallery" aria-label={`Explore the gallery: ${photo.alt}`} className={`group relative block overflow-hidden rounded-sm bg-sky-deep ${index === 0 || index === 5 ? "aspect-[4/3]" : "aspect-[3/2]"}`}>
+            <Link key={photo.id} href="/gallery" aria-label={`Explore the gallery: ${photo.alt}`} className={`group relative block overflow-hidden rounded-lg bg-sky-deep ${index === 0 || index === 5 ? "aspect-[4/3]" : "aspect-[3/2]"}`}>
               <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.025] motion-reduce:transition-none" />
             </Link>
           ))}

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 // Section headings of three words or fewer are capitals, like the Block headings elsewhere.
 const body = "text-base leading-relaxed text-navy/80 md:text-xl";
 const item = "border-b border-dashed border-navy/15 py-4 last:border-0";
-const card = "md:rounded-none md:border-0 md:p-6";
+const card = "md:rounded-2xl md:border-0 md:p-6";
 // Tiles alternate sky and white down the page, starting with sky because the profile block above is white. Cards and quotes inside take the other tone, and years take navy on sky
 // (small royal text does not reach contrast on sky).
 const TONES = {
@@ -30,7 +30,7 @@ const caps = (t: string) => (t.trim().split(/\s+/).length <= 3 ? "uppercase" : "
 
 function Part({ id, title, i, children }: { id: string; title: string; i: number; children: React.ReactNode }) {
   return (
-    <section id={id} className={`scroll-mt-24 rounded-none px-5 py-8 md:px-10 md:py-12 ${toneAt(i).box}`}>
+    <section id={id} className={`scroll-mt-24 rounded-2xl px-5 py-8 md:px-10 md:py-12 ${toneAt(i).box}`}>
       <h2 className={`display mb-6 text-3xl !leading-[1.1] md:mb-8 md:text-5xl ${caps(title)}`}>{title}</h2>
       <div className="grid max-w-3xl gap-5">{children}</div>
     </section>
@@ -39,7 +39,7 @@ function Part({ id, title, i, children }: { id: string; title: string; i: number
 
 function Quote({ text, by, bg }: { text: string; by: string; bg: string }) {
   return (
-    <blockquote className={`rounded-none px-5 py-6 md:px-8 md:py-8 ${bg}`}>
+    <blockquote className={`rounded-2xl px-5 py-6 md:px-8 md:py-8 ${bg}`}>
       <p className="display display-long text-2xl !leading-[1.25] md:text-3xl">“{text}”</p>
       <footer className="mt-4 text-base text-navy/75">{tie(by)}</footer>
     </blockquote>
@@ -62,7 +62,7 @@ export default function Page() {
           <div>
             <p className="display display-long max-w-3xl text-2xl !leading-[1.25] md:text-4xl">{tie(hero.descriptor)}</p>
             <p className="mt-4 text-base text-navy/70">From the Full Court Reference, Bombay High Court, 2017.</p>
-            <dl className="mt-8 rounded-none bg-snow px-4 md:mt-10 md:grid md:grid-cols-2 md:gap-x-10 md:px-8">
+            <dl className="mt-8 rounded-2xl bg-snow px-4 md:mt-10 md:grid md:grid-cols-2 md:gap-x-10 md:px-8">
               {glance.map((g) => (
                 <div key={g.value} className={item}>
                   <dt className="num text-2xl font-extrabold text-navy">{g.value}</dt>
@@ -143,7 +143,7 @@ export default function Page() {
         </div>
       </div>
 
-      <section className="relative isolate mx-2 mt-2 overflow-hidden rounded-none bg-navy py-14 text-white md:py-20">
+      <section className="relative isolate mx-2 mt-2 overflow-hidden rounded-2xl bg-navy py-14 text-white md:py-20">
         <div aria-hidden="true" className="pointer-events-none absolute -bottom-10 -right-20 -z-10 w-[22rem] md:-right-24 md:w-[36rem]">
           <Stroke className="w-full" />
         </div>

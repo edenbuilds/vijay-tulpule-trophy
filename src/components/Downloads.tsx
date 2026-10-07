@@ -52,11 +52,11 @@ export function Downloads({ only, compact = false }: { only?: string[]; compact?
               <a
                 href={d.href}
                 download
-                className="lift press group flex h-full min-h-44 flex-col justify-between gap-8 rounded-none bg-sky p-6 hover:bg-sky-deep md:p-8"
+                className="lift press group flex h-full min-h-44 flex-col justify-between gap-8 rounded-2xl bg-sky p-6 hover:bg-sky-deep md:p-8"
               >
                 <span className="flex items-start justify-between">
                   <Icon aria-hidden="true" className="size-7 text-royal transition-transform duration-300 group-hover:-rotate-6" strokeWidth={1.6} />
-                  <span className="grid size-10 place-items-center overflow-hidden rounded-none bg-white">
+                  <span className="grid size-10 place-items-center overflow-hidden rounded-full bg-white">
                     <ArrowDown aria-hidden="true" className="size-5 transition-transform duration-300 group-hover:translate-y-0.5 group-active:translate-y-2" strokeWidth={1.8} />
                   </span>
                 </span>

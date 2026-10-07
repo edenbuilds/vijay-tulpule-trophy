@@ -39,7 +39,7 @@ export default function Home() {
       <section aria-labelledby="trophy-home-title" className="bg-navy px-4 py-14 text-white sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto grid max-w-[1280px] items-center gap-9 md:grid-cols-[minmax(15rem,0.78fr)_1.22fr] md:gap-16">
           <figure className="mx-auto w-full max-w-[21rem]">
-            <Image src="/img/tulpule-informal.jpg" alt="The late Adv. Vijay Tulpule in a white shirt and suspenders" width={508} height={661} className="h-auto w-full object-cover" />
+            <Image src="/img/tulpule-informal.jpg" alt="The late Adv. Vijay Tulpule in a white shirt and suspenders" width={508} height={661} className="h-auto w-full rounded-lg object-cover" />
             <figcaption className="mt-3 text-sm text-white/65">The late Adv. Vijay Tulpule</figcaption>
           </figure>
           <div>
@@ -59,7 +59,7 @@ export default function Home() {
 
       <section aria-labelledby="history-home-title" className="px-4 py-14 sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto grid max-w-[1280px] items-center gap-9 md:grid-cols-[1fr_1fr] md:gap-16">
-          <div className="relative aspect-[4/3] overflow-hidden bg-paper-light">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-sky-deep">
             <Image src={PH.court.src} alt={PH.court.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>
@@ -88,11 +88,11 @@ export default function Home() {
               Read The Poem <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
           </div>
-          <div className="border-y border-navy/15 bg-paper-light px-5 py-6 sm:px-8 sm:py-8"><Stanza i={1} /></div>
+          <div className="rounded-xl bg-sky px-5 py-6 sm:px-8 sm:py-8"><Stanza i={1} /></div>
         </div>
       </section>
 
-      <section aria-labelledby="sponsors-home-title" className="border-y border-navy/10 bg-paper-light px-4 py-16 sm:px-8 md:py-24 lg:px-12">
+      <section aria-labelledby="sponsors-home-title" className="bg-sky px-4 py-14 sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-7 md:flex-row md:items-end">
           <div className="max-w-3xl">
             <h2 id="sponsors-home-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">Support A Tournament That Brings India’s Legal Fraternity Together</h2>
@@ -130,7 +130,7 @@ export default function Home() {
       </section>
 
       <section className="px-3 py-3 sm:px-5">
-        <div className="relative mx-auto flex min-h-[22rem] max-w-[1440px] items-end overflow-hidden border-y border-navy/30 bg-navy px-5 py-9 text-white sm:px-9 md:min-h-[27rem] md:px-12 md:py-12">
+        <div className="relative mx-auto flex min-h-[22rem] max-w-[1440px] items-end overflow-hidden rounded-2xl bg-navy px-5 py-9 text-white sm:px-9 md:min-h-[27rem] md:px-12 md:py-12">
           <Image src={PH.cheer.src} alt={PH.cheer.alt} fill sizes="100vw" className="object-cover object-[50%_30%]" />
           <div aria-hidden="true" className="absolute inset-0 bg-navy/70" />
           <div className="relative z-10 max-w-3xl">

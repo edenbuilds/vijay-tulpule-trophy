@@ -47,7 +47,7 @@ export function Footer() {
         </div>
 
         <div className="grid gap-5 border-b border-white/20 py-7 md:grid-cols-[auto_1fr] md:items-center md:gap-8">
-          <div className="w-fit rounded-sm bg-white p-2"><HostsStrip /></div>
+          <div className="w-fit rounded-lg bg-white p-2"><HostsStrip /></div>
           <p className="max-w-2xl text-sm leading-relaxed text-white/75">{HOSTS_LINE}</p>
         </div>
         <p className="num pt-6 text-xs text-white/60">{ORG.trust}</p>

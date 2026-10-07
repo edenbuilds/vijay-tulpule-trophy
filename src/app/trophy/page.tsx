@@ -19,7 +19,7 @@ export default function Trophy() {
     <>
       {/* The page header is the navy band for the portrait. One brand shape sits behind the portrait and is clipped by the tile. */}
       <section className="px-2 pt-2">
-        <div className="relative isolate overflow-hidden rounded-none bg-navy text-white">
+        <div className="relative isolate overflow-hidden rounded-2xl bg-navy text-white">
           <div aria-hidden="true" className="pointer-events-none absolute -bottom-16 -right-24 -z-10 w-[24rem] md:-bottom-28 md:-right-20 md:w-[46rem]">
             <Shape className="w-full" />
           </div>

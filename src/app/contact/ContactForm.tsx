@@ -4,7 +4,7 @@ import * as React from "react";
 
 const ROLES = ["Player", "Manager", "Umpire", "Sponsor", "Media", "Other"];
 const field =
-  "mt-2 block min-h-12 w-full rounded-none border border-navy/55 bg-white px-4 text-base text-navy outline-none transition-colors focus:border-royal focus:ring-2 focus:ring-royal/40";
+  "mt-2 block min-h-12 w-full rounded-xl border border-navy/55 bg-white px-4 text-base text-navy outline-none transition-colors focus:border-royal focus:ring-2 focus:ring-royal/40";
 
 export function ContactForm() {
   const [state, setState] = React.useState<"idle" | "sending" | "sent">("idle");
@@ -63,7 +63,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={state === "sending"}
-          className="min-h-12 rounded-none bg-navy px-8 font-semibold text-white press hover:bg-navy-deep disabled:opacity-60"
+          className="min-h-12 rounded-full bg-navy px-8 font-semibold text-white press hover:bg-navy-deep disabled:opacity-60"
         >
           {state === "sending" ? "Sending…" : "Send"}
         </button>

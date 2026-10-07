@@ -59,8 +59,8 @@ export function Nav() {
     `press inline-flex min-h-11 items-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors hover:text-royal ${active(path, href) ? "text-royal" : "text-navy/75"}`;
 
   return (
-    <header ref={root} className="sticky top-0 z-50 border-b border-navy/15 bg-paper/95 px-3 pt-[calc(0.35rem+env(safe-area-inset-top))] sm:px-5">
-      <nav aria-label="Main" className="mx-auto flex min-h-16 max-w-[1440px] items-center gap-3 px-1 sm:px-2">
+    <header ref={root} className="sticky top-0 z-50 bg-snow/95 px-3 pt-[calc(0.5rem+env(safe-area-inset-top))] backdrop-blur-sm sm:px-5">
+      <nav aria-label="Main" className="mx-auto flex min-h-16 max-w-[1440px] items-center gap-3 rounded-xl border border-navy/10 bg-white px-3 sm:px-4">
         <Link href="/" aria-label="BACA home" className="mr-auto flex min-h-11 shrink-0 items-center gap-2.5">
           <Mark priority className="size-9" />
           <span className="leading-tight">
@@ -83,10 +83,10 @@ export function Nav() {
               <ChevronDown aria-hidden="true" className={`size-4 transition-transform ${tournamentOpen ? "rotate-180" : ""}`} />
             </button>
             {tournamentOpen && (
-              <ul id="tournament-menu" className="absolute left-0 top-full z-20 mt-2 w-52 border border-navy/15 bg-paper-light p-2 shadow-lg">
+              <ul id="tournament-menu" className="absolute left-0 top-full z-20 mt-2 w-52 rounded-xl border border-navy/10 bg-white p-2 shadow-lg">
                 {TOURNAMENT.map((item) => (
                   <li key={item.href}>
-                    <Link href={item.href} aria-current={path === item.href ? "page" : undefined} className="press flex min-h-11 items-center border-b border-navy/10 px-3 text-sm text-navy/80 hover:bg-sky hover:text-navy last:border-0">
+                    <Link href={item.href} aria-current={path === item.href ? "page" : undefined} className="press flex min-h-11 items-center rounded-lg px-3 text-sm text-navy/80 hover:bg-sky hover:text-navy">
                       {item.label}
                     </Link>
                   </li>
@@ -99,7 +99,7 @@ export function Nav() {
           ))}
         </div>
 
-        <Link href="/fixtures" className="hidden min-h-11 shrink-0 items-center gap-2 border border-navy bg-navy px-4 text-sm font-semibold text-white transition-colors hover:bg-navy-deep min-[1180px]:inline-flex">
+        <Link href="/fixtures" className="hidden min-h-11 shrink-0 items-center gap-2 rounded-lg bg-navy px-4 text-sm font-semibold text-white transition-colors hover:bg-royal min-[1180px]:inline-flex">
           View Fixtures <ArrowUpRight aria-hidden="true" className="size-4" />
         </Link>
 
@@ -109,7 +109,7 @@ export function Nav() {
           aria-controls="mobile-menu"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen((open) => !open)}
-          className="press grid size-11 shrink-0 place-items-center border border-navy/20 bg-paper-light min-[1180px]:hidden"
+          className="press grid size-11 shrink-0 place-items-center rounded-lg bg-sky min-[1180px]:hidden"
         >
           <span className="relative block h-3.5 w-5" aria-hidden="true">
             <span className={`absolute left-0 h-0.5 w-5 bg-navy transition-transform ${mobileOpen ? "top-1.5 rotate-45" : "top-0"}`} />
@@ -119,8 +119,8 @@ export function Nav() {
       </nav>
 
       {mobileOpen && (
-        <div id="mobile-menu" className="absolute inset-x-3 top-full z-20 mx-auto max-h-[calc(100dvh-6rem)] max-w-[1440px] overflow-y-auto border border-t-0 border-navy/15 bg-paper-light px-4 pb-5 shadow-lg sm:inset-x-5 min-[1180px]:hidden">
-          <Link href="/fixtures" className="mt-3 flex min-h-12 items-center justify-between border-b border-navy bg-navy px-4 font-semibold text-white">
+        <div id="mobile-menu" className="absolute inset-x-3 top-[calc(100%-0.25rem)] z-20 mx-auto max-h-[calc(100dvh-6rem)] max-w-[1440px] overflow-y-auto rounded-b-xl border border-t-0 border-navy/10 bg-white px-4 pb-5 shadow-lg sm:inset-x-5 min-[1180px]:hidden">
+          <Link href="/fixtures" className="mt-3 flex min-h-12 items-center justify-between rounded-lg bg-navy px-4 font-semibold text-white">
             View Fixtures <ArrowUpRight aria-hidden="true" className="size-4" />
           </Link>
           <ul className="mt-3 divide-y divide-navy/10">

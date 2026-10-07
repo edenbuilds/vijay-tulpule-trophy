@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const headingStyle = "display display-long";
 
-// Inner pages use the same open, paper-toned masthead so titles and useful detail lead the page.
+// Inner pages use the same compact light-sky masthead so the title and useful detail stay ahead of decoration.
 export function Hero({
   eyebrow,
   title,
@@ -30,7 +30,7 @@ export function Hero({
 }) {
   return (
     <section className="px-3 pt-3 sm:px-5">
-      <div className="mx-auto max-w-[1440px] border-y border-navy/20 bg-paper-light px-5 py-8 sm:px-8 md:px-10 md:py-10">
+      <div className="mx-auto max-w-[1440px] rounded-2xl bg-sky px-5 py-8 sm:px-8 md:px-10 md:py-10">
         <div className="max-w-4xl">
           {eyebrow && <p className="mb-2 text-base font-semibold text-royal">{eyebrow}</p>}
           <h1 className={`${headingStyle} max-w-[18ch] text-[clamp(2.5rem,7vw,5.25rem)] !leading-[1.04]`}>{title}</h1>
@@ -48,7 +48,7 @@ export function Hero({
   );
 }
 
-// A photograph that drifts inside its frame on scroll (image overscaled, frame clips it).
+// A photograph that drifts inside its rounded frame on scroll (image overscaled, frame clips it).
 export function ParallaxPhoto({ src, alt, className = "", priority = false, sizes = "(min-width: 768px) 50vw, 100vw" }: { src: string; alt: string; className?: string; priority?: boolean; sizes?: string }) {
   const frame = React.useRef<HTMLDivElement>(null);
   React.useLayoutEffect(() => {
@@ -68,9 +68,9 @@ export function ParallaxPhoto({ src, alt, className = "", priority = false, size
 
 // Full-width surfaces distinguish chapters without turning every content group into another rounded card.
 const BANDS = {
-  snow: { box: "bg-paper", kicker: "text-royal" },
-  white: { box: "bg-paper-light", kicker: "text-royal" },
-  sky: { box: "bg-paper-light", kicker: "text-royal" },
+  snow: { box: "bg-snow", kicker: "text-royal" },
+  white: { box: "bg-white", kicker: "text-royal" },
+  sky: { box: "bg-sky", kicker: "text-royal" },
   navy: { box: "bg-navy text-white", kicker: "text-sky" },
 };
 
