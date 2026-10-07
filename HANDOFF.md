@@ -26,3 +26,11 @@ Continue in /Users/omkar/vijay-tulpule-trophy. Read HANDOFF.md first. Preserve t
 
 ## Local verification, 08-10-2026
 Production build passed. At 1440px and 390px: no horizontal overflow; hero photograph/logo loaded; all 16 team cards present. Day 24 displayed CCI and Wankhede, day 18 displayed eight grounds, ArrowRight selected day 19 correctly. Mobile menu opened correctly. Browser error/warning log empty. Final small-screen spacing adjustment follows this check; production verification follows deployment.
+
+## Production verification, 08-10-2026
+- Commit 29501cb pushed to main with omkar1sonawane@gmail.com.
+- Deployment dpl_6C6aTYHNi5dfJ4vgSe5z3CBHnaFX reached READY, target production.
+- Live https://baca-cricket.com shows the new hero and match-week selector.
+- Browser at 1440x1000 and 390x844: zero horizontal overflow, 16 team cards, loaded archive images, no console errors. Selected finals shows CCI/Brabourne and Wankhede; reserve day shows no matches; 18 October shows eight organiser-provided grounds.
+- Local keyboard navigation, team anchor navigation, mobile menu and reduced-motion fallback verified. Live mobile hero spacing visually checked after the final adjustment.
+- Existing unrelated draggable-marquee img lint warning remains. Biography and source assets were not changed.
