@@ -1,42 +1,52 @@
-import { Logo } from "@/components/brand/Logo";
-import { MagneticButton } from "@/components/gems/MagneticButton";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { EVENT, ORG } from "@/lib/site";
 import { TOURNAMENT } from "@/lib/schedule";
+import { PH } from "@/lib/photos";
 
 const FACTS = [
-  ["17 to 24 Oct", "Tournament dates"],
-  ["16 Teams", "Across India"],
-  [`${EVENT.overs} Overs`, "Per side"],
-  ["Mumbai + Navi Mumbai", "Host cities"],
+  ["17—24 Oct", "2026"],
+  ["16", "Teams"],
+  [`${EVENT.overs}`, "Overs a side"],
+  ["Mumbai", "and Navi Mumbai"],
 ];
 
 export function HomeHero() {
   return (
-    <section className="px-3 pt-3 sm:px-5">
-      <div className="mx-auto max-w-[1440px] overflow-hidden rounded-2xl bg-sky text-navy">
-        <div className="grid items-center gap-4 px-5 pb-5 pt-7 sm:px-8 md:gap-8 md:px-10 md:pb-8 md:pt-10 lg:grid-cols-[1.08fr_0.92fr] lg:px-14 lg:py-12">
-          <div>
-            <h1 className="display max-w-[14ch] text-[clamp(2.6rem,6vw,5.4rem)] leading-[1.02]">38th All India Advocates’ Cricket Tournament 2026</h1>
-            <p className="mt-5 max-w-xl text-xl font-semibold leading-snug sm:text-2xl">Eight days of cricket. Sixteen teams. One legal fraternity.</p>
-            <p className="mt-4 text-lg text-navy/75">{TOURNAMENT.span}<span aria-hidden="true"> · </span><br className="sm:hidden" />Mumbai and Navi Mumbai</p>
-            <p className="mt-2 text-base text-navy/65">Hosted by the {ORG.name}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <MagneticButton href="/fixtures">View Fixtures</MagneticButton>
-              <MagneticButton href="/teams" tone="outline">Meet the Teams</MagneticButton>
+    <section aria-labelledby="home-title" className="px-4 pb-8 pt-5 sm:px-8 lg:px-12 lg:pt-8">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid min-h-[34rem] items-stretch border-b border-navy/20 lg:grid-cols-[1.02fr_0.98fr]">
+          <div className="flex flex-col justify-center py-10 sm:py-14 lg:py-16 lg:pr-12">
+            <h1 id="home-title" className="display max-w-[17ch] text-[clamp(2.5rem,4.8vw,4.8rem)] leading-[1.01]">38th All India Advocates’ Cricket Tournament 2026</h1>
+            <p className="mt-6 max-w-lg text-xl leading-relaxed text-navy/80 sm:text-2xl">Eight days of cricket. Sixteen teams. One legal fraternity.</p>
+            <p className="mt-4 text-base font-medium text-navy/65">{TOURNAMENT.span} <span aria-hidden="true">·</span> Mumbai and Navi Mumbai</p>
+            <p className="mt-1 text-sm text-navy/60">Hosted by the {ORG.name}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <Link href="/fixtures" className="inline-flex min-h-12 items-center gap-3 border border-navy bg-navy px-5 font-semibold text-white transition-colors hover:bg-navy-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-royal">
+                View Fixtures <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+              <Link href="/teams" className="inline-flex min-h-12 items-center gap-2 border-b border-navy/35 font-semibold text-navy transition-colors hover:border-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-royal">
+                Meet the Teams <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
             </div>
-            <dl className="mt-8 grid grid-cols-2 gap-x-5 gap-y-4 border-t border-navy/15 pt-5 sm:grid-cols-4 lg:mt-10">
-              {FACTS.map(([value, label]) => (
-                <div key={label} className="min-w-0">
-                  <dt className="display text-lg leading-tight sm:text-xl">{value}</dt>
-                  <dd className="mt-1 text-sm text-navy/65">{label}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
-          <div className="mx-auto flex w-full max-w-[32rem] items-center justify-center px-3 py-4 sm:px-8 lg:px-0 lg:py-0">
-            <Logo priority alt="38th All India Advocates’ Cricket Tournament, Mumbai 2026" sizes="(min-width: 1280px) 32rem, (min-width: 1024px) 40vw, 84vw" className="w-full" />
-          </div>
+          <figure className="relative min-h-[19rem] overflow-hidden bg-navy/10 lg:min-h-0">
+            <Image src={PH.hero.src} alt={PH.hero.alt} fill priority sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover" />
+            <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-navy/90 px-5 py-4 text-sm text-white sm:px-7 sm:py-5">
+              <span>India’s advocates, together on the field</span>
+              <span className="shrink-0 text-white/70">Mumbai · 2026</span>
+            </figcaption>
+          </figure>
         </div>
+        <dl className="grid grid-cols-2 border-b border-navy/20 sm:grid-cols-4">
+          {FACTS.map(([value, label], index) => (
+            <div key={label} className={`py-4 sm:py-5 ${index ? "border-l border-navy/15 pl-4 sm:pl-6" : ""}`}>
+              <dt className="display text-xl sm:text-2xl">{value}</dt>
+              <dd className="mt-1 text-sm text-navy/60">{label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

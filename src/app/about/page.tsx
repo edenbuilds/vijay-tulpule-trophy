@@ -33,7 +33,7 @@ export default function About() {
 
       <Block title="About BACA" tone="white">
         <div className="grid items-center gap-8 md:grid-cols-[1fr_1fr] md:gap-14">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-sky">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-sky">
             <Image src={PH.about.src} alt={PH.about.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>

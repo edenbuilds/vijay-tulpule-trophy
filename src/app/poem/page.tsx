@@ -14,7 +14,7 @@ export default function PoemPage() {
     <>
       {/* Own header instead of the shared Hero: the title is Devanagari, which Satoshi cannot set, and heavy negative tracking would break its conjuncts. */}
       <section className="px-2 pt-2">
-        <div className="relative isolate flex min-h-[20rem] flex-col justify-end overflow-hidden rounded-2xl bg-navy text-white md:min-h-[26rem]">
+        <div className="relative isolate flex min-h-[20rem] flex-col justify-end overflow-hidden rounded-none bg-navy text-white md:min-h-[26rem]">
           <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-6 -z-10 w-[15rem] md:-bottom-16 md:-right-16 md:top-auto md:w-[40rem]">
             <Stroke className="w-full" />
           </div>
@@ -27,11 +27,11 @@ export default function PoemPage() {
         </div>
       </section>
 
-      <section className="mx-2 mt-2 rounded-2xl bg-white">
+      <section className="mx-2 mt-2 rounded-none bg-white">
         <PoemReader />
       </section>
 
-      <section className="mx-2 mt-2 rounded-2xl bg-sky">
+      <section className="mx-2 mt-2 rounded-none bg-sky">
         <div className="mx-auto flex max-w-7xl flex-col items-start gap-8 px-4 py-14 md:flex-row md:items-end md:justify-between md:px-8 md:py-20">
           <div>
             <h2 className="display text-3xl md:text-5xl">Back to the cricket</h2>

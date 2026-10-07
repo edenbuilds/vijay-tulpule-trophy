@@ -1,9 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* BACA 38th tournament identity (docs/REDESIGN.md section 3). Names are final. White cards sit on snow, navy bands
-     carry white type, royal is the link and active colour, red is the ball and one short rule (under 2% of a screen).
-     No gradients, no green, no gold. Light mode only. */
+  /* BACA identity stays navy, royal and red. Warm paper replaces cold blue-grey as the page ground. */
   --color-navy: #0B2A6B;
   --color-navy-deep: #071B45;
   --color-royal: #1E6BD6;
@@ -11,6 +9,8 @@
   --color-sky: #e7f0ff;
   --color-sky-deep: #cfe0fa;
   --color-snow: #f5f7fa;
+  --color-paper: #f5f1e8;
+  --color-paper-light: #fbf9f4;
   --color-white: #ffffff;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
@@ -19,12 +19,12 @@
 
 html {
   color-scheme: light;
-  background: var(--color-snow);
+  background: var(--color-paper);
   scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--color-snow);
+  background: var(--color-paper);
   color: var(--color-navy);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -35,13 +35,13 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 750;
+  font-weight: 650;
   text-wrap: balance;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
 }
 
 h3 {
-  font-weight: 700;
+  font-weight: 650;
 }
 
 .num {
@@ -117,25 +117,11 @@ h3 {
 .row-line::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 0; background: currentColor; opacity: 0.6; transition: width 0.5s ease-out; }
 .row-line:hover::after, .row-line:focus-within::after { width: 100%; }
 
-/* BYQ gem: spotlight-glow-cards-01 */
-@keyframes sg-in { from { opacity: 0; transform: translateY(1.5rem); } }
-.sg-card {
-  --mx: 50%; --my: 0%;
-  animation: sg-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-  transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
-}
-.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(30 111 191 / 0.08), transparent 70%); }
-.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(11 42 86 / 0.22); }
-@media (prefers-reduced-motion: reduce) {
-  .sg-card { animation: none; }
-  .sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(11 42 86 / 0.22); }
-}
-
 /* Display type: Geist with restrained weight and tracking. */
 .display {
   font-family: var(--font-display);
-  font-weight: 750;
-  letter-spacing: -0.03em;
+  font-weight: 650;
+  letter-spacing: -0.035em;
   line-height: 1;
 }
 .display-long { font-weight: 650; }
@@ -146,13 +132,8 @@ h3 {
   -webkit-text-stroke: 1.5px rgb(11 42 86 / 0.28);
 }
 
-/* Preloader (iris-wipe-preloader-01): hole of radius --iris-r cut through the overlay. */
-.preloader {
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0px, transparent var(--iris-r, 0px), black calc(var(--iris-r, 0px) + 1px));
-  mask-image: radial-gradient(circle at 50% 50%, transparent 0px, transparent var(--iris-r, 0px), black calc(var(--iris-r, 0px) + 1px));
-}
+/* Hyperiux Lines Loader adaptation: first-session programme rules and a single GSAP exit. */
 html:not(.js) .preloader, .no-preload .preloader { display: none; }
-.preloading .rise { animation-play-state: paused; }
 /* Fail-safe: if the script never runs the wipe (JS error, blocked bundle), the overlay still clears. */
 @keyframes preload-failsafe { to { visibility: hidden; } }
 .preloader { animation: preload-failsafe 0s 6s forwards; }

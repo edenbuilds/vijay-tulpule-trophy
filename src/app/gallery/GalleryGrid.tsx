@@ -72,7 +72,7 @@ export function GalleryGrid() {
               type="button"
               onClick={() => setOpen(i)}
               aria-label={cap ? `Open photograph: ${cap}` : `Open photograph ${i + 1} of ${shots.length}`}
-              className="group relative mb-3 block w-full overflow-hidden rounded-lg bg-sky-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal"
+              className="group relative mb-3 block w-full overflow-hidden rounded-sm bg-sky-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal"
               style={{ aspectRatio: `${s.w} / ${s.h}` }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized 640px thumbnails from public/gallery */}
@@ -102,9 +102,9 @@ export function GalleryGrid() {
                 <p className="num text-sm text-white/70">{LABEL[cur.cat]}, {(open ?? 0) + 1} of {shots.length}</p>
               </div>
               <div className="flex shrink-0 justify-end gap-2">
-                <button type="button" aria-label="Previous photograph" onClick={() => step(-1)} className={`press grid size-11 place-items-center rounded-full bg-white/15 hover:bg-white/25 ${ringOnNavy}`}><ChevronLeft className="size-5" /></button>
-                <button type="button" aria-label="Next photograph" onClick={() => step(1)} className={`press grid size-11 place-items-center rounded-full bg-white/15 hover:bg-white/25 ${ringOnNavy}`}><ChevronRight className="size-5" /></button>
-                <button type="button" aria-label="Close" onClick={() => setOpen(null)} className={`press grid size-11 place-items-center rounded-full bg-snow text-navy ${ringOnNavy}`}><X className="size-5" /></button>
+                <button type="button" aria-label="Previous photograph" onClick={() => step(-1)} className={`press grid size-11 place-items-center rounded-none bg-white/15 hover:bg-white/25 ${ringOnNavy}`}><ChevronLeft className="size-5" /></button>
+                <button type="button" aria-label="Next photograph" onClick={() => step(1)} className={`press grid size-11 place-items-center rounded-none bg-white/15 hover:bg-white/25 ${ringOnNavy}`}><ChevronRight className="size-5" /></button>
+                <button type="button" aria-label="Close" onClick={() => setOpen(null)} className={`press grid size-11 place-items-center rounded-none bg-snow text-navy ${ringOnNavy}`}><X className="size-5" /></button>
               </div>
             </div>
           </div>

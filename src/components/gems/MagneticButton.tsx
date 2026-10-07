@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import * as React from "react";
-// BYQ gem: magnetic-button-01. Motion values verbatim; skin is the BACA 2026 pill. Each tone sets the pill, the hover fill
+// BYQ gem: magnetic-button-01. Motion values; the BACA skin uses square programme-style controls. Each tone sets the button, the hover fill
 // (--mb-hbg, --mb-hfg) and the focus ring (--mb-ring, royal; white on navy where royal would not show) used by globals.css.
 //   dark / light  navy pill, white text: the default on white, snow and sky surfaces ("light" is the surface, kept for old callers)
 //   outline       navy outline, fills navy on hover: a second button beside the default
@@ -53,7 +53,7 @@ export function MagneticButton({ href, children, tone = "dark" }: Props) {
       className={`mb-magnet relative -m-2.5 inline-flex items-center justify-center px-[1.15rem] py-[1.35rem] outline-none [-webkit-tap-highlight-color:transparent]`}
     >
       <span
-        className={`mb-label relative z-[1] inline-flex min-h-11 whitespace-nowrap items-center gap-2.5 rounded-full border px-7 py-3 text-base font-semibold ${TONES[tone]}`}
+        className={`mb-label relative z-[1] inline-flex min-h-11 whitespace-nowrap items-center gap-2.5 border px-7 py-3 text-base font-semibold ${TONES[tone]}`}
       >
         {children}
         <svg className="mb-arrow size-4 flex-none" viewBox="0 0 24 24" fill="none" aria-hidden="true">

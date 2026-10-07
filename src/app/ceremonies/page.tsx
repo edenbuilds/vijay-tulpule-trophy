@@ -20,12 +20,12 @@ export default function Ceremonies() {
     <>
       <Hero title="Ceremonies" sub="The opening, a formal sitting and the prize presentation." />
       {/* Phones: one tile, one dashed list. From md: three tiles. */}
-      <nav aria-label="Ceremonies" className="mx-2 mt-2 overflow-hidden rounded-2xl bg-white md:grid md:grid-cols-3 md:gap-2 md:overflow-visible md:rounded-none md:bg-transparent">
+      <nav aria-label="Ceremonies" className="mx-2 mt-2 overflow-hidden rounded-none bg-white md:grid md:grid-cols-3 md:gap-2 md:overflow-visible md:rounded-none md:bg-transparent">
         {CEREMONIES.map((c, i) => (
           <a
             key={c.id}
             href={`#${c.id}`}
-            className={`lift press flex min-h-14 items-center justify-between gap-4 px-4 hover:bg-sky md:min-h-36 md:items-end md:rounded-2xl md:p-8 md:hover:bg-sky-deep ${i ? "border-t border-dashed border-navy/15 md:border-t-0" : ""} ${i === 1 ? "md:bg-white" : "md:bg-sky"}`}
+            className={`lift press flex min-h-14 items-center justify-between gap-4 px-4 hover:bg-sky md:min-h-36 md:items-end md:rounded-none md:p-8 md:hover:bg-sky-deep ${i ? "border-t border-dashed border-navy/15 md:border-t-0" : ""} ${i === 1 ? "md:bg-white" : "md:bg-sky"}`}
           >
             <span className="display text-lg leading-tight md:text-3xl">{c.title}</span>
             <ArrowDown aria-hidden="true" className="size-5 shrink-0 text-royal md:hidden" strokeWidth={1.8} />
@@ -49,7 +49,7 @@ export default function Ceremonies() {
                 </p>
                 <p className={`mt-6 max-w-md text-lg ${look.text}`}>{c.line}</p>
                 {c.note && <p className={`mt-4 max-w-md ${look.text}`}>{c.note}</p>}
-                {PHOTO[c.id] && <ParallaxPhoto {...PHOTO[c.id]} className="mt-8 h-56 max-w-md rounded-xl md:h-72" />}
+                {PHOTO[c.id] && <ParallaxPhoto {...PHOTO[c.id]} className="mt-8 h-56 max-w-md rounded-none md:h-72" />}
               </div>
               <div>
                 <ol>

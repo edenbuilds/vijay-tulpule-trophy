@@ -71,7 +71,7 @@ export default function AnimatedFaq() {
           <FAQWrapper
             key={item.id}
             itemId={item.id}
-            className="rounded-2xl border border-white/20 px-6 py-5"
+            className="rounded-none border border-white/20 px-6 py-5"
             titleClassName="text-[1.1rem] font-semibold text-white"
             iconSize={16}
             iconStrokeWidth={2}
