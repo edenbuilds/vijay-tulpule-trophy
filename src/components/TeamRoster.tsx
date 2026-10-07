@@ -33,7 +33,7 @@ export function TeamRoster({ teams }: { teams: Team[] }) {
   return (
     <ul ref={grid} className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-7 md:grid-cols-4 md:gap-x-8 md:gap-y-10">
       {teams.map((team) => (
-        <li key={team.slug} className="flex min-w-0 flex-col items-center border-t border-navy/15 pt-4 text-center">
+        <li id={team.slug} key={team.slug} className="flex min-w-0 flex-col items-center border-t border-navy/15 pt-4 text-center">
           <div data-roster-mark className="relative size-20 overflow-hidden bg-paper-light sm:size-24 md:size-28">
             <Image src={team.logo} alt={`${team.name} team logo`} fill sizes="(min-width: 768px) 112px, 80px" className="object-contain p-3" />
           </div>

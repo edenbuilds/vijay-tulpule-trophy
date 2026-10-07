@@ -85,6 +85,13 @@
         "src/components/effects/horizontal-feature-reveal/index.tsx": "sha256:eddd4a96ef316fbd3a8140b73c145e81a8cddf3719fcd869be8c815c93bdf860",
         "src/components/effects/horizontal-feature-reveal/HorizontalFeatureRevealComp.tsx": "sha256:4c23c1faacb714e16568c4175834c96bd7240191a7b9be1d17db66adf2c964f9"
       }
+    },
+    "stack-spread": {
+      "version": "1.0.0",
+      "installedAt": "2026-10-07T21:12:18.329Z",
+      "files": {
+        "src/components/effects/stack-spread/index.tsx": "sha256:511d7a8b7bea9dc19783e4d4562461edcd7997031b7c2b55befbef60f6a7aa5a"
+      }
     }
   }
 }

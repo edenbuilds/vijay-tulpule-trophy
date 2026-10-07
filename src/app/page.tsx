@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { ScoreTicker } from "@/components/Motion";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomeLinks } from "@/components/home/HomeLinks";
 import { HomeSchedule } from "@/components/home/HomeSchedule";
@@ -33,8 +34,10 @@ export default function Home() {
   return (
     <>
       <HomeHero />
-      <HomeLinks />
+      <Converge teams={TEAMS} />
       <HomeSchedule />
+      <HomeLinks />
+      <ScoreTicker items={["MUMBAI 2026", "THE VIJAY TULPULE TROPHY"]} />
 
       <section aria-labelledby="trophy-home-title" className="bg-navy px-4 py-14 text-white sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto grid max-w-[1280px] items-center gap-9 md:grid-cols-[minmax(15rem,0.78fr)_1.22fr] md:gap-16">
@@ -55,15 +58,13 @@ export default function Home() {
         </div>
       </section>
 
-      <Converge teams={TEAMS} />
-
       <section aria-labelledby="history-home-title" className="px-4 py-14 sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto grid max-w-[1280px] items-center gap-9 md:grid-cols-[1fr_1fr] md:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-sky-deep">
             <Image src={PH.court.src} alt={PH.court.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>
-            <h2 id="history-home-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">Cricket For Friendship Since 1989</h2>
+            <h2 id="history-home-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">CRICKET. SINCE 1989.</h2>
             <p className="mt-5 text-lg leading-relaxed text-navy/75">The All India Advocates’ Cricket Tournament has brought members of India’s legal fraternity together through cricket since 1989. A different High Court hosts each edition, giving advocates from across the country the chance to compete, reconnect and build friendships beyond the courtroom.</p>
             <p className="mt-3 text-lg leading-relaxed text-navy/75">Mumbai previously hosted the tournament in 1993 and 2005. In 2026, it returns once again.</p>
             <div className="mt-7 grid gap-x-6 gap-y-5 border-y border-navy/15 py-5 sm:grid-cols-3">
@@ -81,7 +82,7 @@ export default function Home() {
       <section aria-labelledby="poem-home-title" className="px-4 py-14 sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto grid max-w-[1280px] items-center gap-8 md:grid-cols-2 md:gap-14">
           <div>
-            <h2 id="poem-home-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">Two Different Fields. Many Of The Same Values.</h2>
+            <h2 id="poem-home-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">BEYOND THE BOUNDARY.</h2>
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-navy/75">Preparation. Patience. Strategy. Discipline. Fair play.</p>
             <p className="mt-3 max-w-xl text-lg leading-relaxed text-navy/75">Read a Hindi poem shared by BACA that draws a thoughtful connection between the game of cricket and the practice of law.</p>
             <Link href="/poem" className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">
@@ -95,8 +96,8 @@ export default function Home() {
       <section aria-labelledby="sponsors-home-title" className="bg-sky px-4 py-14 sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-7 md:flex-row md:items-end">
           <div className="max-w-3xl">
-            <h2 id="sponsors-home-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">Support A Tournament That Brings India’s Legal Fraternity Together</h2>
-            <p className="mt-4 text-lg leading-relaxed text-navy/75">Partner with the 38th All India Advocates’ Cricket Tournament and place your organisation alongside an event with decades of history. Sponsorship opportunities are available across tournament branding, grounds, programmes, streaming and event partnerships.</p>
+            <h2 id="sponsors-home-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">BE PART OF THE TOURNAMENT.</h2>
+            <p className="mt-4 text-lg leading-relaxed text-navy/75">Put your organisation at the heart of the tournament. Explore branding, ground and event partnerships.</p>
           </div>
           <div className="shrink-0">
             <p className="display text-2xl sm:text-3xl">From ₹5,00,000</p>
@@ -111,7 +112,7 @@ export default function Home() {
         <div className="mx-auto max-w-[1280px]">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 id="downloads-home-title" className="display text-3xl leading-tight sm:text-4xl">Tournament Information In One Place</h2>
+              <h2 id="downloads-home-title" className="display text-3xl leading-tight sm:text-4xl">Tournament essentials</h2>
               <p className="mt-2 text-lg text-navy/70">Access tournament fixtures, calendar dates, sponsorship information and official BACA assets.</p>
             </div>
             <Link href="/downloads" className="inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">
@@ -124,7 +125,7 @@ export default function Home() {
 
       <section aria-labelledby="faq-home-title" className="bg-white px-4 py-14 sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto max-w-[1280px]">
-          <h2 id="faq-home-title" className="display mb-7 text-3xl sm:text-4xl">Questions About The Tournament</h2>
+          <h2 id="faq-home-title" className="display mb-7 text-3xl sm:text-4xl">Before you arrive</h2>
           <Faq items={FAQ} />
         </div>
       </section>
@@ -134,7 +135,7 @@ export default function Home() {
           <Image src={PH.cheer.src} alt={PH.cheer.alt} fill sizes="100vw" className="object-cover object-[50%_30%]" />
           <div aria-hidden="true" className="absolute inset-0 bg-navy/70" />
           <div className="relative z-10 max-w-3xl">
-            <h2 className="display text-3xl leading-tight sm:text-4xl md:text-6xl">Come For The Cricket. Leave With New Friendships.</h2>
+            <h2 className="display text-3xl leading-tight sm:text-4xl md:text-6xl">SEE YOU IN MUMBAI.</h2>
             <p className="mt-4 text-lg text-white/85">Join the legal fraternity in Mumbai from 17 to 24 October 2026.</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <MagneticButton href="/fixtures" tone="onDark">View Fixtures</MagneticButton>

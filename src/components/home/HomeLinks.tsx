@@ -12,13 +12,7 @@ export function HomeLinks() {
   return (
     <section aria-labelledby="at-a-glance-title" className="px-4 py-14 sm:px-8 md:py-20 lg:px-12">
       <div className="mx-auto max-w-[1280px]">
-        <div className="max-w-3xl">
-          <h2 id="at-a-glance-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">16 Teams. Eight Days. One Tournament.</h2>
-          <p className="mt-4 text-lg leading-relaxed text-navy/75">
-            Practising advocates from 15 High Courts and the Supreme Court of India come together in Mumbai for the 38th All India Advocates’ Cricket Tournament.
-            <span className="block mt-2">Different courts. Different cities. One shared love for cricket.</span>
-          </p>
-        </div>
+        <h2 id="at-a-glance-title" className="display text-3xl">Your tournament guide</h2>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {LINKS.map((item) => (
             <Link key={item.href} href={item.href} className="group flex min-h-36 flex-col justify-between rounded-xl border border-navy/15 bg-white p-5 transition-colors hover:border-royal/50 hover:bg-sky focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal sm:p-6">

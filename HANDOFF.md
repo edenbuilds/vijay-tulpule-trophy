@@ -1,59 +1,28 @@
-# Handoff: BACA 38th All India Advocates’ Cricket Tournament 2026
+# BACA tournament: energetic homepage refresh
 
-Live site: https://baca-cricket.com
+Live: https://baca-cricket.com
 Repository: https://github.com/edenbuilds/vijay-tulpule-trophy
-Checkout: `/Users/omkar/vijay-tulpule-trophy`
-Production deployment: `dpl_FCAfXciEbJ52wFTcibsRkQom337w` (READY; aliased to the live site)
-Current branch: `main`; visual restoration commit: `4f7bd33`. Use git author `omkar1sonawane@gmail.com`.
+Checkout: /Users/omkar/vijay-tulpule-trophy
 
-## Current direction: follow exactly
+## Current owner direction (08-10-2026)
+The owner explicitly rejected the restrained, text-heavy UI and requested a visual, animated, energetic cricket tournament experience. This supersedes the older restoration direction and conflicting visual restrictions in docs/REDESIGN.md. Keep Geist/Inter, navy #0B2A6B, royal #1E6BD6, red #E21B2D, and supplied logos unchanged. No invented event facts.
 
-The owner rejected the sepia/warm-paper treatment and asked to restore the earlier version. Keep this explicit design contract for all future visual work:
+## Implementation
+- Match-poster homepage hero with BACA archive cricket photography, large type, countdown and direct fixtures/teams actions.
+- Hyperiux Stack Spread installed through the authenticated CLI, adapted for all 16 supplied team logos. Motion owns those elements; GSAP does not animate them. Natural scrolling, desktop spread, static mobile/reduced-motion layout, keyboard focus opens the grid.
+- Interactive eight-day match week with keyboard navigation and organiser-provided grounds. Archive image explicitly labelled; not represented as a venue photograph.
+- Existing GSAP trophy ticker reused; larger asymmetric gallery and shorter homepage copy.
+- Team links target stable team slug anchors.
+- Hyperiux installer replaced globals.css; original shared CSS was restored in full before adding scoped homepage styles.
 
-- **Display and headline type:** Geist.
-- **Body and meta copy:** Inter.
-- **Primary navy:** `#0B2A6B`.
-- **Royal blue:** `#1E6BD6`.
-- **Cricket red:** `#E21B2D`.
-- **Sky blue:** `#E7F0FF`.
-- **Light neutral:** `#F5F7FA`.
-- Use clean white and light neutral space. Do not use sepia, aged-paper, or heritage-poster styling.
-- Keep the tournament logo crisp, unchanged, and unmodified. Do not redraw it, recolor it, apply filters, or use it as a background texture.
-- The intended character is a polished cricket tournament hosted by an established Bombay legal institution. Keep layouts clear, restrained, and useful. Avoid SaaS styling, gradients, glass effects, oversized rounded cards, bright sports graphics, pill buttons, and generic corporate templates.
+## Source boundaries
+17–24 October 2026. Mumbai and Navi Mumbai. 35 overs per side. Dates/grounds from src/lib/schedule.ts, teams from src/lib/teams.ts. Groups, pairings, match times and final assignments remain unknown. Vijay Tulpule biography unchanged. Brand assets unchanged.
 
-The warm-paper refresh was reverted in `4f7bd33`. Preserve that restoration unless the owner explicitly asks for a new visual direction.
+## Verification
+Build and browser verification in progress. Do not infer live completion from this file until the evidence below is recorded.
 
-## Current implementation
+## Next prompt
+Continue in /Users/omkar/vijay-tulpule-trophy. Read HANDOFF.md first. Preserve the owner's energetic sports direction and source facts. Verify actual browser interactions at desktop and 390px, including day tabs, team links, menu and reduced-motion behavior. Keep supplied logos immutable. Commit with omkar1sonawane@gmail.com, deploy production, and record actual live evidence.
 
-- The site's tournament-focused navigation and page content are in place. Follow the supplied wireframe for the visitor journey; keep Fixtures easy to find and retain the Tournament grouping for Fixtures, Teams, Format, and Ceremonies.
-- Homepage copy uses the supplied tournament brief. Keep the Vijay Tulpule page's original copy intact. Do not invent tournament details.
-- GSAP team-logo reveals remain on the homepage and Teams page. They use `useGSAP`/ScrollTrigger and respect reduced-motion settings. Do not add pinned card stacks or scroll-jacking.
-- Instagram: `https://instagram.com/bacacricket`.
-- BYQ Supply and Hyperiux MCP were used for layout and effect references. Adapt structure to the fixed brand above; do not import another product's identity.
-
-## Source of truth
-
-- `docs/REDESIGN.md`: approved original tournament redesign brief and factual guardrails.
-- `src/app/globals.css`: design tokens and global typography.
-- `src/app/layout.tsx`: Geist and Inter font loading.
-- `src/lib/site.ts`: site copy and event facts.
-- `src/lib/teams.ts`: participating teams and logo paths.
-- `src/lib/schedule.ts`: schedule source and known unknowns.
-- `public/brand/t26/`: supplied tournament brand assets. Treat logo files as immutable.
-- `HANDOFF.md`: current visual direction and working state. Older notes in `docs/HANDOVER.md` are historical and may be superseded.
-
-Keep source facts bounded: the event is 17–24 October 2026 in Mumbai and Navi Mumbai; the format is 35 overs per side. Do not add match pairings, match times, captains, groups, or ground assignments beyond what the organiser-provided source data states. Preserve explicit unknowns in the UI.
-
-## Verification snapshot (07-10-2026)
-
-- Vercel production build completed and deployment `dpl_FCAfXciEbJ52wFTcibsRkQom337w` reached READY; `https://baca-cricket.com` is aliased to it.
-- Live homepage and `/teams` returned HTTP 200 after the visual revert.
-- The production build reported one existing Next.js `<img>` performance warning in `src/components/effects/draggable-marquee/DraggableMarqueeComp.tsx`; it did not fail the build.
-- A fresh visual desktop and mobile review was **not** completed after the revert. Recheck the actual live render at desktop and 390px before claiming visual QA. Previous screenshots from the warm-paper version are not evidence for the restored site.
-- The source tree was clean after the visual revert was pushed; this handoff updates the written project state.
-
-## Next-session prompt
-
-```text
-Continue work in /Users/omkar/vijay-tulpule-trophy. Read HANDOFF.md and docs/REDESIGN.md first. The latest owner instruction is to restore the earlier visual version and keep this design contract: Geist for all display/headline typography; Inter for body/meta; navy #0B2A6B, royal blue #1E6BD6, cricket red #E21B2D, sky blue #E7F0FF, light neutral #F5F7FA; clean white/light-neutral space, never sepia heritage-poster styling. Keep the tournament logo crisp and unchanged. Preserve the restored version unless the owner asks for another direction. Maintain the tournament-focused wireframe and existing content; do not invent fixtures or alter the Vijay Tulpule page copy. Keep the responsive layout and GSAP team-logo reveal with reduced-motion support. Do not reintroduce pinned stacks, scroll-jacking, SaaS styling, gradients, glass effects, pill buttons, or oversized rounded cards. Before claiming completion, inspect the live site at desktop and 390px. If code changes are requested, preserve unrelated work, commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with `vercel deploy --prod --yes`, verify the live result, and update this handoff with evidence.
-```
+## Local verification, 08-10-2026
+Production build passed. At 1440px and 390px: no horizontal overflow; hero photograph/logo loaded; all 16 team cards present. Day 24 displayed CCI and Wankhede, day 18 displayed eight grounds, ArrowRight selected day 19 correctly. Mobile menu opened correctly. Browser error/warning log empty. Final small-screen spacing adjustment follows this check; production verification follows deployment.
