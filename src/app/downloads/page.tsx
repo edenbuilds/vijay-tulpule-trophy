@@ -8,7 +8,7 @@ export default function DownloadsPage() {
   return (
     <>
       <Hero title="Downloads" sub="The fixtures and the sponsorship brief as PDFs, and every match day for your calendar." />
-      <Block tone="paper">
+      <Block tone="white">
         <Downloads />
       </Block>
     </>

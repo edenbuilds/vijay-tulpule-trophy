@@ -364,6 +364,8 @@ const DraggableMarqueeComp = ({
                 {duplicatedItems.map((item, index) => (
                     <div
                         key={`${item?.id || item?.src || "item"}-${index}`}
+                        // Only the first set is for assistive tech: the repeats exist to make the loop seamless, and would read every picture three times.
+                        aria-hidden={index >= items.length ? true : undefined}
                         className={`shrink-0 ${itemClassName}`}
                     >
                         {renderItem ? (
@@ -371,7 +373,7 @@ const DraggableMarqueeComp = ({
                         ) : (
                             <img
                                 src={item.src}
-                                alt={item.alt || "marquee-item"}
+                                alt={item.alt ?? ""}
                                 width={item.width || 400}
                                 height={item.height || 500}
                                 className={`${item.imageClassName || "h-auto w-auto object-cover"} max-md:w-[320px] max-md:h-105`}

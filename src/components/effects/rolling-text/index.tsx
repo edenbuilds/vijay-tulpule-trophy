@@ -10,8 +10,6 @@ gsap.registerPlugin(useGSAP);
 
 
 
-const FONT_FAMILY = "Helvetica Neue, Arial Narrow, system-ui, sans-serif";
-
 interface RollingTextProps {
   text?: string;
   textColor?: string;
@@ -54,7 +52,7 @@ const buildReel = (charIndex: number, config: ReelConfig): Reel => {
 };
 
 const RollingText = ({
-  text = "HYPERIUX",
+  text = "BACA",
   textColor = "#ffffff",
   minCycles = 3,
   cycleVariance = 3,
@@ -105,20 +103,16 @@ const RollingText = ({
   return (
     <div
       ref={containerRef}
-      className="relative grid place-items-center min-h-dvh bg-[#2a0e5f] bg-cover bg-center"
+      className="relative grid place-items-center min-h-dvh bg-navy"
     >
-      <div className="absolute inset-0 bg-black/40" aria-hidden />
       {/*
-        globals.css has an UNLAYERED `h1,h2,h3,h4 { font-weight: 400;
-        line-height: 1.2 }` rule. Unlayered CSS always beats anything in
-        Tailwind's `@layer utilities`, so font-weight/leading need `!` here
-        to actually apply - every other class on this h3 is safe without it.
-        font-family is set inline instead, which wins regardless of layers.
+        globals.css sets h1 to h3 to Satoshi 800 to 900 with tight tracking in an UNLAYERED rule, which beats Tailwind's
+        utilities, so only the line height needs `!` here. Colour is inline so a caller can still pick one.
       */}
       <h3
         aria-label={text}
-        style={{ color: textColor, fontFamily: FONT_FAMILY }}
-        className="relative z-10 m-0 text-9xl max-[1025px]:text-6xl max-md:text-5xl font-light! leading-[0.8]! tracking-[0.02em] whitespace-nowrap select-none"
+        style={{ color: textColor }}
+        className="relative z-10 m-0 text-9xl max-[1025px]:text-6xl max-md:text-5xl leading-[0.8]! whitespace-nowrap select-none"
       >
         {text.split("").map((char, charIndex) => {
           if (char === " ") {
@@ -167,7 +161,7 @@ export default RollingText;
 
 /**
  * Same reels, same expo.out spin, rendered inline so a multi-word heading can wrap between words.
- * Cells are 1em (not 0.8em) because Oswald's caps are taller than the demo face.
+ * Cells are one line high (1lh), so the reel follows the heading's own line height (the page headers use !leading-[1.2]).
  */
 export function RollingWords({
   text,

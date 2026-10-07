@@ -70,11 +70,6 @@ export const PH = {
   // Home intro, "advocates and cricket": the one picture of lawyers in court gowns with the cup.
   court: photo(79),
   // Programme. Each day gets a picture of what happens that day.
-  opening: photo(109), // squads lined up: the opening ends with team photographs
-  league: photo(56), // a team on a ground: league days are teams playing
-  quarter: photo(63),
-  semi: photo(82),
-  final: photo(86), // trophies under a Champions banner: the final decides the champion
   // No photograph is placed as "the Vijay Tulpule Trophy": nobody has confirmed which cup is it. The trophy
   // band uses the portrait of Vijay Tulpule (public/img), which is certain.
   // Closing call to come and watch: a team cheering.
@@ -82,7 +77,7 @@ export const PH = {
   // Inner-page heroes, chosen for the page's subject.
   fixtures: photo(72), // a team at a stadium: where the matches are played
   teams: photo(11), // one team lined up
-  format: photo(46), // a batsman and wicketkeeper: the game itself, 50 overs a side
+  format: photo(46), // a batsman and wicketkeeper: the game itself
   gallery: photo(23), // trophies laid out: the archive is mostly teams and trophies
   about: photo(8), // blazers and flags: the Association touring and hosting
   contact: photo(20), // people at a desk: the organisers
@@ -95,7 +90,6 @@ export const PH = {
 };
 
 // Home "sixteen teams" convergence: eight different team photographs, none used elsewhere on the page.
-export const CONVERGE = many([11, 12, 28, 15, 57, 70, 71, 58]);
 
 // Home gallery zoom: fifteen landscape photographs that appear nowhere else on the home page (so no picture
 // repeats down the page). The middle one (index 7, blazers and flags) opens to fill the screen.

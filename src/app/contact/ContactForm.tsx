@@ -4,7 +4,7 @@ import * as React from "react";
 
 const ROLES = ["Player", "Manager", "Umpire", "Sponsor", "Media", "Other"];
 const field =
-  "mt-2 block min-h-12 w-full rounded-xl border border-ink/15 bg-mist px-4 text-base text-ink outline-none transition-colors focus:border-pitch focus:ring-2 focus:ring-pitch/40";
+  "mt-2 block min-h-12 w-full rounded-xl border border-navy/55 bg-white px-4 text-base text-navy outline-none transition-colors focus:border-royal focus:ring-2 focus:ring-royal/40";
 
 export function ContactForm() {
   const [state, setState] = React.useState<"idle" | "sending" | "sent">("idle");
@@ -26,7 +26,7 @@ export function ContactForm() {
   }
 
   if (state === "sent") {
-    return <p role="status" className="text-3xl font-bold text-pitch">Sent.</p>;
+    return <p role="status" className="display text-4xl md:text-5xl">Sent.</p>;
   }
 
   return (
@@ -63,11 +63,11 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={state === "sending"}
-          className="min-h-12 rounded-full bg-pitch px-8 font-semibold text-paper press hover:bg-hover disabled:opacity-60"
+          className="min-h-12 rounded-full bg-navy px-8 font-semibold text-white press hover:bg-navy-deep disabled:opacity-60"
         >
           {state === "sending" ? "Sending…" : "Send"}
         </button>
-        {error && <p role="alert" className="text-red-700">{error}</p>}
+        {error && <p role="alert" className="font-medium text-red">{error}</p>}
       </div>
     </form>
   );

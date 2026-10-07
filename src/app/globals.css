@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* BYQ design system "Human Intelligence" (light), recoloured: its lilac and sky tiles become greens,
-     aubergine ink becomes a near-black green. The canvas is a flat chalk (pale outfield green-grey, no
-     texture or gradient) so the white "mist" tiles read as cards on it. Pitch is a grassy kit green,
-     kept yellow of emerald. Light mode only. */
-  --color-paper: #f1f4ea;
-  --color-mist: #ffffff;
-  --color-mint: #e2f0d8;
-  --color-sage: #bfe0aa;
-  --color-pitch: #1f7a34;
-  --color-hover: #17602a;
-  --color-ink: #141a16;
+  /* BACA 38th tournament identity (docs/REDESIGN.md section 3). Names are final. White cards sit on snow, navy bands
+     carry white type, royal is the link and active colour, red is the ball and one short rule (under 2% of a screen).
+     No gradients, no green, no gold. Light mode only. */
+  --color-navy: #0B2A6B;
+  --color-navy-deep: #071B45;
+  --color-royal: #1E6BD6;
+  --color-red: #E21B2D;
+  --color-sky: #e7f0ff;
+  --color-sky-deep: #cfe0fa;
+  --color-snow: #f5f7fa;
+  --color-white: #ffffff;
   --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -19,24 +19,29 @@
 
 html {
   color-scheme: light;
-  background: var(--color-paper);
+  background: var(--color-snow);
   scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--color-snow);
+  color: var(--color-navy);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
+/* Satoshi is the only face. Headings are heavy: 900 for titles, 800 for h3 and for longer lines (.display-long). */
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 900;
   text-wrap: balance;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
+}
+
+h3 {
+  font-weight: 800;
 }
 
 /* No single word alone on a last line. text-wrap is inherited, so this covers every block, not just headings.
@@ -67,31 +72,30 @@ body {
   }
 }
 
-/* BYQ gem: magnetic-button-01 */
-        .mb-magnet { --mx: 0px; --my: 0px; }
-        .mb-halo {
-          transform: translate(-50%, -50%) translate(calc(var(--mx) * 1.35), calc(var(--my) * 1.35));
-          transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
-        }
-        .mb-label {
-          transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35));
-          transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
-        }
-        .mb-arrow { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        .mb-is-pulling .mb-halo, .mb-is-pulling .mb-label { transition-duration: 0.12s; }
-        .mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: var(--color-hover); border-color: var(--color-hover); color: #ffffff; }
-        .mb-magnet:hover .mb-arrow, .mb-magnet:focus-visible .mb-arrow { transform: translateX(3px); }
-        .mb-magnet:focus-visible .mb-label { outline: 2px solid var(--color-pitch); outline-offset: 3px; }
-        .mb-magnet:active .mb-label { transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35)) scale(0.97); }
-        @media (prefers-reduced-motion: reduce) {
-          .mb-halo, .mb-label, .mb-arrow { transition-duration: 0.001ms !important; }
-          .mb-halo { transform: translate(-50%, -50%) !important; }
-          .mb-label { transform: none !important; }
-        }
-      .mb-light:hover .mb-label, .mb-light:focus-visible .mb-label { background: #141a16; border-color: #141a16; color: #ffffff; }
+/* BYQ gem: magnetic-button-01. Each tone (MagneticButton.tsx) sets --mb-hbg / --mb-hfg (hover fill and text) and --mb-ring. */
+.mb-magnet { --mx: 0px; --my: 0px; }
+.mb-halo {
+  transform: translate(-50%, -50%) translate(calc(var(--mx) * 1.35), calc(var(--my) * 1.35));
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+}
+.mb-label {
+  transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35));
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+.mb-arrow { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.mb-is-pulling .mb-halo, .mb-is-pulling .mb-label { transition-duration: 0.12s; }
+.mb-magnet:hover .mb-label, .mb-magnet:focus-visible .mb-label { background: var(--mb-hbg); border-color: var(--mb-hbg); color: var(--mb-hfg); }
+.mb-magnet:hover .mb-arrow, .mb-magnet:focus-visible .mb-arrow { transform: translateX(3px); }
+.mb-magnet:focus-visible .mb-label { outline: 2px solid var(--mb-ring, var(--color-royal)); outline-offset: 3px; }
+.mb-magnet:active .mb-label { transform: translate(calc(var(--mx) * 0.35), calc(var(--my) * 0.35)) scale(0.97); }
+@media (prefers-reduced-motion: reduce) {
+  .mb-halo, .mb-label, .mb-arrow { transition-duration: 0.001ms !important; }
+  .mb-halo { transform: translate(-50%, -50%) !important; }
+  .mb-label { transform: none !important; }
+}
 
 /* BYQ gem: curtain-image-reveal-01 */
-.cir-frame { position: relative; overflow: hidden; border-radius: 1rem; background: var(--color-mint); transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s); }
+.cir-frame { position: relative; overflow: hidden; border-radius: 1rem; background: var(--color-sky); transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s); }
 .cir-img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s); }
 .cir-caption { opacity: 0; transform: translateY(8px); transition: opacity 0.45s ease calc(var(--d, 0s) + 0.7s), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--d, 0s) + 0.7s); }
 .cir-item[data-revealed="true"] .cir-frame { clip-path: inset(0 0 0 0) !important; }
@@ -115,36 +119,27 @@ body {
   animation: sg-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
-.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(31 122 52 / 0.08), transparent 70%); }
-.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(20 26 22 / 0.22); }
+.sg-light { opacity: 0; transition: opacity 0.4s ease; background: radial-gradient(18rem circle at var(--mx) var(--my), rgb(30 111 191 / 0.08), transparent 70%); }
+.sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(11 42 86 / 0.22); }
 @media (prefers-reduced-motion: reduce) {
   .sg-card { animation: none; }
-  .sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(20 26 22 / 0.22); }
+  .sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(11 42 86 / 0.22); }
 }
 
-/* Human Intelligence display: tight sans, sentence case. No serif by request. */
+/* Display type: heavy tight Satoshi. Short headings may be uppercase (the logo wordmark is). Longer lines take .display-long (800). */
 .display {
   font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
-/* Human Intelligence signature rule: 1px dashed ink veil. */
-.rule { border-top: 1px dashed rgb(20 26 22 / 0.16); }
+.display-long { font-weight: 800; }
+/* Signature rule: 1px dashed, 16% of the text colour, so the same class reads on a white tile (navy) and on a navy band (white). */
+.rule { border-top: 1px dashed color-mix(in srgb, currentColor 16%, transparent); }
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgb(20 26 22 / 0.28);
+  -webkit-text-stroke: 1.5px rgb(11 42 86 / 0.28);
 }
-
-
-/* BYQ section stringer-hero-4 marquee */
-@keyframes marquee { to { transform: translateX(-33.333%); } }
-.marquee-track { animation: marquee 6s linear infinite; will-change: transform; }
-@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
-
-/* BYQ gem sticky-media-swap-01: active number flip */
-@keyframes sms-num-flip { from { transform: rotateX(-90deg); } to { transform: rotateX(0deg); } }
-@media (prefers-reduced-motion: reduce) { .sms-num { animation: none !important; } }
 
 /* Preloader (iris-wipe-preloader-01): hole of radius --iris-r cut through the overlay. */
 .preloader {
@@ -184,11 +179,6 @@ html:not(.js) .preloader, .no-preload .preloader { display: none; }
   .press:active, .lift:hover { transform: none; }
   .u-grow::after { transition: none; }
 }
-
-/* Hero ground lines draw in once (paths carry pathLength=1). */
-@keyframes g-draw { to { stroke-dashoffset: 0; } }
-.g-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: g-draw 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@media (prefers-reduced-motion: reduce) { .g-draw { animation: none; stroke-dashoffset: 0; } }
 
 /* Satoshi has no Devanagari; the poem on /about uses Noto Sans Devanagari (loaded in layout.tsx). */
 .deva { font-family: var(--font-deva), var(--font-sans); }

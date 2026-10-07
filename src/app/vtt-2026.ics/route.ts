@@ -1,32 +1,48 @@
-import { FIXTURES } from "@/lib/site";
+import { GROUNDS, SCHEDULE, groundLabel } from "@/lib/schedule";
 
 export const dynamic = "force-static";
 
-const MONTH: Record<string, string> = { Oct: "10" };
-const ymd = (date: string, add = 0) => {
-  const [d, m] = date.split(" ");
-  return `2026${MONTH[m]}${String(Number(d) + add).padStart(2, "0")}`;
+const ymd = (iso: string, add = 0) => {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + add);
+  return d.toISOString().slice(0, 10).replaceAll("-", "");
 };
-// RFC 5545: escape commas and semicolons, fold nothing (lines stay short enough for every client we target).
+// RFC 5545: escape commas, semicolons and backslashes in text values. Lines are not folded (every client we target reads long lines).
 const esc = (s: string) => s.replace(/[,;\\]/g, (c) => `\\${c}`);
 
-// All-day events: the documents fix start times but not end times, so none are invented here.
+// All-day events built from SCHEDULE. The sheet gives dates and grounds only, so no time is written anywhere.
+// The UIDs match the earlier file (vtt-2026-<date>), and SEQUENCE:1 with a newer DTSTAMP lets a calendar that imported the
+// old version replace it instead of keeping a second event.
 export function GET() {
-  const events = FIXTURES.map((day) => {
-    const lines = day.slots.map((s) => `${s.time ?? "All day"}: ${(s.matches ?? [s.note]).join(" · ")}${s.venue ? ` (${s.venue})` : ""}`);
+  const events = SCHEDULE.map((day) => {
+    const lines = day.grounds.map((id) => `${day.finals?.includes(id) ? "Final: " : ""}${groundLabel(GROUNDS[id])}`);
+    if (day.date === "2026-10-17") lines.push("Venue and time to be announced.");
+    if (day.date === "2026-10-21") lines.push("No matches.");
+    if (day.finals) lines.push("Which final is played where is to be announced.");
+    const summary = day.finals ? "Finals" : day.date === "2026-10-21" ? "Reserve day" : `BACA Cricket Tournament, ${day.short}`;
     return [
       "BEGIN:VEVENT",
       `UID:vtt-2026-${ymd(day.date)}@vijay-tulpule-trophy.vercel.app`,
-      "DTSTAMP:20260930T000000Z",
+      "DTSTAMP:20261007T000000Z",
+      "SEQUENCE:1",
       `DTSTART;VALUE=DATE:${ymd(day.date)}`,
       `DTEND;VALUE=DATE:${ymd(day.date, 1)}`,
-      `SUMMARY:${esc(`BACA 2026: ${lines.length === 1 && !day.slots[0].matches ? day.slots[0].note : `${day.slots.reduce((n, s) => n + (s.matches?.length ?? 0), 0)} matches`}`)}`,
+      `SUMMARY:${esc(summary)}`,
       `DESCRIPTION:${lines.map(esc).join("\\n")}`,
-      "LOCATION:Mumbai and Navi Mumbai",
       "END:VEVENT",
     ].join("\r\n");
   });
-  const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//BACA//AIACT 2026//EN", "CALSCALE:GREGORIAN", "X-WR-CALNAME:38th All India Advocates’ Cricket Tournament 2026", ...events, "END:VCALENDAR", ""].join("\r\n");
+  const body = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//BACA//AIACT 2026//EN",
+    "CALSCALE:GREGORIAN",
+    "X-WR-CALNAME:38th All India Advocates’ Cricket Tournament 2026",
+    "X-WR-TIMEZONE:Asia/Kolkata",
+    ...events,
+    "END:VCALENDAR",
+    "",
+  ].join("\r\n");
   return new Response(body, {
     headers: { "Content-Type": "text/calendar; charset=utf-8", "Content-Disposition": 'attachment; filename="vtt-2026.ics"' },
   });

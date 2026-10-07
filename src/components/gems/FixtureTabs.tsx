@@ -1,12 +1,23 @@
 "use client";
 
 import * as React from "react";
-import { Clock, MapPin } from "lucide-react";
-import type { Day } from "@/lib/site";
+import { GROUNDS, SCHEDULE } from "@/lib/schedule";
+import { nb } from "@/lib/site";
 
-// BYQ gem: tab-underline-01, carrying the fixture days. Motion values verbatim.
-export function FixtureTabs({ days }: { days: Day[] }) {
-  const [active, setActive] = React.useState(0);
+// What the sheet does not list for a day, in our words. Keyed by date so a day that gains grounds simply stops using its entry.
+const NOTE: Record<string, string> = {
+  "2026-10-17": "Venue and time to be announced.",
+  "2026-10-21": "No matches.",
+  "2026-10-24": "Which final is played where is to be announced.",
+};
+
+// First day with a ground listed, so the page opens on something to read (17 Oct has no venue yet).
+const FIRST = Math.max(0, SCHEDULE.findIndex((d) => d.grounds.length > 0));
+
+// BYQ gem: tab-underline-01, carrying the tournament days. Motion values verbatim.
+export function FixtureTabs() {
+  const days = SCHEDULE;
+  const [active, setActive] = React.useState(FIRST);
   const [bar, setBar] = React.useState({ width: 0, x: 0 });
   const tabs = React.useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -55,9 +66,9 @@ export function FixtureTabs({ days }: { days: Day[] }) {
     <div>
       <div
         role="tablist"
-        aria-label="Fixture days"
+        aria-label="Tournament days"
         onKeyDown={onKeyDown}
-        className="relative flex overflow-x-auto border-b border-ink/15 [scrollbar-width:none]"
+        className="relative flex overflow-x-auto border-b border-navy/15 [scrollbar-width:none]"
       >
         {days.map((d, i) => (
           <button
@@ -69,59 +80,47 @@ export function FixtureTabs({ days }: { days: Day[] }) {
             aria-selected={active === i}
             tabIndex={active === i ? 0 : -1}
             onClick={() => select(i)}
-            className="num min-h-11 flex-none px-4 py-3 text-sm font-medium text-ink/45 transition-colors duration-200 hover:text-ink/75 aria-selected:text-ink focus-visible:shadow-[inset_0_0_0_2px_var(--color-pitch)] focus-visible:outline-none motion-reduce:transition-none md:px-5"
+            className="num min-h-11 flex-none px-3 py-3 text-base font-semibold text-navy/65 transition-colors duration-200 hover:text-navy aria-selected:text-navy focus-visible:shadow-[inset_0_0_0_2px_var(--color-royal)] focus-visible:outline-none motion-reduce:transition-none md:px-6"
           >
-            {d.date} <span className="font-normal">{d.day}</span>
+            {/* Phones drop the weekday (the panel prints it) so four days and the edge of the fifth show, which tells a thumb the row scrolls. */}
+            {d.short} <span className="hidden font-normal md:inline">{d.weekday.slice(0, 3)}</span>
           </button>
         ))}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-px left-0 h-0.5 bg-pitch transition-[transform,width] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+          className="pointer-events-none absolute -bottom-px left-0 h-0.5 bg-royal transition-[transform,width] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
           style={{ width: bar.width, transform: `translateX(${bar.x}px)` }}
         />
       </div>
 
-      <div className="grid pt-8">
-        {days.map((d, i) => (
-          <div
-            key={d.date}
-            role="tabpanel"
-            id={`panel-${i}`}
-            aria-labelledby={`tab-${i}`}
-            inert={active !== i}
-            className={`col-start-1 row-start-1 transition-[opacity,transform] duration-[250ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
-              active === i ? "opacity-100" : "pointer-events-none translate-y-1.5 opacity-0"
-            }`}
-          >
-            <div className="flex flex-col gap-8">
-              {d.slots.map((s, j) => (
-                <div key={j}>
-                  <p className="num mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-                    <span className="flex items-center gap-2 font-semibold text-pitch"><Clock aria-hidden="true" className="size-4" strokeWidth={1.8} />{s.time ?? "All day"}</span>
-                    {s.code && <span className="text-ink/55">{s.code}</span>}
-                  </p>
-                  {s.note && (
-                    <div className="lift rounded-2xl bg-mist p-5 hover:bg-mint">
-                      <p className="text-lg font-semibold">{s.note}</p>
-                      {s.venue && <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/55"><MapPin aria-hidden="true" className="size-3.5" strokeWidth={1.8} />{s.venue}</p>}
-                    </div>
-                  )}
-                  {s.matches && (
-                    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                      {s.matches.map((m, k) => (
-                        <li key={k} className="lift rounded-2xl bg-mist p-5 hover:bg-mint">
-                          <p className="text-lg font-semibold">{m}</p>
-                          <p className="mt-2 flex items-center gap-1.5 text-sm text-ink/55"><MapPin aria-hidden="true" className="size-3.5" strokeWidth={1.8} />{s.venue ?? "Venue TBC"}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
+      {/* Only the open panel takes space (a short day does not leave a tall empty tile); the rise keyframe replays on each open. */}
+      {days.map((d, i) => (
+        <div key={d.date} role="tabpanel" id={`panel-${i}`} aria-labelledby={`tab-${i}`} hidden={active !== i}>
+          <div className="rise grid gap-6 pt-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-12 md:pt-12">
+            <div>
+              <p className="mb-2 text-base font-semibold text-royal">{d.weekday}, {d.short}</p>
+              <h3 className="display text-4xl uppercase md:text-5xl lg:text-6xl">{d.title}</h3>
+            </div>
+            <div>
+              {d.grounds.length > 0 && (
+                <ul className="rule">
+                  {d.grounds.map((id) => {
+                    const g = GROUNDS[id];
+                    return (
+                      <li key={id} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-dashed border-navy/15 py-4 md:py-5">
+                        <span className="display text-2xl md:text-4xl">{nb(g.name)}</span>
+                        <span className="text-lg text-navy/70">{g.area}</span>
+                        {d.finals?.includes(id) && <span className="ml-auto text-lg font-bold text-red">Final</span>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+              {NOTE[d.date] && <p className={`text-xl text-navy/80 md:text-2xl ${d.grounds.length ? "mt-5" : "rule pt-5"}`}>{NOTE[d.date]}</p>}
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,61 +1,88 @@
-// Builds the two A4 PDFs in public/downloads from src/lib/site.ts, so the files never drift from the site.
-// Run after changing fixtures, tiers or terms:  node scripts/downloads.mts  (Node 24, Google Chrome installed)
+// Builds the two A4 PDFs in public/downloads from src/lib/{site,schedule,teams}.ts, so the files never drift from the site.
+// Run after changing the schedule, teams, tiers or terms:  npm run downloads  (Node 24, Google Chrome installed)
+// The fixtures PDF is the sheet of 06-10-2026 and nothing more: days and grounds, no times, no stage names, no match-ups (groups are not drawn).
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { CONTACTS, EVENT, FIXTURES, HOSTS, HOSTS_LINE, ORG, PARTNERS, TERMS, TIERS } from "../src/lib/site.ts";
+import { GROUNDS, SCHEDULE, groundLabel } from "../src/lib/schedule.ts";
+import { TEAMS } from "../src/lib/teams.ts";
+import { CONTACTS, EVENT, HOSTS, HOSTS_LINE, ORG, PARTNERS, TERMS, TIERS, nb } from "../src/lib/site.ts";
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const root = resolve(import.meta.dirname, "..");
 const font = pathToFileURL(join(root, "src/app/fonts/Satoshi-Variable.woff2")).href;
+const file = (p: string) => pathToFileURL(join(root, "public", p)).href;
 const tmp = mkdtempSync(join(tmpdir(), "vtt-"));
 
+// Brand: navy #0B2A56, royal #1E6FBF, red #D62828, sky #E7F0FF (docs/REDESIGN.md section 3). Red is the "Final" marker only.
 const page = (title: string, body: string) => `<!doctype html><meta charset="utf-8"><title>${title}</title><style>
 @font-face{font-family:Satoshi;src:url(${font}) format("woff2");font-weight:300 900}
-@page{size:A4;margin:16mm 14mm}
-*{box-sizing:border-box;margin:0}
-body{font:10.5pt/1.45 Satoshi,sans-serif;color:#141a16;font-variant-numeric:tabular-nums}
-header{background:#e2f0d8;border-radius:12px;padding:18px 20px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
-h1{font-size:26pt;line-height:1.05;letter-spacing:-.02em}
-h2{font-size:13pt;margin:18px 0 8px;break-after:avoid}
-.k{font-size:8pt;text-transform:uppercase;letter-spacing:.08em;color:#141a16a0}
-.hosts{display:flex;align-items:center;gap:16px;margin-bottom:6px}.hosts img{height:36px;width:auto}.hosts p{font-size:9pt;color:#141a16a0;margin-left:auto;max-width:260px;text-align:right}
-.ball{width:26px;height:26px;border-radius:50%;background:#b3261e;flex:none}
+@page{size:A4;margin:14mm 14mm 16mm}
+*{box-sizing:border-box;margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font:10.5pt/1.45 Satoshi,sans-serif;color:#0B2A56;font-variant-numeric:tabular-nums}
+header{position:relative;overflow:hidden;background:#0B2A56;color:#fff;border-radius:14px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:22px;min-height:118px}
+header .logo{height:84px;width:auto;flex:none;position:relative;z-index:1}
+header .t{position:relative;z-index:1;max-width:300px}
+header .stroke{position:absolute;right:-60px;bottom:-46px;width:300px;height:auto}
+h1{font-size:26pt;line-height:1.05;font-weight:900;letter-spacing:-.03em;text-transform:uppercase}
+header p{margin-top:6px;color:#ffffffcc;font-size:10pt}
+p,li{text-wrap:balance}
+h2{font-size:14pt;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;margin:22px 0 8px;break-after:avoid}
+.lead{color:#0B2A56b3;margin-bottom:10px}
+.hosts{display:flex;align-items:center;gap:16px;margin-bottom:4px}.hosts img{height:38px;width:auto}.hosts p{font-size:9pt;color:#0B2A56b3;margin-left:auto;max-width:260px;text-align:right}
 table{width:100%;border-collapse:collapse}
-td,th{text-align:left;padding:5px 8px;border-bottom:1px dashed #141a1630;vertical-align:top}
-th{font-size:8pt;text-transform:uppercase;letter-spacing:.06em;color:#141a1690;font-weight:500}
+td,th{text-align:left;padding:7px 8px;border-bottom:1px dashed #0B2A5629;vertical-align:top}
+th{font-size:9pt;font-weight:700;color:#0B2A56b3;border-bottom:1px solid #0B2A5640}
 tr{break-inside:avoid}
-.d,.c,.t{font-weight:700;white-space:nowrap}.c{font-weight:400}.t{color:#1f7a34;font-weight:700}.m{color:#141a16a0}
+.d{font-weight:800;white-space:nowrap;width:26mm}.d small{display:block;font-weight:400;color:#0B2A56b3;font-size:9pt}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:3px 18px}
+.final{color:#D62828;font-weight:800;margin-left:6px}
+.m{color:#0B2A56b3}
+.note{margin-top:12px;background:#E7F0FF;border-radius:12px;padding:12px 16px;font-weight:700}
+.teams{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 14px}
+.team{display:flex;align-items:center;gap:10px;break-inside:avoid}
+.team .w{width:34px;height:34px;flex:none;border-radius:50%;background:#fff;border:1px solid #CFE0FA;display:grid;place-items:center;overflow:hidden}
+.team img{width:100%;height:100%;object-fit:contain}
+.team b{font-weight:700;line-height:1.2}
 .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.tier{background:#fff;border:1px solid #141a1620;border-radius:12px;padding:12px}
-.tier.top{background:#1f7a34;color:#f1f4ea;border-color:#1f7a34}
-.tier b{display:block;font-size:15pt;margin-top:8px}
+.tier{background:#E7F0FF;border-radius:12px;padding:14px}
+.tier.top{background:#0B2A56;color:#fff}
+.tier b{display:block;font-size:15pt;font-weight:900;letter-spacing:-.02em;margin-top:10px}
+.tier span{display:block;margin-top:2px;font-size:9.5pt;opacity:.75}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
-footer{margin-top:22px;padding-top:10px;border-top:1px dashed #141a1640;font-size:8.5pt;color:#141a16a0}
-</style><body>${body}<footer>${ORG.name} · ${ORG.trust} · ${ORG.email} · ${ORG.phone} · vijay-tulpule-trophy.vercel.app</footer>`;
-
-// Host, co-hosts and aegis marks for the sponsorship brief, so a sponsor sees who it is partnering with.
-const hosts = `<div class="hosts">${[HOSTS.host, ...HOSTS.cohosts, HOSTS.aegis].map((o) => `<img src="${pathToFileURL(join(root, "public", o.logo)).href}" alt="${o.short}">`).join("")}<p>${HOSTS_LINE}</p></div>`;
+footer{margin-top:24px;padding-top:10px;border-top:1px dashed #0B2A5640;font-size:8.5pt;color:#0B2A56b3;text-wrap:balance}
+</style><body>${body}<footer>${ORG.name} · ${nb(ORG.trust)} · ${ORG.email} · <span style="white-space:nowrap">${ORG.phone}</span> · vijay-tulpule-trophy.vercel.app</footer>`;
 
 const head = (title: string, sub: string) =>
-  `<header><div><p class="k">${EVENT.edition}</p><h1>${title}</h1><p style="margin-top:6px">${sub}</p></div><div class="ball"></div></header>`;
+  `<header><img class="logo" src="${file("brand/t26/logo-reversed.png")}" alt="${EVENT.edition}, Mumbai 2026"><div class="t"><h1>${title}</h1><p>${sub}</p></div><img class="stroke" src="${file("brand/t26/stroke.svg")}" alt=""></header>`;
+
+// A day with grounds lists them two to a line; a day without one says why. "Final" is printed only where the sheet marks it.
+const days = SCHEDULE.map((d) => {
+  const grounds = d.grounds.map((id) => `<span>${groundLabel(GROUNDS[id])}${d.finals?.includes(id) ? '<span class="final">Final</span>' : ""}</span>`).join("");
+  const what = d.grounds.length ? `<div class="g">${grounds}</div>` : `<b>${d.title}.</b> <span class="m">${d.note ?? ""}</span>`;
+  return `<tr><td class="d">${d.short}<small>${d.weekday}</small></td><td>${what}</td></tr>`;
+}).join("");
 
 const fixtures = page(
   "BACA 2026 Fixtures",
-  head("38th All India Advocates’ Cricket Tournament 2026: Fixtures", `Mumbai and Navi Mumbai · 17–24 October 2026 · ${EVENT.overs} overs a side · details of fixtures will be announced shortly`) +
-    `<table><tr><th>Day</th><th>Time</th><th>No.</th><th>Fixture</th><th>Ground</th></tr>${FIXTURES.flatMap((d) =>
-      d.slots.map((s, i) => `<tr><td class="d">${i ? "" : `${d.day} ${d.date}`}</td><td class="t">${s.time ?? "All day"}</td><td class="m c">${s.code ?? ""}</td><td>${(s.matches ?? [s.note]).join(" · ")}</td><td class="m">${s.venue ?? ""}</td></tr>`),
-    ).join("")}</table>
-    <h2>Points</h2><p>Win 2. Tie or no result 1. Loss 0. Tie-break: NRR, then head-to-head, then fewest wickets lost per run scored, then lots. Top two in each group reach the quarter-finals. The 14:30 league sessions run only if the lights are certified.</p>`,
+  head("Fixtures", `Mumbai · ${EVENT.overs} overs a side`) +
+    `<h2>Schedule</h2><table><tr><th>Day</th><th>Grounds</th></tr>${days}</table>
+    <p class="note">Match-ups will be published after the draw.</p>
+    <section style="break-inside:avoid"><h2>The teams</h2><p class="lead">Practising Advocates from 15 High Courts of India and the Supreme Court of India. Groups will be announced after the draw.</p>
+    <div class="teams">${TEAMS.map((t) => `<div class="team"><span class="w"><img src="${file(t.logo)}" alt=""></span><b>${t.name}</b></div>`).join("")}</div></section>
+    <h2>Points</h2><p>Win 2. Tie or no result 1. Loss 0. Tie-break: net run rate, then head-to-head, then fewest wickets lost per run scored, then lots. How teams go through to the later rounds will be confirmed after the draw.</p>`,
 );
+
+// Host, co-hosts and aegis marks for the sponsorship brief, so a sponsor sees who it is partnering with.
+const hosts = `<div class="hosts">${[HOSTS.host, ...HOSTS.cohosts, HOSTS.aegis].map((o) => `<img src="${file(o.logo)}" alt="${o.short}">`).join("")}<p>${HOSTS_LINE}</p></div>`;
 
 const sponsorship = page(
   "BACA 2026 Sponsorship",
-  head("Sponsor the 38th All India Advocates’ Cricket Tournament 2026", "Sixteen teams from fifteen High Courts and the Supreme Court of India · 17–24 October 2026") +
-    `${hosts}<h2>Tiers</h2><div class="tiers">${[...TIERS].reverse().map((t) => `<div class="tier${t.name === "Platinum" ? " top" : ""}">${t.name}<b>${t.price}</b></div>`).join("")}</div>
-    <p style="margin-top:10px">Every sponsor is named, by tier, at the opening, the end of the league, the final and at every venue.</p>
+  head("Sponsorship", "Sixteen teams from fifteen High Courts and the Supreme Court of India · 17 to 24 October 2026") +
+    `${hosts}<h2>Tiers</h2><div class="tiers">${[...TIERS].reverse().map((t) => `<div class="tier${t.name === "Platinum" ? " top" : ""}">${t.name}<b>${t.price}</b><span>${t.line}</span></div>`).join("")}</div>
+    <p style="margin-top:10px">Every sponsor is named, by tier, at the opening, at the finals and at every ground. Sizes and placings follow the tier.</p>
     <h2>Partner roles</h2><div class="grid">${PARTNERS.map(([k, v]) => `<p><b>${k}.</b> ${v}</p>`).join("")}</div>
     <h2>Terms</h2><ol style="padding-left:18px">${TERMS.map((t) => `<li>${t}</li>`).join("")}</ol>
     <h2>Payment</h2><table><tr><td class="m">Payee</td><td>Bombay Advocates Cricket Association</td></tr><tr><td class="m">Bank</td><td>Bank of India, Main branch</td></tr><tr><td class="m">IFSC</td><td>BKID0000001</td></tr><tr><td class="m">Account</td><td>000110210000057</td></tr></table>
@@ -74,3 +101,5 @@ for (const [name, html] of [["vtt-2026-fixtures", fixtures], ["vtt-2026-sponsors
   }
   console.log(`public/downloads/${name}.pdf`);
 }
+// Each run leaves two Chrome profiles of about 12 MB in the temp folder; on 07-10-2026 the disk was full and the next write failed.
+rmSync(tmp, { recursive: true, force: true });

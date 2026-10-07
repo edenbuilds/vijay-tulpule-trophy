@@ -44,8 +44,8 @@ export function PoemReader() {
 
   return (
     <div ref={root} className="relative mx-auto max-w-2xl px-8 py-8 md:py-16">
-      <span aria-hidden="true" className="absolute inset-y-0 left-3 w-px bg-ink/10 md:left-0">
-        <span ref={fill} className="block h-full origin-top scale-y-0 bg-pitch" />
+      <span aria-hidden="true" className="absolute inset-y-0 left-3 w-px bg-navy/10 md:left-0">
+        <span ref={fill} className="block h-full origin-top scale-y-0 bg-royal" />
       </span>
       {POEM.stanzas.map((lines, i) => (
         <article
@@ -55,7 +55,7 @@ export function PoemReader() {
           aria-label={`Verse ${i + 1}`}
           className={`relative py-10 transition-opacity duration-700 motion-reduce:transition-none md:py-14 ${active === null || active === i ? "opacity-100" : "opacity-30"}`}
         >
-          <span aria-hidden="true" className="deva pointer-events-none absolute -top-1 left-0 select-none text-[7rem] font-semibold leading-none text-mint md:-left-6 md:text-[10rem]">
+          <span aria-hidden="true" className="deva pointer-events-none absolute -top-1 left-0 select-none text-[7rem] font-semibold leading-none text-sky md:-left-6 md:text-[10rem]">
             {NUM[i]}
           </span>
           <MaskTextReveal duration={1.2} stagger={0.14} className="relative">

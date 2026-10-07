@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Downloads } from "@/components/Downloads";
 import { Block, Hero } from "@/components/Sections";
 import { Tiers } from "@/components/Tiers";
-import { CONTACTS, ORG, PARTNERS, TERMS } from "@/lib/site";
-import { PH } from "@/lib/photos";
+import { CONTACTS, ORG, PARTNERS, TERMS, tie } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Sponsors" };
 
@@ -13,78 +12,82 @@ const RIGHTS = [
   ["Live picture", "Max two logos."],
 ];
 
-const MOMENTS = ["Opening", "End of the league", "Final", "Every venue"];
+const PAYMENT = [
+  ["Payee", "Bombay Advocates Cricket Association"],
+  ["Bank", "Bank of India, Main branch"],
+  ["IFSC", "BKID0000001"],
+  ["Account", "000110210000057"],
+];
+
+// One definition list per heading; the dashed rule and rows match the committee list used elsewhere on the site.
+function Rows({ title, rows }: { title: string; rows: string[][] }) {
+  return (
+    <div>
+      <h2 className="display uppercase text-3xl md:text-5xl">{title}</h2>
+      <dl className="rule mt-6 md:mt-8">
+        {rows.map(([k, v]) => (
+          <div key={k} className="row-line border-b border-dashed border-navy/15 py-4">
+            <dt className="text-lg font-semibold">{k}</dt>
+            <dd className="mt-1 text-navy/70">{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
 
 export default function Sponsors() {
   return (
     <>
-      <Hero title="Sponsors" sub="Sponsorship tiers start at ₹5,00,000." photo={PH.sponsors} />
-      <Block tone="cream">
+      <Hero title="Sponsors" sub="Sponsorship tiers start at ₹5,00,000." />
+      <Block title="Tiers" tone="white">
         <Tiers cta="Contact" />
-        <p className="mt-8 max-w-3xl text-lg text-ink/70">
-          Every sponsor is named, by tier, at these moments. Sizes and placings follow the tier.
+        <p className="mt-8 max-w-3xl text-lg text-navy/70">
+          {tie("Every sponsor is named, by tier, at the opening, at the finals and at every ground. Sizes and placings follow the tier.")}
         </p>
-        <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {MOMENTS.map((m) => (
-            <li key={m} className="lift rounded-full bg-mint px-4 py-2 text-center font-medium">{m}</li>
-          ))}
-        </ul>
       </Block>
-      <Block title="Partner roles" tone="paper">
-        <dl className="rule grid md:grid-cols-2 md:gap-x-12 md:[&>:last-child:nth-child(odd)]:col-span-2">
-          {PARTNERS.map(([k, v]) => (
-            <div key={k} className="row-line border-b border-dashed border-ink/15 py-4">
-              <dt className="text-lg font-semibold">{k}</dt>
-              <dd className="mt-1 text-ink/70">{v}</dd>
-            </div>
-          ))}
-        </dl>
+      <Block tone="snow">
+        <div className="grid gap-12 rounded-2xl bg-white p-5 md:grid-cols-2 md:gap-16 md:p-10">
+          <Rows title="Partner roles" rows={PARTNERS} />
+          <Rows title="Rights" rows={RIGHTS} />
+        </div>
       </Block>
-      <Block title="Rights" tone="paper">
-        <dl className="rule grid md:grid-cols-2 md:gap-x-12 md:[&>:last-child:nth-child(odd)]:col-span-2">
-          {RIGHTS.map(([k, v]) => (
-            <div key={k} className="row-line border-b border-dashed border-ink/15 py-4">
-              <dt className="text-lg font-semibold">{k}</dt>
-              <dd className="mt-1 text-ink/70">{v}</dd>
-            </div>
-          ))}
-        </dl>
-      </Block>
-      <Block tone="cream">
-        <div className="grid gap-12 md:grid-cols-2">
+      <Block tone="navy">
+        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <div>
-            <h2 className="display text-3xl md:text-4xl">Payment</h2>
-            <dl className="num mt-6 grid grid-cols-[6rem_1fr] gap-x-4 gap-y-2 text-ink/75">
-              <dt className="text-ink/50">Payee</dt>
-              <dd>Bombay Advocates Cricket Association</dd>
-              <dt className="text-ink/50">Bank</dt>
-              <dd>Bank of India, Main branch</dd>
-              <dt className="text-ink/50">IFSC</dt>
-              <dd>BKID0000001</dd>
-              <dt className="text-ink/50">Account</dt>
-              <dd>000110210000057</dd>
+            <h2 className="display uppercase text-3xl md:text-5xl">Payment</h2>
+            <dl className="num rule mt-6 md:mt-8">
+              {PAYMENT.map(([k, v]) => (
+                <div key={k} className="grid grid-cols-[5.5rem_1fr] gap-x-4 border-b border-dashed border-white/20 py-3">
+                  <dt className="text-white/70">{k}</dt>
+                  <dd className="break-words">{v}</dd>
+                </div>
+              ))}
             </dl>
-            <p className="mt-4 text-ink/60">NEFT, RTGS, UPI or net banking. Receipt issued.</p>
+            <p className="mt-4 text-white/70">NEFT, RTGS, UPI or net banking. Receipt issued.</p>
           </div>
           <div>
-            <h2 className="display text-3xl md:text-4xl">Contact</h2>
-            <address className="mt-6 flex flex-col gap-2 not-italic text-ink/75">
-              <span className="font-semibold text-ink">{CONTACTS[0].name}, {CONTACTS[0].role}, BACA</span>
-              <span>{ORG.address}</span>
-              <a className="flex min-h-11 w-fit items-center underline decoration-pitch underline-offset-4" href={`mailto:${ORG.email}`}>{ORG.email}</a>
-              <a className="num flex min-h-11 w-fit items-center underline decoration-pitch underline-offset-4" href={ORG.phoneHref}>{ORG.phone}</a>
+            <h2 className="display uppercase text-3xl md:text-5xl">Contact</h2>
+            <address className="mt-6 flex flex-col gap-2 not-italic md:mt-8">
+              <span className="text-lg font-semibold">{CONTACTS[0].name}, {CONTACTS[0].role}, BACA</span>
+              <span className="text-white/70">{ORG.address}</span>
+              <a className="flex min-h-11 w-fit items-center underline decoration-white/40 underline-offset-4 hover:decoration-white" href={`mailto:${ORG.email}`}>{ORG.email}</a>
+              <a className="num flex min-h-11 w-fit items-center underline decoration-white/40 underline-offset-4 hover:decoration-white" href={ORG.phoneHref}>{ORG.phone}</a>
             </address>
           </div>
         </div>
       </Block>
-      <Block title="Terms" tone="paper">
-        <ol className="grid max-w-3xl gap-4 text-lg text-ink/75">
+      <Block title="Terms" tone="sky">
+        <ol className="rule grid max-w-3xl">
           {TERMS.map((t, i) => (
-            <li key={i} className="num grid grid-cols-[2rem_1fr]"><span className="font-semibold text-pitch">{i + 1}</span>{t}</li>
+            <li key={i} className="num grid grid-cols-[2.5rem_1fr] border-b border-dashed border-navy/15 py-4 text-lg">
+              <span className="font-semibold">{i + 1}</span>
+              {t}
+            </li>
           ))}
         </ol>
       </Block>
-      <Block title="Sponsorship brief" tone="cream">
+      <Block title="Sponsorship brief" tone="snow">
         <Downloads only={["Sponsorship"]} />
       </Block>
     </>

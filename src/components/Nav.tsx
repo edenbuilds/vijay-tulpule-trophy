@@ -4,11 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
+import { Mark } from "@/components/brand/Mark";
 import { NAV } from "@/lib/site";
 
 // Floating inset bar: a white tile 8px from the edges that hides while you scroll down and returns
-// when you scroll up. A mint pill slides under whichever link you point at and settles back on the
+// when you scroll up. A sky pill slides under whichever link you point at and settles back on the
 // current page when you leave. On phones the same tile opens into a menu with large links.
 export function Nav() {
   const path = usePathname();
@@ -56,20 +56,20 @@ export function Nav() {
         hidden && !open ? "-translate-y-[calc(100%+0.5rem)]" : ""
       }`}
     >
-      <div className="rounded-2xl border border-ink/10 bg-mist/90 text-ink backdrop-blur-md">
+      <div className="rounded-2xl border border-navy/10 bg-white/90 text-navy backdrop-blur-md">
         <nav aria-label="Main" className="flex h-16 items-center gap-3 pl-4 pr-2 md:pl-5">
-          <Link href="/" className="num group mr-auto flex min-h-11 items-center gap-2.5 text-lg font-bold tracking-tight">
-            <Image src="/brand/baca-seal.png" alt="" width={72} height={72} priority className="size-9 transition-transform duration-700 ease-out group-hover:-rotate-[360deg]" />
+          <Link href="/" className="num mr-auto flex min-h-11 items-center gap-2.5">
+            <Mark priority className="size-10" />
             <span className="leading-none">
-              BACA
-              <span className="hidden text-xs font-medium text-ink/55 sm:block">38th All India Advocates’ Cricket</span>
+              <span className="block text-xl font-black uppercase tracking-tight">BACA</span>
+              <span className="mt-0.5 hidden text-xs font-medium text-navy/65 sm:block">38th All India Advocates’ Cricket</span>
             </span>
           </Link>
 
           <ul ref={list} onMouseLeave={toActive} className="relative hidden items-center text-sm font-medium xl:flex">
             <span
               aria-hidden="true"
-              className="absolute inset-y-0 left-0 rounded-full bg-mint transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+              className="absolute inset-y-0 left-0 rounded-full bg-sky transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
               style={{ width: pill?.w ?? 0, transform: `translateX(${pill?.x ?? 0}px)`, opacity: pill ? 1 : 0 }}
             />
             {NAV.map((n) => (
@@ -81,7 +81,7 @@ export function Nav() {
                   onFocus={(e) => moveTo(e.currentTarget)}
                   onBlur={toActive}
                   className={`press inline-flex min-h-10 items-center rounded-full px-3.5 transition-colors ${
-                    path === n.href ? "text-ink" : "text-ink/65 hover:text-ink"
+                    path === n.href ? "text-navy" : "text-navy/70 hover:text-navy"
                   }`}
                 >
                   {n.label}
@@ -92,7 +92,7 @@ export function Nav() {
 
           <Link
             href="/contact"
-            className="press group hidden min-h-11 items-center gap-1.5 rounded-full bg-pitch pl-5 pr-4 text-sm font-semibold text-paper hover:bg-hover sm:inline-flex xl:ml-2"
+            className="press group hidden min-h-11 items-center gap-1.5 rounded-full bg-navy pl-5 pr-4 text-sm font-semibold text-white hover:bg-navy-deep sm:inline-flex xl:ml-2"
           >
             Contact
             <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -104,11 +104,11 @@ export function Nav() {
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((o) => !o)}
-            className="press grid size-11 place-items-center rounded-full bg-mint xl:hidden"
+            className="press grid size-11 place-items-center rounded-full bg-sky xl:hidden"
           >
             <span className="relative block h-3 w-5">
-              <span className={`absolute left-0 h-0.5 w-5 bg-ink transition-transform duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
-              <span className={`absolute left-0 h-0.5 w-5 bg-ink transition-transform duration-300 ${open ? "top-1.5 -rotate-45" : "top-2.5"}`} />
+              <span className={`absolute left-0 h-0.5 w-5 bg-navy transition-transform duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+              <span className={`absolute left-0 h-0.5 w-5 bg-navy transition-transform duration-300 ${open ? "top-1.5 -rotate-45" : "top-2.5"}`} />
             </span>
           </button>
         </nav>
@@ -121,11 +121,11 @@ export function Nav() {
           }`}
         >
           <div className="overflow-hidden">
-            <ul className="border-t border-dashed border-ink/15 px-4 pb-4 pt-2">
+            <ul className="border-t border-dashed border-navy/15 px-4 pb-4 pt-2">
               {[...NAV, ...extra].map((n, i) => (
                 <li
                   key={n.href}
-                  className={`border-b border-dashed border-ink/15 transition-all duration-500 ease-out motion-reduce:transition-none ${
+                  className={`border-b border-dashed border-navy/15 transition-all duration-500 ease-out motion-reduce:transition-none ${
                     open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
                   }`}
                   style={{ transitionDelay: open ? `${80 + i * 35}ms` : "0ms" }}
@@ -133,10 +133,10 @@ export function Nav() {
                   <Link
                     href={n.href}
                     aria-current={path === n.href ? "page" : undefined}
-                    className={`display flex min-h-14 items-center justify-between text-2xl ${path === n.href ? "text-pitch" : "text-ink"}`}
+                    className={`display flex min-h-14 items-center justify-between text-2xl ${path === n.href ? "text-royal" : "text-navy"}`}
                   >
                     {n.label}
-                    <ArrowUpRight aria-hidden="true" className="size-5 text-ink/35" />
+                    <ArrowUpRight aria-hidden="true" className="size-5 text-navy/35" />
                   </Link>
                 </li>
               ))}

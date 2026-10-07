@@ -11,7 +11,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const REDUCED_MOTION_FADE_DURATION = 0.8;
-const REDUCED_MOTION_Y_OFFSET = 24;
 
 interface SlideTextRevealProps {
   children?: ReactNode;
@@ -70,12 +69,13 @@ export default function SlideTextReveal({
         });
 
         if (prefersReduced) {
+          // A plain fade, played once on entry. It used to scrub with the scroll, which left headings half transparent
+          // while they were on screen (the scrub only reached full opacity as the heading left the viewport).
           gsap.set(charsRef.current, { x: 0, opacity: 1 });
-          gsap.set(containerRef.current, { opacity: 0, y: REDUCED_MOTION_Y_OFFSET });
+          gsap.set(containerRef.current, { opacity: 0 });
 
-          const fadeUpProps = {
+          const fadeProps = {
             opacity: 1,
-            y: 0,
             duration: REDUCED_MOTION_FADE_DURATION,
             ease: "power2.out",
             delay,
@@ -83,15 +83,15 @@ export default function SlideTextReveal({
 
           if (animateOnScroll) {
             gsap.to(containerRef.current, {
-              ...fadeUpProps,
+              ...fadeProps,
               scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top 80%",
-                scrub: true,
+                once: true,
               },
             });
           } else {
-            gsap.to(containerRef.current, fadeUpProps);
+            gsap.to(containerRef.current, fadeProps);
           }
 
           return;
@@ -116,6 +116,8 @@ export default function SlideTextReveal({
           stagger,
           ease: "power3.out",
           delay,
+          // One compositor layer per character is only needed while it moves.
+          onComplete: () => gsap.set(charsRef.current, { clearProps: "willChange" }),
         };
 
         if (animateOnScroll) {

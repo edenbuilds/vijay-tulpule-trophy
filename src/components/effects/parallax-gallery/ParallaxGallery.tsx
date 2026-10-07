@@ -42,8 +42,6 @@ const THUMB_ITEM = THUMB_W + THUMB_GAP;
 const VH_PER_SLIDE = 80;
 
 // Mobile constants
-const MOBILE_FRAME_W = 300;
-const MOBILE_FRAME_H = 210;
 const MOBILE_THUMB_W = 110;
 const MOBILE_THUMB_H = 76;
 const MOBILE_THUMB_GAP = 8;
@@ -63,15 +61,18 @@ interface ScrollParallaxGalleryProps {
  rotationDeg?: number;
  offscreenScale?: number;
  borderColor?: string;
+ /** Colour of the slide counter; set it dark when bgColor is a light tint. */
+ textColor?: string;
  frameScale?: number;
 }
 
 export default function ScrollParallaxGallery({
  images = [],
- bgColor = "#000000",
+ bgColor = "#0b2a56",
  rotationDeg = ROTATION_DEG,
  offscreenScale = SCALE_OFFSCREEN,
- borderColor = "rgba(255, 255, 255, 0.5)",
+ borderColor = "rgba(245, 247, 250, 0.5)",
+ textColor = "#f5f7fa",
  frameScale = 1,
 }: ScrollParallaxGalleryProps) {
 
@@ -80,7 +81,8 @@ export default function ScrollParallaxGallery({
  const total = slides.length;
 
  const [activeIndex, setActiveIndex] = useState(0);
- const [isMobile, setIsMobile] = useState<boolean | null>(null);
+ const [vw, setVw] = useState<number | null>(null);
+ const isMobile = vw === null ? null : vw < 640;
  const [isLayoutReady, setIsLayoutReady] = useState(false);
 
  const sectionRef = useRef<HTMLElement | null>(null);
@@ -95,9 +97,10 @@ export default function ScrollParallaxGallery({
 
  const isMobileViewport = isMobile ?? false;
 
- // Responsive values
- const frameW = (isMobileViewport ? MOBILE_FRAME_W : FRAME_W) * frameScale;
- const frameH = (isMobileViewport ? MOBILE_FRAME_H : FRAME_H) * frameScale;
+ // Responsive values. The frame is at most 720px and otherwise as wide as the screen allows (28px a side for the dashed
+ // border and a gutter), so it fills a phone and no longer overruns a 744px tablet; the height keeps the 720 x 470 ratio.
+ const frameW = Math.min(FRAME_W * frameScale, (vw ?? FRAME_W) - 56);
+ const frameH = frameW * (FRAME_H / FRAME_W);
  const slideW = frameW;
  const thumbW = isMobileViewport ? MOBILE_THUMB_W : THUMB_W;
  const thumbH = isMobileViewport ? MOBILE_THUMB_H : THUMB_H;
@@ -192,15 +195,21 @@ export default function ScrollParallaxGallery({
  }, [applyPosition, total, lenis, isMobile]);
 
  // Measure the viewport before first paint so mobile refreshes do not flash desktop sizing.
+ // Only a change of width counts: phone browsers fire resize when the address bar collapses (height only), and
+ // blanking the reel on those would leave it invisible, since readiness is restored only when the layout changes.
  useLayoutEffect(() => {
- const checkMobile = () => {
+ let last = -1;
+ const measure = () => {
+ const w = window.innerWidth;
+ if (w === last) return;
+ last = w;
  setIsLayoutReady(false);
- setIsMobile(window.innerWidth < 640);
+ setVw(w);
  };
 
- checkMobile();
- window.addEventListener("resize", checkMobile);
- return () => window.removeEventListener("resize", checkMobile);
+ measure();
+ window.addEventListener("resize", measure);
+ return () => window.removeEventListener("resize", measure);
  }, []);
 
  useEffect(() => {
@@ -214,7 +223,7 @@ export default function ScrollParallaxGallery({
  });
 
  return () => window.cancelAnimationFrame(rafId);
- }, [applyPosition, isMobile]);
+ }, [applyPosition, isMobile, vw]);
 
  return (
  <section
@@ -238,7 +247,7 @@ export default function ScrollParallaxGallery({
  style={{
  bottom: isMobile ? 20 : 36,
  right: isMobile ? 16 : 40,
- color:"#f1f4ea",
+ color: textColor,
  fontSize: isMobile ? 14 : 18,
  fontWeight: 600,
  fontVariantNumeric:"tabular-nums",
@@ -359,18 +368,6 @@ function ThumbStrip({
  thumbGap,
  bgColor,
 }: ThumbStripProps) {
- const [, setIsMobile] = useState(false);
-
- useEffect(() => {
- const checkMobile = () => {
- setIsMobile(window.innerWidth < 640);
- };
-
- checkMobile();
- window.addEventListener("resize", checkMobile);
- return () => window.removeEventListener("resize", checkMobile);
- }, []);
-
  const stripStyle: CSSProperties = {
  position:"absolute",
  top:"50%",
@@ -432,7 +429,7 @@ function SVGDashedBorder({
  height,
  padding = 12,
  strokeWidth = 1,
- color = "rgba(255, 255, 255, 0.5)",
+ color = "rgba(245, 247, 250, 0.5)",
 }: SVGDashedBorderProps) {
  // The mask path ref - this is the solid path we animate to reveal the dashes
  const maskPathRef = useRef<SVGPathElement | null>(null);
@@ -469,6 +466,11 @@ function SVGDashedBorder({
  ease:"linear",
  delay: 0.1,
  });
+
+ // React strict mode runs this twice in dev: without the kill, two tweens drive the same dash offset.
+ return () => {
+ gsap.killTweensOf(maskPath);
+ };
  }, []);
 
  return (

@@ -176,7 +176,7 @@ export const legacy = {
 
 export const cta = {
   title: "The Vijay Tulpule Trophy",
-  body: "Presented on 24 October, straight after the final.",
+  body: "Presented on 24 October, the day of the finals. Time and venue are to be announced.",
   href: "/trophy",
   label: "See the trophy",
 };

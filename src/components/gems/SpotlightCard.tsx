@@ -1,35 +1,24 @@
-"use client";
+import type { ReactNode } from "react";
 
-import * as React from "react";
-
-// BYQ gem: spotlight-glow-cards-01. Motion values verbatim; neon lime toned down to pitch.
+// BYQ gem: spotlight-glow-cards-01, reduced to its lift. The pointer-following glow is gone: it was a radial gradient the
+// brand has no place for (flat tiles only), and globals.css never made it visible on hover anyway. The card still rises on
+// hover and focus, and its entrance and hover lift are in globals.css (.sg-card). Name and props are kept for Tiers.
 export function SpotlightCard({
   children,
   index = 0,
   className = "",
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   index?: number;
   className?: string;
 }) {
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  const onMove = (e: React.PointerEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
-    el.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
-  };
-
   return (
     <div
-      ref={ref}
-      onPointerMove={onMove}
       className={`sg-card group relative overflow-hidden rounded-2xl border ${className}`}
-      style={{ animationDelay: `${0.05 + index * 0.1}s` }}
+      // "backwards", not the stylesheet's "both": once the entrance has played it must let go of transform and opacity, or the
+      // entrance animation and the hover transition both hold the same property.
+      style={{ animationDelay: `${0.05 + index * 0.1}s`, animationFillMode: "backwards" }}
     >
-      <span aria-hidden="true" className="sg-light pointer-events-none absolute inset-0" />
       <div className="relative">{children}</div>
     </div>
   );

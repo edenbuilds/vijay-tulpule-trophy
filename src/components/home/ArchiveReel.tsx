@@ -17,7 +17,7 @@ export function ArchiveReel({ photos }: { photos: Photo[] }) {
       renderItem={(_, i) => {
         const p = photos[i];
         return (
-          <div className="relative h-56 select-none overflow-hidden rounded-xl bg-sage md:h-80" style={{ aspectRatio: `${p.w} / ${p.h}` }}>
+          <div className="relative h-56 select-none overflow-hidden rounded-xl bg-sky-deep md:h-80" style={{ aspectRatio: `${p.w} / ${p.h}` }}>
             <Image src={p.small} alt={p.alt} fill sizes="(min-width: 768px) 30rem, 20rem" draggable={false} className="pointer-events-none object-cover" />
           </div>
         );

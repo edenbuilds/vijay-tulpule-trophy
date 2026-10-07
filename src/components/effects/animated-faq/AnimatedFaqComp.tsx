@@ -207,6 +207,8 @@ export function FAQWrapper({
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    // Only when the row itself has focus: a link inside an open answer must still take Enter, not toggle the row.
+    if (event.target !== event.currentTarget) return;
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       handleToggle();
@@ -279,7 +281,7 @@ export function FAQWrapper({
   return (
     <FAQContext.Provider value={value}>
       <div
-        className={`cursor-pointer ${className}`}
+        className={`cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current ${className}`}
         role="button"
         tabIndex={0}
         aria-expanded={isOpen}
@@ -386,6 +388,8 @@ export function FAQContent({
       ref={contentOuterRef}
       role="region"
       aria-labelledby={buttonId}
+      // A closed answer is only height 0, so its links would stay in the tab order and the reading order without this.
+      inert={!isOpen}
       style={{
         height: isOpen ? "auto" : 0,
         overflow: isOpen ? "visible" : "hidden",

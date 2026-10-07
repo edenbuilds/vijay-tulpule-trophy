@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { TransitionRouter } from "next-transition-router";
+import { Ball } from "@/components/brand/Ball";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,25 +31,8 @@ export function SmoothScroll() {
   return null;
 }
 
-// Red leather cricket ball: straight seam with a stitch row either side, drawn in three-quarter view.
-export function Ball({ className = "" }: { className?: string }) {
-  const id = React.useId();
-  return (
-    <svg viewBox="0 0 64 64" aria-hidden="true" className={className}>
-      <defs>
-        <radialGradient id={id} cx="0.36" cy="0.32" r="0.75">
-          <stop offset="0" stopColor="#c0262e" />
-          <stop offset="1" stopColor="#6e1016" />
-        </radialGradient>
-      </defs>
-      <circle cx="32" cy="32" r="30" fill={`url(#${id})`} />
-      <path d="M24 3 Q42 32 24 61" fill="none" stroke="#4a090d" strokeWidth="1.4" />
-      <path d="M20 4.5 Q37.5 32 20 59.5" fill="none" stroke="#f3e6da" strokeWidth="1.5" strokeDasharray="1.6 2.4" />
-      <path d="M28 2.5 Q46.5 32 28 61.5" fill="none" stroke="#f3e6da" strokeWidth="1.5" strokeDasharray="1.6 2.4" />
-      <ellipse cx="19" cy="17" rx="6" ry="3.5" fill="#fff" opacity="0.14" transform="rotate(-35 19 17)" />
-    </svg>
-  );
-}
+// One ball for the whole site: the brand-kit ball lives in brand/Ball.tsx. Kept exported here so existing imports still work.
+export { Ball };
 
 // Scoreboard band: two rows of display type pushed in opposite directions by scroll.
 export function ScoreTicker({ items }: { items: string[] }) {
@@ -67,7 +51,7 @@ export function ScoreTicker({ items }: { items: string[] }) {
       {[0, 1, 2, 3].flatMap((r) =>
         items.map((t) => (
           <React.Fragment key={`${r}${t}`}>
-            <span className={`display text-6xl md:text-8xl ${outline ? "text-outline" : "text-ink"}`}>{t}</span>
+            <span className={`display text-6xl md:text-8xl ${outline ? "text-outline" : "text-navy"}`}>{t}</span>
             <Ball className="size-8 shrink-0 md:size-12" />
           </React.Fragment>
         )),
@@ -76,14 +60,14 @@ export function ScoreTicker({ items }: { items: string[] }) {
   );
 
   return (
-    <div ref={root} aria-hidden="true" className="flex flex-col gap-3 overflow-hidden bg-paper py-8 md:py-12">
+    <div ref={root} aria-hidden="true" className="flex flex-col gap-3 overflow-hidden bg-snow py-8 md:py-12">
       {row("tk-a", false)}
       {row("tk-b", true)}
     </div>
   );
 }
 
-// Nexus about-section reveal: characters fill with ink one by one as the paragraph scrolls through.
+// Nexus about-section reveal: characters fill in one by one as the paragraph scrolls through.
 export function ScrubText({ children, className = "" }: { children: string; className?: string }) {
   const root = React.useRef<HTMLParagraphElement>(null);
   React.useEffect(() => {
@@ -137,7 +121,7 @@ export function PageSweep({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-pitch" style={{ clipPath: HIDDEN_CLIP }}>
+      <div ref={panel} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-navy" style={{ clipPath: HIDDEN_CLIP }}>
         <Ball className="size-14" />
       </div>
     </TransitionRouter>

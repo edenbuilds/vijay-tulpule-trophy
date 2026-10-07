@@ -67,7 +67,7 @@ export default function MaskTextReveal({
             if (!line) return;
 
             line.style.maskSize = "500% 100%";
-            line.style.maskImage = "linear-gradient(150deg, #e8e8e8 33.3%, rgba(255, 255, 255, 0) 66.6%)";
+            line.style.maskImage = "linear-gradient(150deg, #000 33.3%, transparent 66.6%)";
         };
 
         let unmounted = false;
