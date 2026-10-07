@@ -12,7 +12,7 @@ Hyperiux local stdio MCP was started and its Pro source for `lines-loader` retri
 
 The new home layout leads with the tournament title, dates, city, two useful actions and a real team photograph. Destination links and the eight-day schedule use open rows instead of card stacks. Shared page headings and download/sponsor surfaces use warm paper and square edges. Instagram remains linked as `instagram.com/bacacricket` in the footer.
 
-Verified locally: production build and lint complete with no errors (two pre-existing lint warnings remain); all 13 routes have no horizontal overflow at 390px and 1440px; the 390px menu opens with View Fixtures first and the Tournament submenu exposes Fixtures, Teams, Format and Ceremonies. Visual review completed at 390px and 1440px. Production deployment and live recheck are pending this commit.
+Verified locally: production build and lint complete with no errors (two pre-existing lint warnings remain); all 13 routes have no horizontal overflow at 390px and 1440px; the 390px menu opens with View Fixtures first and the Tournament submenu exposes Fixtures, Teams, Format and Ceremonies. Visual review completed at 390px and 1440px. Team logos reveal on scroll on the home and Teams pages, with reduced-motion support. Production deployment `dpl_DeDdYEPZnYzWbSEeqFWW18Rfa4yS` is READY and aliased to https://baca-cricket.com. The live home was checked at 390px and 1440px, and `/teams` at 390px after the final animation update.
 
 ## Redesign (07-10-2026, commit 43bf2cc, live)
 Whole site rebuilt on the tournament brand kit (logo, palette, High Court illustration, ball, motion stroke, shape; no mockups). Geist headings and Inter body/UI, as specified by the owner.
