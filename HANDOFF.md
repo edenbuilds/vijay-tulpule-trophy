@@ -15,6 +15,11 @@ Rules still in force: "Adv." before every person (Sr. Adv. for Gupte and Patil),
 `next build` clean; 13 routes at 1440 and 390: no overflow, console errors, failed requests or broken images; live home, /teams, team logo and "35 overs" on /format return as expected on both domains.
 NOT verified: wrap audit (`scripts/wrap-audit.js`; the iframe runner hit a cross-origin error, run it per page at 360/390/768/1024/1440), reduced-motion, a full-page eyeball of every route after the final logo polish, PDFs regenerated after the 35-overs change (run `npm run downloads`, commit).
 
+## Layout pass (07-10-2026)
+Desktop navigation now keeps Fixtures, Teams, Format and Trophy visible, with the existing secondary destinations under More; the mobile menu retains every destination. The active indicator uses BYQ Pro's Tab Underline gem, restyled to the tournament's royal blue. The homepage's full-screen pinned photo reveal is now a short draggable archive strip, and the second BACA archive strip is shorter. Homepage copy and factual data are unchanged.
+
+Verified locally: production build, targeted ESLint, homepage at 1440px and 390px with no horizontal overflow, and expanded desktop and mobile menus. The More menu exposes Gallery, About BACA, Sponsors, Downloads, Ceremonies and Poem; Contact remains the header action. MCP servers are registered in the user's `~/.codex/config.toml`: BYQ Supply, Hyperiux and UI Skills. BYQ's live gem catalog and UI Skills guidance were retrieved. The Hyperiux local server connects and returns Pro effect metadata; its large source payload was omitted by the response limit. Codex needs a fresh session to load the updated global MCP configuration.
+
 ## Open items
 - www.baca-cricket.com is not attached to the project (no certificate); add it with a redirect to the apex.
 - Poster says 8 grounds, the sheet lists 14; the site follows the sheet and prints no total.
