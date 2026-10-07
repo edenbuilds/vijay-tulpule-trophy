@@ -20,6 +20,12 @@ Desktop navigation now keeps Fixtures, Teams, Format and Trophy visible, with th
 
 Verified locally: production build, targeted ESLint, homepage at 1440px and 390px with no horizontal overflow, and expanded desktop and mobile menus. The More menu exposes Gallery, About BACA, Sponsors, Downloads, Ceremonies and Poem; Contact remains the header action. Commit `95e2c1b` is live at the apex domain; desktop and phone layout were checked, with no horizontal overflow or broken images. The `www` alias is attached and serves the homepage over HTTPS; it stays on the `www` hostname. MCP servers are registered in the user's `~/.codex/config.toml`: BYQ Supply, Hyperiux and UI Skills. BYQ's live gem catalog and UI Skills guidance were retrieved. The Hyperiux local server connects and returns Pro effect metadata; its large source payload was omitted by the response limit. Codex needs a fresh session to load the updated global MCP configuration.
 
+## Motion pass (07-10-2026)
+
+The homepage hero now reveals the tournament logo with a short left-to-right mask, draws the existing red rule, then brings in the date, location, countdown and links in sequence. The existing brush and shape parallax remains. The reveal uses GSAP already in the site and is skipped when `prefers-reduced-motion` is set. No copy, images or facts changed.
+
+Verified locally: `npm run build` passes; the homepage renders at 1440px and 390px with the logo, date, location, countdown and both links visible. Production deployment and live animation playback are pending.
+
 ## Open items
 - Poster says 8 grounds, the sheet lists 14; the site follows the sheet and prints no total.
 - Punjab is "Punjab and Haryana" (from its logo; sheet says Punjab High Court). 20 Oct "Chereshwar" row treated as Trombay.
@@ -33,5 +39,5 @@ Verified locally: production build, targeted ESLint, homepage at 1440px and 390p
 
 ## Paste-ready prompt
 ```
-Work in ~/vijay-tulpule-trophy. Read HANDOFF.md, then docs/REDESIGN.md. Palette is navy/royal/red on sky and snow, Satoshi only. Data lives in src/lib/teams.ts and src/lib/schedule.ts; add times, groups, captains or match-ups only from organiser sources. Matches are 35 overs, location is "Mumbai and Navi Mumbai". Keep the Adv. prefix, plain copy, no em dashes, no widows or orphans (run wrap-audit at 360/390/768/1024/1440). Task: <paste task>. First: run npm run downloads and commit, run the wrap audit, attach www.baca-cricket.com. Verify on https://baca-cricket.com at desktop and 390px, commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with vercel deploy --prod --yes, update this file.
+Work in ~/vijay-tulpule-trophy. Read HANDOFF.md, then docs/REDESIGN.md. Palette is navy/royal/red on sky and snow, Satoshi only. Data lives in src/lib/teams.ts and src/lib/schedule.ts; add times, groups, captains or match-ups only from organiser sources. Matches are 35 overs, location is "Mumbai and Navi Mumbai". Keep the Adv. prefix, plain copy, no em dashes, no widows or orphans (run wrap-audit at 360/390/768/1024/1440). Motion should stay restrained, use the existing GSAP setup and respect reduced motion. Task: <paste task>. First: run npm run downloads and commit, run the wrap audit, attach www.baca-cricket.com. Verify on https://baca-cricket.com at desktop and 390px, commit to main with GIT_AUTHOR_EMAIL=omkar1sonawane@gmail.com, deploy with vercel deploy --prod --yes, update this file.
 ```

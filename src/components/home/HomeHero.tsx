@@ -24,6 +24,17 @@ export function HomeHero() {
     const el = root.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
+      const intro = gsap.timeline({ defaults: { overwrite: "auto" } });
+      intro
+        .fromTo(
+          ".hero-title",
+          { clipPath: "inset(0 100% 0 0)", scale: 1.025 },
+          { clipPath: "inset(0 0% 0 0)", scale: 1, duration: 1.05, ease: "power3.inOut" },
+          0.12,
+        )
+        .fromTo(".hero-accent", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 0.28)
+        .fromTo(".hero-copy > *", { y: 16, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08, ease: "power2.out" }, 0.48);
+
       gsap.fromTo(
         ".g-drift",
         { yPercent: 0 },
@@ -44,12 +55,12 @@ export function HomeHero() {
         </div>
 
         <div className="mx-auto grid w-full max-w-7xl items-end gap-8 px-4 pb-10 pt-32 md:px-8 md:pb-16 md:pt-48 lg:grid-cols-[55fr_45fr] lg:gap-14 lg:pt-56">
-          <h1 className="rise !leading-none">
+          <h1 className="hero-title !leading-none">
             <Logo priority sizes="(min-width: 1280px) 42rem, (min-width: 1024px) 55vw, 92vw" className="w-full max-w-[34rem] lg:max-w-none" />
           </h1>
 
-          <div className="rise flex flex-col items-start gap-5 lg:pb-6" style={{ animationDelay: "160ms" }}>
-            <span aria-hidden="true" className="h-1 w-12 rounded-full bg-red" />
+          <div className="hero-copy flex flex-col items-start gap-5 lg:pb-6">
+            <span aria-hidden="true" className="hero-accent h-1 w-12 rounded-full bg-red" />
             <p className="display text-4xl md:text-6xl">{TOURNAMENT.span}</p>
             <p className="text-xl font-semibold md:text-2xl">Mumbai and Navi Mumbai</p>
             <p className="max-w-md text-lg text-navy/70">Hosted by the {ORG.name}</p>
