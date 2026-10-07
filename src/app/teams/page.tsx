@@ -1,32 +1,33 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Block, Hero } from "@/components/Sections";
 import { TEAMS } from "@/lib/teams";
-import { nb } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Teams" };
 
-// One list for both widths: a dashed list in one white tile on phones, a four-column grid of logo wells from md.
-// A column is 160px at 768 and 218px at 1024, so the well and the name step down there: "Punjab and Haryana" is tied with nb() and is 220px wide at 24px.
 export default function Teams() {
   return (
     <>
-      <Hero title="Teams" sub="Groups will be announced after the draw." />
-      <Block tone="sky">
-        <div className="rounded-2xl bg-white px-4 md:bg-transparent md:px-0">
-          <ul className="grid md:grid-cols-4 md:gap-x-4 md:gap-y-12 lg:gap-x-6 lg:gap-y-14">
-            {TEAMS.map((t) => (
-              <li key={t.slug} className="flex items-center gap-4 border-b border-dashed border-navy/15 py-3 last:border-0 md:flex-col md:gap-5 md:border-0 md:py-0 md:text-center">
-                <div className="relative size-14 flex-none overflow-hidden rounded-full bg-white ring-1 ring-navy/10 md:size-28 md:ring-0 lg:size-40">
-                  <Image src={t.logo} alt={`${t.name} team logo`} fill sizes="(min-width: 1024px) 160px, (min-width: 768px) 112px, 56px" className="object-contain p-1.5 md:p-3 lg:p-4" />
-                </div>
-                <div>
-                  <p className="display text-xl md:text-base lg:text-xl xl:text-2xl">{nb(t.name)}</p>
-                  <p className="mt-1 text-base text-navy/70">{t.court}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+      <Hero title="Sixteen Teams. One Legal Fraternity." sub="Advocates representing 15 High Courts and the Supreme Court of India will compete in Mumbai in October 2026. The official group allocations will be announced after the tournament draw." />
+      <Block title="Participating Teams" tone="white">
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-7 md:grid-cols-4 md:gap-x-8 md:gap-y-10">
+          {TEAMS.map((team) => (
+            <li key={team.slug} className="flex min-w-0 flex-col items-center text-center">
+              <div className="relative size-20 overflow-hidden rounded-full bg-sky sm:size-24 md:size-28">
+                <Image src={team.logo} alt={`${team.name} team logo`} fill sizes="(min-width: 768px) 112px, 80px" className="object-contain p-3" />
+              </div>
+              <h2 className="mt-3 text-base font-semibold leading-snug sm:text-lg">{team.name}</h2>
+              <p className="mt-1 text-sm leading-relaxed text-navy/65">{team.court}</p>
+            </li>
+          ))}
+        </ul>
+      </Block>
+      <Block title="The Draw Comes Next" tone="sky">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <p className="max-w-2xl text-lg text-navy/75">Groups and matchups will be published after the official tournament draw.</p>
+          <Link href="/fixtures" className="inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">View Fixtures <ArrowRight aria-hidden="true" className="size-4" /></Link>
         </div>
       </Block>
     </>

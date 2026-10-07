@@ -8,12 +8,14 @@ import { photo } from "@/lib/photos";
 const TABS = [
   { key: "all", label: "All" },
   { key: "teams", label: "Teams" },
+  { key: "matches", label: "Matches" },
+  { key: "ceremonies", label: "Ceremonies" },
   { key: "trophies", label: "Trophies" },
   { key: "archive", label: "Archive" },
 ] as const;
 type Tab = (typeof TABS)[number]["key"];
 
-const LABEL: Record<Shot["cat"], string> = { teams: "Teams", trophies: "Trophies", archive: "Archive" };
+const LABEL: Record<Shot["cat"], string> = { teams: "Teams", matches: "Matches", ceremonies: "Ceremonies", trophies: "Trophies", archive: "Archive" };
 
 // A caption is only what photos.ts actually has for the id. It falls back to "Photograph N" when nobody has described the
 // picture, and that fallback is not shown: no names, grounds or years are guessed.
@@ -24,46 +26,21 @@ const CAPTION = new Map<number, string | undefined>(
   }),
 );
 
-type Lenis = { stop(): void; start(): void };
 const ring = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal";
-// The tile is clipped by its own reveal (clip-path), which would cut an outline drawn outside it, and the photo covers an
-// outline drawn on the tile itself, so the ring is drawn on the photo, inside its edge, when the tile has keyboard focus.
-const tileRing = "group-focus-visible:outline-[3px] group-focus-visible:-outline-offset-3 group-focus-visible:outline-royal";
 const ringOnNavy = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
-// Filterable masonry over the supplied photographs. Tiles wipe open as they scroll in (CSS clip-path, nothing else
-// animates the tile); a click opens the full-size photo in a native <dialog> (focus trap, Escape and focus return come
-// with it), with arrow keys to step.
+// Filterable masonry with an accessible native dialog for full-size photographs.
 export function GalleryGrid() {
   const [tab, setTab] = React.useState<Tab>("all");
   const [open, setOpen] = React.useState<number | null>(null);
   const dlg = React.useRef<HTMLDialogElement>(null);
-  const grid = React.useRef<HTMLDivElement>(null);
   const shots = React.useMemo(() => (tab === "all" ? SHOTS : SHOTS.filter((s) => s.cat === tab)), [tab]);
-
-  React.useEffect(() => {
-    const tiles = grid.current?.querySelectorAll<HTMLElement>(".reveal-clip");
-    if (!tiles) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && (e.target.setAttribute("data-in", ""), io.unobserve(e.target))),
-      { rootMargin: "0px 0px -8% 0px" },
-    );
-    tiles.forEach((t) => io.observe(t));
-    return () => io.disconnect();
-  }, [tab]);
-
-  // While the lightbox is up, the page behind must not scroll: Lenis would otherwise keep turning wheel events into
-  // page scroll under the modal.
   const isOpen = open !== null;
   React.useEffect(() => {
     const d = dlg.current;
     if (!d) return;
     if (isOpen && !d.open) d.showModal();
     if (!isOpen && d.open) d.close();
-    if (!isOpen) return;
-    const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
-    lenis?.stop();
-    return () => lenis?.start();
   }, [isOpen]);
 
   const step = React.useCallback((by: number) => setOpen((i) => (i === null ? i : (i + by + shots.length) % shots.length)), [shots.length]);
@@ -72,21 +49,21 @@ export function GalleryGrid() {
 
   return (
     <>
-      <div role="group" aria-label="Photo category" className="mb-8 grid grid-cols-4 gap-2 sm:flex">
+      <div role="group" aria-label="Photo category" className="mb-8 flex flex-wrap gap-2">
         {TABS.map((t) => (
           <button
             key={t.key}
             type="button"
             aria-pressed={tab === t.key}
             onClick={() => setTab(t.key)}
-            className={`press min-h-11 rounded-full px-2 text-sm font-semibold sm:px-5 ${ring} ${tab === t.key ? "bg-navy text-white" : "bg-sky text-navy hover:bg-sky-deep"}`}
+            className={`press min-h-11 rounded-md border px-4 text-sm font-semibold ${ring} ${tab === t.key ? "border-navy bg-navy text-white" : "border-navy/15 bg-white text-navy hover:bg-sky"}`}
           >
             {t.label}
           </button>
         ))}
       </div>
 
-      <div ref={grid} key={tab} className="columns-2 gap-2 lg:columns-3">
+      <div key={tab} className="columns-2 gap-3 lg:columns-3">
         {shots.map((s, i) => {
           const cap = CAPTION.get(s.id);
           return (
@@ -95,11 +72,11 @@ export function GalleryGrid() {
               type="button"
               onClick={() => setOpen(i)}
               aria-label={cap ? `Open photograph: ${cap}` : `Open photograph ${i + 1} of ${shots.length}`}
-              className={`reveal-clip group relative mb-2 block w-full overflow-hidden rounded-xl bg-sky-deep focus-visible:outline-none`}
-              style={{ aspectRatio: `${s.w} / ${s.h}`, transitionDelay: `${(i % 3) * 90}ms` }}
+              className="group relative mb-3 block w-full overflow-hidden rounded-lg bg-sky-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal"
+              style={{ aspectRatio: `${s.w} / ${s.h}` }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized 640px thumbnails from public/gallery */}
-              <img src={`/gallery/${s.id}-s.jpg`} alt="" loading="lazy" decoding="async" className={`absolute inset-0 size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${tileRing}`} />
+              <img src={`/gallery/${s.id}-s.jpg`} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02] motion-reduce:transition-none" />
             </button>
           );
         })}
@@ -107,7 +84,6 @@ export function GalleryGrid() {
 
       <dialog
         ref={dlg}
-        data-lenis-prevent
         onClose={() => setOpen(null)}
         onKeyDown={(e) => (e.key === "ArrowRight" ? step(1) : e.key === "ArrowLeft" ? step(-1) : undefined)}
         onClick={(e) => e.target === dlg.current && setOpen(null)}

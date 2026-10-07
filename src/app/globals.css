@@ -12,8 +12,8 @@
   --color-sky-deep: #cfe0fa;
   --color-snow: #f5f7fa;
   --color-white: #ffffff;
-  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -30,24 +30,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Satoshi is the only face. Headings are heavy: 900 for titles, 800 for h3 and for longer lines (.display-long). */
+/* Geist carries headings; Inter handles body and controls. */
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 750;
   text-wrap: balance;
   letter-spacing: -0.03em;
 }
 
 h3 {
-  font-weight: 800;
-}
-
-/* No single word alone on a last line. text-wrap is inherited, so this covers every block, not just headings.
-   "pretty" was tried first and Chrome still left lone words on three-line paragraphs; balance holds up to six lines. */
-body {
-  text-wrap: balance;
+  font-weight: 700;
 }
 
 .num {
@@ -126,14 +120,14 @@ body {
   .sg-card:hover, .sg-card:focus-within { transform: translateY(-0.25rem); border-color: rgb(11 42 86 / 0.22); }
 }
 
-/* Display type: heavy tight Satoshi. Short headings may be uppercase (the logo wordmark is). Longer lines take .display-long (800). */
+/* Display type: Geist with restrained weight and tracking. */
 .display {
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 750;
   letter-spacing: -0.03em;
   line-height: 1;
 }
-.display-long { font-weight: 800; }
+.display-long { font-weight: 650; }
 /* Signature rule: 1px dashed, 16% of the text colour, so the same class reads on a white tile (navy) and on a navy band (white). */
 .rule { border-top: 1px dashed color-mix(in srgb, currentColor 16%, transparent); }
 .text-outline {
@@ -180,7 +174,7 @@ html:not(.js) .preloader, .no-preload .preloader { display: none; }
   .u-grow::after { transition: none; }
 }
 
-/* Satoshi has no Devanagari; the poem on /about uses Noto Sans Devanagari (loaded in layout.tsx). */
+/* The Hindi poem uses Noto Sans Devanagari (loaded in layout.tsx). */
 .deva { font-family: var(--font-deva), var(--font-sans); }
 
 /* Gallery tiles wipe open from the top when they scroll in (GalleryGrid sets data-in). With no script they stay open. */

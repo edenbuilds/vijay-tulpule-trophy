@@ -5,8 +5,27 @@ import { DOWNLOADS } from "@/lib/site";
 const COLS: Record<number, string> = { 1: "max-w-md", 2: "sm:grid-cols-2", 3: "sm:grid-cols-3", 4: "sm:grid-cols-2 lg:grid-cols-4" };
 
 // Phones get a dashed list of tap rows; sm and up keep the tiles (the arrow drops on hover like a file into a tray).
-export function Downloads({ only }: { only?: string[] }) {
+export function Downloads({ only, compact = false }: { only?: string[]; compact?: boolean }) {
   const items = only ? DOWNLOADS.filter((d) => only.includes(d.label)) : DOWNLOADS;
+  if (compact) {
+    return (
+      <ul className="divide-y divide-navy/10 border-y border-navy/10">
+        {items.map((d) => (
+          <li key={d.href}>
+            <a href={d.href} download className="press flex min-h-14 items-center justify-between gap-4 py-3">
+              <span className="min-w-0">
+                <span className="block font-semibold">{d.label}</span>
+                <span className="block text-sm text-navy/65">{d.line}</span>
+              </span>
+              <span className="num flex shrink-0 items-center gap-2 text-sm font-semibold text-royal">
+                {d.kind}<ArrowDown aria-hidden="true" className="size-4" strokeWidth={1.8} />
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    );
+  }
   return (
     <>
       <ul className="rule sm:hidden">

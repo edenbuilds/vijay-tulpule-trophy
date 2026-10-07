@@ -1,67 +1,56 @@
 import Link from "next/link";
 import { ArrowUpRight, Camera, Mail, MapPin, Phone } from "lucide-react";
-import { CONTACTS, FOOTER_LINKS, HOSTS_LINE, ORG, tie } from "@/lib/site";
+import { CONTACTS, HOSTS_LINE, ORG } from "@/lib/site";
 import { HostsStrip } from "@/components/Hosts";
-import { Ball } from "@/components/brand/Ball";
 import { Logo } from "@/components/brand/Logo";
-import { Stroke } from "@/components/brand/Stroke";
 
-// Navy tile: reversed logo, contact and links in white, the five host marks on one white tile (their artwork is drawn for
-// light grounds), one brand stroke clipped at the top right edge with the ball leading it. Dashed rules in white at 16%.
+const GROUPS = [
+  { title: "Tournament", links: [["Fixtures", "/fixtures"], ["Teams", "/teams"], ["Format", "/format"], ["Ceremonies", "/ceremonies"]] },
+  { title: "BACA", links: [["About BACA", "/about"], ["The Trophy", "/trophy"], ["Gallery", "/gallery"], ["Poem", "/poem"]] },
+  { title: "Information", links: [["Sponsors", "/sponsors"], ["Downloads", "/downloads"], ["Contact", "/contact"]] },
+];
+
 export function Footer() {
   return (
-    <footer className="p-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
-      <div className="relative isolate overflow-hidden rounded-2xl bg-navy-deep px-4 pb-10 pt-12 text-white md:px-8 md:pt-16">
-        <div aria-hidden="true" className="pointer-events-none absolute right-1 top-5 -z-10 w-[13rem] md:right-2 md:top-8 md:w-[34rem]">
-          <Stroke className="w-full" />
-          <Ball className="absolute right-[1%] top-[-4%] size-10 md:size-[4.5rem]" />
+    <footer className="bg-navy px-4 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-12 text-white sm:px-8 md:pt-16 lg:px-12">
+      <div className="mx-auto max-w-[1280px]">
+        <div className="flex flex-wrap items-end justify-between gap-5 border-b border-white/20 pb-7">
+          <div>
+            <Link href="/" aria-label="BACA home" className="inline-flex min-h-11 items-center">
+              <Logo variant="reversed" className="w-40" sizes="160px" />
+            </Link>
+            <p className="mt-2 text-sm text-white/65">{ORG.name}</p>
+          </div>
+          <a href="https://www.instagram.com/bacacricket/" target="_blank" rel="noopener noreferrer" className="flex min-h-11 w-fit items-center gap-2 text-sm font-medium text-white/80 hover:text-white">
+            <Camera aria-hidden="true" className="size-4" strokeWidth={1.7} /> Instagram <ArrowUpRight aria-hidden="true" className="size-4" />
+          </a>
         </div>
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col gap-5 pb-10 md:flex-row md:items-end md:justify-between md:pb-12">
-            <div>
-              <Logo variant="reversed" className="w-44 md:w-72" sizes="(min-width: 768px) 288px, 176px" />
-              <p className="mt-3 text-lg text-white/70">{ORG.name}</p>
-            </div>
-            <a
-              href="https://www.instagram.com/bacacricket/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex min-h-11 w-fit items-center gap-2 font-semibold text-white transition-colors hover:text-sky"
-            >
-              <Camera aria-hidden="true" className="size-5" strokeWidth={1.7} />
-              <span className="u-grow">Instagram</span>
-              <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
-          </div>
-          <div className="rule" />
-          <div className="grid gap-10 py-12 md:grid-cols-[1fr_1fr]">
-            <address className="flex flex-col gap-3 not-italic text-white/75">
-              <span className="flex gap-3"><MapPin aria-hidden="true" className="mt-0.5 size-5 flex-none text-sky" strokeWidth={1.6} />{ORG.address}</span>
-              <a className="flex min-h-11 w-fit items-center gap-3 transition-colors hover:text-white" href={`mailto:${ORG.email}`}><Mail aria-hidden="true" className="mt-0.5 size-5 flex-none text-sky" strokeWidth={1.6} /><span className="u-grow">{ORG.email}</span></a>
-              {CONTACTS.map((c) => (
-                <a key={c.tel} className="num flex min-h-11 w-fit items-center gap-3 transition-colors hover:text-white" href={`tel:${c.tel}`}><Phone aria-hidden="true" className="mt-0.5 size-5 flex-none text-sky" strokeWidth={1.6} /><span className="u-grow">{c.name}, <span className="whitespace-nowrap">{c.phone}</span></span></a>
-              ))}
-            </address>
-            <ul className="grid grid-cols-2 gap-x-8 gap-y-1 sm:grid-cols-3">
-              {FOOTER_LINKS.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="flex min-h-11 items-center font-medium text-white transition-colors hover:text-sky">
-                    <span className="u-grow">{tie(l.label)}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rule" />
-          <div className="flex flex-col gap-6 py-8 lg:flex-row lg:items-center lg:justify-between">
-            <div className="w-fit rounded-2xl bg-white p-3 md:p-4">
-              <HostsStrip />
-            </div>
-            <p className="max-w-md text-white/75 lg:text-right">{HOSTS_LINE}</p>
-          </div>
-          <div className="rule" />
-          <p className="num pt-8 text-sm text-white/65">{ORG.trust}</p>
+
+        <div className="grid gap-8 border-b border-white/20 py-9 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {GROUPS.map((group) => (
+            <nav key={group.title} aria-label={group.title}>
+              <h2 className="text-sm font-semibold text-white/60">{group.title}</h2>
+              <ul className="mt-2">
+                {group.links.map(([label, href]) => (
+                  <li key={href}><Link href={href} className="flex min-h-10 items-center text-sm text-white/85 underline-offset-4 hover:text-white hover:underline">{label}</Link></li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+
+          <address className="not-italic">
+            <h2 className="text-sm font-semibold text-white/60">Contact</h2>
+            <p className="mt-2 flex gap-2 text-sm leading-relaxed text-white/85"><MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-sky" />{ORG.address}</p>
+            <a href={`mailto:${ORG.email}`} className="mt-2 flex min-h-10 items-center gap-2 text-sm text-white/85 hover:text-white"><Mail aria-hidden="true" className="size-4 shrink-0 text-sky" />{ORG.email}</a>
+            <a href={ORG.phoneHref} className="flex min-h-10 items-center gap-2 text-sm text-white/85 hover:text-white"><Phone aria-hidden="true" className="size-4 shrink-0 text-sky" />{CONTACTS[0].name} · {CONTACTS[0].phone}</a>
+          </address>
         </div>
+
+        <div className="grid gap-5 border-b border-white/20 py-7 md:grid-cols-[auto_1fr] md:items-center md:gap-8">
+          <div className="w-fit rounded-lg bg-white p-2"><HostsStrip /></div>
+          <p className="max-w-2xl text-sm leading-relaxed text-white/75">{HOSTS_LINE}</p>
+        </div>
+        <p className="num pt-6 text-xs text-white/60">{ORG.trust}</p>
       </div>
     </footer>
   );

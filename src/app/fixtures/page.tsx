@@ -13,8 +13,8 @@ const dayList = (days: { short: string }[]) => `${days.map((d) => d.short.split(
 export default function Fixtures() {
   return (
     <>
-      <Hero title="Fixtures" sub="Match-ups will be published after the draw." />
-      <Block title="Schedule" tone="white">
+      <Hero title="Fixtures" sub="Dates, grounds and the tournament schedule across Mumbai and Navi Mumbai." />
+      <Block title="Eight days of tournament cricket" tone="white">
         <FixtureTabs />
       </Block>
       <Block title="Grounds" tone="navy">

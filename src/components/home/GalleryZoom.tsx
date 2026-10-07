@@ -1,49 +1,30 @@
-"use client";
-
+import Link from "next/link";
 import Image from "next/image";
-import DraggableMarqueeComp from "@/components/effects/draggable-marquee/DraggableMarqueeComp";
-import { MagneticButton } from "@/components/gems/MagneticButton";
+import { ArrowRight } from "lucide-react";
 import type { Photo } from "@/lib/photos";
 
-// The archive stays available as supporting context. A compact, user-draggable strip keeps the tournament's teams,
-// schedule and trophy in the foreground instead of turning the archive into a full-screen interlude.
 export function GalleryZoom({ photos }: { photos: Photo[] }) {
+  const picks = photos.slice(0, 6);
   return (
-    <section className="mx-2 my-12 overflow-hidden rounded-2xl bg-white py-12 md:my-20 md:py-16">
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 md:flex-row md:items-end md:px-8">
-        <div>
-          <h2 className="display uppercase text-4xl md:text-6xl">Gallery</h2>
-          <p className="mt-4 max-w-md text-lg text-navy/70">A look back through BACA’s archive and past tournaments.</p>
+    <section aria-labelledby="gallery-home-title" className="bg-sky px-4 py-14 sm:px-8 md:py-20 lg:px-12">
+      <div className="mx-auto max-w-[1280px]">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <div>
+            <h2 id="gallery-home-title" className="display text-3xl leading-tight sm:text-4xl md:text-5xl">The Matches End. The Memories Stay.</h2>
+            <p className="mt-3 max-w-2xl text-lg text-navy/70">Explore photographs of teams, tournaments, ceremonies and moments from the history of Advocates’ cricket.</p>
+          </div>
+          <Link href="/gallery" className="inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">
+            Explore The Gallery <ArrowRight aria-hidden="true" className="size-4" />
+          </Link>
         </div>
-        <MagneticButton href="/gallery">Open the gallery</MagneticButton>
+        <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+          {picks.map((photo, index) => (
+            <Link key={photo.id} href="/gallery" aria-label={`Explore the gallery: ${photo.alt}`} className={`group relative block overflow-hidden rounded-lg bg-sky-deep ${index === 0 || index === 5 ? "aspect-[4/3]" : "aspect-[3/2]"}`}>
+              <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.025] motion-reduce:transition-none" />
+            </Link>
+          ))}
+        </div>
       </div>
-
-      <DraggableMarqueeComp
-        items={photos.map((photo) => ({ id: photo.id }))}
-        speed={0.35}
-        repeatCount={2}
-        gapClassName="gap-3"
-        className="mt-8 cursor-grab py-2 active:cursor-grabbing md:mt-10"
-        pauseOnHover
-        renderItem={(_, i) => {
-          const photo = photos[i];
-          return (
-            <div
-              className="relative h-32 w-48 select-none overflow-hidden rounded-xl bg-sky-deep md:h-44 md:w-64"
-              style={{ aspectRatio: `${photo.w} / ${photo.h}` }}
-            >
-              <Image
-                src={photo.small}
-                alt={photo.alt}
-                fill
-                sizes="(min-width: 768px) 16rem, 12rem"
-                draggable={false}
-                className="pointer-events-none object-cover"
-              />
-            </div>
-          );
-        }}
-      />
     </section>
   );
 }

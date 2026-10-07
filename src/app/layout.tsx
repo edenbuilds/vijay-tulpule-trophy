@@ -1,15 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_Devanagari } from "next/font/google";
-import localFont from "next/font/local";
+import { Geist, Inter, Noto_Sans_Devanagari } from "next/font/google";
 import { Footer } from "@/components/Footer";
-import { PageSweep, SmoothScroll } from "@/components/Motion";
-import { Preloader } from "@/components/gems/Preloader";
 import { Nav } from "@/components/Nav";
-import { NewsStrip } from "@/components/NewsStrip";
 import "./globals.css";
 
-// The whole site runs on Satoshi, kept from the first build (Fontshare free licence, fonts/FFL.txt). Weights 300 to 900; headings are 900.
-const satoshi = localFont({ variable: "--font-satoshi", src: "./fonts/Satoshi-Variable.woff2", weight: "300 900" });
+// The current tournament brief specifies Geist for headings and Inter for body and interface text.
+const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
 // Hindi poem on /about. Satoshi has no Devanagari, so the poem takes this one; it loads only where used.
 const devanagari = Noto_Sans_Devanagari({ variable: "--font-deva", subsets: ["devanagari"], weight: ["400", "500", "600"], display: "swap" });
@@ -25,19 +22,11 @@ export const viewport: Viewport = { themeColor: "#F5F7FA" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${satoshi.variable} ${devanagari.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: "(function(c){c.add('js');try{c.add(sessionStorage.getItem('vtt-loaded')?'no-preload':'preloading')}catch(e){c.add('no-preload')}})(document.documentElement.classList)" }} />
-      </head>
+    <html lang="en-IN" className={`${geist.variable} ${inter.variable} ${devanagari.variable}`} suppressHydrationWarning>
       <body>
-        <Preloader />
-        <SmoothScroll />
-        <PageSweep>
-          <Nav />
-          <NewsStrip />
-          <main>{children}</main>
-          <Footer />
-        </PageSweep>
+        <Nav />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

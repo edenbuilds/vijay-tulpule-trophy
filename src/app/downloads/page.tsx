@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Downloads" };
 export default function DownloadsPage() {
   return (
     <>
-      <Hero title="Downloads" sub="The fixtures and the sponsorship brief as PDFs, and every match day for your calendar." />
+      <Hero title="Tournament Resources" sub="Download fixtures, the tournament calendar, sponsorship information and BACA brand assets." />
       <Block tone="white">
         <Downloads />
       </Block>
