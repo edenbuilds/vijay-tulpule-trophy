@@ -24,7 +24,7 @@ Verified locally: production build, targeted ESLint, homepage at 1440px and 390p
 
 The hero now leads with the motto, with the tournament lockup as the visual anchor and event details beside it. Four homepage destination cards stack on desktop; the sixteen team marks gather from a shallow tilted stack into their grid, with a phone cascade. Both use existing GSAP, respond to reduced motion, and leave phone cards in a readable layout. Homepage text describes the tournament directly; archive photos stay secondary. Added the BACA Instagram link and refreshed all 16 team marks from the supplied 1024px archive, preserving slugs and ordering.
 
-Verified locally: `npm run build` passes. Local desktop browser shows the updated hero, section cards, team marks and Instagram link. Mobile viewport and production deployment still need verification.
+Verified locally: `npm run build` passes. Local desktop browser and live homepage show the updated hero, section cards, team marks and Instagram link. Production deploy `dpl_FnVdaU6fvQhNEAsPahtsei97sTKv` is READY at https://baca-cricket.com. Mobile viewport interaction still needs direct verification.
 
 ## Open items
 - Poster says 8 grounds, the sheet lists 14; the site follows the sheet and prints no total.
