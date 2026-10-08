@@ -1,12 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Inter, Noto_Sans_Devanagari } from "next/font/google";
+import { Archivo, Noto_Sans_Devanagari } from "next/font/google";
+import localFont from "next/font/local";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import "./globals.css";
 
-// The current tournament brief specifies Geist for headings and Inter for body and interface text.
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+// Display: Archivo with its width axis, set condensed and heavy like a scoreboard (08-10-2026: owner asked for stronger type).
+// Body: Satoshi, the site's own font (docs/REDESIGN.md section 0: "retain our website's font").
+const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], axes: ["wdth"], display: "swap" });
+const satoshi = localFont({ variable: "--font-satoshi", src: "./fonts/Satoshi-Variable.woff2", weight: "300 900", display: "swap" });
 
 // Hindi poem on /about. Satoshi has no Devanagari, so the poem takes this one; it loads only where used.
 const devanagari = Noto_Sans_Devanagari({ variable: "--font-deva", subsets: ["devanagari"], weight: ["400", "500", "600"], display: "swap" });
@@ -22,7 +24,7 @@ export const viewport: Viewport = { themeColor: "#F5F7FA" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${geist.variable} ${inter.variable} ${devanagari.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${archivo.variable} ${satoshi.variable} ${devanagari.variable}`} suppressHydrationWarning>
       <body>
         <Nav />
         <main>{children}</main>

@@ -12,7 +12,7 @@ export function HomeSchedule() {
   const day = SCHEDULE[selected];
   const title = selected === 0 ? "Opening ceremony" : day.title === "Matches" ? "Tournament matches" : day.title;
   return <section aria-labelledby="schedule-home-title" className="match-week">
-    <div className="match-week-heading"><div><p>17–24 October 2026</p><h2 id="schedule-home-title" className="display">THE MATCH WEEK.</h2></div><Link href="/fixtures">Full fixtures <ArrowUpRight aria-hidden="true" /></Link></div>
+    <div className="match-week-heading"><div><p>17–24 October 2026</p><h2 id="schedule-home-title" className="display">Match week</h2></div><Link href="/fixtures">Full fixtures <ArrowUpRight aria-hidden="true" /></Link></div>
     <div role="tablist" aria-label="Tournament days" className="match-days">{SCHEDULE.map((item, index) => <button key={item.date} ref={el => { buttons.current[index] = el; }} type="button" role="tab" aria-selected={selected === index} aria-controls="match-day-panel" id={`match-day-${index}`} tabIndex={selected === index ? 0 : -1} onClick={() => setSelected(index)} onKeyDown={e => {
       let next = index;
       if (e.key === "ArrowRight") next = (index + 1) % SCHEDULE.length;

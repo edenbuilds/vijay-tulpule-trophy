@@ -1,30 +1,40 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Logo } from "@/components/brand/Logo";
+import { Ball } from "@/components/brand/Ball";
 import { Countdown } from "@/components/Countdown";
-import { EVENT } from "@/lib/site";
 import { PH } from "@/lib/photos";
+import { TEAMS } from "@/lib/teams";
 
+// Full-bleed archive photo, the tournament name as the headline, then the team names rolling past.
+// Motion is CSS only (entrance, slow zoom, scroll parallax, marquee) so it runs off the main thread; all of it stops under reduced motion.
 export function HomeHero() {
+  const names = TEAMS.map((t) => t.name);
   return (
-    <section className="match-hero" aria-labelledby="tournament-title">
-      <div className="match-hero-top"><span>Mumbai & Navi Mumbai</span><span>17–24 October 2026</span></div>
-      <div className="match-hero-grid">
-        <div className="match-hero-copy">
-          <p className="match-edition">38th All India Advocates’ Cricket Tournament</p>
-          <h1 id="tournament-title" className="match-headline"><span>MUMBAI.</span><span>IT’S GAME</span><span className="match-outline">TIME.</span></h1>
-          <p className="match-intro">Eight days of cricket. Sixteen teams.<br />The Vijay Tulpule Trophy.</p>
-          <div className="match-actions"><Link href="/fixtures" className="match-cta">View fixtures <ArrowUpRight aria-hidden="true" /></Link><Link href="/teams" className="match-secondary">Meet the teams <ArrowUpRight aria-hidden="true" /></Link></div>
-        </div>
-        <div className="match-visual">
-          <Image src={PH.format.src} alt={PH.format.alt} fill priority sizes="(min-width: 900px) 52vw, 100vw" className="match-photo" />
-          <div className="match-logo"><Logo priority sizes="(min-width: 900px) 200px, 125px" /></div>
-          <span className="match-photo-label">From the BACA archives</span>
-          <div className="match-count"><Countdown className="display num" /><span>17–24 October 2026</span></div>
+    <section className="hero" aria-labelledby="tournament-title">
+      <div className="hero-media" aria-hidden="true">
+        <Image src={PH.format.src} alt="" fill priority sizes="100vw" className="hero-photo" />
+      </div>
+      <div className="hero-inner">
+        <p className="hero-kicker hero-in" style={{ "--d": "0ms" } as React.CSSProperties}>Mumbai 2026 · 17–24 October</p>
+        <h1 id="tournament-title" className="hero-title">
+          <span className="hero-line"><span style={{ "--d": "60ms" } as React.CSSProperties}>38th All India</span></span>
+          <span className="hero-line"><span style={{ "--d": "140ms" } as React.CSSProperties}>Advocates’</span></span>
+          <span className="hero-line"><span style={{ "--d": "220ms" } as React.CSSProperties}>Cricket <span className="hero-ball-slot">Tournament<Ball className="hero-ball" /></span></span></span>
+        </h1>
+        <div className="hero-foot hero-in" style={{ "--d": "380ms" } as React.CSSProperties}>
+          <p className="hero-lede">Sixteen teams of advocates from 15 High Courts and the Supreme Court of India play for The Vijay Tulpule Trophy in Mumbai and Navi Mumbai.</p>
+          <div className="hero-actions">
+            <Link href="/fixtures" className="btn-red press">View fixtures <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
+            <Link href="/teams" className="btn-ghost press">The teams <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
+          </div>
+          <div className="hero-count"><Countdown className="hero-count-num num" /><span>Hosted by the Bombay Advocates’ Cricket Association</span></div>
         </div>
       </div>
-      <div className="match-scoreline"><p><strong>16</strong> teams</p><p><strong>08</strong> days</p><p><strong>{EVENT.overs}</strong> overs per side</p><p className="match-host">Hosted by the<br /><strong>Bombay Advocates’ Cricket Association</strong></p></div>
+      <p className="hero-credit">Photograph: BACA archive</p>
+      <div className="hero-roll" aria-hidden="true">
+        <div className="hero-roll-track">{[...names, ...names].map((n, i) => <span key={i}>{n}</span>)}</div>
+      </div>
     </section>
   );
 }
