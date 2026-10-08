@@ -7,6 +7,7 @@ import { HomeSchedule } from "@/components/home/HomeSchedule";
 import { Converge } from "@/components/home/Converge";
 import { GalleryZoom } from "@/components/home/GalleryZoom";
 import { Faq } from "@/components/home/Faq";
+import PerspectiveTextReveal from "@/components/effects/perspective-text-reveal";
 import { Downloads } from "@/components/Downloads";
 import { MagneticButton } from "@/components/gems/MagneticButton";
 import { Stanza } from "@/components/Poem";
@@ -39,7 +40,7 @@ export default function Home() {
             <figcaption className="mt-3 text-sm text-white/65">The late Adv. Vijay Tulpule</figcaption>
           </figure>
           <div>
-            <h2 id="trophy-home-title" className="display-xl max-w-[12ch]">The Vijay Tulpule Trophy</h2>
+            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="trophy-home-title" className="display-xl max-w-[12ch]">The Vijay Tulpule Trophy</h2></PerspectiveTextReveal>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">
               The winning team receives the trophy, named for the late Adv. Vijay Tulpule. He was a Bombay criminal lawyer, former Government Pleader and Public Prosecutor, and a Bombay Ranji Trophy probable.
             </p>
@@ -57,7 +58,7 @@ export default function Home() {
             <Image src={PH.court.src} alt={PH.court.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>
-            <h2 id="history-home-title" className="display-xl">Since {HISTORY.since}</h2>
+            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="history-home-title" className="display-xl">Since {HISTORY.since}</h2></PerspectiveTextReveal>
             <p className="mt-5 text-lg leading-relaxed text-navy/75">The All India Advocates’ Cricket Tournament has brought members of India’s legal fraternity together through cricket since 1989. A different High Court hosts each edition, giving advocates from across the country the chance to compete, reconnect and build friendships beyond the courtroom.</p>
             <p className="mt-3 text-lg leading-relaxed text-navy/75">Mumbai previously hosted the tournament in 1993 and 2005. In 2026, it returns once again.</p>
             <Link href="/about" className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">
@@ -72,7 +73,7 @@ export default function Home() {
       <section aria-labelledby="poem-home-title" className="px-4 py-14 sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto grid max-w-[1280px] items-center gap-8 md:grid-cols-2 md:gap-14">
           <div>
-            <h2 id="poem-home-title" className="display-xl">Cricket and the court</h2>
+            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="poem-home-title" className="display-xl">Cricket and the court</h2></PerspectiveTextReveal>
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-navy/75">A Hindi poem by Adv. Gurudas Sanjeev Gorwadkar on the game and the profession, shared by BACA.</p>
             <Link href="/poem" className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">
               Read the poem <ArrowRight aria-hidden="true" className="size-4" />
@@ -85,7 +86,7 @@ export default function Home() {
       <section aria-labelledby="sponsors-home-title" className="bg-sky px-4 py-14 sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-7 md:flex-row md:items-end">
           <div className="max-w-3xl">
-            <h2 id="sponsors-home-title" className="display-xl">Sponsorship</h2>
+            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="sponsors-home-title" className="display-xl">Sponsorship</h2></PerspectiveTextReveal>
             <p className="mt-4 text-lg leading-relaxed text-navy/75">Branding, ground and event partnerships for the tournament.</p>
           </div>
           <div className="shrink-0">
@@ -121,10 +122,10 @@ export default function Home() {
 
       <section className="px-3 py-3 sm:px-5">
         <div className="relative mx-auto flex min-h-[22rem] max-w-[1440px] items-end overflow-hidden rounded-2xl bg-navy px-5 py-9 text-white sm:px-9 md:min-h-[27rem] md:px-12 md:py-12">
-          <Image src={PH.cheer.src} alt={PH.cheer.alt} fill sizes="100vw" className="object-cover object-[50%_30%]" />
+          <Image src={PH.cheer.src} alt={PH.cheer.alt} fill sizes="100vw" className="cta-photo object-cover object-[50%_30%]" />
           <div aria-hidden="true" className="absolute inset-0 bg-navy/70" />
           <div className="relative z-10 max-w-3xl">
-            <h2 className="display-xl">Mumbai, 17–24 October</h2>
+            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 className="display-xl">Mumbai, 17–24 October</h2></PerspectiveTextReveal>
             <div className="mt-6 flex flex-wrap gap-3">
               <MagneticButton href="/fixtures" tone="onDark">View Fixtures</MagneticButton>
               <MagneticButton href="/contact" tone="outlineOnDark">Contact BACA</MagneticButton>

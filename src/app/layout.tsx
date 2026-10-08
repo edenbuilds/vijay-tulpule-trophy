@@ -3,6 +3,7 @@ import { Archivo, Noto_Sans_Devanagari } from "next/font/google";
 import localFont from "next/font/local";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
+import { Stinger } from "@/components/Stinger";
 import "./globals.css";
 
 // Display: Archivo with its width axis, set condensed and heavy like a scoreboard (08-10-2026: owner asked for stronger type).
@@ -25,7 +26,11 @@ export const viewport: Viewport = { themeColor: "#F5F7FA" };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-IN" className={`${archivo.variable} ${satoshi.variable} ${devanagari.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `try{sessionStorage.getItem("baca-stinger")?document.documentElement.classList.add("stinger-seen"):sessionStorage.setItem("baca-stinger","1")}catch(e){}` }} />
+      </head>
       <body>
+        <Stinger />
         <Nav />
         <main>{children}</main>
         <Footer />

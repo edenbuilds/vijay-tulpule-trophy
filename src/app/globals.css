@@ -324,3 +324,78 @@ html:not(.js) .preloader, .no-preload .preloader { display: none; }
   .wall-row { animation: none; width: auto; flex-wrap: wrap; justify-content: center; row-gap: 10px; padding: 0 20px; }
   .wall-row > li[aria-hidden] { display: none; }
 }
+
+/* 08-10-2026 second pass: telecast hero, replay stinger, animated match week, parallax footer. */
+.tv { background: radial-gradient(120% 90% at 50% 0%, #10357f 0%, var(--color-navy-deep) 60%); }
+.tv-scene { position: absolute; inset: 0; overflow: hidden; }
+.tv-pitch { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 100%; animation: tv-push 16s var(--ease-snap) both; }
+.tv-light { position: absolute; top: -10%; width: 46%; height: 70%; background: radial-gradient(closest-side, #ffffff55, transparent); filter: blur(10px); animation: tv-flood 1.6s steps(1) .2s both, tv-hum 5s ease-in-out 2s infinite alternate; }
+.tv-light-l { left: -12%; } .tv-light-r { right: -12%; animation-delay: .45s, 2.4s; }
+.tv-ball { position: absolute; left: 50%; top: 36%; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff6b78, var(--color-red) 55%, #8f0d19); box-shadow: 0 0 24px #e21b2d88; animation: tv-delivery 2.6s cubic-bezier(.5,0,.75,.4) 1s infinite; }
+.tv-scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #ffffff06 0 2px, transparent 2px 4px); pointer-events: none; }
+.tv-corner { position: absolute; z-index: 2; top: 22px; right: 26px; width: clamp(110px, 15vw, 220px); }
+.tv .hero-inner { padding-bottom: 28px; }
+.tv .hero-actions { margin-top: 30px; }
+.tv-bug { position: relative; z-index: 2; display: flex; align-items: stretch; margin: 0 40px 18px; background: #fff; color: var(--color-navy); border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px #0006; }
+.tv-bug-tag { display: flex; align-items: center; padding: 0 18px; background: var(--color-navy); color: #fff; font-family: var(--font-display); font-weight: 900; font-stretch: 70%; font-size: 20px; text-transform: uppercase; white-space: nowrap; }
+.tv-bug-main { flex: 1; padding: 12px 18px; font-weight: 600; font-size: 15px; display: flex; align-items: center; }
+.tv-bug-count { display: flex; align-items: center; padding: 0 20px; background: var(--color-red); color: #fff; font-family: var(--font-display); font-weight: 900; font-stretch: 70%; font-size: 22px; text-transform: uppercase; white-space: nowrap; }
+@keyframes tv-push { from { transform: scale(1.25) translateY(4%); } }
+@keyframes tv-flood { 0% { opacity: 0; } 30% { opacity: 1; } 40% { opacity: .3; } 55% { opacity: 1; } }
+@keyframes tv-hum { to { opacity: .7; } }
+@keyframes tv-delivery { 0% { transform: translateY(0) scale(.35); opacity: 0; } 8% { opacity: 1; } 55% { transform: translateY(32vh) scale(.9); } 62% { transform: translateY(30vh) scale(1); } 100% { transform: translateY(70vh) scale(2.6); opacity: 0; } }
+@media (max-width: 899px) {
+  .tv-corner { top: 14px; right: 14px; }
+  .tv-bug { margin: 0 12px 12px; flex-wrap: wrap; }
+  .tv-bug-tag { padding: 8px 12px; font-size: 16px; }
+  .tv-bug-main { flex-basis: 100%; order: 3; font-size: 14px; padding: 10px 12px; }
+  .tv-bug-count { padding: 8px 12px; font-size: 16px; margin-left: auto; }
+}
+
+.stinger { position: fixed; inset: 0; z-index: 300; pointer-events: none; animation: stinger-off 0s 2.3s forwards; }
+.stinger-seen .stinger { display: none; }
+.stinger-bar { position: absolute; left: -10%; width: 120%; height: 34%; transform: skewY(-8deg) translateX(-110%); }
+.stinger-red { top: 18%; background: var(--color-red); animation: stinger-bar 1.1s var(--ease-snap) both; }
+.stinger-royal { top: 50%; background: var(--color-royal); animation: stinger-bar 1.1s var(--ease-snap) .08s both; }
+.stinger-panel { position: absolute; inset: 0; display: grid; place-items: center; background: var(--color-navy-deep); animation: stinger-in .35s var(--ease-snap) .25s both, stinger-out .6s cubic-bezier(.77,0,.175,1) 1.65s forwards; }
+.stinger-logo { width: min(70vw, 420px); animation: stinger-punch .7s var(--ease-snap) .4s both; }
+@keyframes stinger-bar { 0% { transform: skewY(-8deg) translateX(-110%); } 55% { transform: skewY(-8deg) translateX(0); } 100% { transform: skewY(-8deg) translateX(110%); } }
+@keyframes stinger-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes stinger-out { to { transform: translateY(-100%); } }
+@keyframes stinger-punch { from { transform: scale(1.5) rotate(-6deg); opacity: 0; filter: blur(8px); } }
+@keyframes stinger-off { to { visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .stinger { display: none; } }
+
+.week-rail { position: relative; height: 4px; margin-top: 32px; background: #ffffff25; border-radius: 4px; }
+.week-rail-fill { position: absolute; inset: 0; transform-origin: left; transform: scaleX(calc((var(--sel) + .5) / 8)); background: var(--color-red); transition: transform .5s var(--ease-snap); }
+.week-rail-ball { position: absolute; top: -12px; left: 0; width: 28px; height: 28px; transform: translateX(calc((var(--sel) + .5) * (100cqw / 8) - 14px)) rotate(calc(var(--sel) * 220deg)); transition: transform .5s var(--ease-snap); }
+.match-week { container-type: inline-size; }
+.week-rail { container-type: inline-size; }
+.match-days { margin-top: 18px; }
+.match-days button { transition: background-color .2s ease, transform .16s var(--ease-snap); }
+.match-days button:active { transform: scale(.97); }
+.week-board { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; min-height: 380px; padding: 28px; background: var(--color-red); }
+.week-board::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(-55deg, #ffffff12 0 18px, transparent 18px 40px); animation: board-slide 6s linear infinite; }
+.week-board-day { position: relative; font-family: var(--font-display); font-weight: 900; font-stretch: 62%; font-size: clamp(140px, 16vw, 240px); line-height: .8; animation: board-punch .55s var(--ease-snap) both; }
+.week-board-sub, .week-board-count { position: relative; font-family: var(--font-display); font-weight: 800; font-stretch: 72%; text-transform: uppercase; font-size: 28px; animation: hero-fade .5s var(--ease-snap) .12s both; }
+.week-board-count { margin-top: 6px; color: #ffffffcc; font-size: 20px; }
+.match-ground-list li { animation: lower-third .45s var(--ease-snap) both; animation-delay: calc(var(--i, 0) * 50ms + 120ms); border-left: 3px solid var(--color-red); padding-left: 10px; }
+@keyframes board-punch { from { transform: translateY(30%) scale(.9); opacity: 0; } }
+@keyframes board-slide { to { transform: translateX(80px); } }
+@keyframes lower-third { from { transform: translateX(-24px); opacity: 0; clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@media (max-width: 899px) { .week-board { min-height: 200px; padding: 20px; } .week-board-day { font-size: 120px; } }
+
+.foot-roll { overflow: hidden; border-top: 1px solid #ffffff20; padding: 10px 0 18px; }
+.foot-roll-track { display: flex; width: max-content; animation: strip 30s linear infinite; font-family: var(--font-display); font-weight: 900; font-stretch: 62%; text-transform: uppercase; font-size: clamp(80px, 15vw, 240px); line-height: .9; color: transparent; -webkit-text-stroke: 1.5px #ffffff55; }
+.foot-roll-track span { display: inline-flex; align-items: center; gap: .25em; padding-right: .25em; }
+.foot-roll-track i { width: .28em; height: .28em; border-radius: 50%; background: var(--color-red); }
+.cta-photo { animation: hero-zoom 1s linear both; animation-timeline: view(); animation-range: entry 0% cover 60%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tv-pitch, .tv-light, .tv-ball, .week-board::before, .week-board-day, .week-board-sub, .week-board-count, .match-ground-list li, .foot-roll-track, .cta-photo { animation: none !important; }
+  .tv-ball { display: none; }
+  .week-rail-fill, .week-rail-ball { transition: none; }
+}
+
+/* The parallax footer is fixed behind the page; main must paint over it or the footer shows through the hero. */
+main { position: relative; z-index: 2; display: flow-root; background: var(--color-snow); }

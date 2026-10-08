@@ -92,6 +92,20 @@
       "files": {
         "src/components/effects/stack-spread/index.tsx": "sha256:511d7a8b7bea9dc19783e4d4562461edcd7997031b7c2b55befbef60f6a7aa5a"
       }
+    },
+    "parallax-footer": {
+      "version": "1.0.0",
+      "installedAt": "2026-10-08T07:20:32.993Z",
+      "files": {
+        "src/components/effects/parallax-footer/index.tsx": "sha256:2ece33091e109823a07ab480037b5b4a8476f4ff52a53af7850a98fb20d7eecc"
+      }
+    },
+    "perspective-text-reveal": {
+      "version": "1.1.0",
+      "installedAt": "2026-10-08T07:20:37.400Z",
+      "files": {
+        "src/components/effects/perspective-text-reveal/index.tsx": "sha256:f893f926e092e42874d86b8da0c18c7d5075caf9f9e4968a744cd79ba78ed5f8"
+      }
     }
   }
 }

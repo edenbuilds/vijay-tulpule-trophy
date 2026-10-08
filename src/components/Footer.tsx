@@ -3,6 +3,7 @@ import { ArrowUpRight, Camera, Mail, MapPin, Phone } from "lucide-react";
 import { CONTACTS, HOSTS_LINE, ORG } from "@/lib/site";
 import { HostsStrip } from "@/components/Hosts";
 import { Logo } from "@/components/brand/Logo";
+import { FooterParallax } from "@/components/effects/parallax-footer";
 
 const GROUPS = [
   { title: "Tournament", links: [["Fixtures", "/fixtures"], ["Teams", "/teams"], ["Format", "/format"], ["Ceremonies", "/ceremonies"]] },
@@ -12,7 +13,9 @@ const GROUPS = [
 
 export function Footer() {
   return (
-    <footer className="bg-navy px-4 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-12 text-white sm:px-8 md:pt-16 lg:px-12">
+    // Hyperiux parallax-footer: the footer is fixed under the page and is uncovered as the last section scrolls away.
+    <FooterParallax id="site-footer" footerClassName="foot bg-navy text-white">
+      <div className="px-4 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-12 sm:px-8 md:pt-16 lg:px-12">
       <div className="mx-auto max-w-[1280px]">
         <div className="flex flex-wrap items-end justify-between gap-5 border-b border-white/20 pb-7">
           <div>
@@ -52,6 +55,8 @@ export function Footer() {
         </div>
         <p className="num pt-6 text-xs text-white/60">{ORG.trust}</p>
       </div>
-    </footer>
+      </div>
+      <div className="foot-roll" aria-hidden="true"><div className="foot-roll-track">{Array.from({ length: 4 }, (_, i) => <span key={i}>Mumbai 2026<i /></span>)}</div></div>
+    </FooterParallax>
   );
 }
