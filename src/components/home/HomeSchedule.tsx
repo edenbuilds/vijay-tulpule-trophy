@@ -1,35 +1,39 @@
-"use client";
-import type React from "react";
-import { useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SCHEDULE, GROUNDS } from "@/lib/schedule";
-import { Ball } from "@/components/brand/Ball";
 
+// 12-10-2026: owner said the day tabs plus red board repeated the same thing twice. Now one list, one row per day, adapted from
+// BYQ Supply "Upcoming Events List" (cultureexchange-structured-data-2): date left, what happens in the middle, a line that fills
+// on hover, and the row opens in place to show that day's grounds. Native <details>, so it works without JS.
 export function HomeSchedule() {
-  const [selected, setSelected] = useState(0);
-  const buttons = useRef<(HTMLButtonElement | null)[]>([]);
-  const day = SCHEDULE[selected];
-  const title = selected === 0 ? "Opening ceremony" : day.title === "Matches" ? "Tournament matches" : day.title;
-  return <section aria-labelledby="schedule-home-title" className="match-week" style={{ "--sel": selected } as React.CSSProperties}>
-    <div className="match-week-heading"><div><p>17–24 October 2026</p><h2 id="schedule-home-title" className="display">Match week</h2></div><Link href="/fixtures">Full fixtures <ArrowUpRight aria-hidden="true" /></Link></div>
-    <div className="week-rail" aria-hidden="true"><span className="week-rail-fill" /><span className="week-rail-ball"><Ball className="size-full" /></span></div>
-    <div role="tablist" aria-label="Tournament days" className="match-days">{SCHEDULE.map((item, index) => <button key={item.date} ref={el => { buttons.current[index] = el; }} type="button" role="tab" aria-selected={selected === index} aria-controls="match-day-panel" id={`match-day-${index}`} tabIndex={selected === index ? 0 : -1} onClick={() => setSelected(index)} onKeyDown={e => {
-      let next = index;
-      if (e.key === "ArrowRight") next = (index + 1) % SCHEDULE.length;
-      else if (e.key === "ArrowLeft") next = (index + SCHEDULE.length - 1) % SCHEDULE.length;
-      else if (e.key === "Home") next = 0;
-      else if (e.key === "End") next = SCHEDULE.length - 1;
-      else return;
-      e.preventDefault(); setSelected(next); buttons.current[next]?.focus();
-    }}><span>{item.weekday.slice(0,3)}</span><strong>{item.short.split(' ')[0]}</strong><span>October</span></button>)}</div>
-    <div role="tabpanel" id="match-day-panel" aria-labelledby={`match-day-${selected}`} tabIndex={0} className="match-day-panel">
-      {/* Broadcast graphic instead of a photo: the day number punches in, the ground cards stagger in like lower thirds. */}
-      <div key={`n-${day.date}`} className="week-board" aria-hidden="true"><span className="week-board-day">{day.short.split(" ")[0]}</span><span className="week-board-sub">{day.weekday}</span><span className="week-board-count">{day.grounds.length ? `${day.grounds.length} ${day.grounds.length === 1 ? "ground" : "grounds"}` : selected === 0 ? "Opening" : "Reserve day"}</span></div>
-      <div key={day.date} className="match-day-detail rise"><p className="text-sky">{day.weekday}, {day.short} 2026</p><h3>{title}</h3>
-      {day.grounds.length ? <ul className="match-ground-list">{day.grounds.map((id, i) => <li key={id} style={{ "--i": i } as React.CSSProperties}><strong>{GROUNDS[id].name}</strong><span>{GROUNDS[id].area}{day.finals?.includes(id) ? " · Final" : ""}</span></li>)}</ul> : <p className="my-6 text-lg text-sky">{selected === 0 ? "Venue to be announced." : "No matches scheduled. Held in case weather affects play."}</p>}
-      <Link href="/fixtures" className="inline-flex min-h-11 items-center gap-3 mt-5 font-semibold">Explore fixtures & grounds <ArrowUpRight aria-hidden="true" className="size-5" /></Link></div>
-    </div>
-    <p className="mt-5 text-sm text-white/70">Matchups and timings will be published when confirmed.</p>
-  </section>;
+  return (
+    <section aria-labelledby="schedule-home-title" className="wk">
+      <div className="wk-head">
+        <h2 id="schedule-home-title" className="wk-title">Match week</h2>
+        <Link href="/fixtures" className="link-arrow">Full fixtures <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
+      </div>
+      <ul className="wk-list">
+        {SCHEDULE.map((day, i) => {
+          const title = i === 0 ? "Opening ceremony" : day.title === "Matches" ? `${day.grounds.length} grounds` : day.title;
+          return (
+            <li key={day.date} className="wk-row" style={{ "--i": i } as React.CSSProperties}>
+              <details>
+                <summary>
+                  <span className="wk-date"><b className="num">{day.short.split(" ")[0]}</b> {day.weekday}</span>
+                  <span className="wk-what">{title}</span>
+                  <span className="wk-plus" aria-hidden="true" />
+                </summary>
+                <div className="wk-body">
+                  {day.grounds.length
+                    ? <ul>{day.grounds.map((id) => <li key={id}><strong>{GROUNDS[id].name}</strong> {GROUNDS[id].area}{day.finals?.includes(id) ? " · Final" : ""}</li>)}</ul>
+                    : <p>{day.note}</p>}
+                </div>
+              </details>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="wk-note">Matchups and timings will be published when confirmed.</p>
+    </section>
+  );
 }

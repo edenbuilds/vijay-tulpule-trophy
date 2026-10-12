@@ -34,3 +34,8 @@ Next: check the stinger on a real phone; delete the unused /brand/mark.svg.
 
 Paste-ready prompt:
 "In ~/vijay-tulpule-trophy read HANDOFF.md. Verify baca-cricket.com at 1440 and 390 (stinger, hero, match week tabs, footer reveal). Fix only what is broken, commit as omkar1sonawane@gmail.com, push, verify live."
+
+## Pass 3 (12-10-2026)
+- Hero: the 16 teams as a sliding name carousel with the logo card (BYQ stringer-hero-10). It auto-advances and pauses on hover, focus and reduced motion.
+- Match week: one expandable row per day (BYQ cultureexchange-structured-data-2, native details). The day tabs and red board are gone.
+- Stinger: light panel with the light logo.

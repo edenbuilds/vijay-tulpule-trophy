@@ -8,7 +8,7 @@ export function Stinger() {
   return (
     <div className="stinger" aria-hidden="true">
       <span className="stinger-bar stinger-red" /><span className="stinger-bar stinger-royal" />
-      <div className="stinger-panel"><div className="stinger-logo"><Logo variant="barReversed" priority className="w-full" sizes="420px" alt="" /></div></div>
+      <div className="stinger-panel"><div className="stinger-logo"><Logo variant="bar" priority className="w-full" sizes="420px" alt="" /></div></div>
     </div>
   );
 }
