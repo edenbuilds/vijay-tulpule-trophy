@@ -1,69 +1,34 @@
-"use client";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Countdown } from "@/components/Countdown";
 import { TEAMS } from "@/lib/teams";
 
-// 12-10-2026: owner said the logo-led hero "just repeats the logo 1:1". The hero now carries what the logo cannot: the 16
-// teams. Adapted from BYQ Supply "Fullscreen Horizontal Name Slider Hero" (stringer-hero-10): oversized names slide so the
-// active one sits centred, the team's logo card swaps under it. Auto-advances; stops on hover, focus and reduced motion.
-const pad = (n: number) => String(n).padStart(2, "0");
-
+// 12-10-2026: owner picked this night stadium photo (Pexels 36230651, by Shlok, Pexels licence, no credit required). It is
+// Narendra Modi Stadium, Ahmedabad, not a tournament venue, so the page never captions it as one.
 export function HomeHero() {
-  const [cur, setCur] = useState(0);
-  const [x, setX] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const line = useRef<HTMLDivElement>(null);
-  const names = useRef<(HTMLButtonElement | null)[]>([]);
-  const go = useCallback((i: number) => setCur(((i % TEAMS.length) + TEAMS.length) % TEAMS.length), []);
-
-  useLayoutEffect(() => {
-    const centre = () => {
-      const el = names.current[cur];
-      if (el && line.current) setX(line.current.clientWidth / 2 - (el.offsetLeft + el.offsetWidth / 2));
-    };
-    centre();
-    window.addEventListener("resize", centre);
-    document.fonts?.ready.then(centre);
-    return () => window.removeEventListener("resize", centre);
-  }, [cur]);
-
-  useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = setTimeout(() => go(cur + 1), 3200);
-    return () => clearTimeout(t);
-  }, [cur, paused, go]);
-
-  const team = TEAMS[cur];
+  const names = TEAMS.map((t) => t.name);
   return (
-    <section className="hero sl" aria-labelledby="tournament-title" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
-      <div className="sl-top">
-        <p>Mumbai · 17–24 October 2026</p>
-        <p className="num" aria-hidden="true">{pad(cur + 1)} / {pad(TEAMS.length)}</p>
-        <Countdown className="sl-count num" />
+    <section className="hero ph" aria-labelledby="tournament-title">
+      <div className="ph-media" aria-hidden="true">
+        <Image src="/venues/stadium-night.webp" alt="" fill priority sizes="100vw" className="ph-photo" />
       </div>
-      <h1 id="tournament-title" className="sl-title hero-in" style={{ "--d": "0ms" } as React.CSSProperties}>Sixteen courts. <em>One trophy.</em></h1>
-      <div ref={line} className="sl-line">
-        <div className="sl-track" style={{ transform: `translateX(${x}px)` }}>
-          {TEAMS.map((t, i) => (
-            <button key={t.slug} ref={(el) => { names.current[i] = el; }} type="button" aria-current={i === cur} tabIndex={i === cur ? 0 : -1} onClick={() => go(i)} className="sl-name" style={{ "--len": t.name.length } as React.CSSProperties}>{t.name}</button>
-          ))}
+      <div className="ph-inner">
+        <p className="hero-kicker hero-in" style={{ "--d": "0ms" } as React.CSSProperties}>38th All India Advocates’ Cricket Tournament</p>
+        <h1 id="tournament-title" className="ph-title">
+          <span className="hero-line"><span style={{ "--d": "80ms" } as React.CSSProperties}>Sixteen courts.</span></span>
+          <span className="hero-line"><span style={{ "--d": "180ms" } as React.CSSProperties}>One trophy.</span></span>
+        </h1>
+        <div className="ph-foot hero-in" style={{ "--d": "360ms" } as React.CSSProperties}>
+          <div className="hero-actions">
+            <Link href="/fixtures" className="btn-red press">View fixtures <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
+            <Link href="/teams" className="btn-ghost press">The teams <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
+          </div>
+          <div className="ph-when"><strong>17–24 October 2026</strong><span>Mumbai · <Countdown className="ph-count" /></span></div>
         </div>
       </div>
-      <div className="sl-deck">
-        <p className="sl-cap" aria-live="polite">{team.court}</p>
-        <div className="sl-ctrl">
-          <button type="button" aria-label="Previous team" onClick={() => go(cur - 1)} className="sl-arrow press"><ChevronLeft className="size-5" /></button>
-          <Link href={`/teams#${team.slug}`} className="sl-card" aria-label={`${team.name} team`}>
-            <Image key={team.slug} src={team.logo} alt="" width={160} height={160} className="sl-logo" />
-          </Link>
-          <button type="button" aria-label="Next team" onClick={() => go(cur + 1)} className="sl-arrow press"><ChevronRight className="size-5" /></button>
-        </div>
-        <div className="sl-cta">
-          <Link href="/fixtures" className="btn-red press">View fixtures <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
-        </div>
+      <div className="hero-roll" aria-hidden="true">
+        <div className="hero-roll-track">{[...names, ...names].map((n, i) => <span key={i}>{n}</span>)}</div>
       </div>
     </section>
   );

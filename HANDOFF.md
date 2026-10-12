@@ -39,3 +39,4 @@ Paste-ready prompt:
 - Hero: the 16 teams as a sliding name carousel with the logo card (BYQ stringer-hero-10). It auto-advances and pauses on hover, focus and reduced motion.
 - Match week: one expandable row per day (BYQ cultureexchange-structured-data-2, native details). The day tabs and red board are gone.
 - Stinger: light panel with the light logo.
+- Pass 3b (12-10-2026): the hero is a full-bleed night stadium photo (Pexels 36230651, Narendra Modi Stadium; never caption it as a venue) with a neutral scrim. Match week is 8 day cards (opening navy, finals red). The Pexels API key is not in the repo; ask the owner for it.
