@@ -3,6 +3,7 @@ import { Antonio, Barlow, Bebas_Neue, Noto_Sans_Devanagari } from "next/font/goo
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { Stinger } from "@/components/Stinger";
+import { FollowPopup } from "@/components/FollowPopup";
 import "./globals.css";
 
 // Display: Archivo with its width axis, set condensed and heavy like a scoreboard (08-10-2026: owner asked for stronger type).
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <Stinger />
+        <FollowPopup />
         <Nav />
         <main>{children}</main>
         <Footer />
