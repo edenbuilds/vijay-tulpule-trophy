@@ -538,3 +538,9 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 .display, .display-xl, .hero-title { letter-spacing: .01em; }
 .hero-accent > span, .accent-slant { font-family: var(--font-antonio), var(--font-display); font-weight: 700; text-transform: uppercase; font-style: normal; color: var(--color-red); -webkit-text-stroke: 4px #fff; paint-order: stroke fill; }
 .hero-accent { transform: skewX(-9deg); transform-origin: left bottom; padding: 0 .12em .1em 0; }
+
+/* 13-10-2026 bright day hero: navy from the left and bottom keeps white type readable on the sky; the players on the right stay clear. */
+.ph-media::after { background: linear-gradient(90deg, #071B45e6 0%, #071B45b3 30%, #071B4500 62%), linear-gradient(180deg, #071B4500 45%, #071B45cc 85%, #071B45 100%); }
+.hero.ph { background: var(--color-navy-deep); }
+.ph-photo { object-position: 65% 40%; }
+@media (max-width: 767px) { .ph-photo { object-position: 72% 50%; } .ph-media::after { background: linear-gradient(180deg, #071B4533 0%, #071B4500 18%, #071B45cc 42%, #071B45 75%); } }

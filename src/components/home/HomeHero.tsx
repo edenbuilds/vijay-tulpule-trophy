@@ -4,14 +4,15 @@ import { ArrowUpRight } from "lucide-react";
 import { Countdown } from "@/components/Countdown";
 import { TEAMS } from "@/lib/teams";
 
-// 12-10-2026: owner picked this night stadium photo (Pexels 36230651, by Shlok, Pexels licence, no credit required). It is
+// 13-10-2026: owner supplied an illustrated match scene (public/venues/hero-match.webp) to replace the night stadium photo.
+// Previously: night stadium photo (Pexels 36230651, by Shlok, Pexels licence, no credit required). It is
 // Narendra Modi Stadium, Ahmedabad, not a tournament venue, so the page never captions it as one.
 export function HomeHero() {
   const names = TEAMS.map((t) => t.name);
   return (
     <section className="hero ph" aria-labelledby="tournament-title">
       <div className="ph-media" aria-hidden="true">
-        <Image src="/venues/stadium-night.webp" alt="" fill priority sizes="100vw" className="ph-photo" />
+        <Image src="/venues/hero-match.webp" alt="" fill priority sizes="100vw" className="ph-photo" />
       </div>
       <div className="ph-inner">
         <p className="hero-kicker hero-in" style={{ "--d": "0ms" } as React.CSSProperties}>38th All India Advocates’ Cricket Tournament</p>
