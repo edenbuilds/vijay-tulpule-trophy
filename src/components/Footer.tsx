@@ -1,5 +1,6 @@
+import { SocialLinks } from "@/components/Social";
 import Link from "next/link";
-import { ArrowUpRight, Camera, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { CONTACTS, HOSTS_LINE, ORG } from "@/lib/site";
 import { HostsStrip } from "@/components/Hosts";
 import { Logo } from "@/components/brand/Logo";
@@ -24,9 +25,7 @@ export function Footer() {
             </Link>
             <p className="mt-2 text-sm text-white/65">{ORG.name}</p>
           </div>
-          <a href="https://www.instagram.com/bacacricket/" target="_blank" rel="noopener noreferrer" className="flex min-h-11 w-fit items-center gap-2 text-sm font-medium text-white/80 hover:text-white">
-            <Camera aria-hidden="true" className="size-4" strokeWidth={1.7} /> Instagram <ArrowUpRight aria-hidden="true" className="size-4" />
-          </a>
+          <div className="flex items-center gap-3"><span className="text-sm text-white/65">Follow BACA</span><SocialLinks tone="dark" showHandle /></div>
         </div>
 
         <div className="grid gap-8 border-b border-white/20 py-9 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">

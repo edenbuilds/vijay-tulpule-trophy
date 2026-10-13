@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Mark } from "@/components/brand/Mark";
+import { SocialLinks } from "@/components/Social";
 import { motion, useScroll, useSpring } from "motion/react";
 
 const TOURNAMENT = [
@@ -107,6 +108,7 @@ export function Nav() {
           ))}
         </div>
 
+        <SocialLinks className="hidden sm:flex" />
         <Link href="/fixtures" className="hidden min-h-11 shrink-0 items-center gap-2 rounded-lg bg-navy px-4 text-sm font-semibold text-white transition-colors hover:bg-royal min-[1180px]:inline-flex">
           View Fixtures <ArrowUpRight aria-hidden="true" className="size-4" />
         </Link>
@@ -146,6 +148,7 @@ export function Nav() {
             {PRIMARY.map((item) => <li key={item.href}><Link href={item.href} aria-current={path === item.href ? "page" : undefined} className="flex min-h-12 items-center text-lg font-medium">{item.label}</Link></li>)}
             <li><Link href="/contact" className="flex min-h-12 items-center text-lg font-medium">Contact</Link></li>
           </ul>
+          <SocialLinks showHandle className="mt-4 sm:hidden" />
         </div>
       )}
     </header>
