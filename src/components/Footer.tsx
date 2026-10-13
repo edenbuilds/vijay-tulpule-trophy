@@ -52,7 +52,10 @@ export function Footer() {
           <div className="w-fit rounded-lg bg-white p-2"><HostsStrip /></div>
           <p className="max-w-2xl text-sm leading-relaxed text-white/75">{HOSTS_LINE}</p>
         </div>
-        <p className="num pt-6 text-xs text-white/60">{ORG.trust}</p>
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 pt-6 text-xs text-white/60">
+          <p className="num">{ORG.trust}</p>
+          <p>Designed by <a href="https://affinitimedia.in" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-white/75 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-red">Omkar @ AffinitiAI</a></p>
+        </div>
       </div>
       </div>
       <div className="foot-roll" aria-hidden="true"><div className="foot-roll-track">{Array.from({ length: 4 }, (_, i) => <span key={i}>Mumbai 2026<i /></span>)}</div></div>
