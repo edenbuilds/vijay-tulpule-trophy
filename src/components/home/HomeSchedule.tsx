@@ -17,7 +17,7 @@ const items: TimelineItem[] = SCHEDULE.map((day, i) => ({
 export function HomeSchedule() {
   return (
     <>
-      <Timeline title="Match week" periodLabel="17–24 October 2026" items={items} imageUrl="/img/bombay-champions-2023.jpg" imageAlt="The Bombay High Court team with its trophies, 2023" />
+      <Timeline title="Match week" periodLabel="17–24 October 2026" items={items} imageUrl="/img/bombay-champions-2025.jpg" imageAlt="The BACA team with the trophy after winning the 37th All India Advocates’ Cricket Championship, Colombo, 2025" />
       <div className="dc-head bg-snow"><p className="dc-foot">Matchups and timings will be published when confirmed.</p><Link href="/fixtures" className="link-arrow">Full fixtures <ArrowUpRight aria-hidden="true" className="size-5" /></Link></div>
     </>
   );

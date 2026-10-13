@@ -33,7 +33,7 @@ export default function About() {
       <Block title="About BACA" tone="white">
         <div className="grid items-center gap-8 md:grid-cols-[1fr_1fr] md:gap-14">
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-sky">
-            <Image src="/img/bombay-champions-2023.jpg" alt="The Bombay High Court team with its trophies after winning the 35th All India Advocates’ Cricket Tournament, 2023" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            <Image src="/img/bombay-champions-2025.jpg" alt="The BACA team with the trophy after winning the 37th All India Advocates’ Cricket Championship, Colombo, 2025" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>
             <p className="text-xl leading-relaxed">BACA has won the All India Advocates’ Cricket Tournament six times, and is the host of the 38th All India Advocates’ Cricket Tournament in 2026.</p>

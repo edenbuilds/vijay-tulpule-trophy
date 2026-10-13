@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Noto_Sans_Devanagari } from "next/font/google";
-import localFont from "next/font/local";
+import { Antonio, Barlow, Bebas_Neue, Noto_Sans_Devanagari } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { Stinger } from "@/components/Stinger";
@@ -8,8 +7,10 @@ import "./globals.css";
 
 // Display: Archivo with its width axis, set condensed and heavy like a scoreboard (08-10-2026: owner asked for stronger type).
 // Body: Satoshi, the site's own font (docs/REDESIGN.md section 0: "retain our website's font").
-const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], axes: ["wdth"], display: "swap" });
-const satoshi = localFont({ variable: "--font-satoshi", src: "./fonts/Satoshi-Variable.woff2", weight: "300 900", display: "swap" });
+// 13-10-2026: owner chose sporty type from a Norwester/Antonio reference. Bebas Neue for headlines, Antonio (slanted) used sparingly, Barlow for text.
+const bebas = Bebas_Neue({ variable: "--font-bebas", subsets: ["latin"], weight: "400", display: "swap" });
+const antonio = Antonio({ variable: "--font-antonio", subsets: ["latin"], weight: ["600", "700"], display: "swap" });
+const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap" });
 
 // Hindi poem on /about. Satoshi has no Devanagari, so the poem takes this one; it loads only where used.
 const devanagari = Noto_Sans_Devanagari({ variable: "--font-deva", subsets: ["devanagari"], weight: ["400", "500", "600"], display: "swap" });
@@ -25,7 +26,7 @@ export const viewport: Viewport = { themeColor: "#F5F7FA" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${archivo.variable} ${satoshi.variable} ${devanagari.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${bebas.variable} ${antonio.variable} ${barlow.variable} ${devanagari.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: `try{sessionStorage.getItem("baca-stinger")?document.documentElement.classList.add("stinger-seen"):sessionStorage.setItem("baca-stinger","1")}catch(e){}` }} />
       </head>

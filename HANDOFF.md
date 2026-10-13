@@ -48,3 +48,10 @@ Paste-ready prompt:
 - Kept verbatim: the tribute quote "stalwart of the criminal bar", the Full Court Reference citation title, the Dadar trial-court history line.
 - Gallery tiles and title cards reveal on scroll (CSS view timeline).
 Next prompt: "Verify baca-cricket.com match week timeline at 390px; tighten mobile text if any line clips."
+
+## Pass 5 (13-10-2026)
+- Type: Bebas Neue (display), Antonio slanted red with white outline for "ONE TROPHY." only (.hero-accent / .accent-slant), Barlow body. Archivo and Satoshi removed. font-synthesis off so Bebas never fake-bolds.
+- Team photo is now the 37th AIACT Colombo 2025 winners (public/img/bombay-champions-2025.jpg) on About and the match week timeline.
+- Match week mobile text narrowed so it no longer clips at 390px.
+- Hero background unchanged (owner's call). Hero mockups with the High Court photo were rejected.
+Next prompt: "Check every page at 390px for headings that look too tall or tight in Bebas Neue and adjust sizes."

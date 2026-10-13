@@ -152,7 +152,7 @@ export default function Timeline({
     const text = (
       <>
         <h3 className={`display title-${item.id} text-[2.5vw] leading-none max-[1025px]:text-[5vw] max-md:text-[6.4vw] ${item.accent ? "text-red" : ""}`}>{item.label}</h3>
-        <p className={`description-${item.id} w-[90%] text-[1.25vw] leading-[1.2] max-[1025px]:w-[70%] max-[1025px]:text-[3vw] max-md:w-[90%] max-md:text-[4.4vw]`} style={mutedTextStyle}>{item.content}</p>
+        <p className={`description-${item.id} w-[90%] text-[1.25vw] leading-[1.2] max-[1025px]:w-[70%] max-[1025px]:text-[3vw] max-md:w-[78%] max-md:text-[4vw]`} style={mutedTextStyle}>{item.content}</p>
       </>
     );
     return pos === "top" ? (

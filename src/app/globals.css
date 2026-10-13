@@ -12,8 +12,8 @@
   --color-sky-deep: #cfe0fa;
   --color-snow: #f5f7fa;
   --color-white: #ffffff;
-  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bebas), ui-sans-serif, system-ui, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -532,3 +532,9 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
   }
 }
 @keyframes tile-in { from { opacity: 0; transform: translateY(32px) scale(.96); clip-path: inset(12% 0 0 0 round 8px); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 8px); } }
+
+/* 13-10-2026 type pass: Bebas Neue ships one weight, so never fake-bold it; letters sit a touch wide. Antonio slanted is the one accent. */
+:where(h1,h2,h3,.display,.display-xl,.hero-title,[class*="font-display"]) { font-synthesis: none; }
+.display, .display-xl, .hero-title { letter-spacing: .01em; }
+.hero-accent > span, .accent-slant { font-family: var(--font-antonio), var(--font-display); font-weight: 700; text-transform: uppercase; font-style: normal; color: var(--color-red); -webkit-text-stroke: 4px #fff; paint-order: stroke fill; }
+.hero-accent { transform: skewX(-9deg); transform-origin: left bottom; padding: 0 .12em .1em 0; }

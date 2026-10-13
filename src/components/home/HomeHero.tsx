@@ -17,7 +17,7 @@ export function HomeHero() {
         <p className="hero-kicker hero-in" style={{ "--d": "0ms" } as React.CSSProperties}>38th All India Advocates’ Cricket Tournament</p>
         <h1 id="tournament-title" className="ph-title">
           <span className="hero-line"><span style={{ "--d": "80ms" } as React.CSSProperties}>Sixteen courts.</span></span>
-          <span className="hero-line"><span style={{ "--d": "180ms" } as React.CSSProperties}>One trophy.</span></span>
+          <span className="hero-line hero-accent"><span style={{ "--d": "180ms" } as React.CSSProperties}>One trophy.</span></span>
         </h1>
         <div className="ph-foot hero-in" style={{ "--d": "360ms" } as React.CSSProperties}>
           <div className="hero-actions">
