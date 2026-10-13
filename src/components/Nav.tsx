@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Mark } from "@/components/brand/Mark";
+import { motion, useScroll, useSpring } from "motion/react";
 
 const TOURNAMENT = [
   { href: "/fixtures", label: "Fixtures" },
@@ -28,6 +29,12 @@ export function Nav() {
   const [tournamentOpen, setTournamentOpen] = React.useState(false);
   const root = React.useRef<HTMLElement>(null);
   const hasTournamentPage = TOURNAMENT.some((item) => active(path, item.href));
+  // After motion.dev "scroll highlight": one pill slides to the hovered link and rests on the current page; a red line tracks page scroll.
+  const [hovered, setHovered] = React.useState<string | null>(null);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
+  const lit = hovered ?? [{ href: "/" }, ...PRIMARY].find((i) => i.href === "/" ? path === "/" : active(path, i.href))?.href;
+  const pill = (href: string) => lit === href && <motion.span layoutId="nav-pill" aria-hidden="true" className="absolute inset-0 -z-10 rounded-md bg-sky" transition={{ type: "spring", bounce: 0.15, duration: 0.4 }} />;
 
   React.useEffect(() => {
     setMobileOpen(false);
@@ -56,11 +63,12 @@ export function Nav() {
   }, []);
 
   const linkClass = (href: string) =>
-    `press inline-flex min-h-11 items-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors hover:text-royal ${active(path, href) ? "text-royal" : "text-navy/75"}`;
+    `press relative isolate inline-flex min-h-11 items-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors hover:text-royal ${active(path, href) ? "text-royal" : "text-navy/75"}`;
 
   return (
     <header ref={root} className="sticky top-0 z-50 bg-snow/95 px-3 pt-[calc(0.5rem+env(safe-area-inset-top))] backdrop-blur-sm sm:px-5">
-      <nav aria-label="Main" className="mx-auto flex min-h-16 max-w-[1440px] items-center gap-3 rounded-xl border border-navy/10 bg-white px-3 sm:px-4">
+      <nav aria-label="Main" className="relative mx-auto flex min-h-16 max-w-[1440px] items-center gap-3 rounded-xl border border-navy/10 bg-white px-3 sm:px-4">
+        <motion.span aria-hidden="true" style={{ scaleX: progress }} className="absolute inset-x-3 -bottom-px h-0.5 origin-left rounded-full bg-red" />
         <Link href="/" aria-label="BACA home" className="mr-auto flex min-h-11 shrink-0 items-center gap-2.5">
           <Mark priority className="size-9" />
           <span className="leading-tight">
@@ -70,7 +78,7 @@ export function Nav() {
         </Link>
 
         <div className="hidden items-center gap-0.5 min-[1180px]:flex">
-          <Link href="/" aria-current={path === "/" ? "page" : undefined} className={linkClass("/")}>Home</Link>
+          <Link href="/" aria-current={path === "/" ? "page" : undefined} className={linkClass("/")} onMouseEnter={() => setHovered("/")} onMouseLeave={() => setHovered(null)}>{pill("/")}Home</Link>
           <div className="relative">
             <button
               type="button"
@@ -95,7 +103,7 @@ export function Nav() {
             )}
           </div>
           {PRIMARY.map((item) => (
-            <Link key={item.href} href={item.href} aria-current={path === item.href ? "page" : undefined} className={linkClass(item.href)}>{item.label}</Link>
+            <Link key={item.href} href={item.href} aria-current={path === item.href ? "page" : undefined} className={linkClass(item.href)} onMouseEnter={() => setHovered(item.href)} onMouseLeave={() => setHovered(null)}>{pill(item.href)}{item.label}</Link>
           ))}
         </div>
 

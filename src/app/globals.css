@@ -544,3 +544,16 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 .hero.ph { background: var(--color-navy-deep); }
 .ph-photo { object-position: 65% 40%; }
 @media (max-width: 767px) { .ph-photo { object-position: 72% 50%; } .ph-media::after { background: linear-gradient(180deg, #071B4533 0%, #071B4500 18%, #071B45cc 42%, #071B45 75%); } }
+
+/* 13-10-2026 hero: h2 with rotating team names, and a scroll zoom after motion.dev "scroll zoom hero": the picture pushes in and the copy lifts away as you scroll past. */
+.ph-sub { margin-top: 18px; font-family: var(--font-sans); font-weight: 500; font-size: clamp(18px, 2vw, 26px); color: #ffffffd9; }
+.ph-sub-word { font-family: var(--font-display); font-size: 1.35em; line-height: 1; color: #fff; letter-spacing: .02em; margin-left: .2em; }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero.ph { view-timeline: --hero block; }
+    .hero.ph .ph-media { animation: hero-push linear both; animation-timeline: --hero; animation-range: exit 0% exit 100%; }
+    .hero.ph .ph-inner { animation: hero-lift linear both; animation-timeline: --hero; animation-range: exit 0% exit 70%; }
+  }
+}
+@keyframes hero-push { to { transform: scale(1.18); } }
+@keyframes hero-lift { to { transform: translateY(-80px); opacity: 0; } }

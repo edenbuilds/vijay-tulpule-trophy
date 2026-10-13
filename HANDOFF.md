@@ -55,3 +55,8 @@ Next prompt: "Verify baca-cricket.com match week timeline at 390px; tighten mobi
 - Match week mobile text narrowed so it no longer clips at 390px.
 - Hero background unchanged (owner's call). Hero mockups with the High Court photo were rejected.
 Next prompt: "Check every page at 390px for headings that look too tall or tight in Bebas Neue and adjust sizes."
+
+## Pass 6 (13-10-2026)
+- Hero h2 "Who takes it home?" rotates the 16 team names (effects/rotating-text, after React Bits). Hero pushes in and copy lifts away on scroll (CSS view timeline, after motion.dev scroll zoom hero).
+- Nav: sliding sky pill on hover/current page and a red scroll progress line (after motion.dev scroll highlight).
+- Gallery: 3D unfurl + column parallax showcase above the archive (effects/unfurl-gallery). The 21st.dev original needs a 21st.dev login, so this is a local rebuild.

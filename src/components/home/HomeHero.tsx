@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Countdown } from "@/components/Countdown";
 import { TEAMS } from "@/lib/teams";
+import { RotatingText } from "@/components/effects/rotating-text";
 
 // 13-10-2026: owner supplied an illustrated match scene (public/venues/hero-match.webp) to replace the night stadium photo.
 // Previously: night stadium photo (Pexels 36230651, by Shlok, Pexels licence, no credit required). It is
@@ -20,6 +21,7 @@ export function HomeHero() {
           <span className="hero-line"><span style={{ "--d": "80ms" } as React.CSSProperties}>Sixteen courts.</span></span>
           <span className="hero-line hero-accent"><span style={{ "--d": "180ms" } as React.CSSProperties}>One trophy.</span></span>
         </h1>
+        <h2 className="ph-sub hero-in" style={{ "--d": "300ms" } as React.CSSProperties}>Who takes it home? <RotatingText texts={names} className="ph-sub-word" /></h2>
         <div className="ph-foot hero-in" style={{ "--d": "360ms" } as React.CSSProperties}>
           <div className="hero-actions">
             <Link href="/fixtures" className="btn-red press">View fixtures <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
