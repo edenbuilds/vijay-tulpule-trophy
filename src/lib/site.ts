@@ -97,7 +97,7 @@ export const TULPULE = {
     { when: "1943", what: "Born in Mumbai on 22 September, the son of the cardiologist Traymbak Hari Tulpule. The family home in Dadar was a meeting place for freedom-movement activists." },
     { when: "1959", what: "Finished school at King George High School, Dadar. Studied at Elphinstone College, then St. Xavier’s College, where he graduated in 1964." },
     { when: "1967", what: "Graduated in law from Government Law College, Mumbai." },
-    { when: "1968", what: "Enrolled as an advocate on 27 March with the Bar Council of Maharashtra and Goa. Joined the chamber of Adv. Ramrao Adik, then practised at the Dadar Court, mostly on the criminal side." },
+    { when: "1968", what: "Enrolled as an advocate on 27 March with the Bar Council of Maharashtra and Goa. Joined the chamber of Adv. Ramrao Adik, then practised at the Dadar Court, in the trial courts." },
     { when: "1992 to 1994", what: "Went on a six-day hunger strike for the City Civil Court to be given the jurisdiction of a district court. It ended when the Law Minister called on him and promised action." },
     { when: "1994 to 1999", what: "President and Patron of the Indian Advocates Cricket Association. Known as Guruji in Advocates Cricket." },
     { when: "1998 to 2000", what: "Government Pleader and Public Prosecutor for the State of Maharashtra in the High Court." },
@@ -112,6 +112,15 @@ export const HISTORY = {
   motto: "Cricket for Friendship",
   hosts: ["Gurgaon", "Delhi", "Lucknow", "Allahabad", "Kolkata", "Hyderabad", "Bangalore", "Mumbai"],
   mumbai: ["1993", "2005", "2026"],
+  // BACA roll of honour, supplied by the client (13-10-2026).
+  titles: [
+    { year: "1991", captain: "Shirish Gupte", venue: "Bangalore" },
+    { year: "1993", captain: "Shirish Gupte", venue: "Bombay" },
+    { year: "2001", captain: "Milind Godbole", venue: "Hyderabad" },
+    { year: "2004", captain: "Mukesh Vashi", venue: "Bombay" },
+    { year: "2023", captain: "Ninad Muzumdar", venue: "Gurgaon" },
+    { year: "2025", captain: "Shantanu Phanse", venue: "Colombo, Sri Lanka" },
+  ],
 };
 
 export type Step = { time?: string; what: string };

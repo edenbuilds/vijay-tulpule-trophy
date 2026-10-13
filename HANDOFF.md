@@ -40,3 +40,11 @@ Paste-ready prompt:
 - Match week: one expandable row per day (BYQ cultureexchange-structured-data-2, native details). The day tabs and red board are gone.
 - Stinger: light panel with the light logo.
 - Pass 3b (12-10-2026): the hero is a full-bleed night stadium photo (Pexels 36230651, Narendra Modi Stadium; never caption it as a venue) with a neutral scrim. Match week is 8 day cards (opening navy, finals red). The Pexels API key is not in the repo; ask the owner for it.
+
+## Pass 4 (13-10-2026)
+- Match week is now the Hyperiux `timeline` effect (src/components/effects/timeline, adapted: props-driven, no nested Lenis), fed from SCHEDULE.
+- About: blue-jersey 2023 champions photo (public/img/bombay-champions-2023.jpg), six titles from HISTORY.titles (client table, 13-10-2026).
+- Tulpule: "late" and "criminal" removed, Senior Advocate at the Bombay High Court, formal portrait is the main picture, Ranji probable line under the image on /trophy, /adv-vijay-tulpule and home.
+- Kept verbatim: the tribute quote "stalwart of the criminal bar", the Full Court Reference citation title, the Dadar trial-court history line.
+- Gallery tiles and title cards reveal on scroll (CSS view timeline).
+Next prompt: "Verify baca-cricket.com match week timeline at 390px; tighten mobile text if any line clips."

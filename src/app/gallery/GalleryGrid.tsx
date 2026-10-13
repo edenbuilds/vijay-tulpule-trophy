@@ -72,11 +72,11 @@ export function GalleryGrid() {
               type="button"
               onClick={() => setOpen(i)}
               aria-label={cap ? `Open photograph: ${cap}` : `Open photograph ${i + 1} of ${shots.length}`}
-              className="group relative mb-3 block w-full overflow-hidden rounded-lg bg-sky-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal"
+              className="gal-tile group relative mb-3 block w-full overflow-hidden rounded-lg bg-sky-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal"
               style={{ aspectRatio: `${s.w} / ${s.h}` }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized 640px thumbnails from public/gallery */}
-              <img src={`/gallery/${s.id}-s.jpg`} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02] motion-reduce:transition-none" />
+              <img src={`/gallery/${s.id}-s.jpg`} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06] motion-reduce:transition-none" />
             </button>
           );
         })}

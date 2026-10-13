@@ -7,7 +7,7 @@ import { TULPULE, tie } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Trophy",
-  description: "The Vijay Tulpule Trophy and the man it is named after: a Bombay criminal lawyer, Government Pleader and Public Prosecutor, and Ranji Trophy probable.",
+  description: "The Vijay Tulpule Trophy and the man it is named after: a Senior Advocate at the Bombay High Court, Government Pleader and Public Prosecutor, and Ranji Trophy probable.",
 };
 
 const body = "text-base leading-relaxed text-navy/80 md:text-lg";
@@ -31,13 +31,14 @@ export default function Trophy() {
               </p>
             </div>
             <CurtainPortrait
-              src="/img/tulpule-informal.jpg"
-              alt="The late Adv. Vijay Tulpule, informal portrait in a white shirt and suspenders"
-              caption="The late Adv. Vijay Tulpule"
-              width={508}
-              height={661}
+              src="/img/tulpule-formal.jpg"
+              alt="Adv. Vijay Tulpule, formal portrait in a check jacket and tie"
+              caption="Adv. Vijay Tulpule"
+              width={388}
+              height={618}
               className="max-w-[16rem] md:max-w-none [&_figcaption]:text-white"
             />
+            <p className="mt-4 max-w-[16rem] text-sm font-semibold uppercase tracking-[0.08em] text-white/80 md:max-w-none">A Bombay Ranji Trophy probable before he enrolled as a lawyer</p>
           </div>
         </div>
       </section>
@@ -45,7 +46,7 @@ export default function Trophy() {
       <Block tone="snow">
         <div className="grid items-end gap-8 md:grid-cols-[1fr_auto] md:gap-16">
           <p className="display display-long max-w-4xl text-2xl !leading-[1.25] md:text-4xl">
-            {tie("The late Adv. Vijay Traymbak Tulpule (1943 to 2017) was a criminal trial lawyer at the Bombay Bar and Government Pleader and Public Prosecutor for the State of Maharashtra. Before he enrolled as an advocate, he was a Bombay Ranji Trophy probable.")}
+            {tie("Adv. Vijay Traymbak Tulpule (1943 to 2017) was a Senior Advocate at the Bombay High Court and Government Pleader and Public Prosecutor for the State of Maharashtra. Before he enrolled as an advocate, he was a Bombay Ranji Trophy probable.")}
           </p>
           <div>
             <MagneticButton href="/adv-vijay-tulpule">Read his life</MagneticButton>
@@ -80,7 +81,7 @@ export default function Trophy() {
         <div className="grid items-start gap-10 md:grid-cols-[1fr_minmax(0,20rem)] md:gap-20">
           <div className="grid">
             {[
-              "He was a criminal trial lawyer and a noted cross-examiner, and also practised civil, industrial and constitutional law, up to the Supreme Court. As Government Pleader and Public Prosecutor he handled State appeals, confirmation cases and detention matters. He appeared before the Lentin and Srikrishna Commissions.",
+              "He was a Senior Advocate at the Bombay High Court and a noted cross-examiner, and also practised civil, industrial and constitutional law, up to the Supreme Court. As Government Pleader and Public Prosecutor he handled State appeals, confirmation cases and detention matters. He appeared before the Lentin and Srikrishna Commissions.",
               "In a murder appeal that reached the High Court after 13 years, he persuaded the Division Bench that the acquittal was wrong. Asked why he was not pressing for the death sentence, he said that as an officer of the Court he was asking only for life imprisonment, and insisted that his statement be recorded. The Supreme Court endorsed that stand.",
               "Almost 45 juniors trained in his chamber. Adv. Uma Wagle recalled that to join it you had to be a sportsman or an artist.",
             ].map((p) => (
@@ -88,11 +89,11 @@ export default function Trophy() {
             ))}
           </div>
           <CurtainPortrait
-            src="/img/tulpule-formal.jpg"
-            alt="The late Adv. Vijay Tulpule, formal portrait in a check jacket and tie"
-            caption="The late Adv. Vijay Tulpule"
-            width={388}
-            height={618}
+            src="/img/tulpule-informal.jpg"
+            alt="Adv. Vijay Tulpule, informal portrait in a white shirt and suspenders"
+            caption="Adv. Vijay Tulpule"
+            width={508}
+            height={661}
             wipe="rl"
             className="order-first max-w-[16rem] md:order-last md:max-w-none"
           />

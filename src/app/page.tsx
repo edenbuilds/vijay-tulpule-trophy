@@ -36,13 +36,13 @@ export default function Home() {
       <section aria-labelledby="trophy-home-title" className="bg-navy px-4 py-14 text-white sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto grid max-w-[1280px] items-center gap-9 md:grid-cols-[minmax(15rem,0.78fr)_1.22fr] md:gap-16">
           <figure className="mx-auto w-full max-w-[21rem]">
-            <Image src="/img/tulpule-informal.jpg" alt="The late Adv. Vijay Tulpule in a white shirt and suspenders" width={508} height={661} className="h-auto w-full rounded-lg object-cover" />
-            <figcaption className="mt-3 text-sm text-white/65">The late Adv. Vijay Tulpule</figcaption>
+            <Image src="/img/tulpule-formal.jpg" alt="Adv. Vijay Tulpule in a check jacket and tie" width={388} height={618} className="h-auto w-full rounded-lg object-cover" />
+            <figcaption className="mt-3 text-sm text-white/65">Adv. Vijay Tulpule. A Bombay Ranji Trophy probable before he enrolled as a lawyer.</figcaption>
           </figure>
           <div>
             <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="trophy-home-title" className="display-xl max-w-[12ch]">The Vijay Tulpule Trophy</h2></PerspectiveTextReveal>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">
-              The winning team receives the trophy, named for the late Adv. Vijay Tulpule. He was a Bombay criminal lawyer, former Government Pleader and Public Prosecutor, and a Bombay Ranji Trophy probable.
+              The winning team receives the trophy, named for Adv. Vijay Tulpule. He was a Senior Advocate at the Bombay High Court, former Government Pleader and Public Prosecutor, and a Bombay Ranji Trophy probable.
             </p>
             <p className="mt-3 max-w-2xl text-base text-white/70">Details of the Rizvi Shield/Plate are being confirmed.</p>
             <Link href="/trophy" className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-white/40 underline-offset-4 hover:decoration-white">

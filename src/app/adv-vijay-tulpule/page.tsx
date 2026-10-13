@@ -8,9 +8,9 @@ import { TULPULE, tie } from "@/lib/site";
 import { cta, glance, hero, legacy, nav, sections, sourceNote, timeline, tributes } from "./content";
 
 export const metadata: Metadata = {
-  title: "The late Adv. Vijay Tulpule",
+  title: "Adv. Vijay Tulpule",
   description:
-    "The life of the late Adv. Vijay Tulpule (1943 to 2017): criminal trial lawyer at the Bombay Bar, Government Pleader and Public Prosecutor, and patron of Advocates’ cricket. From the Bombay High Court’s Full Court Reference.",
+    "The life of Adv. Vijay Tulpule (1943 to 2017): Senior Advocate at the Bombay High Court, Government Pleader and Public Prosecutor, and patron of Advocates’ cricket. From the Bombay High Court’s Full Court Reference.",
 };
 
 // Layout for content.ts, following WIREFRAME.md. Every section is a white tile on the page. On phones every group of three or more
@@ -49,7 +49,7 @@ function Quote({ text, by, bg }: { text: string; by: string; bg: string }) {
 export default function Page() {
   return (
     <>
-      <Hero eyebrow={hero.kicker} title={`${hero.prefix} ${hero.name}`} sub={hero.dates} />
+      <Hero eyebrow={hero.kicker} title={`${hero.prefix} ${hero.name}`.trim()} sub={hero.dates} />
 
       <Block tone="white">
         <nav aria-label="Breadcrumb" className="mb-8 text-base text-navy/70">
@@ -59,6 +59,7 @@ export default function Page() {
         </nav>
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
           <CurtainPortrait src={hero.image} alt={hero.imageAlt} caption={hero.caption} width={hero.imageW} height={hero.imageH} className="max-w-[16rem] lg:max-w-none" />
+          <p className="mt-4 max-w-[16rem] text-sm font-semibold uppercase tracking-[0.08em] text-red lg:max-w-none">A Bombay Ranji Trophy probable before he enrolled as a lawyer</p>
           <div>
             <p className="display display-long max-w-3xl text-2xl !leading-[1.25] md:text-4xl">{tie(hero.descriptor)}</p>
             <p className="mt-4 text-base text-navy/70">From the Full Court Reference, Bombay High Court, 2017.</p>

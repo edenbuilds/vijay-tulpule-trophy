@@ -5,7 +5,6 @@ import { ArrowRight } from "lucide-react";
 import { Block, Hero } from "@/components/Sections";
 import { Hosts } from "@/components/Hosts";
 import { HISTORY, ORG, nb } from "@/lib/site";
-import { PH } from "@/lib/photos";
 
 export const metadata: Metadata = {
   title: "About BACA",
@@ -34,13 +33,26 @@ export default function About() {
       <Block title="About BACA" tone="white">
         <div className="grid items-center gap-8 md:grid-cols-[1fr_1fr] md:gap-14">
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-sky">
-            <Image src={PH.about.src} alt={PH.about.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            <Image src="/img/bombay-champions-2023.jpg" alt="The Bombay High Court team with its trophies after winning the 35th All India Advocates’ Cricket Tournament, 2023" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>
-            <p className="text-xl leading-relaxed">BACA is a three-time All India champion and the host of the 38th All India Advocates’ Cricket Tournament in 2026.</p>
+            <p className="text-xl leading-relaxed">BACA has won the All India Advocates’ Cricket Tournament six times, and is the host of the 38th All India Advocates’ Cricket Tournament in 2026.</p>
             <p className="mt-5 border-t border-navy/15 pt-4 text-base text-navy/70">Registered Public Trust since 1993<br />Registration No. 797/1993 / 4BBSD</p>
           </div>
         </div>
+      </Block>
+
+      <Block title="Six titles" tone="navy">
+        <p className="max-w-xl text-lg text-white/75">Six captains. Six triumphs.</p>
+        <ol className="titles mt-8 grid gap-px overflow-hidden rounded-lg bg-white/15 sm:grid-cols-2 lg:grid-cols-3">
+          {HISTORY.titles.map((t, i) => (
+            <li key={t.year} style={{ "--i": i } as import("react").CSSProperties} className="bg-navy p-6">
+              <p className="display text-5xl text-white md:text-6xl">{t.year}</p>
+              <p className="mt-4 text-lg font-semibold">{t.captain}</p>
+              <p className="text-sm text-white/65">Captain · {t.venue}</p>
+            </li>
+          ))}
+        </ol>
       </Block>
 
       <Block title="Cricket For Friendship" tone="sky">

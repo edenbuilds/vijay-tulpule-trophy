@@ -1,32 +1,24 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import Timeline, { type TimelineItem } from "@/components/effects/timeline";
 import { SCHEDULE, GROUNDS } from "@/lib/schedule";
 
-// 12-10-2026: owner chose a row of day cards, everything visible without clicking. Scrolls sideways on phones.
+// 13-10-2026: owner asked for the Hyperiux timeline in place of the day cards. Facts only from SCHEDULE.
+const items: TimelineItem[] = SCHEDULE.map((day, i) => ({
+  id: `d${day.date.replaceAll("-", "")}`,
+  label: `${day.weekday.slice(0, 3)} ${day.short}`,
+  accent: Boolean(day.finals),
+  content:
+    i === 0 ? "Opening ceremony. Venue to be announced."
+    : day.grounds.length ? `${day.finals ? "Finals" : "League matches"}: ${day.grounds.map((id) => GROUNDS[id].name).join(", ")}`
+    : "Reserve day, kept free in case of rain.",
+}));
+
 export function HomeSchedule() {
   return (
-    <section aria-labelledby="schedule-home-title" className="dc">
-      <div className="dc-head">
-        <div><p className="dc-kicker">17–24 October 2026</p><h2 id="schedule-home-title" className="display">Match week</h2></div>
-        <Link href="/fixtures" className="link-arrow">Full fixtures <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
-      </div>
-      <ol className="dc-row">
-        {SCHEDULE.map((day, i) => {
-          const kind = i === 0 ? "open" : day.finals ? "final" : day.grounds.length ? "" : "rest";
-          const title = i === 0 ? "Opening ceremony" : day.title === "Matches" ? "League matches" : day.title;
-          return (
-            <li key={day.date} className={`dc-card ${kind}`} style={{ "--i": i } as React.CSSProperties}>
-              <p className="dc-day">{day.weekday}</p>
-              <p className="dc-num num">{day.short.split(" ")[0]}</p>
-              <p className="dc-what">{title}</p>
-              {day.grounds.length
-                ? <ul className="dc-grounds">{day.grounds.map((id) => <li key={id}>{GROUNDS[id].name}<span>{GROUNDS[id].area}</span></li>)}</ul>
-                : <p className="dc-note">{i === 0 ? "Venue to be announced." : "Kept free in case of rain."}</p>}
-            </li>
-          );
-        })}
-      </ol>
-      <p className="dc-foot">Matchups and timings will be published when confirmed.</p>
-    </section>
+    <>
+      <Timeline title="Match week" periodLabel="17–24 October 2026" items={items} imageUrl="/img/bombay-champions-2023.jpg" imageAlt="The Bombay High Court team with its trophies, 2023" />
+      <div className="dc-head bg-snow"><p className="dc-foot">Matchups and timings will be published when confirmed.</p><Link href="/fixtures" className="link-arrow">Full fixtures <ArrowUpRight aria-hidden="true" className="size-5" /></Link></div>
+    </>
   );
 }
