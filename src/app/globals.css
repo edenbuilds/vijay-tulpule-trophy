@@ -457,7 +457,7 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 .wk { padding: clamp(64px, 9vw, 120px) 40px; max-width: 1440px; margin: 0 auto; color: var(--color-navy); }
 .wk-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 40px; }
 .wk-title { font-family: var(--font-display); font-weight: 900; font-stretch: 62%; text-transform: uppercase; line-height: .85; font-size: clamp(64px, 12vw, 200px); }
-.wk-row { position: relative; border-bottom: 1px solid #0B2A6B1a; opacity: 0; transform: translateY(14px); animation: wk-in .7s var(--ease-snap) both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+.wk-row { position: relative; border-bottom: 1px solid #0B2A6B1a; opacity: 0; transform: translateY(14px); animation: wk-in .7s var(--ease-snap) both; animation-timeline: view(); animation-range: entry 0% entry 25%; }
 @supports not (animation-timeline: view()) { .wk-row { opacity: 1; transform: none; animation: none; } }
 @keyframes wk-in { to { opacity: 1; transform: none; } }
 .wk-row::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--color-red); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-snap); }
@@ -528,10 +528,10 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 /* Pass 4: gallery tiles and the six titles reveal as they scroll in. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .gal-tile, .titles > li { animation: tile-in linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+    .gal-tile, .titles > li { animation: tile-in linear both; animation-timeline: view(); animation-range: entry 0% entry 25%; }
   }
 }
-@keyframes tile-in { from { opacity: 0; transform: translateY(32px) scale(.96); clip-path: inset(12% 0 0 0 round 8px); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 8px); } }
+@keyframes tile-in { from { opacity: .4; transform: translateY(24px) scale(.98); clip-path: inset(8% 0 0 0 round 8px); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 8px); } }
 
 /* 13-10-2026 type pass: Bebas Neue ships one weight, so never fake-bold it; letters sit a touch wide. Antonio slanted is the one accent. */
 :where(h1,h2,h3,.display,.display-xl,.hero-title,[class*="font-display"]) { font-synthesis: none; }
