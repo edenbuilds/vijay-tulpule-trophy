@@ -1,5 +1,5 @@
 "use client";
-// Asks visitors to follow BACA on Instagram once per browser: after 15 seconds or half the page scrolled, whichever comes first.
+// Asks visitors to follow BACA on Instagram once per browser: after 5 seconds or half the page scrolled, whichever comes first.
 // A small corner card rather than a blocking modal, so it never stands between someone and the fixtures.
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
@@ -19,7 +19,7 @@ export function FollowPopup() {
       cleanup();
     };
     const onScroll = () => { if (scrollY > (document.body.scrollHeight - innerHeight) / 2) show(); };
-    const t = setTimeout(show, 15000);
+    const t = setTimeout(show, 5000);
     addEventListener("scroll", onScroll, { passive: true });
     const cleanup = () => { clearTimeout(t); removeEventListener("scroll", onScroll); };
     return cleanup;
