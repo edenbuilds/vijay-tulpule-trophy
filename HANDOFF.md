@@ -65,3 +65,7 @@ Next prompt: "Check every page at 390px for headings that look too tall or tight
 - Home, directly under the hero: "From the tournament" (src/components/home/HomeHighlights.tsx), data in src/lib/highlights.ts.
 - To add a photo: put it in public/highlights/ (webp, ~1200-1600px), add an entry at the TOP of HIGHLIGHTS with src, w, h, caption, alt (date only if BACA gives it). Newest becomes the big framed photo; older ones move to the grid beside it.
 Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<caption>'. Save it in public/highlights/, add it at the top of src/lib/highlights.ts, build, check home at 1440 and 390, deploy."
+
+## Pass 8 (16-10-2026)
+- Highlight caption reworded; optional `tagline` field on `Highlight` (red slanted Antonio line).
+- Photo enters with a clip-path wipe plus blur-to-sharp; caption words rise in sequence (`.hl-w`). Reduced motion disables both.
