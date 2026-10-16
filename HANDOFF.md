@@ -60,3 +60,8 @@ Next prompt: "Check every page at 390px for headings that look too tall or tight
 - Hero h2 "Who takes it home?" rotates the 16 team names (effects/rotating-text, after React Bits). Hero pushes in and copy lifts away on scroll (CSS view timeline, after motion.dev scroll zoom hero).
 - Nav: sliding sky pill on hover/current page and a red scroll progress line (after motion.dev scroll highlight).
 - Gallery: 3D unfurl + column parallax showcase above the archive (effects/unfurl-gallery). The 21st.dev original needs a 21st.dev login, so this is a local rebuild.
+
+## Pass 7 (16-10-2026): highlight reel
+- Home, directly under the hero: "From the tournament" (src/components/home/HomeHighlights.tsx), data in src/lib/highlights.ts.
+- To add a photo: put it in public/highlights/ (webp, ~1200-1600px), add an entry at the TOP of HIGHLIGHTS with src, w, h, caption, alt (date only if BACA gives it). Newest becomes the big framed photo; older ones move to the grid beside it.
+Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<caption>'. Save it in public/highlights/, add it at the top of src/lib/highlights.ts, build, check home at 1440 and 390, deploy."

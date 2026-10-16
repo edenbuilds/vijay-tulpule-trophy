@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { ScoreTicker } from "@/components/Motion";
 import { HomeHero } from "@/components/home/HomeHero";
+import { HomeHighlights } from "@/components/home/HomeHighlights";
 import { HomeSchedule } from "@/components/home/HomeSchedule";
 import { Converge } from "@/components/home/Converge";
 import { GalleryZoom } from "@/components/home/GalleryZoom";
@@ -29,6 +30,7 @@ export default function Home() {
   return (
     <>
       <HomeHero />
+      <HomeHighlights />
       <Converge teams={TEAMS} />
       <HomeSchedule />
       <ScoreTicker items={["MUMBAI 2026", "THE VIJAY TULPULE TROPHY"]} />

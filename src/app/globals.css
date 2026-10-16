@@ -562,3 +562,35 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 .ig-pop { animation: ig-in .5s cubic-bezier(.23,1,.32,1) both; }
 @keyframes ig-in { from { opacity: 0; transform: translateY(24px) scale(.97); } }
 @media (prefers-reduced-motion: reduce) { .ig-pop { animation: none; } }
+
+/* Highlight reel under the hero. The lead photo sits in a slowly turning navy/red/white ring with a soft glow, so it reads as "new". */
+@property --hl-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.hl { background: var(--color-navy-deep); color: #fff; }
+.hl-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; margin-bottom: 36px; }
+.hl-live { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: #ffffffb3; order: -1; width: 100%; }
+.hl-live span { width: 9px; height: 9px; border-radius: 50%; background: var(--color-red); box-shadow: 0 0 0 0 #e3263f99; animation: hl-pulse 1.8s ease-out infinite; }
+.hl-grid { display: grid; gap: 28px; justify-items: center; }
+.hl-grid.has-rest { justify-items: stretch; }
+@media (min-width: 1024px) { .hl-grid.has-rest { grid-template-columns: 560px 1fr; align-items: start; } }
+.hl-lead { width: 100%; max-width: 560px; }
+.hl-frame { position: relative; padding: 4px; border-radius: 18px; background: conic-gradient(from var(--hl-a), #E3263F, #ffffff, #1D4ED8, #E3263F); animation: hl-spin 6s linear infinite; }
+.hl-frame::before { content: ""; position: absolute; inset: -18px; z-index: -1; border-radius: 30px; background: inherit; filter: blur(28px); opacity: .45; }
+.hl-photo { overflow: hidden; border-radius: 14px; background: #0B1F4B; }
+.hl-photo img { transition: transform .6s cubic-bezier(.23,1,.32,1); }
+.hl-lead:hover .hl-photo img { transform: scale(1.03); }
+.hl-cap { margin-top: 18px; font-size: 17px; line-height: 1.55; color: #ffffffd9; }
+.hl-cap span { display: block; font-size: 13px; color: #ffffff99; margin-bottom: 4px; }
+.hl-rest { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (min-width: 640px) { .hl-rest { grid-template-columns: repeat(3, 1fr); } }
+.hl-rest p { margin-top: 8px; font-size: 13px; line-height: 1.4; color: #ffffffb3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.hl-lead, .hl-rest li { animation: hl-in .9s cubic-bezier(.23,1,.32,1) both; animation-delay: calc(var(--i, 0) * 80ms + 150ms); }
+@keyframes hl-spin { to { --hl-a: 360deg; } }
+@keyframes hl-pulse { 70% { box-shadow: 0 0 0 10px #e3263f00; } 100% { box-shadow: 0 0 0 0 #e3263f00; } }
+@keyframes hl-in { from { opacity: 0; transform: translateY(28px) scale(.97); } }
+@media (prefers-reduced-motion: reduce) { .hl-frame, .hl-live span, .hl-lead, .hl-rest li { animation: none; } }
+/* One photo only: photo left, caption beside it, aligned with the heading. */
+.hl-grid:not(.has-rest) { justify-items: start; }
+@media (min-width: 1024px) {
+  .hl-grid:not(.has-rest) .hl-lead { max-width: none; display: grid; grid-template-columns: 560px 1fr; gap: 56px; align-items: center; }
+  .hl-grid:not(.has-rest) .hl-cap { margin-top: 0; font-size: 26px; line-height: 1.4; color: #fff; max-width: 30ch; }
+}
