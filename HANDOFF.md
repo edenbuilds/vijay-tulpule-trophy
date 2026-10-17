@@ -69,3 +69,8 @@ Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<ca
 ## Pass 8 (16-10-2026)
 - Highlight caption reworded; optional `tagline` field on `Highlight` (red slanted Antonio line).
 - Photo enters with a clip-path wipe plus blur-to-sharp; caption words rise in sequence (`.hl-w`). Reduced motion disables both.
+
+## Pass 9 (18-10-2026)
+- Organisers' Fixtures PDF (18-10-2026) is now the source: `MATCHES` and derived `GROUPS` in `src/lib/schedule.ts`; grounds replaced to match it. The PDF itself is `public/downloads/vtt-2026-fixtures.pdf`.
+- Fixtures page shows every match with team logos, plus a Groups block. ICS, home timeline, teams/format/home copy updated (groups are drawn).
+- PDF quirks: SF and final days reuse match numbers 25-28, so those show stage only; "Ari India" read as Air India; "Looser" written as Loser. No start times yet.

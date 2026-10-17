@@ -24,7 +24,7 @@ export function Converge({ teams }: { teams: Team[] }) {
     <section aria-labelledby="teams-home-title" className="wall">
       <div className="wall-head">
         <h2 id="teams-home-title" className="display-xl">The teams</h2>
-        <p>15 High Courts and the Supreme Court of India. Groups will be announced after the draw.</p>
+        <p>15 High Courts and the Supreme Court of India. Four groups, 34 matches.</p>
         <Link href="/teams" className="link-arrow">All 16 teams <ArrowUpRight aria-hidden="true" className="size-5" /></Link>
       </div>
       <div className="wall-rows"><Row teams={teams.slice(0, half)} /><Row teams={teams.slice(half)} reverse /></div>

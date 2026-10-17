@@ -198,7 +198,7 @@ export const TERMS = [
 ];
 
 export const DOWNLOADS = [
-  { href: "/downloads/vtt-2026-fixtures.pdf", label: "Fixtures", line: "The days, the grounds and the 16 teams.", kind: "PDF" },
+  { href: "/downloads/vtt-2026-fixtures.pdf", label: "Fixtures", line: "Every match, group and ground, as issued on 18 October.", kind: "PDF" },
   { href: "/vtt-2026.ics", label: "Calendar", line: "Match days for your calendar app.", kind: "ICS" },
   { href: "/downloads/vtt-2026-sponsorship.pdf", label: "Sponsorship", line: "Tiers, rights, terms and payment.", kind: "PDF" },
   { href: "/downloads/baca-logo-pack.zip", label: "BACA logo pack", line: "The BACA seal in several colourways, with lockups for light and dark.", kind: "ZIP" },

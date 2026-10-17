@@ -1,15 +1,29 @@
 "use client";
 
 import * as React from "react";
-import { GROUNDS, SCHEDULE } from "@/lib/schedule";
+import Image from "next/image";
+import { GROUNDS, MATCHES, SCHEDULE } from "@/lib/schedule";
+import { TEAMS } from "@/lib/teams";
 import { nb } from "@/lib/site";
 
 // What the sheet does not list for a day, in our words. Keyed by date so a day that gains grounds simply stops using its entry.
 const NOTE: Record<string, string> = {
   "2026-10-17": "Venue and time to be announced.",
   "2026-10-21": "No matches.",
-  "2026-10-24": "Which final is played where is to be announced.",
 };
+
+const TEAM = Object.fromEntries(TEAMS.map((t) => [t.slug, t]));
+
+// A side is a team slug in the league and a placeholder ("Winner of QF-1") in the knockouts.
+function Side({ id, end }: { id: string; end?: boolean }) {
+  const t = TEAM[id];
+  return (
+    <span className={`flex min-w-0 items-center gap-2.5 ${end ? "flex-row-reverse text-right" : ""}`}>
+      {t && <Image src={t.logo} alt="" width={36} height={36} className="size-8 flex-none rounded-full object-contain md:size-9" />}
+      <span className={t ? "display min-w-0 text-xl leading-tight md:text-2xl" : "text-base font-semibold leading-snug text-navy/75 md:text-lg"}>{t ? t.name : id}</span>
+    </span>
+  );
+}
 
 // First day with a ground listed, so the page opens on something to read (17 Oct has no venue yet).
 const FIRST = Math.max(0, SCHEDULE.findIndex((d) => d.grounds.length > 0));
@@ -104,13 +118,19 @@ export function FixtureTabs() {
             <div>
               {d.grounds.length > 0 && (
                 <ul className="rule">
-                  {d.grounds.map((id) => {
-                    const g = GROUNDS[id];
+                  {MATCHES.filter((m) => m.date === d.date).map((m) => {
+                    const g = GROUNDS[m.ground];
                     return (
-                      <li key={id} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-dashed border-navy/15 py-4 md:py-5">
-                        <span className="display text-2xl md:text-4xl">{nb(g.name)}</span>
-                        <span className="text-lg text-navy/70">{g.area}</span>
-                        {d.finals?.includes(id) && <span className="ml-auto text-lg font-bold text-red">Final</span>}
+                      <li key={m.stage + m.ground} className="border-b border-dashed border-navy/15 py-4 md:py-5">
+                        <p className="num mb-2 flex flex-wrap gap-x-3 text-sm text-navy/65">
+                          <span className={`font-semibold ${d.finals ? "text-red" : "text-royal"}`}>{m.no ? `Match ${m.no} · ` : ""}{m.stage}</span>
+                          <span>{g.name}, {g.area}</span>
+                        </p>
+                        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+                          <Side id={m.a} />
+                          <span className="text-sm font-semibold text-navy/45">vs</span>
+                          <Side id={m.b} end />
+                        </div>
                       </li>
                     );
                   })}

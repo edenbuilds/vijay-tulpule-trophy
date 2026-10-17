@@ -38,7 +38,7 @@ export default function Format() {
             </div>
           ))}
         </dl>
-        <p className="mt-2 max-w-3xl text-base leading-relaxed text-navy/65">Groups and matchups will be confirmed following the official draw.</p>
+        <p className="mt-2 max-w-3xl text-base leading-relaxed text-navy/65">Four groups of four. The top two in each group reach the quarter-finals.</p>
       </Block>
 
       <Block title="Tournament Calendar" tone="sky">

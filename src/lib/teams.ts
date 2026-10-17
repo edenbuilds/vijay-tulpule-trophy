@@ -1,6 +1,6 @@
 // The 16 teams, in the order of the organisers' sheet (CAPTAINS tab, screenshot sent 07-10-2026): 15 High Courts and the Supreme Court.
 // Logos are the ones the organisers sent on 06-10-2026 (public/teams/<slug>.png, cut to a round or square tile by scripts in the redesign).
-// Groups are NOT drawn yet ("Groups are not yet drawn", Aaron Pinto, 06-10-2026), so there is no group field. Captains: the screenshot
+// Groups are drawn (Fixtures PDF, 18-10-2026) and live in GROUPS in schedule.ts, derived from the matches. Captains: the screenshot
 // cut the column off, so no captain is listed. Add `captain` here only from the full sheet.
 export type Team = {
   slug: string;

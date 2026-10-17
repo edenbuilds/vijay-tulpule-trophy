@@ -1,4 +1,7 @@
-import { GROUNDS, SCHEDULE, groundLabel } from "@/lib/schedule";
+import { GROUNDS, MATCHES, SCHEDULE, groundLabel } from "@/lib/schedule";
+import { TEAMS } from "@/lib/teams";
+
+const name = (id: string) => TEAMS.find((t) => t.slug === id)?.name ?? id;
 
 export const dynamic = "force-static";
 
@@ -15,16 +18,15 @@ const esc = (s: string) => s.replace(/[,;\\]/g, (c) => `\\${c}`);
 // old version replace it instead of keeping a second event.
 export function GET() {
   const events = SCHEDULE.map((day) => {
-    const lines = day.grounds.map((id) => `${day.finals?.includes(id) ? "Final: " : ""}${groundLabel(GROUNDS[id])}`);
+    const lines = MATCHES.filter((m) => m.date === day.date).map((m) => `${m.stage}: ${name(m.a)} vs ${name(m.b)}, ${groundLabel(GROUNDS[m.ground])}`);
     if (day.date === "2026-10-17") lines.push("Venue and time to be announced.");
     if (day.date === "2026-10-21") lines.push("No matches.");
-    if (day.finals) lines.push("Which final is played where is to be announced.");
-    const summary = day.finals ? "Finals" : day.date === "2026-10-21" ? "Reserve day" : `BACA Cricket Tournament, ${day.short}`;
+    const summary = day.date === "2026-10-17" ? `BACA Cricket Tournament, ${day.short}` : day.title;
     return [
       "BEGIN:VEVENT",
       `UID:vtt-2026-${ymd(day.date)}@vijay-tulpule-trophy.vercel.app`,
-      "DTSTAMP:20261007T000000Z",
-      "SEQUENCE:1",
+      "DTSTAMP:20261018T000000Z",
+      "SEQUENCE:2",
       `DTSTART;VALUE=DATE:${ymd(day.date)}`,
       `DTEND;VALUE=DATE:${ymd(day.date, 1)}`,
       `SUMMARY:${esc(summary)}`,
