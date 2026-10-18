@@ -78,3 +78,8 @@ Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<ca
 ## Pass 10 (18-10-2026)
 - Home shows a Scores section under the hero (`HomeLive`), read in the browser from https://match.baca-cricket.com/api/live (CricHeroes via the tournament desk, CORS open) every 30 s. Shows today's and live matches only; hidden when the feed is empty or down. Desk team ids map to site slugs in the component.
 - Known: a 2px horizontal overflow at 390px predates this pass (present on the baseline build).
+
+## Pass 11 (18-10-2026): home scores for phones
+- `HomeLive.tsx`: Live / Results / Later tabs with counts; phones swipe one card at a time (scroll-snap), 2 then 4 columns from sm/lg. Card shows start time or status, ground, logos, score + overs, losing side dimmed, summary line.
+- Note: Vercel's bot checkpoint is on for baca-cricket.com, so headless Playwright gets 403; verify in a real browser.
+- Paste-ready next prompt: "Check today's saved results in the match centre and add batting/bowling cards if organisers want them."
