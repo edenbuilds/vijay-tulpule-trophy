@@ -16,7 +16,7 @@ const TABS: Tab[] = ["live", "past", "upcoming", "yesterday", "tomorrow"];
 // CricHeroes sends team names in capitals ("LUCKNOW ADVOCATES won the toss"); soften them for reading.
 const soft = (t: string) => t.replace(/\b[A-Z]{3,}\b/g, (w) => w[0] + w.slice(1).toLowerCase());
 const istTime = (iso: string) => new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit" }).format(new Date(iso));
-const card = "sc-in flex h-full flex-col gap-3 rounded-xl border border-white bg-white p-4 text-navy shadow-[0_8px_24px_rgb(0_0_0/.18)] transition-transform duration-200 hover:-translate-y-0.5 sm:p-5";
+const card = "sc-in flex h-full flex-col gap-3 rounded-[12px] border border-white bg-white p-4 text-navy shadow-[0_8px_24px_rgb(0_0_0/.18)] transition-transform duration-200 hover:-translate-y-0.5 sm:p-5";
 
 function Score({ m }: { m: LiveMatch }) {
   return (
@@ -106,10 +106,10 @@ export function HomeLive() {
           </div>
         </div>
         {/* A swipeable row at every width: one card on phones, two to four on wider screens. Re-keyed per tab so cards stagger in. */}
-        <ul key={active} ref={row} className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:mx-0 md:gap-4 md:px-0">
+        <ul key={active} ref={row} className="-mx-4 flex sc-row snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:mx-0 md:gap-4 md:px-0">
           {active === "tomorrow"
             ? next.map((m, i) => (
-                <li key={i} className="w-[84%] flex-none snap-start sm:w-[calc(50%-.5rem)] lg:w-[calc(25%-.75rem)]">
+                <li key={i} className="sc-cell w-[84%] flex-none snap-start sm:w-[calc(50%-.5rem)] lg:w-[calc(25%-.75rem)]">
                   <a href="/fixtures" className={card} style={{ "--i": i } as React.CSSProperties}>
                     <span className="flex items-center justify-between gap-2 text-xs text-navy/55">
                       <span className="font-semibold uppercase tracking-[.14em]">{m.no ? `Match ${m.no}` : m.stage}</span>
@@ -129,7 +129,7 @@ export function HomeLive() {
                 </li>
               ))
             : groups[active].map((m, i) => (
-                <li key={m.id} className="w-[84%] flex-none snap-start sm:w-[calc(50%-.5rem)] lg:w-[calc(25%-.75rem)]">
+                <li key={m.id} className="sc-cell w-[84%] flex-none snap-start sm:w-[calc(50%-.5rem)] lg:w-[calc(25%-.75rem)]">
                   <a href={MATCH_CENTRE} className={`${card} ${m.status === "live" ? "sc-live" : ""}`} style={{ "--i": i } as React.CSSProperties}>
                     <span className="flex items-center justify-between gap-2 text-xs text-navy/55">
                       <span className={`flex items-center gap-2 font-semibold uppercase tracking-[.14em] ${m.status === "live" ? "text-red" : ""}`}>

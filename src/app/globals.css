@@ -621,3 +621,13 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 .live-shell { margin: 10px 20px 0; border-radius: 16px; overflow: hidden; }
 @media (max-width: 767px) { .live-shell { margin: 8px 12px 0; } }
 @media (min-width: 1600px) { .live-shell { max-width: 1560px; margin-left: auto; margin-right: auto; } }
+/* Score cards move with the scroll: the row rises into place as the page scrolls to it, and cards
+   easing off either edge of the swipe row shrink and fade so the centred one leads. CSS-only, off the main thread. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sc-row { animation: sc-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
+    @keyframes sc-rise { from { opacity: .2; transform: translateY(48px) scale(.96); } }
+    .sc-cell { animation: sc-edge linear both; animation-timeline: view(inline); }
+    @keyframes sc-edge { 0% { opacity: .45; transform: scale(.92); } 20%, 80% { opacity: 1; transform: none; } 100% { opacity: .45; transform: scale(.92); } }
+  }
+}
