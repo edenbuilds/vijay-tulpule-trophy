@@ -24,6 +24,9 @@ html {
 }
 
 body {
+  /* The hero photo roll and highlight images bleed past 1024px wide (13px sideways scroll, 18-10-2026).
+     clip, not hidden, so sticky headers keep working. */
+  overflow-x: clip;
   background: var(--color-snow);
   color: var(--color-navy);
   font-family: var(--font-sans);
