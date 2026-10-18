@@ -31,13 +31,31 @@ function Score({ m }: { m: LiveMatch }) {
             <span className="min-w-0 flex-1 truncate font-semibold leading-tight">{t?.name ?? soft(s.name)}</span>
             <span className="num flex-none overflow-hidden text-right">
               {/* Re-keyed on every change so a new score rolls in. */}
-              <span key={s.score} className="sc-tick inline-block text-lg font-bold">{yet ? "" : s.score}</span>
+              <span key={s.score} className="inline-flex text-lg font-bold">{yet ? "" : <Odo v={s.score} />}</span>
               <span className="ml-1.5 text-xs text-navy/55">{yet ? "Yet to bat" : s.overs}</span>
             </span>
           </span>
         );
       })}
     </>
+  );
+}
+
+/* Odometer digits, borrowed from BYQ's odometer-counter gem: each digit is a 0-9 reel that spins
+   to its value, settling left to right. CSS only (no GSAP), and re-keyed with the score so it spins again on change. */
+function Odo({ v }: { v: string }) {
+  return (
+    <span aria-label={v} className="inline-flex">
+      {[...v].map((c, i) =>
+        /\d/.test(c) ? (
+          <span key={i} aria-hidden className="odo">
+            <span className="odo-reel" style={{ "--d": c, "--i": i } as React.CSSProperties}>
+              {"0123456789".split("").map((n) => <span key={n}>{n}</span>)}
+            </span>
+          </span>
+        ) : <span key={i} aria-hidden>{c}</span>,
+      )}
+    </span>
   );
 }
 

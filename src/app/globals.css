@@ -631,3 +631,7 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
     @keyframes sc-edge { 0% { opacity: .45; transform: scale(.92); } 20%, 80% { opacity: 1; transform: none; } 100% { opacity: .45; transform: scale(.92); } }
   }
 }
+.odo { display: inline-block; height: 1.25em; line-height: 1.25em; overflow: hidden; }
+.odo-reel { display: flex; flex-direction: column; transform: translateY(calc(var(--d) * -1.25em)); animation: odo 1s cubic-bezier(.23,1,.32,1) both; animation-delay: calc(200ms + var(--i) * 70ms); }
+@keyframes odo { from { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .odo-reel { animation: none; } }

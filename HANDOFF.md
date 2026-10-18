@@ -91,3 +91,9 @@ Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<ca
 - Home match centre: inset 16px card like the hero; tabs labelled by date; cards stagger in, scores roll on change, live cards pulse; swipe row with arrows.
 - Photos: `scripts/add-photos.sh <folder> <YYYY-MM-DD>` writes 2000px copies to `public/matchday/<date>/`; the carousel (adapted from BYQ cultureexchange-image-gallery-1) lists them at build. Commit + push to publish.
 - Paste-ready next prompt: "Add today's photos from ~/Downloads/<folder> with scripts/add-photos.sh and deploy; check /social/results/<today> once the last match ends."
+
+## Pass 13 (19-10-2026): score cards
+- Cards are white with navy text on the navy match centre (16px shell, 12px cards); live cards get a red border and top strip.
+- Scroll motion (CSS scroll-driven, Chrome/Edge/Safari 26+, no-op elsewhere): the row rises in as it scrolls into view; cards easing off either edge of the swipe row shrink and fade.
+- Scores are odometer reels (idea from BYQ gem odometer-counter-01, rebuilt in CSS, no GSAP): digits spin to value left to right and spin again on change. Reduced motion turns all of this off.
+- Paste-ready next prompt: "Open baca-cricket.com at 390px and desktop, scroll to the match centre, confirm the odometer scores and edge fade, then add today's photos with scripts/add-photos.sh."
