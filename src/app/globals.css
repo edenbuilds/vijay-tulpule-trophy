@@ -615,7 +615,7 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 @keyframes sc-tick { from { transform: translateY(100%); color: var(--color-red); } 40% { color: var(--color-red); } }
 .sc-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-red); animation: live-dot 1.6s ease-in-out infinite; }
 @keyframes live-dot { 50% { opacity: .3; transform: scale(.7); } }
-.sc-live { border-color: rgb(226 27 45 / .45); box-shadow: inset 0 0 0 1px rgb(226 27 45 / .12); }
+.sc-live { border-color: var(--color-red); box-shadow: inset 0 3px 0 var(--color-red), 0 8px 24px rgb(0 0 0 / .18); }
 @media (prefers-reduced-motion: reduce) { .sc-in, .sc-tick, .sc-dot { animation: none; } }
 /* The match centre sits as a second card under the hero: same inset and 16px corners, so the two read as a pair. */
 .live-shell { margin: 10px 20px 0; border-radius: 16px; overflow: hidden; }

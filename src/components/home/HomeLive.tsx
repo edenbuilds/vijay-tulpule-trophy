@@ -16,7 +16,7 @@ const TABS: Tab[] = ["live", "past", "upcoming", "yesterday", "tomorrow"];
 // CricHeroes sends team names in capitals ("LUCKNOW ADVOCATES won the toss"); soften them for reading.
 const soft = (t: string) => t.replace(/\b[A-Z]{3,}\b/g, (w) => w[0] + w.slice(1).toLowerCase());
 const istTime = (iso: string) => new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit" }).format(new Date(iso));
-const card = "sc-in flex h-full flex-col gap-3 rounded-xl border border-white/12 bg-white/[.04] p-4 transition-colors duration-200 hover:border-white/35 sm:p-5";
+const card = "sc-in flex h-full flex-col gap-3 rounded-xl border border-white bg-white p-4 text-navy shadow-[0_8px_24px_rgb(0_0_0/.18)] transition-transform duration-200 hover:-translate-y-0.5 sm:p-5";
 
 function Score({ m }: { m: LiveMatch }) {
   return (
@@ -32,7 +32,7 @@ function Score({ m }: { m: LiveMatch }) {
             <span className="num flex-none overflow-hidden text-right">
               {/* Re-keyed on every change so a new score rolls in. */}
               <span key={s.score} className="sc-tick inline-block text-lg font-bold">{yet ? "" : s.score}</span>
-              <span className="ml-1.5 text-xs text-white/55">{yet ? "Yet to bat" : s.overs}</span>
+              <span className="ml-1.5 text-xs text-navy/55">{yet ? "Yet to bat" : s.overs}</span>
             </span>
           </span>
         );
@@ -111,7 +111,7 @@ export function HomeLive() {
             ? next.map((m, i) => (
                 <li key={i} className="w-[84%] flex-none snap-start sm:w-[calc(50%-.5rem)] lg:w-[calc(25%-.75rem)]">
                   <a href="/fixtures" className={card} style={{ "--i": i } as React.CSSProperties}>
-                    <span className="flex items-center justify-between gap-2 text-xs text-white/55">
+                    <span className="flex items-center justify-between gap-2 text-xs text-navy/55">
                       <span className="font-semibold uppercase tracking-[.14em]">{m.no ? `Match ${m.no}` : m.stage}</span>
                       <span>{shortDate(m.date)}{m.no ? ` · ${m.stage}` : ""}</span>
                     </span>
@@ -124,14 +124,14 @@ export function HomeLive() {
                         </span>
                       );
                     })}
-                    <span className="mt-auto border-t border-white/10 pt-3 text-sm leading-snug text-white/70">{GROUNDS[m.ground] ? groundLabel(GROUNDS[m.ground]) : m.ground}</span>
+                    <span className="mt-auto border-t border-navy/10 pt-3 text-sm leading-snug text-navy/70">{GROUNDS[m.ground] ? groundLabel(GROUNDS[m.ground]) : m.ground}</span>
                   </a>
                 </li>
               ))
             : groups[active].map((m, i) => (
                 <li key={m.id} className="w-[84%] flex-none snap-start sm:w-[calc(50%-.5rem)] lg:w-[calc(25%-.75rem)]">
                   <a href={MATCH_CENTRE} className={`${card} ${m.status === "live" ? "sc-live" : ""}`} style={{ "--i": i } as React.CSSProperties}>
-                    <span className="flex items-center justify-between gap-2 text-xs text-white/55">
+                    <span className="flex items-center justify-between gap-2 text-xs text-navy/55">
                       <span className={`flex items-center gap-2 font-semibold uppercase tracking-[.14em] ${m.status === "live" ? "text-red" : ""}`}>
                         {m.status === "live" && <span aria-hidden="true" className="sc-dot" />}
                         {matchNo(m) ? `Match ${matchNo(m)}` : m.status === "live" ? "Live" : "Match"}
@@ -139,7 +139,7 @@ export function HomeLive() {
                       <span className="truncate">{shortDate(m.start)} · {m.status === "upcoming" ? istTime(m.start) : m.ground}</span>
                     </span>
                     <Score m={m} />
-                    {m.summary && <span className="mt-auto border-t border-white/10 pt-3 text-sm leading-snug text-white/70">{soft(m.summary)}</span>}
+                    {m.summary && <span className="mt-auto border-t border-navy/10 pt-3 text-sm leading-snug text-navy/70">{soft(m.summary)}</span>}
                   </a>
                 </li>
               ))}
