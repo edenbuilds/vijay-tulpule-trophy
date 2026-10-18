@@ -83,3 +83,11 @@ Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<ca
 - `HomeLive.tsx`: Live / Results / Later tabs with counts; phones swipe one card at a time (scroll-snap), 2 then 4 columns from sm/lg. Card shows start time or status, ground, logos, score + overs, losing side dimmed, summary line.
 - Note: Vercel's bot checkpoint is on for baca-cricket.com, so headless Playwright gets 403; verify in a real browser.
 - Paste-ready next prompt: "Check today's saved results in the match centre and add batting/bowling cards if organisers want them."
+
+## Pass 12 (19-10-2026): results posts, ticker, photos
+- `/social/results/YYYY-MM-DD`: 1080x1350 Instagram results post (next/og), built from the live feed, so each day's post exists once its matches finish. Assets in `src/app/social/assets` (fonts, t26 logo, 120px team logos, skyline cropped from the owner's Day 1 reference). Linked as "Results post" in the home match centre.
+- Not done: publishing to Instagram itself needs a Meta Graph API token for the BACA business account.
+- Hero ticker (`HeroTicker.tsx`): match number + date for the previous day's results, today's matches and the next day's fixtures. Never "yesterday/today".
+- Home match centre: inset 16px card like the hero; tabs labelled by date; cards stagger in, scores roll on change, live cards pulse; swipe row with arrows.
+- Photos: `scripts/add-photos.sh <folder> <YYYY-MM-DD>` writes 2000px copies to `public/matchday/<date>/`; the carousel (adapted from BYQ cultureexchange-image-gallery-1) lists them at build. Commit + push to publish.
+- Paste-ready next prompt: "Add today's photos from ~/Downloads/<folder> with scripts/add-photos.sh and deploy; check /social/results/<today> once the last match ends."
