@@ -54,7 +54,7 @@ export function HomeLive() {
   }, []);
 
   const [yday, today, tmrw] = [dayOffset(-1), dayOffset(0), dayOffset(1)];
-  const all = feed?.matches ?? [];
+  const all = [...(feed?.matches ?? [])].sort((x, y) => x.start.localeCompare(y.start) || (matchNo(x) ?? 99) - (matchNo(y) ?? 99));
   const todays = all.filter((m) => m.status === "live" || istDay(m.start) === today);
   const groups: Record<Tab, LiveMatch[]> = {
     live: todays.filter((m) => m.status === "live"),

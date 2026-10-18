@@ -14,7 +14,7 @@ export function HeroTicker({ fallback }: { fallback: string[] }) {
     const load = () =>
       fetch(FEED).then((r) => r.json()).then((f: Feed) => {
         const [yday, today, tmrw] = [dayOffset(-1), dayOffset(0), dayOffset(1)];
-        const on = (d: string) => f.matches.filter((m) => istDay(m.start) === d);
+        const on = (d: string) => f.matches.filter((m) => istDay(m.start) === d).sort((x, y) => (matchNo(x) ?? 99) - (matchNo(y) ?? 99));
         // "Match 9 · 19 Oct · ..." rather than "yesterday/today", which goes stale the moment the date turns.
         const tag = (m: LiveMatch) => `${matchNo(m) ? `Match ${matchNo(m)}` : "Match"} · ${shortDate(m.start)}`;
         const next = [
