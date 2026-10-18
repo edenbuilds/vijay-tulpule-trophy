@@ -4,17 +4,19 @@ import Image from "next/image";
 import * as React from "react";
 import { TEAMS } from "@/lib/teams";
 import { GROUNDS, MATCHES, groundLabel } from "@/lib/schedule";
-import { FEED, dayOffset, istDay, teamOf, type Feed, type LiveMatch } from "@/lib/live";
+import { FEED, dayOffset, istDay, matchNo, shortDate, teamOf, type Feed, type LiveMatch } from "@/lib/live";
 
 // Live scores from the match centre feed, polled every 30 s. Renders nothing until there is something to show.
 const MATCH_CENTRE = "https://match.baca-cricket.com/tournament/matches";
 
 type Tab = "live" | "past" | "upcoming" | "yesterday" | "tomorrow";
-const LABELS: [Tab, string][] = [["live", "Live"], ["past", "Results"], ["upcoming", "Later"], ["yesterday", "Yesterday"], ["tomorrow", "Tomorrow"]];
+// Tabs carry the date, not "yesterday/today", so they never read wrong.
+const label = (k: Tab, d: Record<string, string>) => ({ live: "Live", past: `Results ${d.today}`, upcoming: `Up next ${d.today}`, yesterday: `Results ${d.yday}`, tomorrow: `Fixtures ${d.tmrw}` })[k];
+const TABS: Tab[] = ["live", "past", "upcoming", "yesterday", "tomorrow"];
 // CricHeroes sends team names in capitals ("LUCKNOW ADVOCATES won the toss"); soften them for reading.
 const soft = (t: string) => t.replace(/\b[A-Z]{3,}\b/g, (w) => w[0] + w.slice(1).toLowerCase());
 const istTime = (iso: string) => new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit" }).format(new Date(iso));
-const card = "sc-in flex h-full flex-col gap-3 rounded-2xl border border-white/12 bg-white/[.04] p-4 transition-colors duration-200 hover:border-white/35 sm:p-5";
+const card = "sc-in flex h-full flex-col gap-3 rounded-xl border border-white/12 bg-white/[.04] p-4 transition-colors duration-200 hover:border-white/35 sm:p-5";
 
 function Score({ m }: { m: LiveMatch }) {
   return (
@@ -64,7 +66,8 @@ export function HomeLive() {
   // Tomorrow comes from the organisers' fixtures, not CricHeroes (scorers only create matches on the day).
   const next = MATCHES.filter((m) => m.date === tmrw);
   const count = (k: Tab) => (k === "tomorrow" ? next.length : groups[k].length);
-  const tabs = LABELS.filter(([k]) => count(k));
+  const d = { today: shortDate(today), yday: shortDate(yday), tmrw: shortDate(tmrw) };
+  const tabs = TABS.filter((k) => count(k)).map((k): [Tab, string] => [k, label(k, d)]);
   if (!tabs.length) return null;
   const active = tab && count(tab) ? tab : tabs[0][0];
   const live = groups.live.length > 0;
@@ -73,7 +76,7 @@ export function HomeLive() {
   const nudge = (d: number) => row.current?.scrollBy({ left: d * row.current.clientWidth * 0.8, behavior: "smooth" });
 
   return (
-    <section aria-labelledby="live-title" className="bg-navy-deep text-white">
+    <section aria-labelledby="live-title" className="live-shell bg-navy-deep text-white">
       <div className="mx-auto max-w-7xl px-4 py-14 md:px-8 md:py-20">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -110,7 +113,7 @@ export function HomeLive() {
                   <a href="/fixtures" className={card} style={{ "--i": i } as React.CSSProperties}>
                     <span className="flex items-center justify-between gap-2 text-xs text-white/55">
                       <span className="font-semibold uppercase tracking-[.14em]">{m.no ? `Match ${m.no}` : m.stage}</span>
-                      <span>{m.no ? m.stage : ""}</span>
+                      <span>{shortDate(m.date)}{m.no ? ` · ${m.stage}` : ""}</span>
                     </span>
                     {[m.a, m.b].map((slug) => {
                       const t = TEAMS.find((t) => t.slug === slug);
@@ -131,9 +134,9 @@ export function HomeLive() {
                     <span className="flex items-center justify-between gap-2 text-xs text-white/55">
                       <span className={`flex items-center gap-2 font-semibold uppercase tracking-[.14em] ${m.status === "live" ? "text-red" : ""}`}>
                         {m.status === "live" && <span aria-hidden="true" className="sc-dot" />}
-                        {m.status === "live" ? "Live" : m.status === "past" ? "Result" : istTime(m.start)}
+                        {matchNo(m) ? `Match ${matchNo(m)}` : m.status === "live" ? "Live" : "Match"}
                       </span>
-                      <span className="truncate">{m.ground}</span>
+                      <span className="truncate">{shortDate(m.start)} · {m.status === "upcoming" ? istTime(m.start) : m.ground}</span>
                     </span>
                     <Score m={m} />
                     {m.summary && <span className="mt-auto border-t border-white/10 pt-3 text-sm leading-snug text-white/70">{soft(m.summary)}</span>}

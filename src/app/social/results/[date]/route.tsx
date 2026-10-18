@@ -2,7 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
-import { FEED, dayNumber, istDay, nameOf, DESK, type Feed, type LiveMatch } from "@/lib/live";
+import { FEED, dayNumber, istDay, matchNo, nameOf, DESK, type Feed, type LiveMatch } from "@/lib/live";
 
 // The day's results as a 1080x1350 Instagram post, built from the live feed, so each day's post exists as soon as
 // its matches finish: /social/results/2026-10-18. Layout follows the owner's Day 1 reference (19-10-2026);
@@ -19,7 +19,7 @@ export async function GET(_: Request, { params }: { params: Promise<{ date: stri
   const { date } = await params;
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return new Response("Use /social/results/YYYY-MM-DD", { status: 400 });
   const feed: Feed = await fetch(FEED, { next: { revalidate: 300 } }).then((r) => r.json()).catch(() => ({ matches: [], fetchedAt: null }));
-  const done = feed.matches.filter((m) => m.status === "past" && istDay(m.start) === date).sort((x, y) => x.start.localeCompare(y.start)).slice(0, 8);
+  const done = feed.matches.filter((m) => m.status === "past" && istDay(m.start) === date).sort((x, y) => (matchNo(x) ?? 99) - (matchNo(y) ?? 99) || x.start.localeCompare(y.start)).slice(0, 8);
   const [bebas, b6, b7, logo, sky] = await Promise.all([file("bebas.ttf"), file("barlow-600.ttf"), file("barlow-700.ttf"), dataUrl("logo.png"), dataUrl("skyline.png")]);
   const logos = Object.fromEntries(await Promise.all(Object.entries(DESK).map(async ([id, slug]) => [id, await dataUrl(`teams/${slug}.png`)])));
   const long = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(date)).toUpperCase();
@@ -41,7 +41,8 @@ export async function GET(_: Request, { params }: { params: Promise<{ date: stri
   };
   const line = (m: LiveMatch) => {
     const w = m.winnerId === m.b.teamId ? m.b : m.a;
-    return (m.winnerId && m.winBy ? `${nameOf(w)} won by ${m.winBy}` : m.summary).toUpperCase();
+    const no = matchNo(m);
+    return `${no ? `MATCH ${no} · ` : ""}${(m.winnerId && m.winBy ? `${nameOf(w)} won by ${m.winBy}` : m.summary).toUpperCase()}`;
   };
 
   return new ImageResponse(

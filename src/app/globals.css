@@ -617,3 +617,7 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 @keyframes live-dot { 50% { opacity: .3; transform: scale(.7); } }
 .sc-live { border-color: rgb(226 27 45 / .45); box-shadow: inset 0 0 0 1px rgb(226 27 45 / .12); }
 @media (prefers-reduced-motion: reduce) { .sc-in, .sc-tick, .sc-dot { animation: none; } }
+/* The match centre sits as a second card under the hero: same inset and 16px corners, so the two read as a pair. */
+.live-shell { margin: 10px 20px 0; border-radius: 16px; overflow: hidden; }
+@media (max-width: 767px) { .live-shell { margin: 8px 12px 0; } }
+@media (min-width: 1600px) { .live-shell { max-width: 1560px; margin-left: auto; margin-right: auto; } }

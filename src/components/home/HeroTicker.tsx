@@ -3,7 +3,7 @@
 import * as React from "react";
 import { MATCHES } from "@/lib/schedule";
 import { TEAMS } from "@/lib/teams";
-import { FEED, dayOffset, istDay, nameOf, resultLine, type Feed } from "@/lib/live";
+import { FEED, dayOffset, istDay, matchNo, nameOf, resultLine, shortDate, type Feed, type LiveMatch } from "@/lib/live";
 
 const team = (slug: string) => TEAMS.find((t) => t.slug === slug)?.name ?? slug;
 
@@ -15,12 +15,14 @@ export function HeroTicker({ fallback }: { fallback: string[] }) {
       fetch(FEED).then((r) => r.json()).then((f: Feed) => {
         const [yday, today, tmrw] = [dayOffset(-1), dayOffset(0), dayOffset(1)];
         const on = (d: string) => f.matches.filter((m) => istDay(m.start) === d);
+        // "Match 9 · 19 Oct · ..." rather than "yesterday/today", which goes stale the moment the date turns.
+        const tag = (m: LiveMatch) => `${matchNo(m) ? `Match ${matchNo(m)}` : "Match"} · ${shortDate(m.start)}`;
         const next = [
-          ...on(yday).filter((m) => m.status === "past").map((m) => `Yesterday · ${resultLine(m)}`),
+          ...on(yday).filter((m) => m.status === "past").map((m) => `${tag(m)} · ${resultLine(m)}`),
           ...on(today).map((m) =>
-            m.status === "live" ? `Live · ${nameOf(m.a)} ${m.a.score} v ${nameOf(m.b)} ${m.b.score}`
-            : m.status === "past" ? `Result · ${resultLine(m)}` : `Today · ${nameOf(m.a)} v ${nameOf(m.b)}`),
-          ...MATCHES.filter((m) => m.date === tmrw).map((m) => `Tomorrow · ${team(m.a)} v ${team(m.b)}`),
+            m.status === "live" ? `Live · ${tag(m)} · ${nameOf(m.a)} ${m.a.score} v ${nameOf(m.b)} ${m.b.score}`
+            : m.status === "past" ? `${tag(m)} · ${resultLine(m)}` : `${tag(m)} · ${nameOf(m.a)} v ${nameOf(m.b)}`),
+          ...MATCHES.filter((m) => m.date === tmrw).map((m) => `Match ${m.no} · ${shortDate(m.date)} · ${team(m.a)} v ${team(m.b)}`),
         ];
         if (next.length) setItems(next);
       }).catch(() => {});

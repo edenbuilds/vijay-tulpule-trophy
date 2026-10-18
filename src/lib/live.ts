@@ -30,3 +30,11 @@ export function resultLine(m: LiveMatch) {
   const [w, l] = m.winnerId === m.b.teamId ? [m.b, m.a] : [m.a, m.b];
   return m.winnerId ? `${nameOf(w)} ${w.score} beat ${nameOf(l)} ${l.score}` : `${nameOf(m.a)} v ${nameOf(m.b)}: ${m.summary}`;
 }
+
+/** The organisers' match number for a CricHeroes match, matched by IST date and team ids (never names). */
+export function matchNo(m: LiveMatch) {
+  const pair = [DESK[m.a.teamId ?? ""], DESK[m.b.teamId ?? ""]].sort().join();
+  return MATCHES.find((x) => x.date === istDay(m.start) && [x.a, x.b].sort().join() === pair)?.no;
+}
+/** "18 Oct" */
+export const shortDate = (d: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", timeZone: "Asia/Kolkata" }).format(new Date(d));
