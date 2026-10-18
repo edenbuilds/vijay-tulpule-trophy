@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Countdown } from "@/components/Countdown";
 import { TEAMS } from "@/lib/teams";
+import { HeroTicker } from "./HeroTicker";
 import { RotatingText } from "@/components/effects/rotating-text";
 
 // 13-10-2026: owner supplied an illustrated match scene (public/venues/hero-match.webp) to replace the night stadium photo.
@@ -30,9 +31,7 @@ export function HomeHero() {
           <div className="ph-when"><strong>17–24 October 2026</strong><span>Mumbai · <Countdown className="ph-count" /></span></div>
         </div>
       </div>
-      <div className="hero-roll" aria-hidden="true">
-        <div className="hero-roll-track">{[...names, ...names].map((n, i) => <span key={i}>{n}</span>)}</div>
-      </div>
+      <HeroTicker fallback={names} />
     </section>
   );
 }

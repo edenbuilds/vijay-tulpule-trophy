@@ -4,33 +4,45 @@ import Image from "next/image";
 import * as React from "react";
 import { TEAMS } from "@/lib/teams";
 import { GROUNDS, MATCHES, groundLabel } from "@/lib/schedule";
+import { FEED, dayOffset, istDay, teamOf, type Feed, type LiveMatch } from "@/lib/live";
 
-// Live scores from the match centre feed (match.baca-cricket.com/api/live, CricHeroes underneath), polled every 30 s.
-// Renders nothing until there is at least one match, and nothing if the feed is down.
-const FEED = "https://match.baca-cricket.com/api/live";
+// Live scores from the match centre feed, polled every 30 s. Renders nothing until there is something to show.
 const MATCH_CENTRE = "https://match.baca-cricket.com/tournament/matches";
 
-// Desk team id -> site slug. The desk numbers the 16 teams team-01..16 in the same alphabetical order as TEAMS.
-const DESK: Record<string, string> = {
-  "team-01": "allahabad", "team-02": "andhra-pradesh", "team-03": "aurangabad", "team-04": "bombay",
-  "team-05": "calcutta", "team-06": "chhattisgarh", "team-07": "delhi", "team-08": "gujarat",
-  "team-09": "gwalior", "team-10": "indore", "team-11": "karnataka", "team-12": "lucknow",
-  "team-13": "orissa", "team-14": "punjab-haryana", "team-15": "supreme-court", "team-16": "telangana",
-};
-
-type Side = { teamId: string | null; name: string; score: string; overs: string };
-type Status = "live" | "upcoming" | "past" | "tomorrow";
-type Match = { id: number; status: Status; start: string; ground: string; a: Side; b: Side; summary: string; winnerId?: string | null };
-
-const team = (s: Side) => TEAMS.find((t) => t.slug === DESK[s.teamId ?? ""]);
-const TABS: [Status, string][] = [["live", "Live"], ["past", "Results"], ["upcoming", "Later"], ["tomorrow", "Tomorrow"]];
+type Tab = "live" | "past" | "upcoming" | "yesterday" | "tomorrow";
+const LABELS: [Tab, string][] = [["live", "Live"], ["past", "Results"], ["upcoming", "Later"], ["yesterday", "Yesterday"], ["tomorrow", "Tomorrow"]];
 // CricHeroes sends team names in capitals ("LUCKNOW ADVOCATES won the toss"); soften them for reading.
 const soft = (t: string) => t.replace(/\b[A-Z]{3,}\b/g, (w) => w[0] + w.slice(1).toLowerCase());
 const istTime = (iso: string) => new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit" }).format(new Date(iso));
+const card = "sc-in flex h-full flex-col gap-3 rounded-2xl border border-white/12 bg-white/[.04] p-4 transition-colors duration-200 hover:border-white/35 sm:p-5";
+
+function Score({ m }: { m: LiveMatch }) {
+  return (
+    <>
+      {[m.a, m.b].map((s, i) => {
+        const t = teamOf(s);
+        const lost = m.status === "past" && m.winnerId && s.teamId !== m.winnerId;
+        const yet = s.score === "Yet to bat";
+        return (
+          <span key={i} className={`flex items-center gap-3 transition-opacity duration-500 ${lost ? "opacity-50" : ""}`}>
+            {t && <Image src={t.logo} alt="" width={28} height={28} className="size-7 flex-none rounded-full bg-white object-contain" />}
+            <span className="min-w-0 flex-1 truncate font-semibold leading-tight">{t?.name ?? soft(s.name)}</span>
+            <span className="num flex-none overflow-hidden text-right">
+              {/* Re-keyed on every change so a new score rolls in. */}
+              <span key={s.score} className="sc-tick inline-block text-lg font-bold">{yet ? "" : s.score}</span>
+              <span className="ml-1.5 text-xs text-white/55">{yet ? "Yet to bat" : s.overs}</span>
+            </span>
+          </span>
+        );
+      })}
+    </>
+  );
+}
 
 export function HomeLive() {
-  const [tab, setTab] = React.useState<Status | null>(null);
-  const [feed, setFeed] = React.useState<{ matches: Match[]; fetchedAt: string | null } | null>(null);
+  const [tab, setTab] = React.useState<Tab | null>(null);
+  const [feed, setFeed] = React.useState<Feed | null>(null);
+  const row = React.useRef<HTMLUListElement>(null);
   React.useEffect(() => {
     let on = true;
     const load = () => fetch(FEED).then((r) => r.json()).then((d) => on && setFeed(d)).catch(() => {});
@@ -39,88 +51,95 @@ export function HomeLive() {
     return () => { on = false; clearInterval(t); };
   }, []);
 
-  // Today's matches first (IST), then anything live; past days drop off the home page.
-  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
-  const list = (feed?.matches ?? [])
-    .filter((m) => m.status === "live" || new Date(m.start).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }) === today);
+  const [yday, today, tmrw] = [dayOffset(-1), dayOffset(0), dayOffset(1)];
+  const all = feed?.matches ?? [];
+  const todays = all.filter((m) => m.status === "live" || istDay(m.start) === today);
+  const groups: Record<Tab, LiveMatch[]> = {
+    live: todays.filter((m) => m.status === "live"),
+    past: todays.filter((m) => m.status === "past"),
+    upcoming: todays.filter((m) => m.status === "upcoming"),
+    yesterday: all.filter((m) => m.status === "past" && istDay(m.start) === yday),
+    tomorrow: [],
+  };
   // Tomorrow comes from the organisers' fixtures, not CricHeroes (scorers only create matches on the day).
-  const tomorrow = new Date(Date.now() + 864e5).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
-  const next = MATCHES.filter((m) => m.date === tomorrow);
-  if (!list.length && !next.length) return null;
-  const tabs = TABS.filter(([k]) => (k === "tomorrow" ? next.length : list.some((m) => m.status === k)));
-  const active = tab && tabs.some(([k]) => k === tab) ? tab : tabs[0][0];
-  const shown = list.filter((m) => m.status === active);
-  const live = list.some((m) => m.status === "live");
-  const time = feed?.fetchedAt && new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" }).format(new Date(feed.fetchedAt));
+  const next = MATCHES.filter((m) => m.date === tmrw);
+  const count = (k: Tab) => (k === "tomorrow" ? next.length : groups[k].length);
+  const tabs = LABELS.filter(([k]) => count(k));
+  if (!tabs.length) return null;
+  const active = tab && count(tab) ? tab : tabs[0][0];
+  const live = groups.live.length > 0;
+  const postDay = groups.past.length ? today : groups.yesterday.length ? yday : null;
+  const time = feed?.fetchedAt && istTime(feed.fetchedAt);
+  const nudge = (d: number) => row.current?.scrollBy({ left: d * row.current.clientWidth * 0.8, behavior: "smooth" });
 
   return (
     <section aria-labelledby="live-title" className="bg-navy-deep text-white">
       <div className="mx-auto max-w-7xl px-4 py-14 md:px-8 md:py-20">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="hl-live mb-3">{live && <span aria-hidden="true" />}{live ? "Live now" : list.length ? "Today" : "Tomorrow"}</p>
-            <h2 id="live-title" className="display text-5xl uppercase md:text-6xl">Scores</h2>
+            <p className="hl-live mb-3">{live && <span aria-hidden="true" />}{live ? "Live now" : "Scores"}</p>
+            <h2 id="live-title" className="display text-5xl uppercase md:text-6xl">Match centre</h2>
           </div>
-          <p className="text-sm text-white/60">Via CricHeroes{time && `, updated ${time}`}. Refreshes every 30 seconds.</p>
+          <p className="text-sm text-white/60">
+            Via CricHeroes{time && `, updated ${time}`}. Refreshes every 30 seconds.
+            {postDay && <> <a href={`/social/results/${postDay}`} className="font-semibold text-white underline underline-offset-4">Results post</a></>}
+          </p>
         </div>
-        {tabs.length > 1 && (
-          <div role="tablist" aria-label="Match status" className="mb-5 flex gap-2">
+        <div className="mb-5 flex items-center justify-between gap-3">
+          <div role="tablist" aria-label="Matches" className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
             {tabs.map(([k, label]) => (
               <button key={k} role="tab" aria-selected={k === active} onClick={() => setTab(k)}
-                className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors duration-200 active:scale-[.97] ${k === active ? "border-white bg-white text-navy-deep" : "border-white/20 text-white/75 hover:border-white/50"}`}>
-                {label} <span className="num opacity-60">{k === "tomorrow" ? next.length : list.filter((m) => m.status === k).length}</span>
+                className={`flex-none rounded-full border px-4 py-2 text-sm font-semibold transition-colors duration-200 active:scale-[.97] ${k === active ? "border-white bg-white text-navy-deep" : "border-white/20 text-white/75 hover:border-white/50"}`}>
+                {label} <span className="num opacity-60">{count(k)}</span>
               </button>
             ))}
           </div>
-        )}
-        {/* Phones swipe through one card at a time instead of scrolling past eight stacked cards. */}
-        <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 lg:grid-cols-4">
-          {active === "tomorrow" && next.map((m, i) => (
-            <li key={i} className="w-[84%] flex-none snap-center sm:w-auto">
-              <a href="/fixtures" className="flex h-full flex-col gap-3 rounded-2xl border border-white/12 bg-white/[.04] p-4 transition-colors duration-200 hover:border-white/35 sm:p-5">
-                <span className="flex items-center justify-between gap-2 text-xs text-white/55">
-                  <span className="font-semibold uppercase tracking-[.14em]">{m.no ? `Match ${m.no}` : m.stage}</span>
-                  <span>{m.stage}</span>
-                </span>
-                {[m.a, m.b].map((slug) => {
-                  const t = TEAMS.find((t) => t.slug === slug);
-                  return (
-                    <span key={slug} className="flex items-center gap-3">
-                      {t && <Image src={t.logo} alt="" width={28} height={28} className="size-7 flex-none rounded-full bg-white object-contain" />}
-                      <span className="min-w-0 flex-1 truncate font-semibold leading-tight">{t?.name ?? slug}</span>
+          <div className="hidden flex-none gap-2 md:flex">
+            {[-1, 1].map((d) => (
+              <button key={d} type="button" onClick={() => nudge(d)} aria-label={d < 0 ? "Previous matches" : "More matches"} className="grid size-10 place-items-center rounded-full border border-white/20 transition-colors duration-200 hover:border-white/60 active:scale-[.96]">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d={d < 0 ? "M15 18l-6-6 6-6" : "M9 18l6-6-6-6"} /></svg>
+              </button>
+            ))}
+          </div>
+        </div>
+        {/* A swipeable row at every width: one card on phones, two to four on wider screens. Re-keyed per tab so cards stagger in. */}
+        <ul key={active} ref={row} className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-4 pb-2 [scrollbar-width:none] md:mx-0 md:gap-4 md:px-0">
+          {active === "tomorrow"
+            ? next.map((m, i) => (
+                <li key={i} className="w-[84%] flex-none snap-start sm:w-[calc(50%-.5rem)] lg:w-[calc(25%-.75rem)]">
+                  <a href="/fixtures" className={card} style={{ "--i": i } as React.CSSProperties}>
+                    <span className="flex items-center justify-between gap-2 text-xs text-white/55">
+                      <span className="font-semibold uppercase tracking-[.14em]">{m.no ? `Match ${m.no}` : m.stage}</span>
+                      <span>{m.no ? m.stage : ""}</span>
                     </span>
-                  );
-                })}
-                <span className="mt-auto border-t border-white/10 pt-3 text-sm leading-snug text-white/70">{GROUNDS[m.ground] ? groundLabel(GROUNDS[m.ground]) : m.ground}</span>
-              </a>
-            </li>
-          ))}
-          {active !== "tomorrow" && shown.map((m) => (
-            <li key={m.id} className="w-[84%] flex-none snap-center sm:w-auto">
-              <a href={MATCH_CENTRE} className="flex h-full flex-col gap-3 rounded-2xl border border-white/12 bg-white/[.04] p-4 transition-colors duration-200 hover:border-white/35 sm:p-5">
-                <span className="flex items-center justify-between gap-2 text-xs text-white/55">
-                  <span className={`font-semibold uppercase tracking-[.14em] ${m.status === "live" ? "text-red" : ""}`}>{m.status === "live" ? "Live" : m.status === "past" ? "Result" : istTime(m.start)}</span>
-                  <span className="truncate">{m.ground}</span>
-                </span>
-                {[m.a, m.b].map((s, i) => {
-                  const t = team(s);
-                  const lost = m.status === "past" && m.winnerId && s.teamId !== m.winnerId;
-                  return (
-                    <span key={i} className={`flex items-center gap-3 ${lost ? "opacity-50" : ""}`}>
-                      {t && <Image src={t.logo} alt="" width={28} height={28} className="size-7 flex-none rounded-full bg-white object-contain" />}
-                      <span className="min-w-0 flex-1 truncate font-semibold leading-tight">{t?.name ?? soft(s.name)}</span>
-                      <span className="num flex-none text-right">
-                        <span className="text-lg font-bold">{s.score === "Yet to bat" ? "" : s.score}</span>
-                        {s.overs && s.score !== "Yet to bat" && <span className="ml-1.5 text-xs text-white/55">{s.overs}</span>}
-                        {s.score === "Yet to bat" && <span className="text-xs text-white/55">Yet to bat</span>}
+                    {[m.a, m.b].map((slug) => {
+                      const t = TEAMS.find((t) => t.slug === slug);
+                      return (
+                        <span key={slug} className="flex items-center gap-3">
+                          {t && <Image src={t.logo} alt="" width={28} height={28} className="size-7 flex-none rounded-full bg-white object-contain" />}
+                          <span className="min-w-0 flex-1 truncate font-semibold leading-tight">{t?.name ?? slug}</span>
+                        </span>
+                      );
+                    })}
+                    <span className="mt-auto border-t border-white/10 pt-3 text-sm leading-snug text-white/70">{GROUNDS[m.ground] ? groundLabel(GROUNDS[m.ground]) : m.ground}</span>
+                  </a>
+                </li>
+              ))
+            : groups[active].map((m, i) => (
+                <li key={m.id} className="w-[84%] flex-none snap-start sm:w-[calc(50%-.5rem)] lg:w-[calc(25%-.75rem)]">
+                  <a href={MATCH_CENTRE} className={`${card} ${m.status === "live" ? "sc-live" : ""}`} style={{ "--i": i } as React.CSSProperties}>
+                    <span className="flex items-center justify-between gap-2 text-xs text-white/55">
+                      <span className={`flex items-center gap-2 font-semibold uppercase tracking-[.14em] ${m.status === "live" ? "text-red" : ""}`}>
+                        {m.status === "live" && <span aria-hidden="true" className="sc-dot" />}
+                        {m.status === "live" ? "Live" : m.status === "past" ? "Result" : istTime(m.start)}
                       </span>
+                      <span className="truncate">{m.ground}</span>
                     </span>
-                  );
-                })}
-                {m.summary && <span className="mt-auto border-t border-white/10 pt-3 text-sm leading-snug text-white/70">{soft(m.summary)}</span>}
-              </a>
-            </li>
-          ))}
+                    <Score m={m} />
+                    {m.summary && <span className="mt-auto border-t border-white/10 pt-3 text-sm leading-snug text-white/70">{soft(m.summary)}</span>}
+                  </a>
+                </li>
+              ))}
         </ul>
       </div>
     </section>
