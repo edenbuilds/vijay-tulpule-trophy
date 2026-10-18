@@ -18,12 +18,17 @@ const DESK: Record<string, string> = {
 };
 
 type Side = { teamId: string | null; name: string; score: string; overs: string };
-type Match = { id: number; status: "live" | "upcoming" | "past"; start: string; a: Side; b: Side; summary: string };
+type Status = "live" | "upcoming" | "past";
+type Match = { id: number; status: Status; start: string; ground: string; a: Side; b: Side; summary: string; winnerId?: string | null };
 
 const team = (s: Side) => TEAMS.find((t) => t.slug === DESK[s.teamId ?? ""]);
-const ORDER = { live: 0, past: 1, upcoming: 2 };
+const TABS: [Status, string][] = [["live", "Live"], ["past", "Results"], ["upcoming", "Later"]];
+// CricHeroes sends team names in capitals ("LUCKNOW ADVOCATES won the toss"); soften them for reading.
+const soft = (t: string) => t.replace(/\b[A-Z]{3,}\b/g, (w) => w[0] + w.slice(1).toLowerCase());
+const istTime = (iso: string) => new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit" }).format(new Date(iso));
 
 export function HomeLive() {
+  const [tab, setTab] = React.useState<Status | null>(null);
   const [feed, setFeed] = React.useState<{ matches: Match[]; fetchedAt: string | null } | null>(null);
   React.useEffect(() => {
     let on = true;
@@ -36,9 +41,11 @@ export function HomeLive() {
   // Today's matches first (IST), then anything live; past days drop off the home page.
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
   const list = (feed?.matches ?? [])
-    .filter((m) => m.status === "live" || new Date(m.start).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }) === today)
-    .sort((x, y) => ORDER[x.status] - ORDER[y.status]);
+    .filter((m) => m.status === "live" || new Date(m.start).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }) === today);
   if (!list.length) return null;
+  const tabs = TABS.filter(([k]) => list.some((m) => m.status === k));
+  const active = tab && tabs.some(([k]) => k === tab) ? tab : tabs[0][0];
+  const shown = list.filter((m) => m.status === active);
   const live = list.some((m) => m.status === "live");
   const time = feed?.fetchedAt && new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" }).format(new Date(feed.fetchedAt));
 
@@ -52,25 +59,41 @@ export function HomeLive() {
           </div>
           <p className="text-sm text-white/60">Via CricHeroes{time && `, updated ${time}`}. Refreshes every 30 seconds.</p>
         </div>
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {list.map((m) => (
-            <li key={m.id}>
-              <a href={MATCH_CENTRE} className="flex h-full flex-col gap-3 rounded-2xl border border-white/12 bg-white/[.04] p-5 transition-colors duration-200 hover:border-white/35">
-                <span className={`text-xs font-semibold uppercase tracking-[.14em] ${m.status === "live" ? "text-red" : "text-white/55"}`}>{m.status === "live" ? "Live" : m.status === "past" ? "Result" : "Upcoming"}</span>
+        {tabs.length > 1 && (
+          <div role="tablist" aria-label="Match status" className="mb-5 flex gap-2">
+            {tabs.map(([k, label]) => (
+              <button key={k} role="tab" aria-selected={k === active} onClick={() => setTab(k)}
+                className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors duration-200 active:scale-[.97] ${k === active ? "border-white bg-white text-navy-deep" : "border-white/20 text-white/75 hover:border-white/50"}`}>
+                {label} <span className="num opacity-60">{list.filter((m) => m.status === k).length}</span>
+              </button>
+            ))}
+          </div>
+        )}
+        {/* Phones swipe through one card at a time instead of scrolling past eight stacked cards. */}
+        <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+          {shown.map((m) => (
+            <li key={m.id} className="w-[84%] flex-none snap-center sm:w-auto">
+              <a href={MATCH_CENTRE} className="flex h-full flex-col gap-3 rounded-2xl border border-white/12 bg-white/[.04] p-4 transition-colors duration-200 hover:border-white/35 sm:p-5">
+                <span className="flex items-center justify-between gap-2 text-xs text-white/55">
+                  <span className={`font-semibold uppercase tracking-[.14em] ${m.status === "live" ? "text-red" : ""}`}>{m.status === "live" ? "Live" : m.status === "past" ? "Result" : istTime(m.start)}</span>
+                  <span className="truncate">{m.ground}</span>
+                </span>
                 {[m.a, m.b].map((s, i) => {
                   const t = team(s);
+                  const lost = m.status === "past" && m.winnerId && s.teamId !== m.winnerId;
                   return (
-                    <span key={i} className="flex items-center gap-3">
-                      {t && <Image src={t.logo} alt="" width={32} height={32} className="size-8 flex-none rounded-full bg-white object-contain" />}
-                      <span className="display min-w-0 flex-1 text-xl leading-tight">{t?.name ?? s.name}</span>
-                      <span className="num text-right font-semibold">
-                        {s.score}
-                        {s.overs && s.score !== "Yet to bat" && <span className="block text-xs font-normal text-white/55">{s.overs}</span>}
+                    <span key={i} className={`flex items-center gap-3 ${lost ? "opacity-50" : ""}`}>
+                      {t && <Image src={t.logo} alt="" width={28} height={28} className="size-7 flex-none rounded-full bg-white object-contain" />}
+                      <span className="min-w-0 flex-1 truncate font-semibold leading-tight">{t?.name ?? soft(s.name)}</span>
+                      <span className="num flex-none text-right">
+                        <span className="text-lg font-bold">{s.score === "Yet to bat" ? "" : s.score}</span>
+                        {s.overs && s.score !== "Yet to bat" && <span className="ml-1.5 text-xs text-white/55">{s.overs}</span>}
+                        {s.score === "Yet to bat" && <span className="text-xs text-white/55">Yet to bat</span>}
                       </span>
                     </span>
                   );
                 })}
-                {m.summary && <span className="mt-auto text-sm leading-snug text-white/65">{m.summary}</span>}
+                {m.summary && <span className="mt-auto border-t border-white/10 pt-3 text-sm leading-snug text-white/70">{soft(m.summary)}</span>}
               </a>
             </li>
           ))}
