@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { ScoreTicker } from "@/components/Motion";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomeHighlights } from "@/components/home/HomeHighlights";
+import { HomeLive } from "@/components/home/HomeLive";
 import { HomeSchedule } from "@/components/home/HomeSchedule";
 import { Converge } from "@/components/home/Converge";
 import { GalleryZoom } from "@/components/home/GalleryZoom";
@@ -30,6 +31,7 @@ export default function Home() {
   return (
     <>
       <HomeHero />
+      <HomeLive />
       <HomeHighlights />
       <Converge teams={TEAMS} />
       <HomeSchedule />

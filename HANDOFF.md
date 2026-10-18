@@ -74,3 +74,7 @@ Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<ca
 - Organisers' Fixtures PDF (18-10-2026) is now the source: `MATCHES` and derived `GROUPS` in `src/lib/schedule.ts`; grounds replaced to match it. The PDF itself is `public/downloads/vtt-2026-fixtures.pdf`.
 - Fixtures page shows every match with team logos, plus a Groups block. ICS, home timeline, teams/format/home copy updated (groups are drawn).
 - PDF quirks: SF and final days reuse match numbers 25-28, so those show stage only; "Ari India" read as Air India; "Looser" written as Loser. No start times yet.
+
+## Pass 10 (18-10-2026)
+- Home shows a Scores section under the hero (`HomeLive`), read in the browser from https://match.baca-cricket.com/api/live (CricHeroes via the tournament desk, CORS open) every 30 s. Shows today's and live matches only; hidden when the feed is empty or down. Desk team ids map to site slugs in the component.
+- Known: a 2px horizontal overflow at 390px predates this pass (present on the baseline build).
