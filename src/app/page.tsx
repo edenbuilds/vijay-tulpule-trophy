@@ -6,6 +6,7 @@ import { HomeHero } from "@/components/home/HomeHero";
 import { HomeHighlights } from "@/components/home/HomeHighlights";
 import { HomeLive } from "@/components/home/HomeLive";
 import { MatchdayPhotos } from "@/components/home/MatchdayPhotos";
+import { HomeMedia } from "@/components/home/HomeMedia";
 import { HomeSchedule } from "@/components/home/HomeSchedule";
 import { Converge } from "@/components/home/Converge";
 import { GalleryZoom } from "@/components/home/GalleryZoom";
@@ -34,6 +35,7 @@ export default function Home() {
       <HomeHero />
       <HomeLive />
       <MatchdayPhotos />
+      <HomeMedia />
       <HomeHighlights />
       <Converge teams={TEAMS} />
       <HomeSchedule />

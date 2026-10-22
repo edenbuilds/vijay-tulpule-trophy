@@ -97,3 +97,8 @@ Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<ca
 - Scroll motion (CSS scroll-driven, Chrome/Edge/Safari 26+, no-op elsewhere): the row rises in as it scrolls into view; cards easing off either edge of the swipe row shrink and fade.
 - Scores are odometer reels (idea from BYQ gem odometer-counter-01, rebuilt in CSS, no GSAP): digits spin to value left to right and spin again on change. Reduced motion turns all of this off.
 - Paste-ready next prompt: "Open baca-cricket.com at 390px and desktop, scroll to the match centre, confirm the odometer scores and edge fade, then add today's photos with scripts/add-photos.sh."
+
+## Pass 14 (22-10-2026): more photos, press
+- 18 photos sent in chat (no shoot date in the files) live in `public/matchday/more/`; the carousel shows them first with no date. Move them into a `YYYY-MM-DD` folder if the organisers confirm the day.
+- `HomeMedia.tsx`: "In the press" cards linking out to VIE Stories (22-10-2026) and Hindustan Metro (Oct 2026). Add new coverage to the top of `PRESS`.
+- Paste-ready next prompt: "Search for new press on the 38th All India Advocates Cricket Tournament and add any real articles to PRESS in HomeMedia.tsx, then deploy and check at 390px."

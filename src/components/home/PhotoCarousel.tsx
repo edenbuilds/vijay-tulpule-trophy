@@ -26,7 +26,7 @@ export function PhotoCarousel({ photos }: { photos: { src: string; day: string }
           <p className="hl-live mb-3 !text-navy/60"><span aria-hidden="true" />On the ground</p>
           <h2 id="photos-title" className="display text-5xl uppercase md:text-6xl">Matchday</h2>
         </div>
-        <p className="num text-sm text-navy/60">{fmt(photos[i].day)} · {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}</p>
+        <p className="num text-sm text-navy/60">{photos[i].day === "more" ? "" : `${fmt(photos[i].day)} · `}{String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}</p>
       </div>
       <div
         className="relative mx-auto h-[15rem] max-w-[90rem] sm:h-[24rem] md:h-[30rem]"
