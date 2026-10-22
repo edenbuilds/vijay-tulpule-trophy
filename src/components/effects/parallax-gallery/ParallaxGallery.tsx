@@ -232,7 +232,7 @@ export default function ScrollParallaxGallery({
  style={{ height: `${total * VH_PER_SLIDE}vh`, background: bgColor }}
  >
  <div
- className="sticky top-0 w-full h-screen overflow-hidden select-none"
+ className="sticky top-0 w-full h-svh overflow-hidden select-none"
  style={{
  background: bgColor,
  opacity: isLayoutReady ? 1 : 0,

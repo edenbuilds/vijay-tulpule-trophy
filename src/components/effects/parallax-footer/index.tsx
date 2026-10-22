@@ -82,7 +82,7 @@ const ParallaxFooter = ({
  <>
 
  <div
- className="relative z-2 flex h-screen w-screen items-center justify-center"
+ className="relative z-2 flex h-svh w-screen items-center justify-center"
  style={{ backgroundColor: containerBgColor }}
  >
  <h1 className="text-[4vw] font-medium max-md:text-[8.5vw] w-[70%] text-center">
