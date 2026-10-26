@@ -75,7 +75,7 @@ const FooterParallax = ({
 export { FooterParallax };
 
 const ParallaxFooter = ({
- containerBgColor = "#ff6b00",
+ containerBgColor = "#2F6B4F",
  footerBgColor = "#1a1a1a",
 }) => {
  return (

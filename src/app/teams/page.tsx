@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Teams" };
 export default function Teams() {
   return (
     <>
-      <Hero title="Sixteen Teams. One Legal Fraternity." sub="Advocates representing 15 High Courts and the Supreme Court of India will compete in Mumbai in October 2026." />
+      <Hero title="Sixteen Teams. One Legal Fraternity." sub="Advocates representing 15 High Courts and the Supreme Court of India competed in Mumbai in October 2026." />
       <Block title="Participating Teams" tone="white">
         <TeamRoster teams={TEAMS} />
       </Block>

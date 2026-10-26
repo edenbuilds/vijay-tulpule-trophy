@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { EVENT } from "@/lib/site";
 import { Block, Hero } from "@/components/Sections";
 
-export const metadata: Metadata = { title: "Tournament Format" };
+export const metadata: Metadata = { title: "Mumbai 2026 format" };
 
 const calendar = [
   ["17 October", "Opening Ceremony"],
@@ -71,7 +71,7 @@ export default function Format() {
             <li key={rule} className="grid grid-cols-[2.5rem_1fr] border-t border-navy/15 py-4 text-lg"><span className="num font-semibold text-royal">{i + 1}</span>{rule}</li>
           ))}
         </ol>
-        <p className="mt-4 text-sm text-navy/65">Final tournament rules will apply as approved by the organisers.</p>
+        <p className="mt-4 text-sm text-navy/65">Tournament rules were as approved by the organisers.</p>
       </Block>
 
       <Block title="Awards" tone="white">
@@ -85,7 +85,7 @@ export default function Format() {
             </div>
           ))}
         </div>
-        <p className="mt-7 max-w-2xl text-base text-navy/70">Every registered player will receive a participation medal as part of the tournament.</p>
+        <p className="mt-7 max-w-2xl text-base text-navy/70">Every registered player received a participation medal as part of the tournament.</p>
         <Link href="/ceremonies" className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">View Ceremonies <ArrowRight aria-hidden="true" className="size-4" /></Link>
       </Block>
     </>

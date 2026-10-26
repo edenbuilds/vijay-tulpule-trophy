@@ -40,8 +40,8 @@ export default function Timeline({
   items,
   imageUrl,
   imageAlt,
-  textColor = "#0B1F4B",
-  mutedTextColor = "#3f4a66",
+  textColor = "#16181B",
+  mutedTextColor = "#4a4d52",
   activeColor = "#C8102E",
   backgroundColor = "#F6F4EF",
 }: TimelineProps) {

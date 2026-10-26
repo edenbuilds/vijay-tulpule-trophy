@@ -10,8 +10,8 @@ export function Ball({ className = "" }: { className?: string }) {
         <circle cx="100" cy="100" r="100" />
       </clipPath>
       <g clipPath={`url(#${clip})`}>
-        <circle cx="100" cy="100" r="100" fill="#E21B2D" />
-        <path d="M-20 -20H220V220H-20ZM188 84a100 100 0 1 0 -200 0a100 100 0 1 0 200 0Z" fill="#0B2A6B" opacity=".22" fillRule="evenodd" />
+        <circle cx="100" cy="100" r="100" fill="#2F6B4F" />
+        <path d="M-20 -20H220V220H-20ZM188 84a100 100 0 1 0 -200 0a100 100 0 1 0 200 0Z" fill="#16181B" opacity=".22" fillRule="evenodd" />
         <g stroke="#fff" strokeWidth="3.6" strokeLinecap="round" strokeDasharray="7 8">
           <path d="M29 30C83 50 149 98 167 166" />
           <path d="M47 30C101 50 167 98 185 166" />

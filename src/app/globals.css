@@ -547,7 +547,7 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 .hero.ph { background: var(--color-navy-deep); }
 .ph-photo { object-position: 65% 40%; }
 /* Phones: the champions photo is landscape, so it sits in the top half at its own shape and the type runs below it. */
-@media (max-width: 767px) { .hero.ph .ph-media { bottom: auto; height: 40%; } .ph-photo { object-position: 50% 62%; } .ph-media::after { background: linear-gradient(180deg, #0D0E1000 35%, #0D0E1099 70%, #0D0E10 100%); } }
+@media (max-width: 767px) { .hero.ph .ph-media { bottom: auto; height: 34%; } .ph-photo { object-position: 50% 62%; } .ph-media::after { background: linear-gradient(180deg, #0D0E1000 35%, #0D0E1099 70%, #0D0E10 100%); } }
 
 /* 13-10-2026 hero: h2 with rotating team names, and a scroll zoom after motion.dev "scroll zoom hero": the picture pushes in and the copy lifts away as you scroll past. */
 .ph-sub { margin-top: 18px; font-family: var(--font-sans); font-weight: 500; font-size: clamp(18px, 2vw, 26px); color: #ffffffd9; }

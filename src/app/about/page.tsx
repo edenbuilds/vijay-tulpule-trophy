@@ -8,7 +8,7 @@ import { HISTORY, ORG, nb } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About BACA",
-  description: "The Bombay Advocates’ Cricket Association: a public trust and host of the 38th All India Advocates’ Cricket Tournament 2026.",
+  description: "The Bombay Advocates’ Cricket Association: a public trust of Mumbai’s advocates, and host of the 38th All India Advocates’ Cricket Tournament in 2026.",
 };
 
 const COMMITTEE = [
@@ -64,7 +64,7 @@ export default function About() {
           <div>
             <p className="text-lg leading-relaxed text-navy/75">Mumbai previously hosted the tournament in 1993 and 2005. In 2026, it welcomes the tournament once again.</p>
             <h3 className="mt-7 text-xl font-semibold">Mumbai 2026</h3>
-            <p className="mt-3 text-lg leading-relaxed text-navy/75">From 17 to 24 October 2026, practising advocates representing 15 High Courts and the Supreme Court of India will compete across Mumbai and Navi Mumbai.</p>
+            <p className="mt-3 text-lg leading-relaxed text-navy/75">From 17 to 24 October 2026, advocates representing 15 High Courts and the Supreme Court of India played across Mumbai and Navi Mumbai. Supreme Court won the final.</p>
             <p className="mt-3 text-base leading-relaxed text-navy/65">The tournament is about cricket. It is also about meeting old friends, forming new relationships and strengthening the bond between Bars across the country.</p>
           </div>
         </div>

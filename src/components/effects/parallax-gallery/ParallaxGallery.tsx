@@ -68,11 +68,11 @@ interface ScrollParallaxGalleryProps {
 
 export default function ScrollParallaxGallery({
  images = [],
- bgColor = "#0b2a56",
+ bgColor = "#16181B",
  rotationDeg = ROTATION_DEG,
  offscreenScale = SCALE_OFFSCREEN,
  borderColor = "rgba(245, 247, 250, 0.5)",
- textColor = "#f5f7fa",
+ textColor = "#F7F7F4",
  frameScale = 1,
 }: ScrollParallaxGalleryProps) {
 

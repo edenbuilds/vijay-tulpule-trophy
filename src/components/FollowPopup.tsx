@@ -35,14 +35,13 @@ export function FollowPopup() {
   if (!open) return null;
   return (
     <div role="dialog" aria-labelledby="ig-pop-title" className="ig-pop fixed right-4 bottom-4 z-[60] w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl bg-navy text-white shadow-2xl">
-      <div className="h-1 bg-red" />
       <div className="p-5">
         <button type="button" onClick={() => setOpen(false)} aria-label="Close" className="press absolute top-3 right-3 grid size-11 place-items-center rounded-lg text-white/70 hover:bg-white/10 hover:text-white">
           <X aria-hidden="true" className="size-5" />
         </button>
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">17–24 October, Mumbai</p>
-        <h2 id="ig-pop-title" className="display mt-2 pr-10 text-4xl leading-none">Follow the tournament</h2>
-        <p className="mt-3 text-sm text-white/75">BACA is on Instagram. Follow along through match week.</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Instagram</p>
+        <h2 id="ig-pop-title" className="display mt-2 pr-10 text-4xl leading-none">Follow BACA</h2>
+        <p className="mt-3 text-sm text-white/75">Matches, results and pictures from the Association.</p>
         <a href={ig.href} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="btn-red press mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg font-semibold">
           Follow {ig.handle}
         </a>
