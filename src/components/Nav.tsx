@@ -74,7 +74,7 @@ export function Nav() {
           <Mark priority className="size-9" />
           <span className="leading-tight">
             <span className="block text-lg font-bold tracking-tight">BACA</span>
-            <span className="hidden text-xs text-navy/60 sm:block">38th All India Advocates’ Cricket</span>
+            <span className="hidden text-xs text-navy/60 sm:block">Bombay Advocates’ Cricket Association</span>
           </span>
         </Link>
 
