@@ -102,3 +102,9 @@ Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<ca
 - 18 photos sent in chat (no shoot date in the files) live in `public/matchday/more/`; the carousel shows them first with no date. Move them into a `YYYY-MM-DD` folder if the organisers confirm the day.
 - `HomeMedia.tsx`: "In the press" cards linking out to VIE Stories (22-10-2026) and Hindustan Metro (Oct 2026). Add new coverage to the top of `PRESS`.
 - Paste-ready next prompt: "Search for new press on the 38th All India Advocates Cricket Tournament and add any real articles to PRESS in HomeMedia.tsx, then deploy and check at 390px."
+
+## Pass 15: BACA's own site (26-10-2026)
+- Tournament over. Home now leads with BACA (hero, "The Association"), palette moved from blue to ink + turf green (tokens kept, values changed in globals.css).
+- `HomeTribute` (second half of home): Supreme Court champions (beat Allahabad by 25 runs), Aurangabad won the second final (beat Andhra Pradesh by 7 wickets), both 24-10-2026, from the CricHeroes feed.
+- Final-day ceremony photos from ~/Downloads/Final in `public/matchday/2026-10-24/`.
+- Paste-ready next prompt: "Move the 38th tournament pages (fixtures, teams, format, ceremonies, live, schedule) under /mumbai-2026 and trim home to BACA activities, events and archives."

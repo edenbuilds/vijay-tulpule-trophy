@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { ScoreTicker } from "@/components/Motion";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomeHighlights } from "@/components/home/HomeHighlights";
 import { HomeLive } from "@/components/home/HomeLive";
 import { MatchdayPhotos } from "@/components/home/MatchdayPhotos";
+import { HomeTribute } from "@/components/home/HomeTribute";
 import { HomeMedia } from "@/components/home/HomeMedia";
 import { HomeSchedule } from "@/components/home/HomeSchedule";
 import { Converge } from "@/components/home/Converge";
@@ -33,13 +33,6 @@ export default function Home() {
   return (
     <>
       <HomeHero />
-      <HomeLive />
-      <MatchdayPhotos />
-      <HomeMedia />
-      <HomeHighlights />
-      <Converge teams={TEAMS} />
-      <HomeSchedule />
-      <ScoreTicker items={["MUMBAI 2026", "THE VIJAY TULPULE TROPHY"]} />
 
       <section aria-labelledby="trophy-home-title" className="bg-navy px-4 py-14 text-white sm:px-8 md:py-20 lg:px-12">
         <div className="mx-auto grid max-w-[1280px] items-center gap-9 md:grid-cols-[minmax(15rem,0.78fr)_1.22fr] md:gap-16">
@@ -66,7 +59,7 @@ export default function Home() {
             <Image src={PH.court.src} alt={PH.court.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>
-            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="history-home-title" className="display-xl">Since {HISTORY.since}</h2></PerspectiveTextReveal>
+            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="history-home-title" className="display-xl">The Association</h2></PerspectiveTextReveal>
             <p className="mt-5 text-lg leading-relaxed text-navy/75">The All India Advocates’ Cricket Tournament has brought members of India’s legal fraternity together through cricket since 1989. A different High Court hosts each edition, giving advocates from across the country the chance to compete, reconnect and build friendships beyond the courtroom.</p>
             <p className="mt-3 text-lg leading-relaxed text-navy/75">Mumbai previously hosted the tournament in 1993 and 2005. In 2026, it returns once again.</p>
             <Link href="/about" className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">
@@ -75,6 +68,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <HomeTribute />
+      <MatchdayPhotos />
+      <HomeLive />
+      <HomeMedia />
+      <HomeHighlights />
+      <Converge teams={TEAMS} />
+      <HomeSchedule />
 
       <GalleryZoom photos={ZOOM} />
 
@@ -133,9 +134,9 @@ export default function Home() {
           <Image src={PH.cheer.src} alt={PH.cheer.alt} fill sizes="100vw" className="cta-photo object-cover object-[50%_30%]" />
           <div aria-hidden="true" className="absolute inset-0 bg-navy/70" />
           <div className="relative z-10 max-w-3xl">
-            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 className="display-xl">Mumbai, 17–24 October</h2></PerspectiveTextReveal>
+            <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 className="display-xl">Play with the Bar</h2></PerspectiveTextReveal>
             <div className="mt-6 flex flex-wrap gap-3">
-              <MagneticButton href="/fixtures" tone="onDark">View Fixtures</MagneticButton>
+              <MagneticButton href="/about" tone="onDark">About BACA</MagneticButton>
               <MagneticButton href="/contact" tone="outlineOnDark">Contact BACA</MagneticButton>
             </div>
           </div>
