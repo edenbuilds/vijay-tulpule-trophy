@@ -16,8 +16,8 @@ const TOURNAMENT = [
 ];
 
 const PRIMARY = [
-  { href: "/trophy", label: "The Trophy" },
   { href: "/about", label: "About BACA" },
+  { href: "/trophy", label: "The Trophy" },
   { href: "/gallery", label: "Gallery" },
   { href: "/sponsors", label: "Sponsors" },
 ];
@@ -88,7 +88,7 @@ export function Nav() {
               onClick={() => setTournamentOpen((open) => !open)}
               className={`press inline-flex min-h-11 items-center gap-1 rounded-md px-3 text-sm font-medium transition-colors hover:text-royal ${hasTournamentPage ? "text-royal" : "text-navy/75"}`}
             >
-              Tournament
+              Mumbai 2026
               <ChevronDown aria-hidden="true" className={`size-4 transition-transform ${tournamentOpen ? "rotate-180" : ""}`} />
             </button>
             {tournamentOpen && (
@@ -137,7 +137,7 @@ export function Nav() {
             <li><Link href="/" aria-current={path === "/" ? "page" : undefined} className="flex min-h-12 items-center text-lg font-medium">Home</Link></li>
             <li className="py-2">
               <button type="button" aria-expanded={tournamentOpen} aria-controls="mobile-tournament-menu" onClick={() => setTournamentOpen((open) => !open)} className="flex min-h-12 w-full items-center justify-between text-lg font-medium">
-                Tournament <ChevronDown aria-hidden="true" className={`size-4 transition-transform ${tournamentOpen ? "rotate-180" : ""}`} />
+                Mumbai 2026 <ChevronDown aria-hidden="true" className={`size-4 transition-transform ${tournamentOpen ? "rotate-180" : ""}`} />
               </button>
               {tournamentOpen && (
                 <ul id="mobile-tournament-menu" className="border-l border-navy/15 pl-4">

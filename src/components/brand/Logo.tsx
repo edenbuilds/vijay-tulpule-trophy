@@ -4,10 +4,10 @@ import Image from "next/image";
 // reserve the box, the page sets the displayed width with className. "bar" carries the "Hosted by the Bombay Advocates'
 // Cricket Association" bar, "reversed" is the one for navy surfaces.
 const FILES = {
-  full: { src: "/brand/t26/logo.png", width: 1162, height: 791 },
-  bar: { src: "/brand/t26/logo-bar.png", width: 1162, height: 895 },
-  reversed: { src: "/brand/t26/logo-reversed.png", width: 1190, height: 819 },
-  barReversed: { src: "/brand/t26/logo-bar-reversed.png", width: 1190, height: 923 },
+  full: { src: "/brand/baca-lockup-on-light.png", width: 2400, height: 640 },
+  bar: { src: "/brand/baca-lockup-on-light.png", width: 2400, height: 640 },
+  reversed: { src: "/brand/baca-lockup-on-dark.png", width: 2400, height: 640 },
+  barReversed: { src: "/brand/baca-lockup-on-dark.png", width: 2400, height: 640 },
 } as const;
 
 export function Logo({

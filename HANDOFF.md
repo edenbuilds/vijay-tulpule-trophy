@@ -108,3 +108,4 @@ Paste-ready prompt: "Add this photo to the BACA highlight reel with caption '<ca
 - `HomeTribute` (second half of home): Supreme Court champions (beat Allahabad by 25 runs), Aurangabad won the second final (beat Andhra Pradesh by 7 wickets), both 24-10-2026, from the CricHeroes feed.
 - Final-day ceremony photos from ~/Downloads/Final in `public/matchday/2026-10-24/`.
 - Paste-ready next prompt: "Move the 38th tournament pages (fixtures, teams, format, ceremonies, live, schedule) under /mumbai-2026 and trim home to BACA activities, events and archives."
+- Pass 15b: tab title "Bombay Advocates’ Cricket Association", nav leads with About BACA and groups tournament pages under "Mumbai 2026", FAQ rewritten for BACA, hero photo is the champions at Wankhede (img-1120), header mark, footer lockup, favicon and OG image now use the BACA seal/lockup (old 2026 logo kept in public/brand/t26).

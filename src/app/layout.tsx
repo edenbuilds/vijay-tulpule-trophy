@@ -18,12 +18,12 @@ const devanagari = Noto_Sans_Devanagari({ variable: "--font-deva", subsets: ["de
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://baca-cricket.com"),
-  title: { default: "BACA · 38th All India Advocates’ Cricket Tournament 2026", template: "%s · BACA 2026" },
+  title: { default: "Bombay Advocates’ Cricket Association", template: "%s · BACA" },
   description:
-    "Official site of the 38th All India Advocates’ Cricket Tournament, hosted by the Bombay Advocates’ Cricket Association. Mumbai and Navi Mumbai, 17–24 October 2026. Winners receive The Vijay Tulpule Trophy.",
+    "Official site of the Bombay Advocates’ Cricket Association, the cricket body of Mumbai’s advocates. Hosts of the 38th All India Advocates’ Cricket Tournament, Mumbai 2026.",
 };
 
-export const viewport: Viewport = { themeColor: "#F5F7FA" };
+export const viewport: Viewport = { themeColor: "#F7F7F4" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

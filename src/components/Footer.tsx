@@ -7,7 +7,7 @@ import { Logo } from "@/components/brand/Logo";
 import { FooterParallax } from "@/components/effects/parallax-footer";
 
 const GROUPS = [
-  { title: "Tournament", links: [["Fixtures", "/fixtures"], ["Teams", "/teams"], ["Format", "/format"], ["Ceremonies", "/ceremonies"]] },
+  { title: "Mumbai 2026", links: [["Fixtures", "/fixtures"], ["Teams", "/teams"], ["Format", "/format"], ["Ceremonies", "/ceremonies"]] },
   { title: "BACA", links: [["About BACA", "/about"], ["The Trophy", "/trophy"], ["Gallery", "/gallery"], ["Poem", "/poem"]] },
   { title: "Information", links: [["Sponsors", "/sponsors"], ["Downloads", "/downloads"], ["Contact", "/contact"]] },
 ];
@@ -58,7 +58,7 @@ export function Footer() {
         </div>
       </div>
       </div>
-      <div className="foot-roll" aria-hidden="true"><div className="foot-roll-track">{Array.from({ length: 4 }, (_, i) => <span key={i}>Mumbai 2026<i /></span>)}</div></div>
+      <div className="foot-roll" aria-hidden="true"><div className="foot-roll-track">{Array.from({ length: 4 }, (_, i) => <span key={i}>BACA<i /></span>)}</div></div>
     </FooterParallax>
   );
 }

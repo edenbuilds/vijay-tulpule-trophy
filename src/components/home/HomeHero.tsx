@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { TEAMS } from "@/lib/teams";
 import { HeroTicker } from "./HeroTicker";
 
-// 13-10-2026: owner supplied an illustrated match scene (public/venues/hero-match.webp) to replace the night stadium photo.
+// 13-10-2026: owner supplied an illustrated match scene (public/matchday/2026-10-24/img-1120.jpg) to replace the night stadium photo.
 // Previously: night stadium photo (Pexels 36230651, by Shlok, Pexels licence, no credit required). It is
 // Narendra Modi Stadium, Ahmedabad, not a tournament venue, so the page never captions it as one.
 export function HomeHero() {
@@ -12,7 +12,7 @@ export function HomeHero() {
   return (
     <section className="hero ph" aria-labelledby="tournament-title">
       <div className="ph-media" aria-hidden="true">
-        <Image src="/venues/hero-match.webp" alt="" fill priority sizes="100vw" className="ph-photo" />
+        <Image src="/matchday/2026-10-24/img-1120.jpg" alt="" fill priority sizes="100vw" className="ph-photo object-[50%_60%]" />
       </div>
       <div className="ph-inner">
         <p className="hero-kicker hero-in" style={{ "--d": "0ms" } as React.CSSProperties}>Bombay Advocates’ Cricket Association</p>

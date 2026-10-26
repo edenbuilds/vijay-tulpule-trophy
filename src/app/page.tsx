@@ -17,15 +17,15 @@ import { MagneticButton } from "@/components/gems/MagneticButton";
 import { Stanza } from "@/components/Poem";
 import { PH, ZOOM } from "@/lib/photos";
 import { TEAMS } from "@/lib/teams";
-import { EVENT, HISTORY } from "@/lib/site";
+import { ORG } from "@/lib/site";
 
 const FAQ = [
-  { q: "When is the tournament?", a: "The tournament will be held from 17 to 24 October 2026." },
-  { q: "Where will the tournament be played?", a: "Matches will be played across grounds in Mumbai and Navi Mumbai." },
-  { q: "How many teams are participating?", a: "Sixteen teams representing advocates from 15 High Courts and the Supreme Court of India are participating." },
-  { q: "What is the match format?", a: `Matches will be played over ${EVENT.overs} overs per side.` },
-  { q: "Is there a reserve day?", a: "Yes. 21 October has been kept as a reserve day." },
-  { q: "Where can I find the fixtures?", a: <>Confirmed tournament dates and grounds are available on the <Link href="/fixtures" className="font-semibold text-royal underline underline-offset-4">Fixtures page</Link>.</> },
+  { q: "What is BACA?", a: `The Bombay Advocates’ Cricket Association brings Mumbai’s advocates together through cricket. ${ORG.trust}.` },
+  { q: "Where is BACA based?", a: ORG.address },
+  { q: "Who won the 38th All India Advocates’ Cricket Tournament?", a: "Supreme Court beat Allahabad by 25 runs in the final on 24-10-2026. Aurangabad won the second final against Andhra Pradesh by 7 wickets." },
+  { q: "Has Mumbai hosted before?", a: "Yes. BACA hosted the All India tournament in 1993, 2005 and 2026." },
+  { q: "Where are the 2026 results and photos?", a: <>Every match is on the <Link href="/fixtures" className="font-semibold text-royal underline underline-offset-4">Fixtures page</Link> and the pictures are in the <Link href="/gallery" className="font-semibold text-royal underline underline-offset-4">Gallery</Link>.</> },
+  { q: "How do I get in touch?", a: <>Write to <a href={`mailto:${ORG.email}`} className="font-semibold text-royal underline underline-offset-4">{ORG.email}</a> or call {ORG.phone}.</> },
 ];
 
 
@@ -60,8 +60,8 @@ export default function Home() {
           </div>
           <div>
             <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="history-home-title" className="display-xl">The Association</h2></PerspectiveTextReveal>
-            <p className="mt-5 text-lg leading-relaxed text-navy/75">The All India Advocates’ Cricket Tournament has brought members of India’s legal fraternity together through cricket since 1989. A different High Court hosts each edition, giving advocates from across the country the chance to compete, reconnect and build friendships beyond the courtroom.</p>
-            <p className="mt-3 text-lg leading-relaxed text-navy/75">Mumbai previously hosted the tournament in 1993 and 2005. In 2026, it returns once again.</p>
+            <p className="mt-5 text-lg leading-relaxed text-navy/75">BACA is the cricket body of the Bombay Bar. Advocates who argue against each other in court share a dressing room on the field.</p>
+            <p className="mt-3 text-lg leading-relaxed text-navy/75">The Association has hosted the All India Advocates’ Cricket Tournament three times: 1993, 2005 and 2026.</p>
             <Link href="/about" className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-royal underline decoration-royal/40 underline-offset-4 hover:decoration-royal">
               About BACA <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
@@ -96,7 +96,7 @@ export default function Home() {
         <div className="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-7 md:flex-row md:items-end">
           <div className="max-w-3xl">
             <PerspectiveTextReveal splitBy="chars" stagger={0.025}><h2 id="sponsors-home-title" className="display-xl">Sponsorship</h2></PerspectiveTextReveal>
-            <p className="mt-4 text-lg leading-relaxed text-navy/75">Branding, ground and event partnerships for the tournament.</p>
+            <p className="mt-4 text-lg leading-relaxed text-navy/75">Branding, ground and event partnerships with BACA.</p>
           </div>
           <div className="shrink-0">
             <p className="display text-2xl sm:text-3xl">From ₹5,00,000</p>
