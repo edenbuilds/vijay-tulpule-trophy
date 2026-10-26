@@ -637,9 +637,9 @@ main { position: relative; z-index: 2; display: flow-root; background: var(--col
 @keyframes odo { from { transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { .odo-reel { animation: none; } }
 /* Phones: scroll-linked animations re-time every time the address bar shows or hides, so the hero,
-   score cards and tiles visibly shook while scrolling (reported 22-10-2026). Show them at rest instead. */
+   score cards and tiles visibly shook while scrolling (reported 22-10-2026). Show them at rest instead. The hero type and photo too: on 26-10-2026 a stalled timeline left them hidden. */
 @media (max-width: 767px) {
-  .hero-media, .hero.ph .ph-media, .hero.ph .ph-inner, .cta-photo, .wk-row, .gal-tile, .titles > li, .sc-row, .sc-cell {
+  .hero-line > span, .hero-in, .ph-photo, .hero-media, .hero.ph .ph-media, .hero.ph .ph-inner, .cta-photo, .wk-row, .gal-tile, .titles > li, .sc-row, .sc-cell {
     animation: none !important; opacity: 1 !important; transform: none !important; clip-path: none !important;
   }
 }
